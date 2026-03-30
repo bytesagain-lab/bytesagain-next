@@ -28,9 +28,6 @@ export default async function HomePage() {
         <SearchBox />
       </section>
 
-      {/* Subscribe */}
-      <SubscribeBox />
-
       {/* Categories */}
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 32 }}>
         <a href="/" style={catStyle('#667eea')}>All</a>
@@ -74,6 +71,9 @@ export default async function HomePage() {
           </div>
         </section>
       )}
+
+      {/* Subscribe — bottom of page, compact */}
+      <SubscribeBox />
     </div>
   )
 }

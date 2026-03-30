@@ -23,26 +23,24 @@ export default function SubscribeBox() {
 
   return (
     <div style={{
-      background: 'linear-gradient(135deg, #0f0f2f, #1a1a4e)',
-      border: '1px solid #667eea44',
-      borderRadius: 16,
-      padding: '32px 40px',
-      textAlign: 'center',
-      margin: '0 0 48px',
+      borderTop: '1px solid #1a1a2e',
+      padding: '28px 0',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      flexWrap: 'wrap',
+      gap: 16,
+      marginBottom: 0,
     }}>
-      <h2 style={{ margin: '0 0 8px', fontSize: '1.3em', fontWeight: 700 }}>
-        Get the best AI skills weekly
-      </h2>
-      <p style={{ color: '#888', margin: '0 0 24px', fontSize: '.9em' }}>
-        Curated picks, new releases, and tips — delivered every week. No spam.
-      </p>
+      <div>
+        <span style={{ fontWeight: 600, fontSize: '.95em' }}>Get the best AI skills weekly</span>
+        <span style={{ color: '#555', fontSize: '.85em', marginLeft: 10 }}>No spam.</span>
+      </div>
 
       {state === 'done' ? (
-        <div style={{ color: '#3ecf8e', fontWeight: 600, fontSize: '1em' }}>
-          ✓ You're on the list! Check your inbox.
-        </div>
+        <div style={{ color: '#3ecf8e', fontWeight: 600, fontSize: '.9em' }}>✓ You're on the list!</div>
       ) : (
-        <form onSubmit={handleSubmit} style={{ display: 'flex', gap: 10, maxWidth: 420, margin: '0 auto', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', gap: 8 }}>
           <input
             type="email"
             value={email}
@@ -50,10 +48,9 @@ export default function SubscribeBox() {
             placeholder="your@email.com"
             required
             style={{
-              flex: 1,
-              minWidth: 200,
-              padding: '10px 16px',
-              background: '#0a0a1a',
+              width: 220,
+              padding: '8px 14px',
+              background: '#0f0f23',
               border: '1px solid #1a1a3e',
               borderRadius: 8,
               color: '#e0e0e0',
@@ -65,24 +62,20 @@ export default function SubscribeBox() {
             type="submit"
             disabled={state === 'loading'}
             style={{
-              padding: '10px 22px',
+              padding: '8px 18px',
               background: 'linear-gradient(135deg,#667eea,#00d4ff)',
               border: 'none',
               borderRadius: 8,
               color: '#fff',
               fontWeight: 700,
-              fontSize: '.9em',
+              fontSize: '.85em',
               cursor: state === 'loading' ? 'not-allowed' : 'pointer',
               opacity: state === 'loading' ? 0.7 : 1,
+              whiteSpace: 'nowrap',
             }}
           >
-            {state === 'loading' ? 'Subscribing…' : 'Subscribe'}
+            {state === 'loading' ? '…' : 'Subscribe'}
           </button>
-          {state === 'error' && (
-            <p style={{ color: '#fc8181', fontSize: '.85em', width: '100%', margin: '8px 0 0' }}>
-              Something went wrong. Try again.
-            </p>
-          )}
         </form>
       )}
     </div>
