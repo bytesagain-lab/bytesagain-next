@@ -12,7 +12,8 @@ async function sbFetch(path: string) {
 
 export interface Skill {
   slug: string
-  title: string
+  name: string
+  title: string  // alias for name
   description: string
   category: string
   downloads: number
@@ -32,14 +33,16 @@ export interface Article {
 }
 
 export async function getSkills(limit = 50, category?: string): Promise<Skill[]> {
-  let q = `skills?select=slug,title,description,category,downloads,version,owner&order=downloads.desc&limit=${limit}`
+  let q = `skills?select=slug,name,description,category,downloads,version,owner&order=downloads.desc&limit=${limit}`
   if (category) q += `&category=eq.${encodeURIComponent(category)}`
-  return sbFetch(q)
+  const data = await sbFetch(q)
+  return data.map((d: any) => ({ ...d, title: d.name }))
 }
 
 export async function getSkill(slug: string): Promise<Skill | null> {
   const data = await sbFetch(`skills?slug=eq.${slug}&select=*&limit=1`)
-  return data[0] ?? null
+  if (!data[0]) return null
+  return { ...data[0], title: data[0].name }
 }
 
 export async function getArticles(limit = 20): Promise<Article[]> {
