@@ -22,7 +22,31 @@ export async function generateStaticParams() {
 
 export default async function SkillPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const skill = await getSkill(slug)
+  let skill = await getSkill(slug)
+
+  // Fallback: fetch from ClawHub API if not in our DB
+  if (!skill) {
+    try {
+      const res = await fetch(`https://clawhub.ai/api/v1/skills/${slug}`, {
+        next: { revalidate: 3600 }
+      })
+      if (res.ok) {
+        const d = await res.json()
+        const s = d.skill || {}
+        skill = {
+          slug,
+          name: s.displayName || slug,
+          title: s.displayName || slug,
+          description: s.summary || '',
+          category: (s.tags?.[0] || 'General'),
+          downloads: s.stats?.downloads || 0,
+          version: d.latestVersion?.version || '1.0.0',
+          owner: d.owner?.handle || '',
+        }
+      }
+    } catch {}
+  }
+
   if (!skill) notFound()
 
   return (
