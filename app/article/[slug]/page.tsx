@@ -1,6 +1,7 @@
 import { getArticle, getArticles } from '@/lib/supabase'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import { marked } from 'marked'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
@@ -29,9 +30,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     ? new Date(article.published_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
     : ''
 
-  // Detect HTML vs Markdown
+  // Detect HTML vs Markdown, convert markdown to HTML
   const isHtml = /<(h[1-6]|p|ul|ol|table|div|strong|em|a)[\s>]/i.test(article.content)
-  const content = isHtml ? article.content : article.content
+  const content = isHtml ? article.content : marked(article.content) as string
 
   return (
     <article style={{ maxWidth: 750, margin: '40px auto', padding: '0 20px' }}>
@@ -44,6 +45,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       </p>
       <div
         style={{ lineHeight: 1.8, fontSize: '1.05em', background: '#111133', borderRadius: 16, padding: '30px 36px', border: '1px solid #1a1a3e' }}
+        className="article-content"
         dangerouslySetInnerHTML={{ __html: content }}
       />
       <div style={{ marginTop: 40, padding: '24px', background: '#0f0f23', borderRadius: 12, border: '1px solid #1a1a3e', textAlign: 'center' }}>
