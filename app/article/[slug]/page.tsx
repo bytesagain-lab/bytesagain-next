@@ -11,7 +11,19 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: article.title,
     description: desc,
-    openGraph: { title: article.title, description: desc, type: 'article' },
+    openGraph: {
+      title: article.title,
+      description: desc,
+      type: 'article',
+      url: `https://bytesagain.com/article/${slug}`,
+      publishedTime: article.published_at,
+      authors: [article.author_name || 'BytesAgain'],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: article.title,
+      description: desc,
+    },
     alternates: { canonical: `https://bytesagain.com/article/${slug}` },
   }
 }
@@ -36,6 +48,18 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
   return (
     <article style={{ maxWidth: 750, margin: '40px auto', padding: '0 20px' }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": article.title,
+        "description": article.content?.replace(/<[^>]+>/g, '').slice(0, 160),
+        "author": { "@type": "Person", "name": article.author_name || "BytesAgain" },
+        "publisher": { "@type": "Organization", "name": "BytesAgain", "url": "https://bytesagain.com" },
+        "datePublished": article.published_at,
+        "dateModified": article.published_at,
+        "url": `https://bytesagain.com/article/${slug}`,
+        "mainEntityOfPage": `https://bytesagain.com/article/${slug}`,
+      }) }} />
       <p style={{ color: '#667eea', fontSize: '.85em', margin: '0 0 16px' }}>
         <a href="/articles" style={{ color: '#667eea', textDecoration: 'none' }}>← Back to Articles</a>
       </p>

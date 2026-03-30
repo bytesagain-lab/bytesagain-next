@@ -26,6 +26,17 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
 
   return (
     <div style={{ maxWidth: 800, margin: '40px auto', padding: '0 20px' }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": skill.name || slug,
+        "description": skill.description,
+        "url": `https://bytesagain.com/skill/${slug}`,
+        "applicationCategory": skill.category,
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "publisher": { "@type": "Organization", "name": "BytesAgain", "url": "https://bytesagain.com" },
+      }) }} />
       <p style={{ color: '#667eea', fontSize: '.85em', margin: '0 0 16px' }}>
         <a href="/" style={{ color: '#667eea', textDecoration: 'none' }}>← Back</a>
       </p>
