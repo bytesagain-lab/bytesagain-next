@@ -1,13 +1,14 @@
 import { getSkill, getSkills } from '@/lib/supabase'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import InstallCommand from '@/app/components/InstallCommand'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
   const skill = await getSkill(slug)
   if (!skill) return { title: 'Not Found' }
   return {
-    title: skill.title || slug,
+    title: skill.name || slug,
     description: skill.description?.slice(0, 160),
     alternates: { canonical: `https://bytesagain.com/skill/${slug}` },
   }
@@ -30,7 +31,7 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
       </p>
       <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: '32px' }}>
         <div style={{ fontSize: '.8em', color: '#667eea', marginBottom: 8, textTransform: 'uppercase', letterSpacing: 1 }}>{skill.category}</div>
-        <h1 style={{ fontSize: '2em', margin: '0 0 12px', color: '#e0e0e0' }}>{skill.title || slug}</h1>
+        <h1 style={{ fontSize: '2em', margin: '0 0 12px', color: '#e0e0e0' }}>{skill.name || slug}</h1>
         <p style={{ color: '#888', margin: '0 0 24px', lineHeight: 1.7 }}>{skill.description}</p>
 
         <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 24 }}>
@@ -39,9 +40,8 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
           <span style={{ fontSize: '.85em', color: '#555' }}>by {skill.owner}</span>
         </div>
 
-        <div style={{ background: '#0a0a1a', borderRadius: 10, padding: '16px 20px', fontFamily: 'monospace', fontSize: '.9em', color: '#00d4ff', marginBottom: 24 }}>
-          clawhub install {slug}
-        </div>
+        {/* Install command — login required */}
+        <InstallCommand slug={slug} />
 
         <a href={`https://clawhub.ai/${skill.owner}/${slug}`} target="_blank" rel="noopener"
           style={{ display: 'inline-block', padding: '10px 24px', background: 'linear-gradient(135deg,#667eea,#00d4ff)', borderRadius: 8, color: '#fff', textDecoration: 'none', fontWeight: 600 }}>
