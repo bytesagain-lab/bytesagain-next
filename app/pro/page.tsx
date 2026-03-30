@@ -28,7 +28,7 @@ export default function ProPage() {
 
         {/* Pro */}
         <div style={{ background: 'linear-gradient(135deg, #0f0f2f, #1a1a4e)', border: '1px solid #667eea', borderRadius: 20, padding: 32, position: 'relative' }}>
-          <div style={{ position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)', background: 'linear-gradient(135deg,#667eea,#00d4ff)', borderRadius: 6, padding: '3px 12px', fontSize: '.75em', fontWeight: 700, whiteSpace: 'nowrap' }}>COMING SOON</div>
+          <div style={{ position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)', background: 'linear-gradient(135deg,#667eea,#00d4ff)', borderRadius: 6, padding: '3px 12px', fontSize: '.75em', fontWeight: 700, whiteSpace: 'nowrap' }}>MOST POPULAR</div>
           <h2 style={{ margin: '0 0 8px' }}>Pro</h2>
           <p style={{ color: '#667eea', fontSize: '2em', fontWeight: 800, margin: '0 0 8px' }}>$9.9<span style={{ fontSize: '.4em', color: '#888' }}>/mo</span></p>
           <p style={{ color: '#3ecf8e', fontSize: '.9em', margin: '0 0 24px' }}>or <strong>$99</strong> / year <span style={{ color: '#555' }}>(save 17%)</span></p>
@@ -37,7 +37,10 @@ export default function ProPage() {
               <span style={{ color: '#667eea' }}>✓</span>{f}
             </div>
           ))}
-          <button disabled style={{ display: 'block', width: '100%', marginTop: 28, padding: '12px 0', borderRadius: 10, border: 'none', background: 'linear-gradient(135deg,#667eea,#00d4ff)', color: '#fff', fontWeight: 700, fontSize: '.95em', cursor: 'not-allowed', opacity: 0.7 }}>Notify me</button>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 28 }}>
+            <a href="https://www.creem.io/payment/prod_5qLGPJxVqhNocyhkk01EIY" style={{ display: 'block', padding: '12px 0', borderRadius: 10, textAlign: 'center', background: 'linear-gradient(135deg,#667eea,#00d4ff)', color: '#fff', fontWeight: 700, fontSize: '.95em', textDecoration: 'none' }}>Subscribe Monthly — $9.9/mo</a>
+            <a href="https://www.creem.io/payment/prod_5GvauA8P0LcXdU8H9opPgD" style={{ display: 'block', padding: '12px 0', borderRadius: 10, textAlign: 'center', border: '1px solid #667eea', color: '#667eea', fontWeight: 700, fontSize: '.95em', textDecoration: 'none' }}>Subscribe Yearly — $99/year</a>
+          </div>
         </div>
       </div>
 
