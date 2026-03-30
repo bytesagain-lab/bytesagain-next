@@ -1,5 +1,5 @@
-const SB_URL = 'https://jfpeycpiyayrpjldppzq.supabase.co'
-const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmcGV5Y3BpeWF5cnBqbGRwcHpxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyMzgxMTIsImV4cCI6MjA4OTgxNDExMn0.KnRmNBKeUPmJQz3m46uNx5kvBf_ZXBVWSUTXOLjW4Ps'
+const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://jfpeycpiyayrpjldppzq.supabase.co'
+const SB_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 
 async function sbFetch(path: string) {
   const res = await fetch(`${SB_URL}/rest/v1/${path}`, {
