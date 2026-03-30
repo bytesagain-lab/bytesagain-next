@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Geist } from 'next/font/google'
+import NavBar from './components/NavBar'
 import './globals.css'
 
 const geist = Geist({ subsets: ['latin'] })
@@ -18,19 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={geist.className} style={{ background: '#0a0a1a', color: '#e0e0e0', margin: 0 }}>
-        <header style={{ padding: '14px 0', background: '#0a0a1a', borderBottom: '1px solid #1a1a2e' }}>
-          <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <a href="/" style={{ fontSize: '1.5em', fontWeight: 800, textDecoration: 'none', background: 'linear-gradient(135deg,#667eea,#00d4ff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              BytesAgain
-            </a>
-            <nav style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
-              <a href="/articles" style={{ color: '#ccc', textDecoration: 'none', fontSize: '.9em' }}>Articles</a>
-              <a href="/about" style={{ color: '#ccc', textDecoration: 'none', fontSize: '.9em' }}>About</a>
-              <a href="/login" style={{ color: '#ccc', textDecoration: 'none', fontSize: '.9em' }}>Sign In</a>
-              <a href="/pro" style={{ color: '#00d4ff', textDecoration: 'none', fontSize: '.9em', fontWeight: 600 }}>Pro</a>
-            </nav>
-          </div>
-        </header>
+        <NavBar />
         <main>{children}</main>
         <footer style={{ padding: '30px 0', background: '#0a0a1a', borderTop: '1px solid #1a1a2e', marginTop: 60 }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px', textAlign: 'center' }}>
