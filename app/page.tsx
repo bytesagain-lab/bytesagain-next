@@ -1,4 +1,5 @@
 import { getSkills, getArticles, getCategories } from '@/lib/supabase'
+import SubscribeBox from './components/SubscribeBox'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -24,6 +25,9 @@ export default async function HomePage() {
           The best tools for Claude, ChatGPT, Cursor, and every AI agent. Curated daily.
         </p>
       </section>
+
+      {/* Subscribe */}
+      <SubscribeBox />
 
       {/* Categories */}
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 32 }}>
