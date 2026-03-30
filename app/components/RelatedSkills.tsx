@@ -6,6 +6,7 @@ interface RelatedSkill {
   slug: string
   name: string
   description: string
+  downloads?: number
 }
 
 export default function RelatedSkills({ category, currentSlug }: { category: string; currentSlug: string }) {
