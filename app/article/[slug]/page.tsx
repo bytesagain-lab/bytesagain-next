@@ -37,7 +37,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   return (
     <article style={{ maxWidth: 750, margin: '40px auto', padding: '0 20px' }}>
       <p style={{ color: '#667eea', fontSize: '.85em', margin: '0 0 16px' }}>
-        <a href="/" style={{ color: '#667eea', textDecoration: 'none' }}>← Back to Home</a>
+        <a href="/articles" style={{ color: '#667eea', textDecoration: 'none' }}>← Back to Articles</a>
       </p>
       <h1 style={{ fontSize: '2em', margin: '0 0 12px', color: '#e0e0e0', lineHeight: 1.3 }}>{article.title}</h1>
       <p style={{ color: '#666', margin: '0 0 30px', fontSize: '.9em' }}>
