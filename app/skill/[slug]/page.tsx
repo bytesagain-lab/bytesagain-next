@@ -15,9 +15,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 3600
+
 export async function generateStaticParams() {
-  const skills = await getSkills(500)
-  return skills.map(s => ({ slug: s.slug }))
+  return [] // Don't pre-render, serve on-demand
 }
 
 export default async function SkillPage({ params }: { params: Promise<{ slug: string }> }) {
