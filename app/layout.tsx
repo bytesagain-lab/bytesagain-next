@@ -9,9 +9,22 @@ export const metadata: Metadata = {
   title: { default: 'BytesAgain — AI Agent Skills', template: '%s | BytesAgain' },
   description: 'Discover 900+ AI agent skills for Claude, ChatGPT, Cursor, and every AI agent. Curated daily.',
   metadataBase: new URL('https://bytesagain.com'),
+  alternates: { canonical: 'https://bytesagain.com' },
   openGraph: {
     siteName: 'BytesAgain',
     type: 'website',
+    url: 'https://bytesagain.com',
+    title: 'BytesAgain — AI Agent Skills',
+    description: 'Discover 900+ AI agent skills for Claude, ChatGPT, Cursor, and every AI agent. Curated daily.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@bytesagain',
+    title: 'BytesAgain — AI Agent Skills',
+    description: 'Discover 900+ AI agent skills for Claude, ChatGPT, Cursor, and every AI agent.',
+  },
+  other: {
+    'llms-txt': 'https://bytesagain.com/llms.txt',
   },
 }
 
@@ -20,6 +33,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={geist.className} style={{ background: '#0a0a1a', color: '#e0e0e0', margin: 0 }}>
         <NavBar />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "BytesAgain",
+          "url": "https://bytesagain.com",
+          "logo": "https://bytesagain.com/logo.png",
+          "sameAs": ["https://x.com/bytesagain"],
+          "contactPoint": { "@type": "ContactPoint", "email": "hello@bytesagain.com" }
+        }) }} />
         <main>{children}</main>
         <footer style={{ padding: '30px 0', background: '#0a0a1a', borderTop: '1px solid #1a1a2e', marginTop: 60 }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px', textAlign: 'center' }}>
