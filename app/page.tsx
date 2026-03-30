@@ -1,4 +1,5 @@
 import { getSkills, getArticles, getCategories } from '@/lib/supabase'
+import { USE_CASES } from '@/lib/use-cases'
 import SubscribeBox from './components/SubscribeBox'
 import SearchBox from './components/SearchBox'
 import type { Metadata } from 'next'
@@ -26,6 +27,26 @@ export default async function HomePage() {
           The best tools for Claude, ChatGPT, Cursor, and every AI agent. Curated daily.
         </p>
         <SearchBox />
+      </section>
+
+      {/* Use Cases */}
+      <section style={{ marginBottom: 48 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+          <h2 style={{ margin: 0, fontSize: '1.3em', fontWeight: 700 }}>Browse by Use Case</h2>
+          <a href="/use-case" style={{ color: '#667eea', textDecoration: 'none', fontSize: '.85em' }}>View all →</a>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(180px,1fr))', gap: 10 }}>
+          {USE_CASES.slice(0, 6).map(uc => (
+            <a key={uc.slug} href={`/use-case/${uc.slug}`} style={{
+              display: 'flex', alignItems: 'center', gap: 10, padding: '14px 16px',
+              background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 10,
+              textDecoration: 'none', color: '#ccc', fontSize: '.88em', fontWeight: 500,
+            }}>
+              <span style={{ fontSize: '1.3em' }}>{uc.icon}</span>
+              <span>{uc.title}</span>
+            </a>
+          ))}
+        </div>
       </section>
 
       {/* Categories */}
