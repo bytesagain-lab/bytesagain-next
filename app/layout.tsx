@@ -26,8 +26,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <nav style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
               <a href="/articles" style={{ color: '#ccc', textDecoration: 'none', fontSize: '.9em' }}>Articles</a>
               <a href="/about" style={{ color: '#ccc', textDecoration: 'none', fontSize: '.9em' }}>About</a>
-              <a href="https://bytesagain.com/wp-login.php" style={{ color: '#ccc', textDecoration: 'none', fontSize: '.9em' }}>Sign In</a>
-              <a href="https://bytesagain.com/pricing" style={{ color: '#00d4ff', textDecoration: 'none', fontSize: '.9em', fontWeight: 600 }}>Pro</a>
+              <a href="/login" style={{ color: '#ccc', textDecoration: 'none', fontSize: '.9em' }}>Sign In</a>
+              <a href="/pro" style={{ color: '#00d4ff', textDecoration: 'none', fontSize: '.9em', fontWeight: 600 }}>Pro</a>
             </nav>
           </div>
         </header>
