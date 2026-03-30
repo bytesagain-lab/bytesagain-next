@@ -6,6 +6,7 @@ import type { User } from '@supabase/supabase-js'
 
 export default function DashboardPage() {
   const [user, setUser] = useState<User | null>(null)
+  const [plan, setPlan] = useState<string>('free')
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -13,13 +14,21 @@ export default function DashboardPage() {
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     )
-    supabase.auth.getUser().then(({ data }) => {
+    supabase.auth.getUser().then(async ({ data }) => {
       if (!data.user) {
         window.location.href = '/login'
-      } else {
-        setUser(data.user)
-        setLoading(false)
+        return
       }
+      setUser(data.user)
+
+      // Fetch plan from user_plans
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/user_plans?email=eq.${encodeURIComponent(data.user.email!)}&select=plan&limit=1`,
+        { headers: { apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!}` } }
+      )
+      const planData = await res.json()
+      if (planData?.[0]?.plan) setPlan(planData[0].plan)
+      setLoading(false)
     })
   }, [])
 
@@ -36,7 +45,7 @@ export default function DashboardPage() {
     <div style={{ textAlign: 'center', padding: '80px 20px', color: '#555' }}>Loading…</div>
   )
 
-  const isPro = false // TODO: check after webhook implemented
+  const isPro = plan === 'pro'
   const joinedAt = user?.created_at ? new Date(user.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : ''
   const provider = user?.app_metadata?.provider || 'email'
 
@@ -96,6 +105,7 @@ export default function DashboardPage() {
           { label: 'Email', value: user?.email },
           { label: 'User ID', value: user?.id?.slice(0, 8) + '…' },
           { label: 'Login method', value: provider === 'google' ? '🔵 Google' : '✉️ Email' },
+          { label: 'Plan', value: isPro ? '⚡ Pro' : 'Free' },
         ].map(({ label, value }) => (
           <div key={label} style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 0', borderBottom: '1px solid #1a1a2e' }}>
             <span style={{ color: '#666', fontSize: '.9em' }}>{label}</span>
