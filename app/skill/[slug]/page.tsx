@@ -2,6 +2,7 @@ import { getSkill, getSkills } from '@/lib/supabase'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import InstallCommand from '@/app/components/InstallCommand'
+import RelatedSkills from '@/app/components/RelatedSkills'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
@@ -61,6 +62,8 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
           View on ClawHub →
         </a>
       </div>
+
+      <RelatedSkills category={skill.category} currentSlug={slug} />
     </div>
   )
 }
