@@ -12,8 +12,8 @@ export default function SubscribeBox() {
       gap: 16,
     }}>
       <div>
-        <span style={{ fontWeight: 600, fontSize: '.95em' }}>Get the best AI skills weekly</span>
-        <span style={{ color: '#555', fontSize: '.85em', marginLeft: 10 }}>Free. No spam.</span>
+        <span style={{ fontWeight: 600, fontSize: '.95em' }}>📬 Weekly AI Skills Digest — Free</span>
+        <span style={{ color: '#555', fontSize: '.85em', marginLeft: 10 }}>Join 900+ readers. No spam, unsubscribe anytime.</span>
       </div>
       <a
         href="/register"
@@ -29,7 +29,7 @@ export default function SubscribeBox() {
           whiteSpace: 'nowrap',
         }}
       >
-        Create Free Account →
+        Subscribe Free →
       </a>
     </div>
   )
