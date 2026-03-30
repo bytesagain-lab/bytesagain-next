@@ -32,7 +32,9 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
       <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: '32px' }}>
         <div style={{ fontSize: '.8em', color: '#667eea', marginBottom: 8, textTransform: 'uppercase', letterSpacing: 1 }}>{skill.category}</div>
         <h1 style={{ fontSize: '2em', margin: '0 0 12px', color: '#e0e0e0' }}>{skill.name || slug}</h1>
-        <p style={{ color: '#888', margin: '0 0 24px', lineHeight: 1.7 }}>{skill.description}</p>
+        <p style={{ color: '#888', margin: '0 0 24px', lineHeight: 1.7 }}>
+          {skill.description || `${skill.name || slug} is an AI agent skill available on ClawHub. Install it to supercharge your AI workflow.`}
+        </p>
 
         <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 24 }}>
           <span style={{ fontSize: '.85em', color: '#555' }}>v{skill.version}</span>
