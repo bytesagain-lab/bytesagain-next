@@ -46,7 +46,7 @@ export default function NavBar() {
           {!loading && (
             email ? (
               <>
-                <span style={{ color: '#667eea', fontSize: '.85em' }}>{email.split('@')[0]}</span>
+                <a href="/dashboard" style={{ color: '#667eea', fontSize: '.85em', textDecoration: 'none' }}>{email.split('@')[0]}</a>
                 <button onClick={handleSignOut} style={{ background: 'none', border: '1px solid #333', color: '#888', borderRadius: 6, padding: '4px 12px', fontSize: '.85em', cursor: 'pointer' }}>
                   Sign Out
                 </button>
