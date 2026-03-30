@@ -29,6 +29,12 @@ export default function RegisterPage() {
       setError(error.message)
       setLoading(false)
     } else {
+      // Auto-add to newsletter
+      fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'register' }),
+      }).catch(() => {})
       setSuccess(true)
     }
   }
