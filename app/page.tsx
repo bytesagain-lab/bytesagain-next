@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   const [skills, articles, categories] = await Promise.all([
-    getSkills(24),
+    getSkills(6),
     getArticles(8),
     getCategories(),
   ])
@@ -37,7 +37,13 @@ export default async function HomePage() {
       </div>
 
       {/* Skills Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))', gap: 16, marginBottom: 60 }}>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+          <h2 style={{ margin: 0, fontSize: '1.3em', fontWeight: 700 }}>Top Skills</h2>
+          <a href="/skills" style={{ color: '#667eea', textDecoration: 'none', fontSize: '.85em' }}>View all →</a>
+        </div>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))', gap: 16, marginBottom: 48 }}>
         {skills.map(skill => (
           <a key={skill.slug} href={`/skill/${skill.slug}`} style={cardStyle}>
             <div style={{ fontSize: '.75em', color: '#667eea', marginBottom: 6, textTransform: 'uppercase', letterSpacing: 1 }}>{skill.category}</div>
@@ -78,13 +84,13 @@ export default async function HomePage() {
   )
 }
 
-const catStyle = (color = '#555') => ({
+const catStyle = (color = '#aaa') => ({
   padding: '6px 14px',
-  background: `${color}22`,
+  background: `${color}18`,
   color,
-  border: `1px solid ${color}55`,
+  border: `1px solid ${color}44`,
   borderRadius: 20,
-  fontSize: '.8em',
+  fontSize: '.82em',
   textDecoration: 'none',
   whiteSpace: 'nowrap' as const,
 })
