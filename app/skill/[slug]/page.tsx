@@ -51,6 +51,32 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
 
   if (!skill) notFound()
 
+  // 根据来源确定外链和badge
+  const source = (skill as any).source || 'clawhub'
+  const sourceUrl = (skill as any).source_url || ''
+
+  const sourceBadge: Record<string, { label: string; color: string; emoji: string }> = {
+    clawhub:  { label: 'ClawHub',  color: '#667eea', emoji: '🦀' },
+    github:   { label: 'GitHub',   color: '#333',    emoji: '⭐' },
+    lobehub:  { label: 'LobeHub',  color: '#7c3aed', emoji: '🤖' },
+    dify:     { label: 'Dify',     color: '#f59e0b', emoji: '🔧' },
+    official: { label: 'Official', color: '#10b981', emoji: '✅' },
+  }
+  const badge = sourceBadge[source] || sourceBadge.clawhub
+
+  // 外链：优先用source_url，ClawHub fallback
+  const externalUrl = sourceUrl || (source === 'github'
+    ? `https://github.com/${skill.owner}/${skill.slug?.replace('github-','')}`
+    : `https://clawhub.ai/${skill.owner}/${skill.slug?.replace('clawhub-','')}`)
+
+  const externalLabel = source === 'github' ? 'View on GitHub →'
+    : source === 'lobehub' ? 'View on LobeHub →'
+    : source === 'dify' ? 'View on Dify →'
+    : 'View on ClawHub →'
+
+  // 只有自己的skill（is_ours）才显示安装命令
+  const isOurs = (skill as any).is_ours === true || source === 'clawhub' && !(skill as any).source
+
   return (
     <div style={{ maxWidth: 800, margin: '40px auto', padding: '0 20px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
@@ -68,28 +94,36 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
         <a href="/" style={{ color: '#667eea', textDecoration: 'none' }}>← Back</a>
       </p>
       <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: '32px' }}>
-        <div style={{ fontSize: '.8em', color: '#667eea', marginBottom: 8, textTransform: 'uppercase', letterSpacing: 1 }}>{skill.category}</div>
+        {/* Source badge + category */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+          <span style={{ fontSize: '.75em', color: '#fff', background: badge.color, borderRadius: 20, padding: '2px 10px', fontWeight: 600 }}>
+            {badge.emoji} {badge.label}
+          </span>
+          <span style={{ fontSize: '.8em', color: '#667eea', textTransform: 'uppercase', letterSpacing: 1 }}>{skill.category}</span>
+        </div>
+
         <h1 style={{ fontSize: '2em', margin: '0 0 12px', color: '#e0e0e0' }}>{skill.name || slug}</h1>
         <p style={{ color: '#888', margin: '0 0 24px', lineHeight: 1.7 }}>
-          {skill.description || `${skill.name || slug} is an AI agent skill available on ClawHub. Install it to supercharge your AI workflow.`}
+          {skill.description || `${skill.name || slug} is an AI agent skill. Install it to supercharge your AI workflow.`}
         </p>
 
         <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 24 }}>
           <span style={{ fontSize: '.85em', color: '#555' }}>v{skill.version}</span>
-          <span style={{ fontSize: '.85em', color: '#555' }}>{skill.downloads?.toLocaleString()} downloads</span>
-          <span style={{ fontSize: '.85em', color: '#555' }}>by {skill.owner}</span>
+          {(skill.downloads ?? 0) > 0 && <span style={{ fontSize: '.85em', color: '#555' }}>{skill.downloads?.toLocaleString()} downloads</span>}
+          {(skill as any).stars > 0 && <span style={{ fontSize: '.85em', color: '#555' }}>⭐ {(skill as any).stars?.toLocaleString()}</span>}
+          {skill.owner && <span style={{ fontSize: '.85em', color: '#555' }}>by {skill.owner}</span>}
         </div>
 
-        {/* Install command — login required */}
-        <InstallCommand slug={slug} />
+        {/* 安装命令：只对ClawHub/自有skill显示 */}
+        {source === 'clawhub' || source === 'official' ? <InstallCommand slug={slug.replace('clawhub-','')} /> : null}
 
-        <a href={`https://clawhub.ai/${skill.owner}/${slug}`} target="_blank" rel="noopener"
+        {/* 外链按钮 */}
+        <a href={externalUrl} target="_blank" rel="noopener"
           style={{ display: 'inline-block', padding: '10px 24px', background: 'linear-gradient(135deg,#667eea,#00d4ff)', borderRadius: 8, color: '#fff', textDecoration: 'none', fontWeight: 600 }}>
-          View on ClawHub →
+          {externalLabel}
         </a>
       </div>
 
       <RelatedSkills category={skill.category} currentSlug={slug} />
     </div>
   )
-}
