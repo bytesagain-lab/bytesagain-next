@@ -57,7 +57,7 @@ export default function RegisterPage() {
     <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 20px' }}>
       <div style={{ width: '100%', maxWidth: 420 }}>
         <h1 style={{ fontSize: '1.8em', fontWeight: 800, margin: '0 0 8px', textAlign: 'center' }}>Create Account</h1>
-        <p style={{ color: '#888', textAlign: 'center', margin: '0 0 32px', fontSize: '.95em' }}>Join 900+ AI agent skills. Free forever.</p>
+        <p style={{ color: '#888', textAlign: 'center', margin: '0 0 32px', fontSize: '.95em' }}>Discover AI agent skills curated for your workflow. Free forever.</p>
 
         {error && (
           <div style={{ background: '#ff6b6b22', border: '1px solid #ff6b6b55', borderRadius: 10, padding: '12px 16px', marginBottom: 20, color: '#ff6b6b', fontSize: '.9em' }}>
