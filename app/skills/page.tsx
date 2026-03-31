@@ -2,6 +2,11 @@ import { createClient } from '@supabase/supabase-js'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 
+// CSS-in-JS hover workaround via global style tag (Server Component safe)
+const hoverStyle = `
+.skill-card:hover { border-color: #667eea !important; }
+`
+
 export const metadata: Metadata = {
   title: 'Browse AI Agent Skills — BytesAgain',
   description: 'Browse 43,000+ curated AI agent skills from ClawHub, LobeHub, Dify and more. Filter by category, search by keyword.',
@@ -79,6 +84,7 @@ export default async function SkillsPage({
 
   return (
     <main style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 20px' }}>
+      <style dangerouslySetInnerHTML={{ __html: hoverStyle }} />
       <h1 style={{ fontSize: '2em', color: '#e0e0e0', marginBottom: 8 }}>
         Browse AI Skills
       </h1>
@@ -120,14 +126,11 @@ export default async function SkillsPage({
           const badge = SOURCE_BADGE[src] || SOURCE_BADGE.clawhub
           return (
             <Link key={skill.slug} href={`/skill/${skill.slug}`} style={{ textDecoration: 'none' }}>
-              <div style={{
+              <div className="skill-card" style={{
                 background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 12,
                 padding: '20px', height: '100%', transition: 'border-color .2s',
                 cursor: 'pointer',
-              }}
-                onMouseOver={e => (e.currentTarget.style.borderColor = '#667eea')}
-                onMouseOut={e => (e.currentTarget.style.borderColor = '#1a1a3e')}
-              >
+              }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                   <span style={{ fontSize: '.72em', background: badge.color, color: '#fff',
                     borderRadius: 20, padding: '2px 8px', fontWeight: 600 }}>
