@@ -1,6 +1,5 @@
 import { getArticles } from '@/lib/supabase'
 import { createClient } from '@supabase/supabase-js'
-import SubscribeBox from './components/SubscribeBox'
 import HomeClient from './components/HomeClient'
 import type { Metadata } from 'next'
 
@@ -81,7 +80,6 @@ export default async function HomePage() {
         </a>
       </section>
 
-      <SubscribeBox />
     </div>
   )
 }

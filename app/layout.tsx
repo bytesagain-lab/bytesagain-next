@@ -54,14 +54,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           "contactPoint": { "@type": "ContactPoint", "email": "hello@bytesagain.com" }
         }) }} />
         <main>{children}</main>
-        <footer style={{ padding: '30px 0', background: '#0a0a1a', borderTop: '1px solid #1a1a2e', marginTop: 60 }}>
-          <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px', textAlign: 'center' }}>
+        <footer style={{ background: '#0a0a1a', borderTop: '1px solid #1a1a2e', marginTop: 60 }}>
+          {/* Subscribe bar */}
+          <div style={{ maxWidth: 1200, margin: '0 auto', padding: '24px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
+            <div>
+              <span style={{ fontWeight: 600, fontSize: '.95em' }}>📬 Weekly AI Skills Digest — Free</span>
+              <span style={{ color: '#555', fontSize: '.85em', marginLeft: 10 }}>No spam, unsubscribe anytime.</span>
+            </div>
+            <a href="/register" style={{ padding: '8px 22px', background: 'linear-gradient(135deg,#667eea,#00d4ff)', borderRadius: 8, color: '#fff', fontWeight: 700, fontSize: '.9em', textDecoration: 'none', whiteSpace: 'nowrap' }}>
+              Subscribe Free →
+            </a>
+          </div>
+          {/* Footer links */}
+          <div style={{ borderTop: '1px solid #111', maxWidth: 1200, margin: '0 auto', padding: '16px 20px', textAlign: 'center' }}>
             <p style={{ color: '#888', fontSize: '.85em', margin: 0 }}>
               <strong style={{ color: '#ccc' }}>BytesAgain</strong> — Discover the best AI agent skills
-            </p>
-            <p style={{ color: '#666', fontSize: '.8em', margin: '8px 0 0' }}>
-              <a href="/privacy-policy" style={{ color: '#666', textDecoration: 'none' }}>Privacy Policy</a> ·{' '}
-              <a href="/terms" style={{ color: '#666', textDecoration: 'none' }}>Terms</a> ·{' '}
+              {' · '}
+              <a href="/privacy-policy" style={{ color: '#666', textDecoration: 'none' }}>Privacy Policy</a>
+              {' · '}
+              <a href="/terms" style={{ color: '#666', textDecoration: 'none' }}>Terms</a>
+              {' · '}
               <a href="mailto:hello@bytesagain.com" style={{ color: '#666', textDecoration: 'none' }}>Contact</a>
             </p>
           </div>

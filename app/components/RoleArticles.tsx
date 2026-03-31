@@ -146,9 +146,6 @@ export default function RoleArticles({ role, allArticles }: { role: string | nul
             <h3 style={{ margin: '0 0 8px', fontSize: '.92em', fontWeight: 600, color: '#e0e0e0', lineHeight: 1.4 }}>
               {a.title}
             </h3>
-            <div style={{ fontSize: '.75em', color: '#444' }}>
-              {a.published_at ? new Date(a.published_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''}
-            </div>
           </a>
         ))}
       </div>
