@@ -76,9 +76,21 @@ const SKILL_PACKS: Record<string, { slug: string; name: string; reason: string }
   analyst:     [{ slug: 'bytesagain-chart-generator', name: 'Chart Generator', reason: 'Data visualization' }, { slug: 'excel-formula', name: 'Excel Formula', reason: 'Complex formulas' }, { slug: 'database-design', name: 'Database Design', reason: 'SQL queries' }],
 }
 
-export default function RoleSelector() {
+export default function RoleSelector({ onRoleChange }: { onRoleChange?: (role: string | null) => void }) {
   const [cat, setCat] = useState<string | null>(null)
   const [role, setRole] = useState<string | null>(null)
+
+  const handleRoleSelect = (r: string) => {
+    const newRole = role === r ? null : r
+    setRole(newRole)
+    onRoleChange?.(newRole)
+  }
+
+  const handleCatSelect = (c: string) => {
+    setCat(cat === c ? null : c)
+    setRole(null)
+    onRoleChange?.(null)
+  }
 
   const selectedCat = CATEGORIES.find(c => c.id === cat)
   const skills = role ? SKILL_PACKS[role] : null
@@ -88,7 +100,7 @@ export default function RoleSelector() {
       {/* Layer 1: Big categories */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 12, marginBottom: 24 }}>
         {CATEGORIES.map(c => (
-          <button key={c.id} onClick={() => { setCat(cat === c.id ? null : c.id); setRole(null) }}
+          <button key={c.id} onClick={() => handleCatSelect(c.id)}
             style={{
               padding: '20px 12px', borderRadius: 14, cursor: 'pointer', textAlign: 'center',
               background: cat === c.id ? 'linear-gradient(135deg,#667eea22,#00d4ff22)' : '#0f0f23',
@@ -109,7 +121,7 @@ export default function RoleSelector() {
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
             {selectedCat.roles.map(r => (
-              <button key={r.id} onClick={() => setRole(role === r.id ? null : r.id)}
+              <button key={r.id} onClick={() => handleRoleSelect(r.id)}
                 style={{
                   padding: '8px 16px', borderRadius: 20, cursor: 'pointer',
                   background: role === r.id ? 'linear-gradient(135deg,#667eea,#00d4ff)' : '#111128',
