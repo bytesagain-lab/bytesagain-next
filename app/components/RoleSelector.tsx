@@ -99,6 +99,8 @@ const ROLE_TAG: Record<string, string> = {
   traveler: 'travel', cook: 'cooking', fitness: 'health', gamer: 'gaming',
   'language-learner': 'education', parent: 'education', 'job-seeker': 'hr',
 }
+
+const SKILL_PACKS: Record<string, { slug: string; name: string; reason: string }[]> = {
   // Work
   developer:        [{ slug: 'shell', name: 'Shell Toolkit', reason: 'CLI automation' }, { slug: 'debugger', name: 'Debugger', reason: 'Root cause any error' }, { slug: 'code-generator', name: 'Code Generator', reason: 'Stop writing boilerplate' }, { slug: 'database-design', name: 'Database Design', reason: 'Schema & queries' }, { slug: 'geo-seo', name: 'GEO SEO', reason: 'Get discovered by AI' }],
   devops:           [{ slug: 'shell', name: 'Shell Toolkit', reason: 'Server automation' }, { slug: 'clawhub-docker-compose-manager', name: 'Docker Compose', reason: 'Container management' }, { slug: 'database-design', name: 'Database Design', reason: 'Schema migrations' }, { slug: 'debugger', name: 'Debugger', reason: 'Production issues' }],
