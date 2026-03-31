@@ -76,6 +76,8 @@ export async function GET(req: NextRequest) {
       }
 
       const results = [...local, ...remote, ...ghResults].slice(0, limit)
+      const ua = req.headers.get('user-agent') || ''
+      logMcpCall({ action, query, user_agent: ua, result_count: results.length, results_slugs: results.map((s:any) => s.slug) })
       return NextResponse.json({ action, query, results, count: results.length }, { headers })
     }
 
@@ -96,6 +98,8 @@ export async function GET(req: NextRequest) {
         .overlaps('tags', tags)
         .order('downloads', { ascending: false })
         .limit(limit)
+      const ua2 = req.headers.get('user-agent') || ''
+      logMcpCall({ action, role, user_agent: ua2, result_count: (data||[]).length, results_slugs: (data||[]).map((s:any) => s.slug) })
       return NextResponse.json({
         action, role,
         results: data || [],
@@ -144,4 +148,25 @@ export async function GET(req: NextRequest) {
   } catch (e) {
     return NextResponse.json({ error: 'Internal error' }, { status: 500, headers })
   }
+}
+
+// 异步写日志，不阻塞响应
+async function logMcpCall(params: {
+  action: string
+  query?: string
+  role?: string
+  user_agent?: string
+  result_count?: number
+  results_slugs?: string[]
+}) {
+  try {
+    await supabase.from('mcp_logs').insert({
+      action: params.action,
+      query: params.query || null,
+      role: params.role || null,
+      user_agent: params.user_agent || null,
+      result_count: params.result_count || 0,
+      results_slugs: params.results_slugs || [],
+    })
+  } catch { /* 日志失败不影响主流程 */ }
 }
