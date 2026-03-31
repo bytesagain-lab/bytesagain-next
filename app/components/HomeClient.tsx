@@ -18,7 +18,7 @@ export default function HomeClient({ articles, searchAbove }: { articles: Articl
   return (
     <>
       {/* Role selector */}
-      <div style={{ marginBottom: searchAbove ? 24 : 0, textAlign: 'left' }}>
+      <div style={{ marginBottom: searchAbove ? 16 : 0, textAlign: 'left' }}>
         <RoleSelector onRoleChange={setRole} />
       </div>
 

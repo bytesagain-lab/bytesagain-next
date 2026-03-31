@@ -1,6 +1,6 @@
 import { getArticles } from '@/lib/supabase'
+import { createClient } from '@supabase/supabase-js'
 import SubscribeBox from './components/SubscribeBox'
-import SearchBox from './components/SearchBox'
 import HomeClient from './components/HomeClient'
 import type { Metadata } from 'next'
 
@@ -18,31 +18,48 @@ export const metadata: Metadata = {
   },
 }
 
+export const revalidate = 86400
+
 export default async function HomePage() {
-  const articles = await getArticles(20)
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
+  const [articles, { count }] = await Promise.all([
+    getArticles(20),
+    supabase.from('skills').select('*', { count: 'exact', head: true }),
+  ])
+
+  const today = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
 
   return (
     <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 20px' }}>
       {/* Hero */}
-      <section style={{ textAlign: 'center', padding: '64px 0 32px' }}>
-        <div style={{
-          display: 'inline-block', padding: '4px 14px', borderRadius: 20,
-          background: '#667eea18', border: '1px solid #667eea44',
-          color: '#667eea', fontSize: '.8em', fontWeight: 600, marginBottom: 20, letterSpacing: 1,
-        }}>
-          100,000+ OPEN-SOURCE AI SKILLS
-        </div>
-        <h1 style={{ fontSize: 'clamp(2em,5vw,3.2em)', fontWeight: 900, margin: '0 0 16px', lineHeight: 1.15 }}>
+      <section style={{ textAlign: 'center', padding: '64px 0 16px' }}>
+        <h1 style={{ fontSize: 'clamp(2em,5vw,3.2em)', fontWeight: 900, margin: '0 0 12px', lineHeight: 1.15 }}>
           Find Your<br />
           <span style={{ background: 'linear-gradient(135deg,#667eea,#00d4ff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
             AI Skill Stack
           </span>
         </h1>
-        <p style={{ color: '#777', fontSize: '1em', margin: '0 0 28px', maxWidth: 480, marginLeft: 'auto', marginRight: 'auto' }}>
+        <p style={{ color: '#777', fontSize: '1em', margin: '0 0 12px', maxWidth: 480, marginLeft: 'auto', marginRight: 'auto' }}>
           Pick your role, get the right skills.
         </p>
 
-        {/* Role selector — above search */}
+        {/* Live stats bar */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 24, marginBottom: 20, flexWrap: 'wrap' }}>
+          <span style={{ color: '#444', fontSize: '.8em' }}>
+            <span style={{ color: '#667eea', fontWeight: 700 }}>{(count || 628).toLocaleString()}</span> curated skills
+          </span>
+          <span style={{ color: '#333' }}>·</span>
+          <span style={{ color: '#444', fontSize: '.8em' }}>
+            <span style={{ color: '#667eea', fontWeight: 700 }}>107,264</span> open-source skills indexed
+          </span>
+          <span style={{ color: '#333' }}>·</span>
+          <span style={{ color: '#444', fontSize: '.8em' }}>Updated {today}</span>
+        </div>
+
+        {/* Role selector + search */}
         <HomeClient articles={articles} searchAbove />
       </section>
 
