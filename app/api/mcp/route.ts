@@ -46,12 +46,12 @@ export async function GET(req: NextRequest) {
     if (action === 'recommend') {
       const ROLE_TAGS: Record<string, string[]> = {
         developer: ['devtools', 'developer', 'api', 'sysops', 'frontend', 'general'],
-        creator: ['general', 'latest'],
-        trader: ['finance', 'blockchain', 'data analysis', 'data'],
-        marketer: ['general', 'latest'],
-        student: ['devtools', 'developer', 'general'],
-        ecommerce: ['general', 'logistics', 'finance'],
-        analyst: ['data analysis', 'data', 'finance', 'general'],
+        creator: ['writing', 'general', 'productivity'],
+        trader: ['finance', 'blockchain', 'data', 'general'],
+        marketer: ['seo', 'writing', 'productivity', 'general'],
+        student: ['devtools', 'developer', 'productivity', 'general'],
+        ecommerce: ['general', 'logistics', 'finance', 'productivity'],
+        analyst: ['data', 'finance', 'general'],
       }
       const tags = ROLE_TAGS[role] || ROLE_TAGS['developer']
       const { data } = await supabase
