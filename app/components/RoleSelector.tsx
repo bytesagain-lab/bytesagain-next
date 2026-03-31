@@ -174,7 +174,6 @@ export default function RoleSelector({ onRoleChange }: { onRoleChange?: (role: s
 
       {!cat && (
         <p style={{ textAlign: 'center', color: '#333', fontSize: '.88em', margin: 0 }}>
-          ↑ Pick a category to get started
         </p>
       )}
       {cat && !role && (

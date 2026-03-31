@@ -100,9 +100,7 @@ export default function RoleArticles({ role, allArticles }: { role: string | nul
   return (
     <section style={{ marginBottom: 60 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-        <h2 style={{ margin: 0, fontSize: '1.2em', fontWeight: 700 }}>
-          📖 {role ? 'Articles For You' : 'Latest Articles'}
-        </h2>
+        <div />
         <a href="/articles" style={{ color: '#667eea', textDecoration: 'none', fontSize: '.85em' }}>View all →</a>
       </div>
 
