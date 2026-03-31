@@ -95,7 +95,11 @@ export default function RoleArticles({ role, allArticles }: { role: string | nul
     setArticles((filtered.length >= 2 ? filtered : allArticles).slice(0, 4))
   }, [role, allArticles])
 
-  const relatedSkills = role ? getRelatedSkills(role) : []
+  const [relatedSkills, setRelatedSkills] = useState(() => role ? getRelatedSkills(role) : [])
+
+  useEffect(() => {
+    setRelatedSkills(role ? getRelatedSkills(role) : [])
+  }, [role])
 
   return (
     <section style={{ marginBottom: 60 }}>
@@ -108,13 +112,23 @@ export default function RoleArticles({ role, allArticles }: { role: string | nul
         <div style={{ display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
           <span style={{ color: '#555', fontSize: '.8em', alignSelf: 'center' }}>Recommended skills:</span>
           {relatedSkills.map(s => (
-            <a key={s.slug} href={`/skill/${s.slug}`} style={{
-              padding: '4px 12px', borderRadius: 20, fontSize: '.8em', fontWeight: 600,
+            <span key={s.slug} style={{ display: 'inline-flex', alignItems: 'center', gap: 4,
+              padding: '4px 8px 4px 12px', borderRadius: 20, fontSize: '.8em', fontWeight: 600,
               background: '#667eea18', border: '1px solid #667eea44', color: '#667eea',
-              textDecoration: 'none',
             }}>
-              {s.name} →
-            </a>
+              <a href={`/skill/${s.slug}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                {s.name} →
+              </a>
+              <button
+                onClick={() => setRelatedSkills(prev => prev.filter(x => x.slug !== s.slug))}
+                style={{
+                  background: 'none', border: 'none', cursor: 'pointer',
+                  color: '#667eea99', fontSize: '.9em', lineHeight: 1,
+                  padding: '0 2px', display: 'flex', alignItems: 'center',
+                }}
+                title="Dismiss"
+              >×</button>
+            </span>
           ))}
         </div>
       )}
