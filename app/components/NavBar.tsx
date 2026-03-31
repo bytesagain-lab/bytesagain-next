@@ -40,16 +40,15 @@ export default function NavBar() {
         <a href="/" style={{ fontSize: '1.5em', fontWeight: 800, textDecoration: 'none', background: 'linear-gradient(135deg,#667eea,#00d4ff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
           BytesAgain
         </a>
-        <nav style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
+        <nav style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
           <a href="/articles" style={{ color: '#ccc', textDecoration: 'none', fontSize: '.9em' }}>Articles</a>
-          <a href="/use-case" style={{ color: '#ccc', textDecoration: 'none', fontSize: '.9em' }}>Use Cases</a>
-          <a href="/about" style={{ color: '#ccc', textDecoration: 'none', fontSize: '.9em' }}>About</a>
+          <a href="/use-case" style={{ color: '#ccc', textDecoration: 'none', fontSize: '.9em' }}>Cases</a>
           {!loading && (
             email ? (
               <>
                 <a href="/dashboard" style={{ color: '#667eea', fontSize: '.85em', textDecoration: 'none' }}>{email.split('@')[0]}</a>
-                <button onClick={handleSignOut} style={{ background: 'none', border: '1px solid #333', color: '#888', borderRadius: 6, padding: '4px 12px', fontSize: '.85em', cursor: 'pointer' }}>
-                  Sign Out
+                <button onClick={handleSignOut} style={{ background: 'none', border: '1px solid #333', color: '#888', borderRadius: 6, padding: '4px 10px', fontSize: '.85em', cursor: 'pointer' }}>
+                  Out
                 </button>
               </>
             ) : (
