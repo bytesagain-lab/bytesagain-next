@@ -53,12 +53,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         "@type": "Article",
         "headline": article.title,
         "description": article.content?.replace(/<[^>]+>/g, '').slice(0, 160),
-        "author": { "@type": "Person", "name": article.author_name || "BytesAgain" },
-        "publisher": { "@type": "Organization", "name": "BytesAgain", "url": "https://bytesagain.com" },
+        "image": "https://bytesagain.com/og-image.png",
+        "author": { "@type": "Organization", "name": "BytesAgain", "url": "https://bytesagain.com" },
+        "publisher": { "@type": "Organization", "name": "BytesAgain", "url": "https://bytesagain.com", "logo": { "@type": "ImageObject", "url": "https://bytesagain.com/og-image.png" } },
         "datePublished": article.published_at,
         "dateModified": article.published_at,
         "url": `https://bytesagain.com/article/${slug}`,
-        "mainEntityOfPage": `https://bytesagain.com/article/${slug}`,
+        "mainEntityOfPage": { "@type": "WebPage", "@id": `https://bytesagain.com/article/${slug}` },
       }) }} />
       <p style={{ color: '#667eea', fontSize: '.85em', margin: '0 0 16px' }}>
         <a href="/articles" style={{ color: '#667eea', textDecoration: 'none' }}>← Back to Articles</a>
