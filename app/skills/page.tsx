@@ -16,9 +16,23 @@ const supabase = createClient(
 )
 
 const CATEGORIES = [
-  'all','devtools','productivity','finance','marketing','writing',
-  'data','design','security','health','education','seo','ecommerce',
-  'clawhub','lobehub','dify','audio','travel','gaming',
+  'all',
+  // 技术
+  'coding','devops','api','database','security',
+  // 数据与研究
+  'data','research',
+  // 内容创作
+  'writing','image-gen','video','audio','translation',
+  // 营销
+  'seo','social-media','email-marketing','advertising',
+  // 商业
+  'finance','crypto-defi','ecommerce','legal','hr','real-estate',
+  // 生活
+  'health','education','cooking','travel','gaming',
+  // 效率
+  'automation','communication','productivity',
+  // 来源
+  'clawhub','lobehub','dify',
 ]
 
 const SOURCE_BADGE: Record<string, { label: string; color: string; emoji: string }> = {
