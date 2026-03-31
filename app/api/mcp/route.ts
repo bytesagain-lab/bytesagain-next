@@ -29,18 +29,46 @@ export async function GET(req: NextRequest) {
         // 空query返回热门
         const { data } = await supabase
           .from('skills')
-          .select('slug, name, description, category, downloads, owner')
+          .select('slug, name, description, category, tags, downloads, owner')
           .order('downloads', { ascending: false })
           .limit(limit)
         return NextResponse.json({ action, query, results: data || [], count: data?.length || 0 }, { headers })
       }
-      const { data } = await supabase
-        .from('skills')
-        .select('slug, name, description, category, downloads, owner')
-        .ilike('name', `%${query}%`)
-        .order('downloads', { ascending: false })
-        .limit(limit)
-      return NextResponse.json({ action, query, results: data || [], count: data?.length || 0 }, { headers })
+
+      // 并行：本地精确匹配 + ClawHub语义搜索
+      const [localRes, chRes] = await Promise.allSettled([
+        supabase
+          .from('skills')
+          .select('slug, name, description, category, tags, downloads, owner')
+          .or(`name.ilike.%${query}%,description.ilike.%${query}%`)
+          .order('downloads', { ascending: false })
+          .limit(Math.ceil(limit * 0.6)),
+        fetch(`https://clawhub.ai/api/v1/search?q=${encodeURIComponent(query)}&limit=${limit}`,
+          { next: { revalidate: 300 } }),
+      ])
+
+      const local = localRes.status === 'fulfilled' ? (localRes.value.data || []) : []
+      const localSlugs = new Set(local.map((s: any) => s.slug))
+
+      let remote: any[] = []
+      if (chRes.status === 'fulfilled' && chRes.value.ok) {
+        const chData = await chRes.value.json()
+        remote = (chData.results || [])
+          .filter((s: any) => !localSlugs.has(s.slug))
+          .slice(0, Math.floor(limit * 0.4))
+          .map((s: any) => ({
+            slug: s.slug,
+            name: s.displayName || s.slug,
+            description: s.summary || '',
+            category: '',
+            downloads: 0,
+            owner: '',
+            _source: 'clawhub',
+          }))
+      }
+
+      const results = [...local, ...remote].slice(0, limit)
+      return NextResponse.json({ action, query, results, count: results.length }, { headers })
     }
 
     if (action === 'recommend') {
