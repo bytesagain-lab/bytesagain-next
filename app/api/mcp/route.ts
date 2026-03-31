@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
   const limit = Math.min(parseInt(searchParams.get('limit') || '10'), 50)
 
   const headers = {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json; charset=utf-8',
     'Access-Control-Allow-Origin': '*',
     'X-MCP-Version': '1.0',
     'X-Provider': 'BytesAgain (bytesagain.com)',
