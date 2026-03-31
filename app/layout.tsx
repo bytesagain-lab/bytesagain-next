@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Geist } from 'next/font/google'
 import NavBar from './components/NavBar'
+import FeedbackButton from './components/FeedbackButton'
 import './globals.css'
 
 const geist = Geist({ subsets: ['latin'] })
@@ -97,6 +98,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </div>
         </footer>
+      <FeedbackButton />
       </body>
     </html>
   )
