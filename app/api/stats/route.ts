@@ -6,7 +6,7 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
 
-export const revalidate = 86400 // 24h cache
+export const revalidate = 3600 // 1h cache（原来24h，改短让数字及时更新）
 
 export async function GET() {
   // 本地DB数量
