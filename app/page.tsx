@@ -24,7 +24,7 @@ export default async function HomePage() {
   return (
     <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 20px' }}>
       {/* Hero */}
-      <section style={{ textAlign: 'center', padding: '64px 0 48px' }}>
+      <section style={{ textAlign: 'center', padding: '64px 0 32px' }}>
         <div style={{
           display: 'inline-block', padding: '4px 14px', borderRadius: 20,
           background: '#667eea18', border: '1px solid #667eea44',
@@ -38,15 +38,14 @@ export default async function HomePage() {
             AI Skill Stack
           </span>
         </h1>
-        <p style={{ color: '#777', fontSize: '1.1em', margin: '0 0 36px', maxWidth: 520, marginLeft: 'auto', marginRight: 'auto' }}>
+        <p style={{ color: '#777', fontSize: '1.1em', margin: '0 0 28px', maxWidth: 520, marginLeft: 'auto', marginRight: 'auto' }}>
           Tell us what you do. We tell you exactly what to install.
           No searching. No guessing. Just the right skills.
         </p>
-        <SearchBox />
-      </section>
 
-      {/* Client component handles role selection + dynamic articles */}
-      <HomeClient articles={articles} />
+        {/* Role selector — above search */}
+        <HomeClient articles={articles} searchAbove />
+      </section>
 
       {/* AI Mode banner */}
       <section style={{
