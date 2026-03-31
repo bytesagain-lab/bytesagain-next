@@ -42,6 +42,7 @@ export default function NavBar() {
         </a>
         <nav style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
           <a href="/articles" style={{ color: '#ccc', textDecoration: 'none', fontSize: '.9em' }}>Articles</a>
+          <a href="/skills" style={{ color: '#ccc', textDecoration: 'none', fontSize: '.9em' }}>Skills</a>
           <a href="/use-case" style={{ color: '#ccc', textDecoration: 'none', fontSize: '.9em' }}>Cases</a>
           {!loading && (
             email ? (
