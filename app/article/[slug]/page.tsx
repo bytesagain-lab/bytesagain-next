@@ -74,9 +74,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         dangerouslySetInnerHTML={{ __html: content }}
       />
       <div style={{ marginTop: 40, padding: '24px', background: '#0f0f23', borderRadius: 12, border: '1px solid #1a1a3e', textAlign: 'center' }}>
-        <p style={{ margin: '0 0 12px', color: '#ccc' }}>Browse 900+ AI agent skills on BytesAgain</p>
-        <a href="/" style={{ display: 'inline-block', padding: '10px 24px', background: 'linear-gradient(135deg,#667eea,#00d4ff)', borderRadius: 8, color: '#fff', textDecoration: 'none', fontWeight: 600 }}>
-          Explore Skills →
+        <p style={{ margin: '0 0 12px', color: '#ccc' }}>Discover AI agent skills curated for your workflow</p>
+        <a href="/skills" style={{ display: 'inline-block', padding: '10px 24px', background: 'linear-gradient(135deg,#667eea,#00d4ff)', borderRadius: 8, color: '#fff', textDecoration: 'none', fontWeight: 600 }}>
+          Browse All Skills →
         </a>
       </div>
     </article>
