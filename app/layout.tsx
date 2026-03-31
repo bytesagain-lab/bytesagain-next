@@ -65,17 +65,36 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               Subscribe Free →
             </a>
           </div>
-          {/* Footer links */}
-          <div style={{ borderTop: '1px solid #111', maxWidth: 1200, margin: '0 auto', padding: '16px 20px', textAlign: 'center' }}>
-            <p style={{ color: '#888', fontSize: '.85em', margin: 0 }}>
-              <strong style={{ color: '#ccc' }}>BytesAgain</strong> — Discover the best AI agent skills
-              {' · '}
-              <a href="/privacy-policy" style={{ color: '#666', textDecoration: 'none' }}>Privacy Policy</a>
-              {' · '}
-              <a href="/terms" style={{ color: '#666', textDecoration: 'none' }}>Terms</a>
-              {' · '}
-              <a href="mailto:hello@bytesagain.com" style={{ color: '#666', textDecoration: 'none' }}>Contact</a>
-            </p>
+          {/* Footer nav + copyright */}
+          <div style={{ borderTop: '1px solid #111', maxWidth: 1200, margin: '0 auto', padding: '24px 20px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24, marginBottom: 24 }}>
+              {/* Brand */}
+              <div>
+                <div style={{ fontWeight: 700, color: '#ccc', marginBottom: 8 }}>BytesAgain</div>
+                <div style={{ color: '#555', fontSize: '.82em', maxWidth: 200 }}>Discover the best AI agent skills for your workflow.</div>
+              </div>
+              {/* Explore */}
+              <div>
+                <div style={{ color: '#888', fontSize: '.75em', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 10 }}>Explore</div>
+                {[['Skills', '/skills'], ['Articles', '/articles'], ['Use Cases', '/use-case'], ['Pro', '/pro']].map(([label, href]) => (
+                  <div key={href} style={{ marginBottom: 6 }}>
+                    <a href={href} style={{ color: '#666', textDecoration: 'none', fontSize: '.85em' }}>{label}</a>
+                  </div>
+                ))}
+              </div>
+              {/* Company */}
+              <div>
+                <div style={{ color: '#888', fontSize: '.75em', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 10 }}>Company</div>
+                {[['About', '/about'], ['Contact', '/contact'], ['Privacy Policy', '/privacy-policy'], ['Terms', '/terms']].map(([label, href]) => (
+                  <div key={href} style={{ marginBottom: 6 }}>
+                    <a href={href} style={{ color: '#666', textDecoration: 'none', fontSize: '.85em' }}>{label}</a>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div style={{ borderTop: '1px solid #111', paddingTop: 16, color: '#444', fontSize: '.8em' }}>
+              © {new Date().getFullYear()} BytesAgain. All rights reserved.
+            </div>
           </div>
         </footer>
       </body>
