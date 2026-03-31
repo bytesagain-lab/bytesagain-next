@@ -25,6 +25,15 @@ export async function GET(req: NextRequest) {
 
   try {
     if (action === 'search') {
+      if (!query) {
+        // 空query返回热门
+        const { data } = await supabase
+          .from('skills')
+          .select('slug, name, description, category, downloads, owner')
+          .order('downloads', { ascending: false })
+          .limit(limit)
+        return NextResponse.json({ action, query, results: data || [], count: data?.length || 0 }, { headers })
+      }
       const { data } = await supabase
         .from('skills')
         .select('slug, name, description, category, downloads, owner')
@@ -36,18 +45,19 @@ export async function GET(req: NextRequest) {
 
     if (action === 'recommend') {
       const ROLE_TAGS: Record<string, string[]> = {
-        developer: ['Developer Tools', 'DevOps', 'Automation', 'Security'],
-        creator: ['Content Creation', 'Writing', 'Productivity'],
-        trader: ['Finance', 'Crypto', 'Data Analysis'],
-        marketer: ['Marketing', 'SEO', 'Content Creation'],
-        student: ['Education', 'Developer Tools', 'Productivity'],
-        ecommerce: ['Business', 'Marketing', 'Productivity'],
+        developer: ['devtools', 'developer', 'api', 'sysops', 'frontend', 'general'],
+        creator: ['general', 'latest'],
+        trader: ['finance', 'blockchain', 'data analysis', 'data'],
+        marketer: ['general', 'latest'],
+        student: ['devtools', 'developer', 'general'],
+        ecommerce: ['general', 'logistics', 'finance'],
+        analyst: ['data analysis', 'data', 'finance', 'general'],
       }
-      const tags = ROLE_TAGS[role] || []
+      const tags = ROLE_TAGS[role] || ROLE_TAGS['developer']
       const { data } = await supabase
         .from('skills')
         .select('slug, name, description, category, downloads, owner')
-        .in('category', tags.length ? tags : ['Developer Tools'])
+        .in('category', tags)
         .order('downloads', { ascending: false })
         .limit(limit)
       return NextResponse.json({
