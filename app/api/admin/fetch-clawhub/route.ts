@@ -9,6 +9,15 @@ const supabase = createClient(
 const ADMIN_SECRET = process.env.ADMIN_SECRET || 'bytesagain-admin-2026'
 const BATCH = 50
 
+function sanitize(str: string): string {
+  // 移除 Supabase/PostgreSQL 不接受的 Unicode 转义和控制字符
+  return str
+    .replace(/\\u0000/g, '')           // null字节
+    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '') // 控制字符
+    .replace(/\\/g, '\\\\')            // 反斜杠转义（避免JSON问题）
+    .slice(0, 500)
+}
+
 function itemToRow(item: any) {
   const name = item.name || ''
   const owner = item.ownerHandle || ''
@@ -18,8 +27,8 @@ function itemToRow(item: any) {
   const capTags: string[] = item.capabilityTags || []
   const category = capTags[0] || 'clawhub'
   const tags = Array.from(new Set([...capTags, 'clawhub']))
-  const summary = (item.summary || '').slice(0, 500)
-  const displayName = (item.displayName || slug).slice(0, 200)
+  const summary = sanitize(item.summary || '')
+  const displayName = sanitize(item.displayName || slug).slice(0, 200)
 
   return {
     slug: `clawhub-${slug.toLowerCase()}`,
@@ -69,7 +78,8 @@ export async function GET(req: NextRequest) {
       .from('skills')
       .upsert(rows, { onConflict: 'slug', ignoreDuplicates: false })
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 })
+      // 返回nextCursor让调度器能继续推进
+      return NextResponse.json({ error: error.message, nextCursor, inserted: 0 }, { status: 500 })
     }
   }
 
