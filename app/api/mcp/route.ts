@@ -56,8 +56,8 @@ export async function GET(req: NextRequest) {
       const tags = ROLE_TAGS[role] || ROLE_TAGS['developer']
       const { data } = await supabase
         .from('skills')
-        .select('slug, name, description, category, downloads, owner')
-        .in('category', tags)
+        .select('slug, name, description, category, tags, downloads, owner')
+        .overlaps('tags', tags)
         .order('downloads', { ascending: false })
         .limit(limit)
       return NextResponse.json({
