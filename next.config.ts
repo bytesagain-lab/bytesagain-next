@@ -1,18 +1,15 @@
 import type { NextConfig } from "next";
 
-const EASYWP = 'https://ingress-earth.easywp.com';
-
 const nextConfig: NextConfig = {
-  async rewrites() {
+  async redirects() {
     return [
-      { source: '/login/', destination: `${EASYWP}/login/` },
-      { source: '/login', destination: `${EASYWP}/login/` },
-      { source: '/register/', destination: `${EASYWP}/register/` },
-      { source: '/register', destination: `${EASYWP}/register/` },
-      { source: '/wp-login.php', destination: `${EASYWP}/wp-login.php` },
-      { source: '/wp-admin/', destination: `${EASYWP}/wp-admin/` },
-      { source: '/wp-admin/:path*', destination: `${EASYWP}/wp-admin/:path*` },
-      { source: '/wp-json/:path*', destination: `${EASYWP}/wp-json/:path*` },
+      // sitemap变体全部指向正确路径
+      { source: '/sitemap_index.xml', destination: '/sitemap-index.xml', permanent: true },
+      { source: '/wp-sitemap.xml', destination: '/sitemap.xml', permanent: true },
+      // 旧WP路径兜底
+      { source: '/wp-login.php', destination: '/login', permanent: true },
+      { source: '/wp-admin', destination: '/login', permanent: true },
+      { source: '/wp-admin/:path*', destination: '/login', permanent: true },
     ]
   },
 };

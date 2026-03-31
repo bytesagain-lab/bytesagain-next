@@ -38,6 +38,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="llms" href="/llms.txt" />
+        <link rel="llms-full" href="/llms-full.txt" />
+      </head>
       <body className={geist.className} style={{ background: '#0a0a1a', color: '#e0e0e0', margin: 0 }}>
         <NavBar />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
