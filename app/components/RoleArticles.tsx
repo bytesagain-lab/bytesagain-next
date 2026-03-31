@@ -101,7 +101,6 @@ export default function RoleArticles({ role, allArticles }: { role: string | nul
     <section style={{ marginBottom: 60 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
         <div />
-        <a href="/articles" style={{ color: '#667eea', textDecoration: 'none', fontSize: '.85em' }}>View all →</a>
       </div>
 
       {/* Related skills pill bar */}
@@ -138,6 +137,9 @@ export default function RoleArticles({ role, allArticles }: { role: string | nul
             </div>
           </a>
         ))}
+      </div>
+      <div style={{ textAlign: 'center', marginTop: 20 }}>
+        <a href="/articles" style={{ color: '#667eea', textDecoration: 'none', fontSize: '.88em' }}>View all articles →</a>
       </div>
     </section>
   )
