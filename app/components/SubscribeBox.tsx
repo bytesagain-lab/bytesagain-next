@@ -13,7 +13,7 @@ export default function SubscribeBox() {
     }}>
       <div>
         <span style={{ fontWeight: 600, fontSize: '.95em' }}>📬 Weekly AI Skills Digest — Free</span>
-        <span style={{ color: '#555', fontSize: '.85em', marginLeft: 10 }}>Join 900+ readers. No spam, unsubscribe anytime.</span>
+        <span style={{ color: '#555', fontSize: '.85em', marginLeft: 10 }}>No spam, unsubscribe anytime.</span>
       </div>
       <a
         href="/register"
