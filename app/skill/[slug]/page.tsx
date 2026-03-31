@@ -127,3 +127,5 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
       <RelatedSkills category={skill.category} currentSlug={slug} />
     </div>
   )
+
+}

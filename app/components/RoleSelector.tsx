@@ -9,13 +9,20 @@ const CATEGORIES = [
     label: 'Work',
     roles: [
       { id: 'developer', icon: '⚡', label: 'Developer' },
+      { id: 'devops', icon: '🐳', label: 'DevOps Engineer' },
       { id: 'designer', icon: '🎨', label: 'Designer' },
       { id: 'product', icon: '🗺️', label: 'Product Manager' },
       { id: 'marketer', icon: '📣', label: 'Marketer' },
+      { id: 'seo', icon: '🔍', label: 'SEO Specialist' },
       { id: 'sales', icon: '🤝', label: 'Sales' },
-      { id: 'hr', icon: '👥', label: 'HR' },
+      { id: 'hr', icon: '👥', label: 'HR / Recruiter' },
+      { id: 'legal', icon: '⚖️', label: 'Legal / Compliance' },
+      { id: 'finance', icon: '💰', label: 'Finance / Accounting' },
       { id: 'ecommerce', icon: '🛍️', label: 'E-commerce' },
       { id: 'freelancer', icon: '🧳', label: 'Freelancer' },
+      { id: 'founder', icon: '🚀', label: 'Founder / CEO' },
+      { id: 'consultant', icon: '🧠', label: 'Consultant' },
+      { id: 'customer-support', icon: '🎧', label: 'Customer Support' },
     ],
   },
   {
@@ -23,57 +30,114 @@ const CATEGORIES = [
     icon: '🎬',
     label: 'Create',
     roles: [
-      { id: 'blogger', icon: '✍️', label: 'Blogger' },
+      { id: 'blogger', icon: '✍️', label: 'Blogger / Writer' },
       { id: 'youtuber', icon: '▶️', label: 'YouTuber' },
       { id: 'podcaster', icon: '🎙️', label: 'Podcaster' },
       { id: 'social', icon: '📱', label: 'Social Media' },
-      { id: 'creator', icon: '✨', label: 'Creator' },
+      { id: 'newsletter', icon: '📧', label: 'Newsletter Creator' },
+      { id: 'video-editor', icon: '🎞️', label: 'Video Editor' },
+      { id: 'photographer', icon: '📷', label: 'Photographer' },
+      { id: 'musician', icon: '🎵', label: 'Musician / Producer' },
+      { id: 'game-dev', icon: '🎮', label: 'Game Developer' },
+      { id: 'creator', icon: '✨', label: 'Content Creator' },
     ],
   },
   {
     id: 'learn',
     icon: '📚',
-    label: 'Learn',
+    label: 'Learn & Research',
     roles: [
       { id: 'student', icon: '🎓', label: 'Student' },
       { id: 'self-taught', icon: '💡', label: 'Self-taught' },
       { id: 'researcher', icon: '🔬', label: 'Researcher' },
-      { id: 'teacher', icon: '🏫', label: 'Teacher' },
+      { id: 'teacher', icon: '🏫', label: 'Teacher / Educator' },
+      { id: 'data-scientist', icon: '📊', label: 'Data Scientist' },
+      { id: 'academic', icon: '📄', label: 'Academic / PhD' },
+      { id: 'journalist', icon: '📰', label: 'Journalist' },
     ],
   },
   {
     id: 'invest',
     icon: '📈',
-    label: 'Invest',
+    label: 'Invest & Trade',
     roles: [
       { id: 'trader', icon: '🪙', label: 'Crypto Trader' },
-      { id: 'investor', icon: '📊', label: 'Investor' },
-      { id: 'analyst', icon: '🔍', label: 'Analyst' },
+      { id: 'investor', icon: '📊', label: 'Stock Investor' },
+      { id: 'analyst', icon: '🔍', label: 'Financial Analyst' },
+      { id: 'defi', icon: '🌐', label: 'DeFi / Web3' },
+      { id: 'real-estate', icon: '🏠', label: 'Real Estate' },
+    ],
+  },
+  {
+    id: 'life',
+    icon: '🌱',
+    label: 'Life & Hobby',
+    roles: [
+      { id: 'traveler', icon: '✈️', label: 'Traveler' },
+      { id: 'cook', icon: '🍳', label: 'Home Cook' },
+      { id: 'fitness', icon: '💪', label: 'Fitness / Health' },
+      { id: 'gamer', icon: '🕹️', label: 'Gamer' },
+      { id: 'language-learner', icon: '🗣️', label: 'Language Learner' },
+      { id: 'parent', icon: '👨‍👩‍👧', label: 'Parent' },
+      { id: 'job-seeker', icon: '💼', label: 'Job Seeker' },
     ],
   },
 ]
 
 const SKILL_PACKS: Record<string, { slug: string; name: string; reason: string }[]> = {
-  developer:   [{ slug: 'shell', name: 'Shell Toolkit', reason: 'CLI automation' }, { slug: 'debugger', name: 'Debugger', reason: 'Root cause any error' }, { slug: 'code-generator', name: 'Code Generator', reason: 'Stop writing boilerplate' }, { slug: 'database-design', name: 'Database Design', reason: 'Schema & queries' }, { slug: 'geo-seo', name: 'GEO SEO', reason: 'Get discovered by AI' }],
-  designer:    [{ slug: 'story-writer', name: 'Story Writer', reason: 'Copy & UX writing' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Project management' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'Multi-language assets' }],
-  product:     [{ slug: 'task-planner', name: 'Task Planner', reason: 'Roadmap & prioritization' }, { slug: 'story-writer', name: 'Story Writer', reason: 'PRDs & specs' }, { slug: 'database-design', name: 'Database Design', reason: 'Data modeling' }],
-  marketer:    [{ slug: 'geo-seo', name: 'GEO SEO', reason: 'Rank in AI search' }, { slug: 'story-writer', name: 'Story Writer', reason: 'Ad copy & emails' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Campaign management' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'Global campaigns' }],
-  sales:       [{ slug: 'story-writer', name: 'Story Writer', reason: 'Proposals & outreach' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Pipeline management' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'International clients' }],
-  hr:          [{ slug: 'story-writer', name: 'Story Writer', reason: 'Job descriptions & emails' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Hiring pipeline' }, { slug: 'legal-advisor', name: 'Legal Advisor', reason: 'Contract basics' }],
-  ecommerce:   [{ slug: 'story-writer', name: 'Story Writer', reason: 'Product descriptions' }, { slug: 'excel-formula', name: 'Excel Formula', reason: 'Inventory tracking' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'Sell globally' }],
-  freelancer:  [{ slug: 'story-writer', name: 'Story Writer', reason: 'Proposals & pitches' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Client management' }, { slug: 'legal-advisor', name: 'Legal Advisor', reason: 'Contracts & invoices' }],
-  blogger:     [{ slug: 'story-writer', name: 'Story Writer', reason: 'Articles & posts' }, { slug: 'geo-seo', name: 'GEO SEO', reason: 'AI search visibility' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'Multilingual content' }],
-  youtuber:    [{ slug: 'story-writer', name: 'Story Writer', reason: 'Scripts & hooks' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Content calendar' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'Subtitles & localization' }],
-  podcaster:   [{ slug: 'story-writer', name: 'Story Writer', reason: 'Episode outlines' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Guest & schedule mgmt' }],
-  social:      [{ slug: 'story-writer', name: 'Story Writer', reason: 'Captions & threads' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Posting schedule' }, { slug: 'geo-seo', name: 'GEO SEO', reason: 'AI discoverability' }],
-  creator:     [{ slug: 'story-writer', name: 'Story Writer', reason: 'Any format content' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'Global reach' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Production pipeline' }],
-  student:     [{ slug: 'code-generator', name: 'Code Generator', reason: 'See working examples' }, { slug: 'debugger', name: 'Debugger', reason: 'Understand errors' }, { slug: 'shell', name: 'Shell Toolkit', reason: 'Learn the terminal' }],
-  'self-taught':[{ slug: 'code-generator', name: 'Code Generator', reason: 'Learn by example' }, { slug: 'debugger', name: 'Debugger', reason: 'Fix your own bugs' }, { slug: 'database-design', name: 'Database Design', reason: 'SQL foundations' }],
-  researcher:  [{ slug: 'story-writer', name: 'Story Writer', reason: 'Papers & reports' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Literature tracking' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'Multi-language sources' }],
-  teacher:     [{ slug: 'story-writer', name: 'Story Writer', reason: 'Lesson plans & materials' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Curriculum planning' }],
-  trader:      [{ slug: 'black-scholes', name: 'Black-Scholes', reason: 'Options pricing' }, { slug: 'monte-carlo', name: 'Monte Carlo', reason: 'Risk simulation' }, { slug: 'npv', name: 'NPV Calculator', reason: 'Protocol valuation' }],
-  investor:    [{ slug: 'monte-carlo', name: 'Monte Carlo', reason: 'Portfolio simulation' }, { slug: 'npv', name: 'NPV Calculator', reason: 'Project valuation' }, { slug: 'excel-formula', name: 'Excel Formula', reason: 'Financial modeling' }],
-  analyst:     [{ slug: 'bytesagain-chart-generator', name: 'Chart Generator', reason: 'Data visualization' }, { slug: 'excel-formula', name: 'Excel Formula', reason: 'Complex formulas' }, { slug: 'database-design', name: 'Database Design', reason: 'SQL queries' }],
+  // Work
+  developer:        [{ slug: 'shell', name: 'Shell Toolkit', reason: 'CLI automation' }, { slug: 'debugger', name: 'Debugger', reason: 'Root cause any error' }, { slug: 'code-generator', name: 'Code Generator', reason: 'Stop writing boilerplate' }, { slug: 'database-design', name: 'Database Design', reason: 'Schema & queries' }, { slug: 'geo-seo', name: 'GEO SEO', reason: 'Get discovered by AI' }],
+  devops:           [{ slug: 'shell', name: 'Shell Toolkit', reason: 'Server automation' }, { slug: 'clawhub-docker-compose-manager', name: 'Docker Compose', reason: 'Container management' }, { slug: 'database-design', name: 'Database Design', reason: 'Schema migrations' }, { slug: 'debugger', name: 'Debugger', reason: 'Production issues' }],
+  designer:         [{ slug: 'story-writer', name: 'Story Writer', reason: 'UX copy & specs' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Project management' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'Multi-language assets' }, { slug: 'clawhub-figma-to-code', name: 'Figma to Code', reason: 'Design handoff' }],
+  product:          [{ slug: 'task-planner', name: 'Task Planner', reason: 'Roadmap & prioritization' }, { slug: 'story-writer', name: 'Story Writer', reason: 'PRDs & specs' }, { slug: 'database-design', name: 'Database Design', reason: 'Data modeling' }, { slug: 'clawhub-user-story-generator', name: 'User Story Generator', reason: 'Agile sprints' }],
+  marketer:         [{ slug: 'geo-seo', name: 'GEO SEO', reason: 'Rank in AI search' }, { slug: 'story-writer', name: 'Story Writer', reason: 'Ad copy & emails' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Campaign management' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'Global campaigns' }],
+  seo:              [{ slug: 'geo-seo', name: 'GEO SEO', reason: 'AI search optimization' }, { slug: 'story-writer', name: 'Story Writer', reason: 'SEO content' }, { slug: 'clawhub-sitemap-generator', name: 'Sitemap Generator', reason: 'Technical SEO' }, { slug: 'clawhub-keyword-research', name: 'Keyword Research', reason: 'Topic discovery' }],
+  sales:            [{ slug: 'story-writer', name: 'Story Writer', reason: 'Proposals & outreach' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Pipeline management' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'International clients' }, { slug: 'clawhub-email-writer', name: 'Email Writer', reason: 'Cold outreach' }],
+  hr:               [{ slug: 'story-writer', name: 'Story Writer', reason: 'Job descriptions & emails' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Hiring pipeline' }, { slug: 'legal-advisor', name: 'Legal Advisor', reason: 'Contract basics' }, { slug: 'clawhub-resume-screener', name: 'Resume Screener', reason: 'Fast shortlisting' }],
+  legal:            [{ slug: 'legal-advisor', name: 'Legal Advisor', reason: 'Contract review' }, { slug: 'story-writer', name: 'Story Writer', reason: 'Legal drafts' }, { slug: 'clawhub-gdpr-compliance', name: 'GDPR Compliance', reason: 'Privacy checks' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'Multi-jurisdiction' }],
+  finance:          [{ slug: 'excel-formula', name: 'Excel Formula', reason: 'Financial modeling' }, { slug: 'npv', name: 'NPV Calculator', reason: 'Project valuation' }, { slug: 'monte-carlo', name: 'Monte Carlo', reason: 'Risk simulation' }, { slug: 'clawhub-invoice-generator', name: 'Invoice Generator', reason: 'Billing automation' }],
+  ecommerce:        [{ slug: 'story-writer', name: 'Story Writer', reason: 'Product descriptions' }, { slug: 'excel-formula', name: 'Excel Formula', reason: 'Inventory tracking' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'Sell globally' }, { slug: 'geo-seo', name: 'GEO SEO', reason: 'Product discoverability' }],
+  freelancer:       [{ slug: 'story-writer', name: 'Story Writer', reason: 'Proposals & pitches' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Client management' }, { slug: 'legal-advisor', name: 'Legal Advisor', reason: 'Contracts & invoices' }, { slug: 'clawhub-time-tracker', name: 'Time Tracker', reason: 'Billable hours' }],
+  founder:          [{ slug: 'task-planner', name: 'Task Planner', reason: 'Execution & OKRs' }, { slug: 'story-writer', name: 'Story Writer', reason: 'Pitch decks & fundraising' }, { slug: 'geo-seo', name: 'GEO SEO', reason: 'Organic growth' }, { slug: 'monte-carlo', name: 'Monte Carlo', reason: 'Scenario planning' }, { slug: 'legal-advisor', name: 'Legal Advisor', reason: 'Cap table & terms' }],
+  consultant:       [{ slug: 'story-writer', name: 'Story Writer', reason: 'Reports & decks' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Engagement management' }, { slug: 'clawhub-chart-generator', name: 'Chart Generator', reason: 'Data storytelling' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'Global clients' }],
+  'customer-support':[{ slug: 'clawhub-email-writer', name: 'Email Writer', reason: 'Response templates' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'Multi-language support' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Ticket management' }],
+
+  // Create
+  blogger:          [{ slug: 'story-writer', name: 'Story Writer', reason: 'Articles & posts' }, { slug: 'geo-seo', name: 'GEO SEO', reason: 'AI search visibility' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'Multilingual content' }, { slug: 'clawhub-headline-generator', name: 'Headline Generator', reason: 'Click-worthy titles' }],
+  youtuber:         [{ slug: 'story-writer', name: 'Story Writer', reason: 'Scripts & hooks' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Content calendar' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'Subtitles & localization' }, { slug: 'clawhub-youtube-summarizer', name: 'YouTube Summarizer', reason: 'Research faster' }],
+  podcaster:        [{ slug: 'story-writer', name: 'Story Writer', reason: 'Episode outlines' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Guest & schedule mgmt' }, { slug: 'clawhub-audio-transcriber', name: 'Audio Transcriber', reason: 'Show notes auto' }],
+  social:           [{ slug: 'story-writer', name: 'Story Writer', reason: 'Captions & threads' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Posting schedule' }, { slug: 'geo-seo', name: 'GEO SEO', reason: 'AI discoverability' }, { slug: 'clawhub-hashtag-generator', name: 'Hashtag Generator', reason: 'Reach more people' }],
+  newsletter:       [{ slug: 'story-writer', name: 'Story Writer', reason: 'Issue writing' }, { slug: 'geo-seo', name: 'GEO SEO', reason: 'Grow subscribers' }, { slug: 'clawhub-email-writer', name: 'Email Writer', reason: 'Subject lines' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Editorial calendar' }],
+  'video-editor':   [{ slug: 'story-writer', name: 'Story Writer', reason: 'Scripts & storyboards' }, { slug: 'clawhub-subtitle-generator', name: 'Subtitle Generator', reason: 'Auto captions' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Project tracking' }],
+  photographer:     [{ slug: 'story-writer', name: 'Story Writer', reason: 'Client briefs & captions' }, { slug: 'clawhub-image-metadata', name: 'Image Metadata', reason: 'SEO for photos' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Shoot planning' }],
+  musician:         [{ slug: 'story-writer', name: 'Story Writer', reason: 'Lyrics & bios' }, { slug: 'clawhub-chord-progression', name: 'Chord Progression', reason: 'Music theory help' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Release planning' }],
+  'game-dev':       [{ slug: 'code-generator', name: 'Code Generator', reason: 'Game logic' }, { slug: 'debugger', name: 'Debugger', reason: 'Fix runtime errors' }, { slug: 'story-writer', name: 'Story Writer', reason: 'Game narrative & lore' }, { slug: 'clawhub-unity-helper', name: 'Unity Helper', reason: 'Unity scripts' }],
+  creator:          [{ slug: 'story-writer', name: 'Story Writer', reason: 'Any format content' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'Global reach' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Production pipeline' }],
+
+  // Learn
+  student:          [{ slug: 'code-generator', name: 'Code Generator', reason: 'See working examples' }, { slug: 'debugger', name: 'Debugger', reason: 'Understand errors' }, { slug: 'shell', name: 'Shell Toolkit', reason: 'Learn the terminal' }, { slug: 'clawhub-flashcard-maker', name: 'Flashcard Maker', reason: 'Active recall' }],
+  'self-taught':    [{ slug: 'code-generator', name: 'Code Generator', reason: 'Learn by example' }, { slug: 'debugger', name: 'Debugger', reason: 'Fix your own bugs' }, { slug: 'database-design', name: 'Database Design', reason: 'SQL foundations' }],
+  researcher:       [{ slug: 'story-writer', name: 'Story Writer', reason: 'Papers & reports' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Literature tracking' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'Multi-language sources' }, { slug: 'clawhub-arxiv-paper-reviews', name: 'arXiv Reviews', reason: 'Latest papers' }],
+  teacher:          [{ slug: 'story-writer', name: 'Story Writer', reason: 'Lesson plans & materials' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Curriculum planning' }, { slug: 'clawhub-quiz-generator', name: 'Quiz Generator', reason: 'Auto assessment' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'Multilingual students' }],
+  'data-scientist': [{ slug: 'database-design', name: 'Database Design', reason: 'SQL & data modeling' }, { slug: 'clawhub-chart-generator', name: 'Chart Generator', reason: 'Visualization' }, { slug: 'code-generator', name: 'Code Generator', reason: 'Python & R snippets' }, { slug: 'monte-carlo', name: 'Monte Carlo', reason: 'Statistical simulation' }],
+  academic:         [{ slug: 'clawhub-arxiv-paper-reviews', name: 'arXiv Reviews', reason: 'Paper discovery' }, { slug: 'story-writer', name: 'Story Writer', reason: 'Academic writing' }, { slug: 'clawhub-citation-formatter', name: 'Citation Formatter', reason: 'APA/MLA/Chicago' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'International journals' }],
+  journalist:       [{ slug: 'story-writer', name: 'Story Writer', reason: 'Articles & interviews' }, { slug: 'clawhub-fact-checker', name: 'Fact Checker', reason: 'Verify claims' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'Foreign sources' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Story pipeline' }],
+
+  // Invest
+  trader:           [{ slug: 'black-scholes', name: 'Black-Scholes', reason: 'Options pricing' }, { slug: 'monte-carlo', name: 'Monte Carlo', reason: 'Risk simulation' }, { slug: 'npv', name: 'NPV Calculator', reason: 'Protocol valuation' }, { slug: 'clawhub-crypto-trading-bot', name: 'Crypto Trading Bot', reason: 'Automated strategies' }],
+  investor:         [{ slug: 'monte-carlo', name: 'Monte Carlo', reason: 'Portfolio simulation' }, { slug: 'npv', name: 'NPV Calculator', reason: 'Project valuation' }, { slug: 'excel-formula', name: 'Excel Formula', reason: 'Financial modeling' }, { slug: 'clawhub-stock-screener', name: 'Stock Screener', reason: 'Find opportunities' }],
+  analyst:          [{ slug: 'clawhub-chart-generator', name: 'Chart Generator', reason: 'Data visualization' }, { slug: 'excel-formula', name: 'Excel Formula', reason: 'Complex formulas' }, { slug: 'database-design', name: 'Database Design', reason: 'SQL queries' }, { slug: 'monte-carlo', name: 'Monte Carlo', reason: 'Risk modeling' }],
+  defi:             [{ slug: 'clawhub-crypto-trading-bot', name: 'Crypto Trading Bot', reason: 'DeFi automation' }, { slug: 'clawhub-web3-toolkit', name: 'Web3 Toolkit', reason: 'Smart contract tools' }, { slug: 'black-scholes', name: 'Black-Scholes', reason: 'Options & derivatives' }, { slug: 'code-generator', name: 'Code Generator', reason: 'Solidity snippets' }],
+  'real-estate':    [{ slug: 'npv', name: 'NPV Calculator', reason: 'Property valuation' }, { slug: 'monte-carlo', name: 'Monte Carlo', reason: 'ROI simulation' }, { slug: 'excel-formula', name: 'Excel Formula', reason: 'Mortgage modeling' }, { slug: 'clawhub-property-analyzer', name: 'Property Analyzer', reason: 'Market analysis' }],
+
+  // Life
+  traveler:         [{ slug: 'translator-pro', name: 'Translator Pro', reason: 'Communicate anywhere' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Trip itinerary' }, { slug: 'clawhub-travel-planner', name: 'Travel Planner', reason: 'Flights & hotels' }, { slug: 'story-writer', name: 'Story Writer', reason: 'Travel journaling' }],
+  cook:             [{ slug: 'clawhub-recipe-generator', name: 'Recipe Generator', reason: 'Meal ideas' }, { slug: 'clawhub-nutrition-analyzer', name: 'Nutrition Analyzer', reason: 'Health tracking' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Meal planning' }],
+  fitness:          [{ slug: 'clawhub-workout-planner', name: 'Workout Planner', reason: 'Personalized training' }, { slug: 'clawhub-nutrition-analyzer', name: 'Nutrition Analyzer', reason: 'Diet tracking' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Habit building' }],
+  gamer:            [{ slug: 'clawhub-game-guide', name: 'Game Guide', reason: 'Walkthroughs & tips' }, { slug: 'story-writer', name: 'Story Writer', reason: 'Game narratives' }, { slug: 'code-generator', name: 'Code Generator', reason: 'Mod scripting' }],
+  'language-learner':[{ slug: 'translator-pro', name: 'Translator Pro', reason: 'Instant translation' }, { slug: 'clawhub-flashcard-maker', name: 'Flashcard Maker', reason: 'Vocabulary drills' }, { slug: 'story-writer', name: 'Story Writer', reason: 'Writing practice' }],
+  parent:           [{ slug: 'story-writer', name: 'Story Writer', reason: 'Bedtime stories' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Family schedule' }, { slug: 'clawhub-flashcard-maker', name: 'Flashcard Maker', reason: 'Kids learning' }],
+  'job-seeker':     [{ slug: 'story-writer', name: 'Story Writer', reason: 'Resume & cover letter' }, { slug: 'clawhub-interview-prep', name: 'Interview Prep', reason: 'Practice Q&A' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Application tracker' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'International jobs' }],
 }
 
 export default function RoleSelector({ onRoleChange }: { onRoleChange?: (role: string | null) => void }) {
@@ -98,17 +162,17 @@ export default function RoleSelector({ onRoleChange }: { onRoleChange?: (role: s
   return (
     <div>
       {/* Layer 1: Big categories */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 12, marginBottom: 24 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: 10, marginBottom: 24 }}>
         {CATEGORIES.map(c => (
           <button key={c.id} onClick={() => handleCatSelect(c.id)}
             style={{
-              padding: '20px 12px', borderRadius: 14, cursor: 'pointer', textAlign: 'center',
+              padding: '18px 8px', borderRadius: 14, cursor: 'pointer', textAlign: 'center',
               background: cat === c.id ? 'linear-gradient(135deg,#667eea22,#00d4ff22)' : '#0f0f23',
               border: cat === c.id ? '1px solid #667eea' : '1px solid #1a1a3e',
               transition: 'all .2s', color: cat === c.id ? '#e0e0e0' : '#aaa',
             }}>
-            <div style={{ fontSize: '1.8em', marginBottom: 8 }}>{c.icon}</div>
-            <div style={{ fontWeight: 700, fontSize: '.95em' }}>{c.label}</div>
+            <div style={{ fontSize: '1.6em', marginBottom: 6 }}>{c.icon}</div>
+            <div style={{ fontWeight: 700, fontSize: '.85em' }}>{c.label}</div>
           </button>
         ))}
       </div>
@@ -173,8 +237,7 @@ export default function RoleSelector({ onRoleChange }: { onRoleChange?: (role: s
       )}
 
       {!cat && (
-        <p style={{ textAlign: 'center', color: '#333', fontSize: '.88em', margin: 0 }}>
-        </p>
+        <p style={{ textAlign: 'center', color: '#333', fontSize: '.88em', margin: 0 }}></p>
       )}
       {cat && !role && (
         <p style={{ textAlign: 'center', color: '#333', fontSize: '.88em', margin: 0 }}>
