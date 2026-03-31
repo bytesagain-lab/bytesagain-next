@@ -84,7 +84,21 @@ const CATEGORIES = [
   },
 ]
 
-const SKILL_PACKS: Record<string, { slug: string; name: string; reason: string }[]> = {
+// role → /skills?tags=xxx 映射
+const ROLE_TAG: Record<string, string> = {
+  developer: 'coding', devops: 'devops', designer: 'writing', product: 'productivity',
+  marketer: 'social-media', seo: 'seo', sales: 'communication', hr: 'hr',
+  legal: 'legal', finance: 'finance', ecommerce: 'ecommerce', freelancer: 'productivity',
+  founder: 'automation', consultant: 'data', 'customer-support': 'communication',
+  blogger: 'writing', youtuber: 'video', podcaster: 'audio', social: 'social-media',
+  newsletter: 'email-marketing', 'video-editor': 'video', photographer: 'image-gen',
+  musician: 'audio', 'game-dev': 'coding', creator: 'writing',
+  student: 'education', 'self-taught': 'coding', researcher: 'research',
+  teacher: 'education', 'data-scientist': 'data', academic: 'research', journalist: 'writing',
+  trader: 'crypto-defi', investor: 'finance', analyst: 'data', defi: 'crypto-defi', 'real-estate': 'real-estate',
+  traveler: 'travel', cook: 'cooking', fitness: 'health', gamer: 'gaming',
+  'language-learner': 'education', parent: 'education', 'job-seeker': 'hr',
+}
   // Work
   developer:        [{ slug: 'shell', name: 'Shell Toolkit', reason: 'CLI automation' }, { slug: 'debugger', name: 'Debugger', reason: 'Root cause any error' }, { slug: 'code-generator', name: 'Code Generator', reason: 'Stop writing boilerplate' }, { slug: 'database-design', name: 'Database Design', reason: 'Schema & queries' }, { slug: 'geo-seo', name: 'GEO SEO', reason: 'Get discovered by AI' }],
   devops:           [{ slug: 'shell', name: 'Shell Toolkit', reason: 'Server automation' }, { slug: 'clawhub-docker-compose-manager', name: 'Docker Compose', reason: 'Container management' }, { slug: 'database-design', name: 'Database Design', reason: 'Schema migrations' }, { slug: 'debugger', name: 'Debugger', reason: 'Production issues' }],
@@ -208,8 +222,8 @@ export default function RoleSelector({ onRoleChange }: { onRoleChange?: (role: s
             <div style={{ color: '#888', fontSize: '.82em', textTransform: 'uppercase', letterSpacing: 1 }}>
               Your Starter Pack
             </div>
-            <a href="/use-case" style={{ color: '#667eea', fontSize: '.82em', textDecoration: 'none' }}>
-              See all packs →
+            <a href={role ? `/skills?cat=${ROLE_TAG[role] || 'productivity'}` : '/skills'} style={{ color: '#667eea', fontSize: '.82em', textDecoration: 'none' }}>
+              See all {role || ''} skills →
             </a>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
