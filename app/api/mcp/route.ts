@@ -35,39 +35,47 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ action, query, results: data || [], count: data?.length || 0 }, { headers })
       }
 
-      // 并行：本地精确匹配 + ClawHub语义搜索
-      const [localRes, chRes] = await Promise.allSettled([
+      // 并行：本地精确匹配 + ClawHub语义搜索 + GitHub
+      const [localRes, chRes, ghRes] = await Promise.allSettled([
         supabase
           .from('skills')
           .select('slug, name, description, category, tags, downloads, owner')
           .or(`name.ilike.%${query}%,description.ilike.%${query}%`)
           .order('downloads', { ascending: false })
-          .limit(Math.ceil(limit * 0.6)),
+          .limit(Math.ceil(limit * 0.5)),
         fetch(`https://clawhub.ai/api/v1/search?q=${encodeURIComponent(query)}&limit=${limit}`,
           { next: { revalidate: 300 } }),
+        fetch(`https://api.github.com/search/repositories?q=${encodeURIComponent(query)}+filename:SKILL.md&sort=stars&per_page=5`,
+          { headers: { Authorization: `token ${process.env.GITHUB_TOKEN || ''}`, Accept: 'application/vnd.github.v3+json' }, next: { revalidate: 600 } }),
       ])
 
       const local = localRes.status === 'fulfilled' ? (localRes.value.data || []) : []
-      const localSlugs = new Set(local.map((s: any) => s.slug))
+      const seenSlugs = new Set(local.map((s: any) => s.slug))
 
       let remote: any[] = []
       if (chRes.status === 'fulfilled' && chRes.value.ok) {
         const chData = await chRes.value.json()
         remote = (chData.results || [])
-          .filter((s: any) => !localSlugs.has(s.slug))
-          .slice(0, Math.floor(limit * 0.4))
-          .map((s: any) => ({
-            slug: s.slug,
-            name: s.displayName || s.slug,
-            description: s.summary || '',
-            category: '',
-            downloads: 0,
-            owner: '',
-            _source: 'clawhub',
-          }))
+          .filter((s: any) => !seenSlugs.has(s.slug))
+          .slice(0, 3)
+          .map((s: any) => {
+            seenSlugs.add(s.slug)
+            return { slug: s.slug, name: s.displayName || s.slug, description: s.summary || '', category: '', downloads: 0, owner: '', _source: 'clawhub' }
+          })
       }
 
-      const results = [...local, ...remote].slice(0, limit)
+      let ghResults: any[] = []
+      if (ghRes.status === 'fulfilled' && ghRes.value.ok) {
+        const ghData = await ghRes.value.json()
+        ghResults = (ghData.items || []).slice(0, 2).map((repo: any) => {
+          const slug = repo.name.toLowerCase().replace(/[^a-z0-9-]/g, '-')
+          if (seenSlugs.has(slug)) return null
+          seenSlugs.add(slug)
+          return { slug, name: repo.name, description: repo.description || '', category: 'github', downloads: repo.stargazers_count || 0, owner: repo.owner?.login || '', _source: 'github', _url: repo.html_url }
+        }).filter(Boolean)
+      }
+
+      const results = [...local, ...remote, ...ghResults].slice(0, limit)
       return NextResponse.json({ action, query, results, count: results.length }, { headers })
     }
 
