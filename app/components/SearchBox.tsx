@@ -52,7 +52,7 @@ export default function SearchBox() {
           type="text"
           value={query}
           onChange={e => setQuery(e.target.value)}
-          placeholder="Search 100,000+ AI skills… (e.g. 'build a SaaS', 'write code')"
+          placeholder="Search 100,000+ AI skills…"
           style={{
             width: '100%',
             padding: '12px 16px 12px 40px',

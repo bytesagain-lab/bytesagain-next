@@ -30,7 +30,7 @@ export default async function HomePage() {
           background: '#667eea18', border: '1px solid #667eea44',
           color: '#667eea', fontSize: '.8em', fontWeight: 600, marginBottom: 20, letterSpacing: 1,
         }}>
-          CURATED FROM 100,000+ OPEN-SOURCE AI SKILLS
+          100,000+ OPEN-SOURCE AI SKILLS
         </div>
         <h1 style={{ fontSize: 'clamp(2em,5vw,3.2em)', fontWeight: 900, margin: '0 0 16px', lineHeight: 1.15 }}>
           Find Your<br />
@@ -38,9 +38,8 @@ export default async function HomePage() {
             AI Skill Stack
           </span>
         </h1>
-        <p style={{ color: '#777', fontSize: '1.1em', margin: '0 0 28px', maxWidth: 520, marginLeft: 'auto', marginRight: 'auto' }}>
-          Tell us what you do. We tell you exactly what to install.
-          No searching. No guessing. Just the right skills.
+        <p style={{ color: '#777', fontSize: '1em', margin: '0 0 28px', maxWidth: 480, marginLeft: 'auto', marginRight: 'auto' }}>
+          Pick your role, get the right skills.
         </p>
 
         {/* Role selector — above search */}
