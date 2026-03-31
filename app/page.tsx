@@ -47,17 +47,13 @@ export default async function HomePage() {
         </p>
 
         {/* Live stats bar */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: 24, marginBottom: 20, flexWrap: 'wrap' }}>
-          <span style={{ color: '#444', fontSize: '.8em' }}>
-            <span style={{ color: '#667eea', fontWeight: 700 }}>{(count || 628).toLocaleString()}</span> curated skills
-          </span>
-          <span style={{ color: '#333' }}>·</span>
-          <span style={{ color: '#444', fontSize: '.8em' }}>
-            <span style={{ color: '#667eea', fontWeight: 700 }}>107,264</span> open-source skills indexed
-          </span>
-          <span style={{ color: '#333' }}>·</span>
-          <span style={{ color: '#444', fontSize: '.8em' }}>Updated {today}</span>
-        </div>
+        <p style={{ color: '#555', fontSize: '.8em', margin: '0 0 20px' }}>
+          <span style={{ color: '#667eea', fontWeight: 700 }}>{(count || 628).toLocaleString()}</span> curated
+          {' · '}
+          <span style={{ color: '#667eea', fontWeight: 700 }}>107,264</span> indexed
+          {' · '}
+          Updated {today}
+        </p>
 
         {/* Role selector + search */}
         <HomeClient articles={articles} searchAbove />
