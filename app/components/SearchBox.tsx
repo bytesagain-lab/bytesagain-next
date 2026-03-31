@@ -8,6 +8,8 @@ interface Skill {
   description: string
   category: string
   downloads: number
+  _source?: string
+  _url?: string
 }
 
 export default function SearchBox() {
@@ -76,11 +78,17 @@ export default function SearchBox() {
           zIndex: 100, maxHeight: 360, overflowY: 'auto', boxShadow: '0 8px 32px #00000088',
         }}>
           {results.map(skill => (
-            <a key={skill.slug} href={`/skill/${skill.slug}`} style={{ display: 'block', padding: '12px 16px', borderBottom: '1px solid #1a1a2e', textDecoration: 'none' }}
+            <a key={skill.slug}
+              href={skill._source === 'github' ? (skill._url || `https://github.com/search?q=${skill.slug}`) : `/skill/${skill.slug}`}
+              target={skill._source === 'github' ? '_blank' : undefined}
+              rel={skill._source === 'github' ? 'noopener' : undefined}
+              style={{ display: 'block', padding: '12px 16px', borderBottom: '1px solid #1a1a2e', textDecoration: 'none' }}
               onMouseDown={e => e.preventDefault()}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ color: '#e0e0e0', fontWeight: 600, fontSize: '.95em' }}>{skill.name || skill.slug}</span>
-                <span style={{ color: '#555', fontSize: '.75em' }}>{skill.downloads?.toLocaleString()} dl</span>
+                <span style={{ color: '#555', fontSize: '.72em' }}>
+                  {skill._source === 'github' ? '⭐ GitHub' : skill._source === 'clawhub' ? '🦀 ClawHub' : `${skill.downloads?.toLocaleString()} dl`}
+                </span>
               </div>
               <div style={{ color: '#667eea', fontSize: '.75em', marginTop: 2 }}>{skill.category}</div>
               <div style={{ color: '#666', fontSize: '.8em', marginTop: 4 }}>{skill.description?.slice(0, 70)}…</div>
