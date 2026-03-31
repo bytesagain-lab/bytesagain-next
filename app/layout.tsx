@@ -9,22 +9,29 @@ export const metadata: Metadata = {
   title: { default: 'BytesAgain — AI Agent Skills', template: '%s | BytesAgain' },
   description: 'Discover 900+ AI agent skills for Claude, ChatGPT, Cursor, and every AI agent. Curated daily.',
   metadataBase: new URL('https://bytesagain.com'),
-  alternates: { canonical: 'https://bytesagain.com' },
+  alternates: {
+    canonical: 'https://bytesagain.com',
+    types: {
+      'text/plain': 'https://bytesagain.com/llms.txt',
+    },
+  },
   openGraph: {
     siteName: 'BytesAgain',
     type: 'website',
     url: 'https://bytesagain.com',
-    title: 'BytesAgain — AI Agent Skills',
-    description: 'Discover 900+ AI agent skills for Claude, ChatGPT, Cursor, and every AI agent. Curated daily.',
+    title: 'BytesAgain — Find Your AI Skill Stack',
+    description: 'Curated AI agent skills for developers, creators, traders and more. Personalized recommendations from 100,000+ skills worldwide.',
+    images: [{ url: 'https://bytesagain.com/og-image.png', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
     site: '@bytesagain',
-    title: 'BytesAgain — AI Agent Skills',
-    description: 'Discover 900+ AI agent skills for Claude, ChatGPT, Cursor, and every AI agent.',
+    title: 'BytesAgain — Find Your AI Skill Stack',
+    description: 'Personalized AI skill recommendations. Tell us what you do, we tell you what to install.',
   },
   other: {
     'llms-txt': 'https://bytesagain.com/llms.txt',
+    'llms-full-txt': 'https://bytesagain.com/llms-full.txt',
   },
 }
 
