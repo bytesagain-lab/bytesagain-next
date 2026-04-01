@@ -85,7 +85,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {/* Explore */}
               <div>
                 <div style={{ color: '#888', fontSize: '.75em', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 10 }}>Explore</div>
-                {[['Skills', '/skills'], ['Articles', '/articles'], ['Use Cases', '/use-case'], ['Pro', '/pro']].map(([label, href]) => (
+                {[['Skills', '/skills'], ['Articles', '/articles'], ['Use Cases', '/use-case'], ['Install', '/install'], ['Pro', '/pro']].map(([label, href]) => (
                   <div key={href} style={{ marginBottom: 6 }}>
                     <a href={href} style={{ color: '#666', textDecoration: 'none', fontSize: '.85em' }}>{label}</a>
                   </div>

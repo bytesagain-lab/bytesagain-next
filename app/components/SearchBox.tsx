@@ -98,8 +98,11 @@ export default function SearchBox() {
       )}
 
       {open && results.length === 0 && !loading && query.trim() && (
-        <div style={{ position: 'absolute', top: '110%', left: 0, right: 0, background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 10, padding: 16, color: '#555', fontSize: '.9em', textAlign: 'center' }}>
-          No skills found for "{query}"
+        <div style={{ position: 'absolute', top: '110%', left: 0, right: 0, background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 10, padding: 16, textAlign: 'center' }}>
+          <div style={{ color: '#555', fontSize: '.9em', marginBottom: 10 }}>No skills found for &quot;{query}&quot;</div>
+          <a href="/install" style={{ color: '#667eea', fontSize: '.82em', textDecoration: 'none' }}>
+            🔍 Let your agent search for you → Install BytesAgain Skill
+          </a>
         </div>
       )}
     </div>

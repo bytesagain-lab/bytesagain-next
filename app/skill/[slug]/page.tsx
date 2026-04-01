@@ -125,6 +125,25 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
       </div>
 
       <RelatedSkills category={skill.category} currentSlug={slug} />
+
+      {/* Install banner */}
+      <div style={{
+        margin: '32px 0', padding: '20px 24px',
+        background: 'linear-gradient(135deg,#0f0f23,#1a1a3e)',
+        border: '1px solid #667eea44', borderRadius: 12,
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12,
+      }}>
+        <div>
+          <div style={{ fontWeight: 700, color: '#e0e0e0', marginBottom: 4 }}>🔍 Can&apos;t find the right skill?</div>
+          <div style={{ color: '#666', fontSize: '.88em' }}>Install our skill and let your agent search 43,000+ skills for you.</div>
+        </div>
+        <a href="/install" style={{
+          padding: '9px 20px', background: 'linear-gradient(135deg,#667eea,#00d4ff)',
+          borderRadius: 8, color: '#fff', fontWeight: 700, textDecoration: 'none', fontSize: '.88em', whiteSpace: 'nowrap',
+        }}>
+          Install Free →
+        </a>
+      </div>
     </div>
   )
 
