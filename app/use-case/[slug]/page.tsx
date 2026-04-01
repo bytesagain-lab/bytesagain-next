@@ -75,6 +75,21 @@ export default async function UseCasePage({ params }: Props) {
         ))}
       </div>
 
+      {/* 查看更多 skills */}
+      <div style={{ textAlign: 'center', marginBottom: 48 }}>
+        <a
+          href={uc.searchLink || `/skills?q=${encodeURIComponent(uc.title)}`}
+          style={{
+            display: 'inline-block', padding: '12px 32px',
+            background: 'linear-gradient(135deg,#667eea,#00d4ff)',
+            borderRadius: 10, color: '#fff', fontWeight: 700,
+            textDecoration: 'none', fontSize: '.95em',
+          }}
+        >
+          Browse more {uc.title} skills →
+        </a>
+      </div>
+
       {/* Other use cases */}
       <h2 style={{ fontSize: '1.1em', color: '#888', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 16 }}>
         Other Use Cases

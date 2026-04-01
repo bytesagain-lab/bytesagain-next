@@ -8,10 +8,26 @@ export interface UseCase {
     name: string
     reason: string
   }[]
+  searchLink?: string
 }
 
 export const USE_CASES: UseCase[] = [
   // ── WORK ──────────────────────────────────────────────
+  {
+    slug: 'weekly-report',
+    title: 'Write Weekly Reports',
+    description: 'Generate professional weekly, daily, and monthly reports automatically — save 2+ hours every week.',
+    icon: '📝',
+    skills: [
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Auto-generate structured weekly/monthly reports' },
+      { slug: 'note-taker', name: 'Note Taker', reason: 'Capture daily work logs to feed into reports' },
+      { slug: 'excel-formula', name: 'Excel Formula', reason: 'Build data tables and charts for your reports' },
+      { slug: 'story-writer', name: 'Story Writer', reason: 'Polish report language for executive audiences' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Track completed tasks to include in your summary' },
+      { slug: 'scheduler', name: 'Scheduler', reason: 'Set automated reminders for report deadlines' },
+    ],
+    searchLink: '/skills?q=report+generator+weekly',
+  },
   {
     slug: 'build-saas',
     title: 'Build a SaaS Product',
