@@ -44,6 +44,7 @@ export default function NavBar() {
           <a href="/articles" style={{ color: '#ccc', textDecoration: 'none', fontSize: '.9em' }}>Articles</a>
           <a href="/skills" style={{ color: '#ccc', textDecoration: 'none', fontSize: '.9em' }}>Skills</a>
           <a href="/use-case" style={{ color: '#ccc', textDecoration: 'none', fontSize: '.9em' }}>Cases</a>
+          <a href="/install" style={{ color: '#ccc', textDecoration: 'none', fontSize: '.9em' }}>Install</a>
           {!loading && (
             email ? (
               <>
