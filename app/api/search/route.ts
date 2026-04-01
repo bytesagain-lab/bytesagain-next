@@ -122,10 +122,13 @@ export async function GET(req: NextRequest) {
   // 中文查询扩展为英文
   const searchQ = expandQuery(q)
 
-  try {
-    // 全文搜索（Postgres tsvector）+ fallback ilike
-    const tsQuery = searchQ.trim().split(/\s+/).join(' & ')
+  // 多词查询：取最长的词单独搜（避免 AND 过严），或用 websearch 模式
+  const words = searchQ.trim().split(/\s+/)
+  const primaryWord = words.reduce((a, b) => a.length >= b.length ? a : b, words[0] || searchQ)
+  // websearch 模式支持自然语言，比 & 宽松
+  const tsQuery = searchQ.trim()
 
+  try {
     const [ftsRes, ilikeRes, chRes] = await Promise.allSettled([
       // 1. 全文搜索（快，准）
       supabase
@@ -135,13 +138,16 @@ export async function GET(req: NextRequest) {
         .order('downloads', { ascending: false })
         .limit(6),
 
-      // 2. ilike fallback（兜底，捕捉全文搜索漏掉的）
+      // 2. ilike fallback — 用主要词搜，覆盖多词查询漏网
       supabase
         .from('skills')
         .select('slug, name, description, category, downloads, stars, owner, source, source_url, tags')
-        .or(`name.ilike.%${searchQ}%,description.ilike.%${searchQ}%`)
+        .or(`name.ilike.%${primaryWord}%,description.ilike.%${primaryWord}%`)
         .order('downloads', { ascending: false })
-        .limit(4),
+        .limit(6),
+        .or(`name.ilike.%${primaryWord}%,description.ilike.%${primaryWord}%`)
+        .order('downloads', { ascending: false })
+        .limit(6),
 
       // 3. ClawHub语义搜索（补充没入库的新skill）
       fetch(`https://clawhub.ai/api/v1/search?q=${encodeURIComponent(searchQ)}&limit=6`, {
