@@ -17,7 +17,11 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
       },
     ],
-    sitemap: 'https://bytesagain.com/sitemap.xml',
+    sitemap: [
+      'https://bytesagain.com/sitemap-index.xml',
+      'https://bytesagain.com/sitemap.xml',
+      'https://bytesagain.com/skills-sitemap.xml',
+    ],
     host: 'https://bytesagain.com',
   }
 }
