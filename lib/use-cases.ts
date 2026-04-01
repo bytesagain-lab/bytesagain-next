@@ -2760,4 +2760,814 @@ export const USE_CASES: UseCase[] = [
     ],
     searchLink: '/skills?q=claims+processing',
   },
+
+  {
+    slug: 'performance-review-ai',
+    title: 'AI Assistant for Performance Reviews',
+    description: 'An AI agent that helps with conducting and analyzing employee performance reviews.',
+    icon: '📊',
+    skills: [
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes employee performance data to identify trends and areas for improvement.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates detailed performance review reports based on collected data.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Helps set goals and action plans for employees based on review feedback.' },
+      { slug: 'feedback-analyzer', name: 'Feedback Analyzer', reason: 'Evaluates qualitative feedback from managers and peers to provide insights.' },
+      { slug: 'chart-generator', name: 'Chart Generator', reason: 'Visualizes performance metrics and progress over time.' },
+    ],
+    searchLink: '/skills?q=performance+review',
+  },
+
+  {
+    slug: 'okr-tracker',
+    title: 'AI OKR Tracker',
+    description: 'An AI agent that helps users set, track, and achieve their Objectives and Key Results.',
+    icon: '🎯',
+    skills: [
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Breaks down OKRs into actionable tasks and schedules them.' },
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes progress data to provide insights and recommendations.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates regular progress reports and summaries for OKRs.' },
+      { slug: 'chart-generator', name: 'Chart Generator', reason: 'Visualizes OKR progress with charts and graphs.' },
+      { slug: 'note-taker', name: 'Note Taker', reason: 'Records key decisions, feedback, and updates related to OKRs.' },
+    ],
+    searchLink: '/skills?q=okr',
+  },
+
+  {
+    slug: 'expense-report-ai',
+    title: 'AI Assistant for Expense Reports',
+    description: 'Automates and simplifies the creation and management of expense reports.',
+    icon: '💰',
+    skills: [
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates clear and organized expense reports from raw data.' },
+      { slug: 'invoice-parser', name: 'Invoice Parser', reason: 'Extracts relevant information from invoices and receipts.' },
+      { slug: 'data-analysis', name: 'Data Analyst', reason: 'Analyzes expense patterns and provides insights.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Organizes and schedules expense report submissions.' },
+      { slug: 'pdf-reader', name: 'PDF Reader', reason: 'Reads and processes PDF documents for expense tracking.' },
+    ],
+    searchLink: '/skills?q=expense+report',
+  },
+
+  {
+    slug: 'time-tracker-ai',
+    title: 'Smart Time Tracking Assistant',
+    description: 'Automate and optimize your time tracking with AI-powered insights and scheduling.',
+    icon: '⏱️',
+    skills: [
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Organizes and schedules tasks to improve time management.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates detailed time tracking reports for productivity analysis.' },
+      { slug: 'scheduler', name: 'Scheduler', reason: 'Automatically schedules tasks based on user preferences and deadlines.' },
+      { slug: 'note-taker', name: 'Note Taker', reason: 'Records notes and time spent on specific activities for accurate tracking.' },
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes time usage patterns to identify inefficiencies and suggest improvements.' },
+    ],
+    searchLink: '/skills?q=time-tracking',
+  },
+
+  {
+    slug: 'meeting-notes-ai',
+    title: 'Smart Meeting Notes',
+    description: 'Automatically generate and organize meeting notes using AI.',
+    icon: '📝',
+    skills: [
+      { slug: 'note-taker', name: 'Note Taker', reason: 'Captures key points and action items from meetings.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Summarizes meeting content into structured reports.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Identifies and organizes action items with deadlines.' },
+      { slug: 'translator-pro', name: 'Translator Pro', reason: 'Translates notes into multiple languages for global teams.' },
+      { slug: 'chart-generator', name: 'Chart Generator', reason: 'Creates visual summaries of meeting data and discussions.' },
+    ],
+    searchLink: '/skills?q=meeting+notes',
+  },
+
+  {
+    slug: 'standup-report-ai',
+    title: 'Daily Standup Assistant',
+    description: 'An AI agent that helps teams create and manage daily standup reports efficiently.',
+    icon: '🤖',
+    skills: [
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates structured standup reports based on team input.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Helps organize and prioritize tasks for the next day.' },
+      { slug: 'note-taker', name: 'Note Taker', reason: 'Captures key discussion points from standup meetings.' },
+      { slug: 'scheduler', name: 'Scheduler', reason: 'Reminds team members to submit their standup updates.' },
+      { slug: 'data-analysis', name: 'Data Analyst', reason: 'Analyzes past standup data to identify trends and improvements.' },
+    ],
+    searchLink: '/skills?q=standup',
+  },
+
+  {
+    slug: 'job-description-helper',
+    title: 'AI Job Description Assistant',
+    description: 'Generate and optimize job descriptions with AI.',
+    icon: '💼',
+    skills: [
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyze job market trends to improve description relevance.' },
+      { slug: 'report-generator', name: 'Report Generation', reason: 'Create structured reports based on job requirements.' },
+      { slug: 'web-scraper', name: 'Web Scraper', reason: 'Extract job listings and industry standards for reference.' },
+      { slug: 'api-tester', name: 'API Tester', reason: 'Validate integration with job boards and recruitment platforms.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Organize the process of drafting and reviewing job descriptions.' },
+    ],
+    searchLink: '/skills?q=job+description',
+  },
+
+  {
+    slug: 'salary-negotiation-ai',
+    title: 'Salary Negotiation Assistant',
+    description: 'Helps users negotiate better salaries using data and strategy.',
+    icon: '💼',
+    skills: [
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes market salary data to provide competitive insights.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates tailored negotiation reports with key points and strategies.' },
+      { slug: 'email-assistant', name: 'Email Assistant', reason: 'Drafts professional negotiation emails and responses.' },
+      { slug: 'translator-pro', name: 'Translator Pro', reason: 'Assists in communicating with international employers or in different languages.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Organizes steps for effective negotiation preparation.' },
+    ],
+    searchLink: '/skills?q=salary+negotiation',
+  },
+
+  {
+    slug: 'background-check-agent',
+    title: 'AI Agent for Background Check',
+    description: 'Automates and streamlines the background check process using AI.',
+    icon: '🕵️‍♂️',
+    skills: [
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes personal and professional data for consistency and accuracy.' },
+      { slug: 'web-scraper', name: 'Web Scraper', reason: 'Extracts relevant information from online sources such as social media and public records.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates detailed and structured background check reports.' },
+      { slug: 'security-scanner', name: 'Security Scanner', reason: 'Identifies potential security risks or red flags in the subjects history.' },
+      { slug: 'translator-pro', name: 'Translator Pro', reason: 'Translates documents and records from different languages for comprehensive review.' },
+    ],
+    searchLink: '/skills?q=background+check',
+  },
+
+  {
+    slug: 'seo-audit-agent',
+    title: 'AI SEO Audit Tool',
+    description: 'Comprehensive AI-powered tool for analyzing and improving website SEO performance.',
+    icon: '🔍',
+    skills: [
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes website data to identify SEO opportunities and trends.' },
+      { slug: 'report-generator', name: 'Report Generation', reason: 'Creates detailed SEO audit reports with actionable insights.' },
+      { slug: 'web-scraper', name: 'Web Scraping', reason: 'Extracts website content and metadata for in-depth analysis.' },
+      { slug: 'api-tester', name: 'API Testing', reason: 'Validates SEO tools and integrations for optimal performance.' },
+      { slug: 'task-planner', name: 'Task Planning', reason: 'Organizes and prioritizes SEO tasks for efficient execution.' },
+    ],
+    searchLink: '/skills?q=seo-audit',
+  },
+
+  {
+    slug: 'keyword-research-agent',
+    title: 'AI Keyword Research Assistant',
+    description: 'Find high-value keywords and optimize your content strategy.',
+    icon: '🔍',
+    skills: [
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes search trends and keyword volume.' },
+      { slug: 'web-scraper', name: 'Web Scraper', reason: 'Extracts keyword data from search engines and competitors.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates detailed keyword research reports.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Organizes keyword research tasks and workflows.' },
+      { slug: 'chart-generator', name: 'Chart Generator', reason: 'Visualizes keyword performance and trends.' },
+    ],
+    searchLink: '/skills?q=keywords',
+  },
+
+  {
+    slug: 'competitor-intelligence-agent',
+    title: 'Competitor Analysis AI Agent',
+    description: 'Automates the collection and analysis of competitor data to provide strategic insights.',
+    icon: '🕵️‍♂️',
+    skills: [
+      { slug: 'web-scraper', name: 'Web Scraper', reason: 'Extracts public competitor data from websites and online platforms.' },
+      { slug: 'data-analysis', name: 'Data Analyst', reason: 'Analyzes competitor pricing, product features, and marketing strategies.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates comprehensive competitor analysis reports automatically.' },
+      { slug: 'chart-generator', name: 'Chart Generator', reason: 'Visualizes competitor performance metrics for easy interpretation.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Organizes and schedules regular competitor monitoring tasks.' },
+    ],
+    searchLink: '/skills?q=competitor+analysis',
+  },
+
+  {
+    slug: 'ad-copywriter-ai',
+    title: 'AI Ad Copywriter',
+    description: 'Generate compelling ad copy tailored to your brand and audience.',
+    icon: '📝',
+    skills: [
+      { slug: 'story-writer', name: 'Story Writer', reason: 'Creates engaging narratives for ads.' },
+      { slug: 'translator-pro', name: 'Translator Pro', reason: 'Adapts copy for different languages and regions.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Summarizes campaign performance and insights.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Organizes ad creation and execution steps.' },
+      { slug: 'chart-generator', name: 'Chart Generator', reason: 'Visualizes ad performance metrics.' },
+    ],
+    searchLink: '/skills?q=ad+copywriting',
+  },
+
+  {
+    slug: 'a-b-testing-agent',
+    title: 'A/B Testing Assistant',
+    description: 'Automates and optimizes A/B testing processes with AI insights.',
+    icon: '🧪',
+    skills: [
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes test results to identify trends and patterns.' },
+      { slug: 'report-generator', name: 'Report Generation', reason: 'Creates detailed summaries of test outcomes.' },
+      { slug: 'web-scraper', name: 'Web Scraper', reason: 'Collects data from websites for testing purposes.' },
+      { slug: 'api-tester', name: 'API Tester', reason: 'Tests APIs to ensure they perform consistently across variations.' },
+      { slug: 'chart-generator', name: 'Chart Generation', reason: 'Visualizes test results for easy interpretation.' },
+    ],
+    searchLink: '/skills?q=a+b+testing',
+  },
+
+  {
+    slug: 'funnel-optimizer',
+    title: 'AI Agent for Funnel Optimization',
+    description: 'Automates and improves conversion rates through data-driven funnel analysis.',
+    icon: '🚀',
+    skills: [
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Identifies bottlenecks and opportunities in the customer journey.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates detailed performance reports to track funnel improvements.' },
+      { slug: 'web-scraper', name: 'Web Scraper', reason: 'Gathers competitor and market data to inform optimization strategies.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Organizes and prioritizes optimization tasks for maximum efficiency.' },
+      { slug: 'lead-generator', name: 'Lead Generator', reason: 'Enhances lead capture and qualification processes within the funnel.' },
+    ],
+    searchLink: '/skills?q=funnel+optimization',
+  },
+
+  {
+    slug: 'affiliate-marketing-ai',
+    title: 'Smart Affiliate Marketing Assistant',
+    description: 'Automate and optimize affiliate marketing campaigns with AI-driven insights and actions.',
+    icon: '💰',
+    skills: [
+      { slug: 'lead-generator', name: 'Lead Generator', reason: 'Identify and qualify potential customers for affiliate products.' },
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyze campaign performance and user behavior to improve ROI.' },
+      { slug: 'web-scraper', name: 'Web Scraper', reason: 'Extract product details, prices, and reviews from affiliate websites.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Create detailed performance reports for affiliate campaigns.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Automate scheduling and tracking of affiliate marketing tasks.' },
+    ],
+    searchLink: '/skills?q=affiliate+marketing',
+  },
+
+  {
+    slug: 'influencer-outreach-agent',
+    title: 'AI Agent for Influencer Outreach',
+    description: 'Automates and optimizes outreach to influencers for brand collaborations.',
+    icon: '🤝',
+    skills: [
+      { slug: 'email-assistant', name: 'Email Assistant', reason: 'Crafts personalized outreach emails to influencers.' },
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes influencer metrics and engagement data.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates performance reports for outreach campaigns.' },
+      { slug: 'web-scraper', name: 'Web Scraper', reason: 'Extracts influencer data from social media platforms.' },
+      { slug: 'lead-generator', name: 'Lead Generator', reason: 'Identifies and qualifies potential influencers for outreach.' },
+    ],
+    searchLink: '/skills?q=influencer+outreach',
+  },
+
+  {
+    slug: 'press-release-ai',
+    title: 'Press Release Assistant',
+    description: 'Automates the creation and distribution of professional press releases.',
+    icon: '📰',
+    skills: [
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates well-structured press releases with key information' },
+      { slug: 'web-scraper', name: 'Web Scraper', reason: 'Gathers relevant data and news for accurate press release content' },
+      { slug: 'translator-pro', name: 'Translator Pro', reason: 'Supports multilingual press releases for global audiences' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Organizes the workflow for press release distribution' },
+      { slug: 'email-assistant', name: 'Email Assistant', reason: 'Sends press releases to journalists and media outlets' },
+    ],
+    searchLink: '/skills?q=press+release',
+  },
+
+  {
+    slug: 'code-documentor',
+    title: 'AI Code Documentation Assistant',
+    description: 'Automatically generates and maintains high-quality code documentation.',
+    icon: '📝',
+    skills: [
+      { slug: 'code-reviewer', name: 'Code Reviewer', reason: 'Reviews code for quality, consistency, and best practices.' },
+      { slug: 'documentation-generator', name: 'Documentation Generator', reason: 'Creates detailed API and function documentation from code.' },
+      { slug: 'api-tester', name: 'API Tester', reason: 'Tests APIs to ensure they work as documented.' },
+      { slug: 'sql-assistant', name: 'SQL Assistant', reason: 'Helps document and explain SQL queries and databases.' },
+      { slug: 'github-assistant', name: 'GitHub Assistant', reason: 'Integrates with GitHub to manage and update documentation in repositories.' },
+    ],
+    searchLink: '/skills?q=code+documentation',
+  },
+
+  {
+    slug: 'code-refactorer',
+    title: 'Smart Code Refactoring',
+    description: 'An AI agent that improves code quality and structure automatically.',
+    icon: '🤖',
+    skills: [
+      { slug: 'code-reviewer', name: 'Code Reviewer', reason: 'Identifies potential issues and suggests improvements in code.' },
+      { slug: 'sql-assistant', name: 'SQL Assistant', reason: 'Optimizes and refactors SQL queries for better performance.' },
+      { slug: 'web-scraper', name: 'Web Scraper', reason: 'Extracts and restructures code from web sources for analysis.' },
+      { slug: 'api-tester', name: 'API Tester', reason: 'Ensures refactored code maintains functionality through automated testing.' },
+      { slug: 'github-assistant', name: 'GitHub Assistant', reason: 'Integrates with repositories to manage and track refactoring changes.' },
+    ],
+    searchLink: '/skills?q=code+refactoring',
+  },
+
+  {
+    slug: 'pr-review-helper',
+    title: 'PR Review Assistant',
+    description: 'An AI agent that reviews pull requests and provides actionable feedback.',
+    icon: '🤖',
+    skills: [
+      { slug: 'code-reviewer', name: 'Code Reviewer', reason: 'Analyzes code changes for best practices, bugs, and readability.' },
+      { slug: 'security-scanner', name: 'Security Scanner', reason: 'Identifies potential security vulnerabilities in the code.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Suggests follow-up tasks based on the PR content.' },
+      { slug: 'translator-pro', name: 'Translator Pro', reason: 'Helps translate code comments or documentation into multiple languages.' },
+      { slug: 'github-assistant', name: 'GitHub Assistant', reason: 'Automates GitHub-related actions like labeling, commenting, and merging.' },
+    ],
+    searchLink: '/skills?q=pr+review',
+  },
+
+  {
+    slug: 'api-docs-ai',
+    title: 'API Documentation Assistant',
+    description: 'An AI agent that simplifies and enhances API documentation processes.',
+    icon: '📦',
+    skills: [
+      { slug: 'api-tester', name: 'API Tester', reason: 'Validates API endpoints for correctness and reliability.' },
+      { slug: 'code-reviewer', name: 'Code Reviewer', reason: 'Analyzes code snippets to ensure best practices and clarity.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates detailed documentation reports from API specifications.' },
+      { slug: 'translator-pro', name: 'Translator Pro', reason: 'Translates API documentation into multiple languages.' },
+      { slug: 'web-scraper', name: 'Web Scraper', reason: 'Extracts API-related information from web sources.' },
+    ],
+    searchLink: '/skills?q=api+documentation',
+  },
+
+  {
+    slug: 'database-schema-helper',
+    title: 'Database Schema Assistant',
+    description: 'An AI agent that helps with understanding, generating, and optimizing database schemas.',
+    icon: '📊',
+    skills: [
+      { slug: 'sql-assistant', name: 'SQL Assistant', reason: 'Assists in writing and optimizing SQL queries based on the database schema.' },
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Helps analyze data structures and relationships within the database.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates detailed reports about database schema and structure.' },
+      { slug: 'api-tester', name: 'API Tester', reason: 'Tests APIs that interact with the database to ensure proper schema alignment.' },
+      { slug: 'chart-generator', name: 'Chart Generator', reason: 'Visualizes database relationships and schema through diagrams and charts.' },
+    ],
+    searchLink: '/skills?q=database+schema',
+  },
+
+  {
+    slug: 'unit-test-ai',
+    title: 'AI Agent for Unit Testing',
+    description: 'Automates and optimizes the process of writing and executing unit tests.',
+    icon: '🧪',
+    skills: [
+      { slug: 'code-reviewer', name: 'Code Reviewer', reason: 'Reviews test code for best practices and potential issues.' },
+      { slug: 'api-tester', name: 'API Tester', reason: 'Tests API endpoints to ensure they work as expected during unit testing.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Generates detailed reports on test coverage and results.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Plans and schedules test execution based on project needs.' },
+      { slug: 'sql-assistant', name: 'SQL Assistant', reason: 'Helps with database-related unit tests and queries.' },
+    ],
+    searchLink: '/skills?q=unit+testing',
+  },
+
+  {
+    slug: 'ci-cd-ai-guardian',
+    title: 'AI Agent for CI/CD Pipeline',
+    description: 'Automates and optimizes continuous integration and delivery processes with intelligent decision-making.',
+    icon: '⚙️',
+    skills: [
+      { slug: 'github-assistant', name: 'GitHub Assistant', reason: 'Integrates with GitHub to manage pull requests, branch merges, and repository interactions.' },
+      { slug: 'api-tester', name: 'API Tester', reason: 'Automatically tests APIs during the pipeline to ensure functionality and reliability.' },
+      { slug: 'security-scanner', name: 'Security Scanner', reason: 'Scans code for vulnerabilities and security issues before deployment.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Organizes and schedules tasks within the CI/CD workflow for efficiency.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates detailed reports on build status, test results, and deployment outcomes.' },
+    ],
+    searchLink: '/skills?q=ci/cd+pipeline',
+  },
+
+  {
+    slug: 'k8s-ai-helper',
+    title: 'Kubernetes AI Assistant',
+    description: 'An AI agent that simplifies Kubernetes management and troubleshooting.',
+    icon: '⎈',
+    skills: [
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes cluster metrics and logs for insights.' },
+      { slug: 'report-generator', name: 'Report Generation', reason: 'Creates detailed reports on cluster health and performance.' },
+      { slug: 'api-tester', name: 'API Testing', reason: 'Tests Kubernetes API endpoints for reliability.' },
+      { slug: 'sql-assistant', name: 'SQL Assistant', reason: 'Queries and manages database-backed Kubernetes configurations.' },
+      { slug: 'task-planner', name: 'Task Planning', reason: 'Automates deployment and maintenance workflows.' },
+    ],
+    searchLink: '/skills?q=kubernetes',
+  },
+
+  {
+    slug: 'terraform-ai-helper',
+    title: 'Terraform AI Assistant',
+    description: 'An AI agent that assists with Terraform infrastructure as code.',
+    icon: '🧱',
+    skills: [
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes infrastructure configurations for optimization opportunities.' },
+      { slug: 'code-reviewer', name: 'Code Reviewer', reason: 'Reviews Terraform code for best practices and potential errors.' },
+      { slug: 'security-scanner', name: 'Security Scanner', reason: 'Identifies security vulnerabilities in Terraform configurations.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates detailed reports on infrastructure health and compliance.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Plans and schedules Terraform deployment tasks efficiently.' },
+    ],
+    searchLink: '/skills?q=terraform',
+  },
+
+  {
+    slug: 'invoice-automator',
+    title: 'AI Agent for Invoice Automation',
+    description: 'Streamlines invoice processing and management with intelligent data extraction and workflow automation.',
+    icon: '📄',
+    skills: [
+      { slug: 'pdf-reader', name: 'PDF Reader', reason: 'Extracts text and data from invoice PDFs.' },
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Identifies key invoice details like amounts, dates, and vendors.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates summaries and reports for financial tracking.' },
+      { slug: 'api-tester', name: 'API Tester', reason: 'Integrates with accounting systems for seamless data transfer.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Automates approval workflows and payment scheduling.' },
+    ],
+    searchLink: '/skills?q=invoice+automation',
+  },
+
+  {
+    slug: 'expense-tracker-ai',
+    title: 'Smart Expense Tracking Assistant',
+    description: 'An AI agent that helps track and manage personal or business expenses effortlessly.',
+    icon: '💰',
+    skills: [
+      { slug: 'email-assistant', name: 'Email Assistant', reason: 'Automatically sorts and categorizes expense-related emails.' },
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes spending patterns and provides insights.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates detailed expense reports for personal or business use.' },
+      { slug: 'pdf-reader', name: 'PDF Reader', reason: 'Extracts expense data from receipts and invoices in PDF format.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Helps set reminders for bill payments and expense tracking tasks.' },
+    ],
+    searchLink: '/skills?q=expense+tracking',
+  },
+
+  {
+    slug: 'budget-planner-ai',
+    title: 'Smart Budget Planning Assistant',
+    description: 'An AI agent that helps users create and manage personal or business budgets efficiently.',
+    icon: '💰',
+    skills: [
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes spending patterns and income sources to provide insights for better budgeting.' },
+      { slug: 'report-generator', name: 'Report Generation', reason: 'Creates detailed budget reports and visual summaries for easy tracking and review.' },
+      { slug: 'task-planner', name: 'Task Planning', reason: 'Helps set financial goals and plan monthly or annual budget tasks.' },
+      { slug: 'chart-generator', name: 'Chart Generation', reason: 'Visualizes budget data through charts and graphs for clearer understanding.' },
+      { slug: 'invoice-parser', name: 'Invoice Parsing', reason: 'Extracts relevant financial data from invoices to streamline expense tracking.' },
+    ],
+    searchLink: '/skills?q=budget+planning',
+  },
+
+  {
+    slug: 'audit-report-ai',
+    title: 'Audit Report Assistant',
+    description: 'An AI agent that generates and analyzes audit reports efficiently.',
+    icon: '📄',
+    skills: [
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes financial and operational data to identify discrepancies.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates structured and professional audit reports automatically.' },
+      { slug: 'sql-assistant', name: 'SQL Assistant', reason: 'Queries and validates data from databases for accuracy.' },
+      { slug: 'pdf-reader', name: 'PDF Reader', reason: 'Extracts and processes information from audit-related PDF documents.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Organizes and schedules audit tasks for teams.' },
+    ],
+    searchLink: '/skills?q=audit+report',
+  },
+
+  {
+    slug: 'contract-creator',
+    title: 'AI Agent for Contract Drafting',
+    description: 'Automates the creation and review of legal contracts with accuracy and efficiency.',
+    icon: '📄',
+    skills: [
+      { slug: 'pdf-reader', name: 'PDF Reader', reason: 'Extracts text and data from contract documents for analysis.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates summaries and key points from contract content.' },
+      { slug: 'translator-pro', name: 'Translator Pro', reason: 'Supports multilingual contract drafting and translation.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Organizes contract drafting steps and deadlines.' },
+      { slug: 'code-reviewer', name: 'Code Reviewer', reason: 'Reviews and improves contract templates for clarity and compliance.' },
+    ],
+    searchLink: '/skills?q=contract+drafting',
+  },
+
+  {
+    slug: 'nda-reviewer',
+    title: 'AI Agent for NDA Review',
+    description: 'Automates the review and analysis of non-disclosure agreements to identify key terms, risks, and compliance issues.',
+    icon: '🛡️',
+    skills: [
+      { slug: 'pdf-reader', name: 'PDF Reader', reason: 'To extract and process text from NDA documents.' },
+      { slug: 'security-scanner', name: 'Security Scanner', reason: 'To detect potential security risks and vulnerabilities in the agreement.' },
+      { slug: 'translator-pro', name: 'Translator Pro', reason: 'To translate NDAs into different languages for global teams.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'To outline actions required after reviewing an NDA.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'To create detailed summaries and risk assessments of reviewed NDAs.' },
+    ],
+    searchLink: '/skills?q=nda+review',
+  },
+
+  {
+    slug: 'gdpr-compliance-agent',
+    title: 'GDPR Compliance Assistant',
+    description: 'An AI agent that helps organizations ensure compliance with GDPR regulations.',
+    icon: '🛡️',
+    skills: [
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Identifies and categorizes personal data within an organization.' },
+      { slug: 'report-generator', name: 'Report Generation', reason: 'Creates detailed compliance reports for audits and regulatory reviews.' },
+      { slug: 'security-scanner', name: 'Security Scanner', reason: 'Detects vulnerabilities in data handling and storage practices.' },
+      { slug: 'translator-pro', name: 'Translator Pro', reason: 'Translates legal documents and consent forms into multiple languages.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Organizes and tracks GDPR-related tasks and deadlines.' },
+    ],
+    searchLink: '/skills?q=gdpr',
+  },
+
+  {
+    slug: 'terms-ai-agent',
+    title: 'Terms of Service Assistant',
+    description: 'AI agent that simplifies and explains legal terms for users.',
+    icon: '⚖️',
+    skills: [
+      { slug: 'pdf-reader', name: 'PDF Reader', reason: 'To extract and process text from legal documents.' },
+      { slug: 'translator-pro', name: 'Translator Pro', reason: 'To translate complex legal language into plain English.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'To summarize key points of terms of service.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'To break down the review process into manageable steps.' },
+      { slug: 'note-taker', name: 'Note Taker', reason: 'To help users save important highlights and questions.' },
+    ],
+    searchLink: '/skills?q=terms',
+  },
+
+  {
+    slug: 'privacy-policy-helper',
+    title: 'Privacy Policy Assistant',
+    description: 'An AI agent that helps generate, analyze, and explain privacy policies.',
+    icon: '🔒',
+    skills: [
+      { slug: 'pdf-reader', name: 'PDF Reader', reason: 'To extract and process text from existing privacy policy documents.' },
+      { slug: 'code-reviewer', name: 'Code Reviewer', reason: 'To check for compliance with data protection regulations in code or scripts related to data handling.' },
+      { slug: 'translator-pro', name: 'Translator Pro', reason: 'To translate privacy policies into multiple languages for global compliance.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'To create detailed reports on policy compliance and data usage practices.' },
+      { slug: 'security-scanner', name: 'Security Scanner', reason: 'To identify potential security risks in how data is handled within the policy.' },
+    ],
+    searchLink: '/skills?q=privacy+policy',
+  },
+
+  {
+    slug: 'product-descriptor',
+    title: 'Smart Product Describer',
+    description: 'Generate compelling and accurate product descriptions using AI.',
+    icon: '📦',
+    skills: [
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Extract key features and attributes from product data.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Compile structured and informative product summaries.' },
+      { slug: 'translator-pro', name: 'Translator Pro', reason: 'Translate product descriptions into multiple languages.' },
+      { slug: 'story-writer', name: 'Story Writer', reason: 'Create engaging and persuasive product narratives.' },
+      { slug: 'pdf-reader', name: 'PDF Reader', reason: 'Extract product details from PDF documents.' },
+    ],
+    searchLink: '/skills?q=product+descriptions',
+  },
+
+  {
+    slug: 'review-response-helper',
+    title: 'Smart Review Response Assistant',
+    description: 'Automates and enhances responses to customer reviews with AI.',
+    icon: '🤖',
+    skills: [
+      { slug: 'email-assistant', name: 'Email Assistant', reason: 'To craft professional and personalized response emails.' },
+      { slug: 'text-analyzer', name: 'Text Analyzer', reason: 'To understand the sentiment and key points in customer reviews.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'To summarize review trends and generate actionable insights.' },
+      { slug: 'translator-pro', name: 'Translator Pro', reason: 'To respond to reviews in multiple languages effectively.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'To organize and schedule review response tasks efficiently.' },
+    ],
+    searchLink: '/skills?q=review+response',
+  },
+
+  {
+    slug: 'return-processor',
+    title: 'AI Agent for Return Processing',
+    description: 'Automates and streamlines the return and refund process for customers.',
+    icon: '📦',
+    skills: [
+      { slug: 'email-assistant', name: 'Email Assistant', reason: 'Handles communication with customers regarding returns and refunds.' },
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes return patterns and customer behavior to improve processes.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates detailed reports on return statistics and trends.' },
+      { slug: 'web-scraper', name: 'Web Scraper', reason: 'Extracts relevant data from return policy pages or customer feedback forms.' },
+      { slug: 'api-tester', name: 'API Tester', reason: 'Ensures integration with e-commerce platforms and return management systems.' },
+    ],
+    searchLink: '/skills?q=return+processing',
+  },
+
+  {
+    slug: 'order-tracker-ai',
+    title: 'Real-Time Order Tracking',
+    description: 'Track orders across multiple platforms with an AI-powered assistant.',
+    icon: '📦',
+    skills: [
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes order data to identify trends and issues.' },
+      { slug: 'web-scraper', name: 'Web Scraper', reason: 'Extracts order status from various e-commerce websites.' },
+      { slug: 'api-tester', name: 'API Tester', reason: 'Verifies integration with order management systems.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates detailed order tracking reports for users.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Automates follow-up tasks for delayed or missing orders.' },
+    ],
+    searchLink: '/skills?q=order+tracking',
+  },
+
+  {
+    slug: 'dropshipping-ai-agent',
+    title: 'AI Agent for Dropshipping',
+    description: 'Automates and optimizes dropshipping operations with intelligent decision-making.',
+    icon: '🛒',
+    skills: [
+      { slug: 'lead-generator', name: 'Lead Generator', reason: 'Identifies potential customers and market opportunities for dropshipping products.' },
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes sales data, trends, and customer behavior to improve product selection and marketing strategies.' },
+      { slug: 'web-scraper', name: 'Web Scraper', reason: 'Extracts product information, pricing, and reviews from e-commerce platforms to find profitable items.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Organizes and automates daily tasks such as order tracking, supplier communication, and inventory management.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates detailed performance reports to track profit margins, sales growth, and campaign effectiveness.' },
+    ],
+    searchLink: '/skills?q=dropshipping',
+  },
+
+  {
+    slug: 'amazon-listing-helper',
+    title: 'Amazon Listing Assistant',
+    description: 'Generate optimized product listings with AI.',
+    icon: '📦',
+    skills: [
+      { slug: 'product-title-generator', name: 'Product Title Generator', reason: 'Creates compelling and SEO-friendly product titles.' },
+      { slug: 'bullet-point-creator', name: 'Bullet Point Creator', reason: 'Generates clear, persuasive bullet points for product descriptions.' },
+      { slug: 'keyword-researcher', name: 'Keyword Researcher', reason: 'Identifies high-performing keywords for Amazon SEO.' },
+      { slug: 'image-description-writer', name: 'Image Description Writer', reason: 'Writes optimized image alt text for better visibility.' },
+      { slug: 'pricing-strategist', name: 'Pricing Strategist', reason: 'Helps set competitive and profitable pricing strategies.' },
+    ],
+    searchLink: '/skills?q=amazon+listing',
+  },
+
+  {
+    slug: 'lesson-planner-ai',
+    title: 'AI Lesson Planner',
+    description: 'An AI agent that helps teachers create effective and engaging lesson plans.',
+    icon: '📚',
+    skills: [
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes student performance data to tailor lesson content.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates detailed lesson plan reports for teachers.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Organizes daily and weekly lesson tasks efficiently.' },
+      { slug: 'chart-generator', name: 'Chart Generator', reason: 'Visualizes curriculum flow and learning objectives.' },
+      { slug: 'note-taker', name: 'Note Taker', reason: 'Summarizes key points and resources for each lesson.' },
+    ],
+    searchLink: '/skills?q=lesson-planning',
+  },
+
+  {
+    slug: 'quiz-creator',
+    title: 'AI Quiz Generator',
+    description: 'Create personalized quizzes with AI-powered question generation.',
+    icon: '🧠',
+    skills: [
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyze user input to determine quiz topics and difficulty levels.' },
+      { slug: 'report-generator', name: 'Report Generation', reason: 'Generate detailed performance reports after quiz completion.' },
+      { slug: 'chart-generator', name: 'Chart Generation', reason: 'Visualize quiz results using charts and graphs.' },
+      { slug: 'task-planner', name: 'Task Planning', reason: 'Organize quiz creation steps and manage user workflow.' },
+      { slug: 'translator-pro', name: 'Pro Translator', reason: 'Support multiple languages for international quiz content.' },
+    ],
+    searchLink: '/skills?q=quiz',
+  },
+
+  {
+    slug: 'study-aid',
+    title: 'Smart Study Notes',
+    description: 'An AI agent that helps create, organize, and review study notes efficiently.',
+    icon: '📚',
+    skills: [
+      { slug: 'note-taker', name: 'Note Taker', reason: 'Automatically captures and organizes lecture or meeting notes.' },
+      { slug: 'pdf-reader', name: 'PDF Reader', reason: 'Extracts and summarizes key information from PDF study materials.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Helps schedule study sessions and track progress.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates concise summaries of study topics for quick revision.' },
+      { slug: 'translator-pro', name: 'Translator Pro', reason: 'Translates study materials into different languages for better understanding.' },
+    ],
+    searchLink: '/skills?q=study+notes',
+  },
+
+  {
+    slug: 'essay-writer-ai',
+    title: 'AI Essay Writer',
+    description: 'Generate well-structured and original essays on any topic.',
+    icon: '✍️',
+    skills: [
+      { slug: 'story-writer', name: 'Story Writer', reason: 'Creates engaging and coherent narratives for essays.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Organizes information into clear and professional essay structures.' },
+      { slug: 'translator-pro', name: 'Translator Pro', reason: 'Helps in translating and refining content for clarity and fluency.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Assists in outlining and planning the essay writing process.' },
+      { slug: 'chart-generator', name: 'Chart Generator', reason: 'Supports including visual elements in essays when needed.' },
+    ],
+    searchLink: '/skills?q=essay',
+  },
+
+  {
+    slug: 'thesis-research-ai',
+    title: 'AI Agent for Thesis Research',
+    description: 'Assists with literature review, data analysis, and writing support for academic theses.',
+    icon: '📚',
+    skills: [
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Helps analyze research data and identify trends.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates structured reports and summaries of research findings.' },
+      { slug: 'web-scraper', name: 'Web Scraper', reason: 'Gathers relevant academic papers and resources from the internet.' },
+      { slug: 'pdf-reader', name: 'PDF Reader', reason: 'Extracts text and key information from research papers and documents.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Organizes and manages the research workflow and deadlines.' },
+    ],
+    searchLink: '/skills?q=thesis+research',
+  },
+
+  {
+    slug: 'citation-helper',
+    title: 'AI Citation Manager',
+    description: 'Automate and organize your academic citations with ease.',
+    icon: '📚',
+    skills: [
+      { slug: 'pdf-reader', name: 'PDF Reader', reason: 'Extracts citation information from PDF documents.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates formatted citation reports in various styles.' },
+      { slug: 'web-scraper', name: 'Web Scraper', reason: 'Fetches citation details from online sources.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Organizes citation tasks and deadlines.' },
+      { slug: 'translator-pro', name: 'Translator Pro', reason: 'Translates citations into different languages.' },
+    ],
+    searchLink: '/skills?q=citation+management',
+  },
+
+  {
+    slug: 'meal-planner-ai',
+    title: 'Smart Meal Planner',
+    description: 'An AI agent that helps plan healthy and personalized meals based on dietary preferences and goals.',
+    icon: '🍽️',
+    skills: [
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes user preferences, nutritional needs, and available ingredients.' },
+      { slug: 'recipe-generator', name: 'Recipe Generator', reason: 'Creates customized meal plans and recipes based on user input.' },
+      { slug: 'nutrition-checker', name: 'Nutrition Checker', reason: 'Ensures meals meet dietary requirements and nutritional goals.' },
+      { slug: 'shopping-list-maker', name: 'Shopping List Maker', reason: 'Generates a list of ingredients needed for the planned meals.' },
+      { slug: 'meal-scheduler', name: 'Meal Scheduler', reason: 'Organizes meals for the week and suggests cooking times.' },
+    ],
+    searchLink: '/skills?q=meal+planning',
+  },
+
+  {
+    slug: 'workout-planner-ai',
+    title: 'Personalized Fitness Assistant',
+    description: 'An AI agent that creates customized workout plans based on user goals and preferences.',
+    icon: '💪',
+    skills: [
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Organizes workouts into daily or weekly schedules.' },
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes user input like fitness level and goals to tailor plans.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Provides progress reports and feedback after each workout session.' },
+      { slug: 'scheduler', name: 'Scheduler', reason: 'Helps users stick to their workout routines with reminders.' },
+      { slug: 'health-fitness', name: 'Health & Fitness', reason: 'Ensures workouts are safe, effective, and aligned with user health data.' },
+    ],
+    searchLink: '/skills?q=workout+plan',
+  },
+
+  {
+    slug: 'sleep-tracker-agent',
+    title: 'Smart Sleep Monitoring',
+    description: 'An AI agent that tracks and analyzes your sleep patterns to improve sleep quality.',
+    icon: '🌙',
+    skills: [
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes sleep data to identify patterns and trends.' },
+      { slug: 'report-generator', name: 'Report Generation', reason: 'Creates detailed sleep reports with insights and recommendations.' },
+      { slug: 'scheduler', name: 'Scheduler', reason: 'Helps set optimal sleep schedules based on user habits.' },
+      { slug: 'health-fitness', name: 'Health & Fitness', reason: 'Integrates with health devices to monitor overall wellness.' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Suggests bedtime routines and relaxation techniques.' },
+    ],
+    searchLink: '/skills?q=sleep+tracking',
+  },
+
+  {
+    slug: 'habit-tracker-ai',
+    title: 'Smart Habit Tracker',
+    description: 'An AI agent that helps users build and maintain daily habits with personalized reminders and progress tracking.',
+    icon: '🌱',
+    skills: [
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Organizes daily tasks and habit goals to ensure consistency and productivity.' },
+      { slug: 'scheduler', name: 'Scheduler', reason: 'Sets up optimal times for habit formation based on user preferences and routines.' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates weekly summaries of habit progress to keep users motivated and informed.' },
+      { slug: 'translator-pro', name: 'Translator Pro', reason: 'Supports users who want to track habits in multiple languages or learn new ones.' },
+      { slug: 'note-taker', name: 'Note Taker', reason: 'Allows users to log reflections, challenges, and successes related to their habits.' },
+    ],
+    searchLink: '/skills?q=habit+tracking',
+  },
+
+  {
+    slug: 'meditation-helper',
+    title: 'Guided Meditation Assistant',
+    description: 'An AI agent that helps users with meditation practices and mindfulness techniques.',
+    icon: '🧘‍♂️',
+    skills: [
+      { slug: 'task-planner', name: 'Meditation Schedule Planner', reason: 'Helps users create and manage a consistent meditation routine.' },
+      { slug: 'story-writer', name: 'Guided Visualization Script Creator', reason: 'Generates personalized guided meditations and visualizations.' },
+      { slug: 'translator-pro', name: 'Language Support for Meditations', reason: 'Provides meditations in multiple languages for global users.' },
+      { slug: 'note-taker', name: 'Meditation Journal Keeper', reason: 'Tracks user progress, reflections, and insights from meditation sessions.' },
+      { slug: 'scheduler', name: 'Reminder Scheduler', reason: 'Sets up reminders for daily meditation practice.' },
+    ],
+    searchLink: '/skills?q=meditation',
+  },
+
+  {
+    slug: 'mental-health-helper',
+    title: 'AI Companion for Mental Wellness',
+    description: 'A supportive AI agent designed to help with mental health tracking, mood management, and emotional support.',
+    icon: '🧠',
+    skills: [
+      { slug: 'mood-tracker', name: 'Mood Tracker', reason: 'Helps users monitor their emotional state over time.' },
+      { slug: 'coping-strategies', name: 'Coping Strategies', reason: 'Provides personalized techniques to manage stress and anxiety.' },
+      { slug: 'mindfulness-exercises', name: 'Mindfulness Exercises', reason: 'Guides users through breathing and meditation practices.' },
+      { slug: 'journaling-helper', name: 'Journaling Helper', reason: 'Assists in writing reflective entries to improve self-awareness.' },
+      { slug: 'crisis-support', name: 'Crisis Support', reason: 'Offers immediate resources and guidance during emotional distress.' },
+    ],
+    searchLink: '/skills?q=mental+health',
+  },
 ]
