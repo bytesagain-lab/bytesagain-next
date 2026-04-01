@@ -531,4 +531,63 @@ export const USE_CASES: UseCase[] = [
     ],
     searchLink: '/skills?q=health+fitness+wellness',
   },
+
+
+  // ── AUTO-GENERATED: 2026-04-02 ──
+  {
+    slug: 'grant-deadline-guardian',
+    title: 'Never Miss Grant Deadlines',
+    description: 'Monitors government and foundation grant portals, parses deadlines, and sends proactive alerts with application prep steps.',
+    icon: '⏰',
+    skills: [
+      { slug: 'scheduler', name: 'Scheduler', reason: 'Schedules deadline checks and reminder triggers' },
+      { slug: 'web-scraper', name: 'Web Scraper', reason: 'Extracts deadlines from CEIDG, KRS, EU Funding portals' },
+      { slug: 'email-assistant', name: 'Email Assistant', reason: 'Drafts follow-up emails to grant officers' },
+      { slug: 'note-taker', name: 'Note Taker', reason: 'Summarizes eligibility criteria and required docs' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Breaks down application into subtasks with due dates' },
+    ],
+    searchLink: '/skills?q=deadline+monitoring+grant+application+calendar',
+  },
+  {
+    slug: 'incident-responder',
+    title: 'Auto-Resolve DevOps Incidents',
+    description: 'Analyzes alert logs, correlates errors across tools, executes runbook actions, and documents resolution in real time.',
+    icon: '🚨',
+    skills: [
+      { slug: 'log-analyzer', name: 'Log Analyzer', reason: 'Parses CloudWatch, Datadog, or Loki error patterns' },
+      { slug: 'shell', name: 'Shell', reason: 'Runs remediation scripts on Kubernetes or servers' },
+      { slug: 'api-tester', name: 'API Tester', reason: 'Validates service health post-fix via API calls' },
+      { slug: 'note-taker', name: 'Note Taker', reason: 'Generates post-mortem summaries for Slack/Confluence' },
+      { slug: 'scheduler', name: 'Scheduler', reason: 'Triggers periodic health checks after incident closure' },
+    ],
+    searchLink: '/skills?q=devops+incident+response+pagerduty+prometheus',
+  },
+  {
+    slug: 'airbnb-host-orchestrator',
+    title: 'Automate Airbnb Guest Journeys',
+    description: 'Manages end-to-end guest communication, dynamic pricing, cleaning coordination, and review requests across platforms.',
+    icon: '🏡',
+    skills: [
+      { slug: 'email-assistant', name: 'Email Assistant', reason: 'Sends check-in instructions and local tips' },
+      { slug: 'scheduler', name: 'Scheduler', reason: 'Books cleaners and coordinates key handoffs' },
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Recommends dynamic pricing based on demand and events' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Sequences pre-arrival, during-stay, and post-departure tasks' },
+      { slug: 'review-collector', name: 'Review Collector', reason: 'Requests reviews via SMS/email at optimal timing' },
+    ],
+    searchLink: '/skills?q=airbnb+host+automation+pricing+cleaning+reviews',
+  },
+  {
+    slug: 'video-clipping-director',
+    title: 'Turn Long Videos Into Shorts',
+    description: 'Watches long-form content, identifies high-engagement moments, clips them, adds captions and hooks, then publishes natively.',
+    icon: '✂️',
+    skills: [
+      { slug: 'transcriber', name: 'Transcriber', reason: 'Converts speech to text for semantic scene analysis' },
+      { slug: 'story-writer', name: 'Story Writer', reason: 'Generates attention-grabbing hooks and captions' },
+      { slug: 'chart-generator', name: 'Chart Generator', reason: 'Creates on-screen graphics for stats or quotes' },
+      { slug: 'scheduler', name: 'Scheduler', reason: 'Times Shorts uploads for peak audience engagement' },
+      { slug: 'api-tester', name: 'API Tester', reason: 'Publishes to YouTube/TikTok via official APIs' },
+    ],
+    searchLink: '/skills?q=video+clipping+shorts+hook+caption+publishing',
+  },
 ]
