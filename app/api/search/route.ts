@@ -159,9 +159,6 @@ export async function GET(req: NextRequest) {
         .or(`name.ilike.%${primaryWord}%,description.ilike.%${primaryWord}%`)
         .order('downloads', { ascending: false })
         .limit(6),
-        .or(`name.ilike.%${primaryWord}%,description.ilike.%${primaryWord}%`)
-        .order('downloads', { ascending: false })
-        .limit(6),
 
       // 3. ClawHub语义搜索（补充没入库的新skill）
       fetch(`https://clawhub.ai/api/v1/search?q=${encodeURIComponent(searchQ)}&limit=6`, {
