@@ -45,5 +45,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }))
 
   // Skill pages 在 /skills-sitemap.xml（静态预生成，43k条）
-  return [...staticPages, ...useCasePages, ...articlePages]
+  // 文章页放在 use-case 之前，确保 GEO 工具取样到正确的 Article schema 页
+  return [...staticPages, ...articlePages, ...useCasePages]
 }
