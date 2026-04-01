@@ -49,7 +49,62 @@ const ZH_MAP: Record<string, string> = {
   '法律': 'legal contract',
 }
 
+// 英文场景词 → 更通用搜索词映射
+const EN_EXPAND: Record<string, string> = {
+  'claims processing': 'insurance document automation',
+  'claims processor': 'insurance document automation',
+  'loan processing': 'finance document automation',
+  'loan processor': 'finance document automation',
+  'property management': 'real estate automation',
+  'drug discovery': 'medical research ai',
+  'clinical trials': 'medical research data',
+  'medical diagnosis': 'healthcare ai assistant',
+  'due diligence': 'document review legal',
+  'risk assessment': 'analysis report generator',
+  'content moderation': 'text analysis automation',
+  'sentiment analysis': 'text analysis nlp',
+  'patent search': 'research document search',
+  'price optimization': 'data analysis ecommerce',
+  'sales forecasting': 'data analysis sales',
+  'lead scoring': 'crm data analysis',
+  'customer feedback': 'analysis report automation',
+  'employee training': 'knowledge management',
+  'supply chain': 'logistics automation',
+  'contract management': 'document legal automation',
+  'compliance': 'document audit automation',
+  'financial reporting': 'finance report generator',
+  'fraud detection': 'security analysis automation',
+  'image processing': 'image generation ai',
+  'game development': 'coding assistant developer',
+  'cloud infrastructure': 'devops automation',
+  'network security': 'security scanner',
+  'api integration': 'api tester automation',
+  'ux design': 'design productivity',
+  'product management': 'project management automation',
+  'talent': 'recruiting hiring',
+  'onboarding': 'hr automation workflow',
+  'bookkeeping': 'finance accounting automation',
+  'bug bounty': 'security scanner',
+  'architecture design': 'diagram generator',
+  'cold calling': 'sales automation crm',
+  'helpdesk': 'support ticket automation',
+  'jira': 'project management ticket',
+  'knowledge management': 'wiki note organizer',
+  'logistics': 'supply chain automation',
+  'manufacturing': 'workflow automation',
+  'nlp': 'text analysis automation',
+  'photography': 'image generation ai',
+  'real estate': 'property document automation',
+  'construction': 'project management automation',
+}
+
 function expandQuery(q: string): string {
+  const lower = q.toLowerCase().trim()
+  // 英文场景词映射（优先检查）
+  for (const [term, expanded] of Object.entries(EN_EXPAND)) {
+    if (lower.includes(term)) return expanded
+  }
+  // 中文映射
   let expanded = q
   for (const [zh, en] of Object.entries(ZH_MAP)) {
     if (q.includes(zh)) {
