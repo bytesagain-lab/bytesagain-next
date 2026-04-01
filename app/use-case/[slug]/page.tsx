@@ -26,6 +26,21 @@ export default async function UseCasePage({ params }: Props) {
 
   return (
     <div style={{ maxWidth: 800, margin: '40px auto', padding: '0 20px' }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": uc.title,
+        "description": uc.description,
+        "url": `https://bytesagain.com/use-case/${slug}`,
+        "step": uc.skills.map((s, i) => ({
+          "@type": "HowToStep",
+          "position": i + 1,
+          "name": s.name,
+          "text": s.reason,
+          "url": `https://bytesagain.com/skill/${s.slug}`,
+        })),
+        "publisher": { "@type": "Organization", "name": "BytesAgain", "url": "https://bytesagain.com" },
+      }) }} />
       <p style={{ margin: '0 0 16px' }}>
         <a href="/use-case" style={{ color: '#667eea', textDecoration: 'none', fontSize: '.85em' }}>← All Use Cases</a>
       </p>
