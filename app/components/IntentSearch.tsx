@@ -30,7 +30,11 @@ const INTENT_MAP: { keywords: string[]; slugs: string[] }[] = [
   { keywords: ['智能家居', '家庭自动化', '家务', '装修', '家里', 'homeassistant', '智能', '自动化'], slugs: ['smart-home'] },
   { keywords: ['合同', '法律', '律师', '版权', '协议', '隐私政策', '合规', '诉讼', '法务', '法规', 'gdpr', '条款'], slugs: ['legal-documents'] },
   { keywords: ['excel', '表格', '数据', 'csv', 'sql', '数据库', '统计', '分析', '数据处理', 'pandas', 'tableau'], slugs: ['data-analysis'] },
-  { keywords: ['自动化', 'automation', '脚本', 'shell', 'bash', 'python脚本', '定时任务', 'cron', '批处理'], slugs: ['developer-workflow', 'smart-home'] },
+  { keywords: ['自动化', 'automation', '脚本', 'shell', 'bash', 'python脚本', '定时任务', 'cron', '批处理', 'n8n', 'zapier', '工作流', '流程自动化'], slugs: ['workflow-automation', 'developer-workflow'] },
+  { keywords: ['crm', '销售', '客户管理', '线索', '跟单', '销售漏斗', '商机', '客户跟进', '销售报告', 'deal', 'lead'], slugs: ['crm-sales'] },
+  { keywords: ['客服', '工单', '售后', '投诉', '回复客户', '客户支持', 'support', 'helpdesk', '用户反馈', '退款', '退货'], slugs: ['customer-support'] },
+  { keywords: ['数据库', 'sql', 'mysql', 'postgres', 'mongodb', '查询', '建表', '数据迁移', 'database', 'schema', '数据管道'], slugs: ['database-management'] },
+  { keywords: ['安全', '漏洞', '审计', 'security', 'audit', '代码审查', '渗透测试', 'vulnerability', '风险', '加固'], slugs: ['security-audit'] },
 ]
 
 function matchUseCases(query: string) {
