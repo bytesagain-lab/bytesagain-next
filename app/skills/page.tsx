@@ -58,8 +58,14 @@ export default async function SkillsPage({
   const sp = await searchParams
   const cat  = sp.cat  || 'all'
   const page = Math.max(1, parseInt(sp.page || '1'))
-  const q    = (sp.q || '').trim()
+  const rawQ = (sp.q || '').trim()
   const from = (page - 1) * PAGE_SIZE
+
+  // 多词查询取主要词（最长词），避免 AND 过严导致空结果
+  const words = rawQ.split(/\s+/).filter(Boolean)
+  const q = words.length > 1
+    ? words.reduce((a, b) => a.length >= b.length ? a : b, words[0])
+    : rawQ
 
   let query = supabase
     .from('skills')
@@ -89,12 +95,12 @@ export default async function SkillsPage({
         Browse AI Skills
       </h1>
       <p style={{ color: '#666', marginBottom: 24 }}>
-        {total.toLocaleString()} skills {cat !== 'all' ? `in "${cat}"` : 'total'}{q ? ` matching "${q}"` : ''}
+        {total.toLocaleString()} skills {cat !== 'all' ? `in "${cat}"` : 'total'}{rawQ ? ` matching "${rawQ}"` : ''}
       </p>
 
       {/* 搜索框 */}
       <form method="GET" style={{ marginBottom: 20, display: 'flex', gap: 8 }}>
-        <input name="q" defaultValue={q} placeholder="Search skills…"
+        <input name="q" defaultValue={rawQ} placeholder="Search skills…"
           style={{ flex: 1, padding: '10px 16px', background: '#0f0f23', border: '1px solid #1a1a3e',
             borderRadius: 8, color: '#e0e0e0', fontSize: '1em' }} />
         {cat !== 'all' && <input type="hidden" name="cat" value={cat} />}
