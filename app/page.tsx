@@ -1,6 +1,7 @@
 import { getArticles } from '@/lib/supabase'
 import { createClient } from '@supabase/supabase-js'
 import HomeClient from './components/HomeClient'
+import IntentSearch from './components/IntentSearch'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -53,6 +54,11 @@ export default async function HomePage() {
           {' · '}
           Updated {today}
         </p>
+
+        {/* Intent search */}
+        <div style={{ marginBottom: 24 }}>
+          <IntentSearch />
+        </div>
 
         {/* Role selector + search */}
         <HomeClient articles={articles} searchAbove />
