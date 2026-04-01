@@ -1073,4 +1073,77 @@ export const USE_CASES: UseCase[] = [
     ],
     searchLink: '/skills?q=ai+restaurant+operations',
   },
+
+
+  // ── Google Autocomplete ──
+  {
+    slug: 'cybersecurity-agent',
+    title: 'Cybersecurity AI Agent',
+    description: 'An AI agent that monitors, detects, and responds to security threats in real time.',
+    icon: '🛡️',
+    skills: [
+      { slug: 'security-scanner', name: 'Security Scanner', reason: 'Performs vulnerability scanning and threat detection' },
+      { slug: 'email-assistant', name: 'Email Assistant', reason: 'Analyzes phishing emails and suspicious communications' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Orchestrates incident response workflows and remediation steps' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates compliance reports and post-incident summaries' },
+      { slug: 'notion-assistant', name: 'Notion Assistant', reason: 'Documents findings and maintains security playbooks in Notion' },
+    ],
+    searchLink: '/skills?q=security-scanner+email-assistant+task-planner+report-generator+notion-assistant',
+  },
+  {
+    slug: 'data-entry-agent',
+    title: 'Data Entry AI Agent',
+    description: 'An AI agent that automates form filling, record creation, and structured data ingestion from documents or emails.',
+    icon: '📝',
+    skills: [
+      { slug: 'invoice-parser', name: 'Invoice Parser', reason: 'Extracts and validates structured fields from invoices and receipts' },
+      { slug: 'pdf-reader', name: 'PDF Reader', reason: 'Reads and parses text/data from scanned or digital PDFs' },
+      { slug: 'email-assistant', name: 'Email Assistant', reason: 'Pulls data from inbound emails (e.g., lead forms, support tickets) into databases' },
+      { slug: 'sql-assistant', name: 'SQL Assistant', reason: 'Generates and executes INSERT/UPDATE queries for database population' },
+      { slug: 'scheduler', name: 'Scheduler', reason: 'Triggers batch data entry at defined intervals or on event triggers' },
+    ],
+    searchLink: '/skills?q=invoice-parser+pdf-reader+email-assistant+sql-assistant+scheduler',
+  },
+  {
+    slug: 'data-science-agent',
+    title: 'Data Science AI Agent',
+    description: 'An AI agent that assists with exploratory analysis, model prototyping, visualization, and report generation.',
+    icon: '📊',
+    skills: [
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Performs statistical summaries, correlations, and hypothesis testing' },
+      { slug: 'chart-generator', name: 'Chart Generator', reason: 'Creates interactive visualizations from analysis outputs' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Compiles insights into narrative-rich, shareable reports' },
+      { slug: 'note-taker', name: 'Note Taker', reason: 'Logs experiments, parameters, and results for reproducibility' },
+      { slug: 'sql-assistant', name: 'SQL Assistant', reason: 'Writes and optimizes queries to fetch training/test datasets' },
+    ],
+    searchLink: '/skills?q=data-analysis+chart-generator+report-generator+note-taker+sql-assistant',
+  },
+  {
+    slug: 'database-agent',
+    title: 'Database AI Agent',
+    description: 'An AI agent that manages schema design, query optimization, migration scripting, and real-time monitoring of relational databases.',
+    icon: '🗃️',
+    skills: [
+      { slug: 'sql-assistant', name: 'SQL Assistant', reason: 'Generates, explains, debugs, and optimizes complex SQL queries' },
+      { slug: 'web-scraper', name: 'Web Scraper', reason: 'Extracts external data sources for ETL pipelines and enrichment' },
+      { slug: 'code-reviewer', name: 'Code Reviewer', reason: 'Reviews database migration scripts and stored procedures for correctness and security' },
+      { slug: 'report-generator', name: 'Report Generator', reason: 'Produces health dashboards (e.g., slow queries, index usage, replication lag)' },
+      { slug: 'notion-assistant', name: 'Notion Assistant', reason: 'Maintains documentation for schemas, ERDs, and access policies' },
+    ],
+    searchLink: '/skills?q=sql-assistant+web-scraper+code-reviewer+report-generator+notion-assistant',
+  },
+  {
+    slug: 'deployment-agent',
+    title: 'Deployment AI Agent',
+    description: 'An AI agent that automates CI/CD pipeline configuration, environment validation, rollback planning, and deployment notifications.',
+    icon: '🚀',
+    skills: [
+      { slug: 'code-reviewer', name: 'Code Reviewer', reason: 'Validates infrastructure-as-code (e.g., Terraform, GitHub Actions) before merge' },
+      { slug: 'api-tester', name: 'API Tester', reason: 'Runs smoke and integration tests post-deploy to verify endpoints' },
+      { slug: 'slack-notifier', name: 'Slack Notifier', reason: 'Sends real-time deployment status, logs, and alerts to engineering channels' },
+      { slug: 'task-planner', name: 'Task Planner', reason: 'Sequences multi-stage deployments (e.g., canary → blue/green → prod) with dependencies' },
+      { slug: 'github-assistant', name: 'GitHub Assistant', reason: 'Manages PR automation, branch protection, and deployment-triggered actions' },
+    ],
+    searchLink: '/skills?q=code-reviewer+api-tester+slack-notifier+task-planner+github-assistant',
+  },
 ]
