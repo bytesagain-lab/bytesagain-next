@@ -50,7 +50,15 @@ export default async function UseCasePage({ params }: Props) {
       <p style={{ color: '#888', fontSize: '1.05em', lineHeight: 1.7, marginBottom: 40 }}>{uc.description}</p>
 
       <h2 style={{ fontSize: '1.1em', color: '#888', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 20 }}>
-        Recommended Skills
+        <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span>Recommended Skills</span>
+          <a
+            href={uc.searchLink || `/skills?q=${encodeURIComponent(uc.title)}`}
+            style={{ fontSize: '.8em', color: '#667eea', textDecoration: 'none', fontWeight: 600, letterSpacing: 0, textTransform: 'none' }}
+          >
+            Browse all →
+          </a>
+        </span>
       </h2>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 48 }}>
