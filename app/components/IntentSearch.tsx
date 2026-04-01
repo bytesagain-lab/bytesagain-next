@@ -34,7 +34,12 @@ const INTENT_MAP: { keywords: string[]; slugs: string[] }[] = [
   { keywords: ['crm', '销售', '客户管理', '线索', '跟单', '销售漏斗', '商机', '客户跟进', '销售报告', 'deal', 'lead'], slugs: ['crm-sales'] },
   { keywords: ['客服', '工单', '售后', '投诉', '回复客户', '客户支持', 'support', 'helpdesk', '用户反馈', '退款', '退货'], slugs: ['customer-support'] },
   { keywords: ['数据库', 'sql', 'mysql', 'postgres', 'mongodb', '查询', '建表', '数据迁移', 'database', 'schema', '数据管道'], slugs: ['database-management'] },
-  { keywords: ['安全', '漏洞', '审计', 'security', 'audit', '代码审查', '渗透测试', 'vulnerability', '风险', '加固'], slugs: ['security-audit'] },
+  { keywords: ['写文章', '写文案', '写博客', '写内容', '内容创作', 'copywriting', '广告文案', '产品描述', '写作助手', '自媒体', '写稿'], slugs: ['content-writing', 'content-creator'] },
+  { keywords: ['数据分析', '数据可视化', '做图表', 'excel', '表格分析', 'sql', '数据处理', '数据清洗', '报表', 'chart', 'dashboard'], slugs: ['data-analysis', 'database-management'] },
+  { keywords: ['seo', '搜索引擎优化', '关键词', '流量', '排名', '谷歌排名', '百度排名', '增长', 'organic', 'keyword research'], slugs: ['seo-growth'] },
+  { keywords: ['电商', '淘宝', '亚马逊', 'shopify', '产品上架', '店铺运营', '跨境电商', 'ecommerce', '选品', '卖货'], slugs: ['ecommerce-ops'] },
+  { keywords: ['翻译', 'translate', '多语言', '本地化', 'localization', '字幕翻译', '文档翻译', '英译中', '中译英'], slugs: ['translation-localization'] },
+  { keywords: ['健康', '健身', '减肥', '饮食', '食谱', '运动', '体重', '营养', 'fitness', 'health', 'workout', 'diet', 'meal'], slugs: ['health-wellness'] },
 ]
 
 function matchUseCases(query: string) {
