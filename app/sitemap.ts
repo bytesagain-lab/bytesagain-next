@@ -15,6 +15,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .order('published_at', { ascending: false })
     .limit(500)
 
+  // 文章页（放最前，确保 GEO/AI 爬虫优先取样到 Article schema 页）
+  const articlePages: MetadataRoute.Sitemap = (posts || []).map(a => ({
+    url: `https://bytesagain.com/article/${a.slug}`,
+    lastModified: a.published_at ? new Date(a.published_at) : new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
+
   const staticPages: MetadataRoute.Sitemap = [
     { url: 'https://bytesagain.com', lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
     { url: 'https://bytesagain.com/skills', lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
@@ -28,7 +36,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: 'https://bytesagain.com/feedback', lastModified: new Date(), changeFrequency: 'monthly', priority: 0.3 },
   ]
 
-  // 30个 use case 详情页
   const useCasePages: MetadataRoute.Sitemap = USE_CASES.map(uc => ({
     url: `https://bytesagain.com/use-case/${uc.slug}`,
     lastModified: new Date(),
@@ -36,15 +43,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }))
 
-  // 文章页
-  const articlePages: MetadataRoute.Sitemap = (posts || []).map(a => ({
-    url: `https://bytesagain.com/article/${a.slug}`,
-    lastModified: a.published_at ? new Date(a.published_at) : new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }))
-
-  // Skill pages 在 /skills-sitemap.xml（静态预生成，43k条）
-  // 文章页放在 use-case 之前，确保 GEO 工具取样到正确的 Article schema 页
-  return [...staticPages, ...articlePages, ...useCasePages]
+  // 文章页优先输出，GEO 工具从 sitemap 取样时能命中 Article schema 页
+  return [...articlePages, ...staticPages, ...useCasePages]
 }
