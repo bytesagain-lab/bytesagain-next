@@ -52,6 +52,15 @@ const nextConfig: NextConfig = {
       { source: '/category/:path*', destination: '/skills', permanent: true },
       { source: '/tag/:path*', destination: '/skills', permanent: true },
 
+      // ── EasyWP "skill-{slug}" 格式老 URL → /skill/{slug} ────────
+      // 覆盖：/skill-quiz-generator/ /skill-study-plan/ 等所有带 skill- 前缀的老页面
+      { source: '/skill-:slug', destination: '/skill/:slug', permanent: true },
+      { source: '/skill-:slug/', destination: '/skill/:slug', permanent: true },
+
+      // ai-tools-directory 老页面 → /skills
+      { source: '/ai-tools-directory', destination: '/skills', permanent: true },
+      { source: '/ai-tools-directory/', destination: '/skills', permanent: true },
+
       // 兜底：老页面通配（WP permalink 结构 /year/month/...）
       { source: '/:year(\\d{4})/:month(\\d{2})/:path*', destination: '/articles', permanent: true },
     ]
