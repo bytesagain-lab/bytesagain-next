@@ -122,6 +122,24 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
           style={{ display: 'inline-block', padding: '10px 24px', background: 'linear-gradient(135deg,#667eea,#00d4ff)', borderRadius: 8, color: '#fff', textDecoration: 'none', fontWeight: 600 }}>
           {externalLabel}
         </a>
+
+        {/* 来源声明 */}
+        <div style={{ marginTop: 20, padding: '12px 16px', background: '#0a0a18', borderRadius: 8, border: '1px solid #1a1a2e' }}>
+          <p style={{ margin: 0, fontSize: '.78em', color: '#555', lineHeight: 1.6 }}>
+            {source === 'clawhub' && (
+              <>📋 This skill is indexed from <a href={externalUrl} target="_blank" rel="noopener" style={{ color: '#667eea' }}>ClawHub</a> and is available under its original license. BytesAgain is an independent directory — we do not host or own this content. All rights belong to the original author.</>
+            )}
+            {source === 'mcp' && (
+              <>📋 This MCP server is sourced from an open-source Awesome list on GitHub. BytesAgain is an independent index — we do not host or own this content. All rights belong to the original author.</>
+            )}
+            {source === 'github' && (
+              <>📋 This tool is indexed from a curated open-source list on GitHub. BytesAgain is an independent directory — we do not host or own this content. All rights belong to the original author.</>
+            )}
+            {(source === 'lobehub' || source === 'dify') && (
+              <>📋 This agent is sourced from <a href={externalUrl} target="_blank" rel="noopener" style={{ color: '#667eea' }}>{badge.label}</a>. BytesAgain is an independent directory — we do not host or own this content. All rights belong to the original author.</>
+            )}
+          </p>
+        </div>
       </div>
 
       <RelatedSkills category={skill.category} currentSlug={slug} name={skill.name} />

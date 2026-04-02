@@ -101,8 +101,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 ))}
               </div>
             </div>
-            <div style={{ borderTop: '1px solid #111', paddingTop: 16, color: '#444', fontSize: '.8em' }}>
-              © {new Date().getFullYear()} BytesAgain. All rights reserved.
+            <div style={{ borderTop: '1px solid #111', paddingTop: 16 }}>
+              <div style={{ color: '#444', fontSize: '.8em', marginBottom: 8 }}>
+                © {new Date().getFullYear()} BytesAgain. All rights reserved.
+              </div>
+              <div style={{ color: '#333', fontSize: '.75em', lineHeight: 1.6, maxWidth: 720 }}>
+                BytesAgain is an independent skill directory. We index and link to third-party content (ClawHub, GitHub, LobeHub, Dify, etc.) for informational purposes only. All trademarks, skill names, and content are the property of their respective owners. BytesAgain does not claim ownership of any indexed content. Indexed content is available under its original license (MIT, Apache, CC, etc.).
+              </div>
             </div>
           </div>
         </footer>
