@@ -1,4 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { createClient } from '@supabase/supabase-js'
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+)
+
+const DASHSCOPE_KEY = process.env.DASHSCOPE_EMBEDDING_KEY!
+
+async function getEmbedding(text: string): Promise<number[] | null> {
+  try {
+    const res = await fetch('https://dashscope.aliyuncs.com/api/v1/services/embeddings/text-embedding/text-embedding', {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${DASHSCOPE_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'text-embedding-v3',
+        input: { texts: [text] },
+        parameters: { dimension: 1024 },
+      }),
+    })
+    if (!res.ok) return null
+    const data = await res.json()
+    return data?.output?.embeddings?.[0]?.embedding ?? null
+  } catch { return null }
+}
 
 export async function GET(req: NextRequest) {
   const slug = req.nextUrl.searchParams.get('slug') || ''
@@ -7,59 +32,75 @@ export async function GET(req: NextRequest) {
 
   if (!slug) return NextResponse.json([])
 
-  // 搜索词优先级: name > slug关键词 > category
   const searchQ = name || slug.replace(/-/g, ' ')
 
-  try {
-    const res = await fetch(
-      `https://clawhub.ai/api/v1/search?q=${encodeURIComponent(searchQ)}&limit=15`,
-      { next: { revalidate: 3600 } }
-    )
-    if (!res.ok) return NextResponse.json([])
-    const data = await res.json()
-
-    const candidates = (data.results || [])
-      .filter((s: any) => s.slug !== slug)
-      .slice(0, 10)
-
-    // 取下载量，过滤低质量
-    const withStats = await Promise.all(
-      candidates.map(async (s: any) => {
-        try {
-          const r = await fetch(`https://clawhub.ai/api/v1/skills/${s.slug}`, {
-            next: { revalidate: 3600 }
-          })
-          if (!r.ok) return null
-          const d = await r.json()
-          const downloads = d.skill?.stats?.downloads || 0
-          return {
-            slug: s.slug,
-            name: s.displayName || s.slug,
-            description: s.summary || s.description || '',
-            downloads,
-          }
-        } catch { return null }
+  // 并行：向量搜索 + ClawHub API
+  const [vsResult, chResult] = await Promise.allSettled([
+    // 向量搜索（主力）
+    (async () => {
+      const embedding = await getEmbedding(searchQ)
+      if (!embedding) return []
+      const { data } = await supabase.rpc('match_skills', {
+        query_embedding: embedding,
+        match_count: 10,
+        match_threshold: 0.35,
       })
-    )
+      return (data || [])
+        .filter((s: any) => s.slug !== slug)
+        .slice(0, 6)
+        .map((s: any) => ({
+          slug: s.slug,
+          name: s.name,
+          description: s.description || '',
+          downloads: 0,
+          _vsearch: true,
+        }))
+    })(),
 
-    const results = withStats
-      .filter((s): s is NonNullable<typeof s> => s !== null && s.downloads >= 10)
-      .sort((a, b) => b.downloads - a.downloads)
-      .slice(0, 5)
+    // ClawHub 语义搜索（补充）
+    fetch(`https://clawhub.ai/api/v1/search?q=${encodeURIComponent(searchQ)}&limit=8`, {
+      headers: { 'User-Agent': 'Mozilla/5.0' },
+      next: { revalidate: 3600 },
+    }).then(r => r.ok ? r.json() : { results: [] }).catch(() => ({ results: [] })),
+  ])
 
-    // fallback: 搜索结果直接用，不过滤下载量
-    if (results.length < 3) {
-      const fallback = candidates.slice(0, 5).map((s: any) => ({
+  const vsSkills = vsResult.status === 'fulfilled' ? vsResult.value : []
+
+  let chSkills: any[] = []
+  if (chResult.status === 'fulfilled') {
+    const chData = chResult.value as any
+    const seen = new Set(vsSkills.map((s: any) => s.slug))
+    chSkills = (chData.results || [])
+      .filter((s: any) => s.slug !== slug && !seen.has(s.slug))
+      .slice(0, 4)
+      .map((s: any) => ({
         slug: s.slug,
         name: s.displayName || s.slug,
         description: s.summary || s.description || '',
         downloads: 0,
       }))
-      return NextResponse.json(fallback)
-    }
-
-    return NextResponse.json(results)
-  } catch {
-    return NextResponse.json([])
   }
+
+  // 向量结果优先，ClawHub补充到5个
+  const combined = [...vsSkills, ...chSkills]
+  const seen = new Set<string>()
+  const results = combined.filter(s => {
+    if (seen.has(s.slug)) return false
+    seen.add(s.slug)
+    return true
+  }).slice(0, 5)
+
+  // 如果两者都没结果，fallback 到 DB ilike
+  if (results.length < 2) {
+    const { data } = await supabase
+      .from('skills')
+      .select('slug, name, description, downloads')
+      .or(`name.ilike.%${searchQ.split(' ')[0]}%,tags.cs.{${category}}`)
+      .neq('slug', slug)
+      .order('downloads', { ascending: false })
+      .limit(5)
+    return NextResponse.json(data || [])
+  }
+
+  return NextResponse.json(results)
 }
