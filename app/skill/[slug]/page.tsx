@@ -115,13 +115,17 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
         </div>
 
         {/* 安装命令：只对ClawHub/自有skill显示 */}
-        {source === 'clawhub' || source === 'official' ? <InstallCommand slug={slug.replace('clawhub-','')} /> : null}
 
         {/* 外链按钮 */}
         <a href={externalUrl} target="_blank" rel="noopener"
-          style={{ display: 'inline-block', padding: '10px 24px', background: 'linear-gradient(135deg,#667eea,#00d4ff)', borderRadius: 8, color: '#fff', textDecoration: 'none', fontWeight: 600 }}>
+          style={{ display: 'inline-block', padding: '12px 28px', background: 'linear-gradient(135deg,#667eea,#00d4ff)', borderRadius: 8, color: '#fff', textDecoration: 'none', fontWeight: 700, fontSize: '1em' }}>
           {externalLabel}
         </a>
+
+        {/* 安全免责 */}
+        <p style={{ margin: '10px 0 0', fontSize: '.78em', color: '#555' }}>
+          ⚠️ BytesAgain does not review or verify third-party content. Proceed at your own risk.
+        </p>
 
         {/* 来源声明 */}
         <div style={{ marginTop: 20, padding: '12px 16px', background: '#0a0a18', borderRadius: 8, border: '1px solid #1a1a2e' }}>
