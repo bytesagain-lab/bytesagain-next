@@ -202,7 +202,25 @@ export async function GET(req: NextRequest) {
         }))
     }
 
-    const results = [...local, ...chExtra].slice(0, 10)
+    // 本地结果太少时，向量搜索补充
+    let vsearchExtra: any[] = []
+    if (local.length < 3) {
+      try {
+        const vsRes = await fetch(
+          `https://bytesagain.com/api/vsearch?q=${encodeURIComponent(searchQ)}`,
+          { next: { revalidate: 300 } }
+        )
+        if (vsRes.ok) {
+          const vsData = await vsRes.json()
+          vsearchExtra = (vsData || [])
+            .filter((s: any) => !seen.has(s.slug))
+            .slice(0, 5)
+            .map((s: any) => ({ ...s, _source: s.source || 'clawhub', _vsearch: true }))
+        }
+      } catch { /* ignore */ }
+    }
+
+    const results = [...local, ...vsearchExtra, ...chExtra].slice(0, 10)
     return NextResponse.json(results)
   } catch {
     return NextResponse.json([])
