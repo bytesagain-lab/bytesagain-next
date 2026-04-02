@@ -124,7 +124,7 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
         </a>
       </div>
 
-      <RelatedSkills category={skill.category} currentSlug={slug} />
+      <RelatedSkills category={skill.category} currentSlug={slug} name={skill.name} />
 
       {/* Install banner */}
       <div style={{

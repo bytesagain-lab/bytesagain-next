@@ -9,16 +9,19 @@ interface RelatedSkill {
   downloads?: number
 }
 
-export default function RelatedSkills({ category, currentSlug }: { category: string; currentSlug: string }) {
+export default function RelatedSkills({ category, currentSlug, name }: { category: string; currentSlug: string; name?: string }) {
   const [skills, setSkills] = useState<RelatedSkill[]>([])
 
   useEffect(() => {
-    if (!category) return
-    fetch(`/api/related?category=${encodeURIComponent(category)}&slug=${currentSlug}`)
+    if (!currentSlug) return
+    const params = new URLSearchParams({ slug: currentSlug })
+    if (name) params.set('name', name)
+    if (category) params.set('category', category)
+    fetch(`/api/related?${params.toString()}`)
       .then(r => r.json())
       .then(setSkills)
       .catch(() => {})
-  }, [category, currentSlug])
+  }, [category, currentSlug, name])
 
   if (skills.length === 0) return null
 
