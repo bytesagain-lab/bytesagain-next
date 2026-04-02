@@ -37,7 +37,7 @@ const CATEGORIES = [
   // 效率
   'automation','communication','productivity',
   // 来源
-  'clawhub','lobehub','dify',
+  'clawhub','lobehub','dify','mcp',
 ]
 
 const SOURCE_BADGE: Record<string, { label: string; color: string; emoji: string }> = {
@@ -45,6 +45,7 @@ const SOURCE_BADGE: Record<string, { label: string; color: string; emoji: string
   github:   { label: 'GitHub',   color: '#444',    emoji: '⭐' },
   lobehub:  { label: 'LobeHub',  color: '#7c3aed', emoji: '🤖' },
   dify:     { label: 'Dify',     color: '#f59e0b', emoji: '🔧' },
+  mcp:      { label: 'MCP',      color: '#00c853', emoji: '🔌' },
   official: { label: 'Official', color: '#10b981', emoji: '✅' },
 }
 
@@ -77,7 +78,7 @@ export default async function SkillsPage({
     query = query.or(`name.ilike.%${q}%,description.ilike.%${q}%`)
   }
   if (cat !== 'all') {
-    if (['clawhub','lobehub','dify','github','official'].includes(cat)) {
+    if (['clawhub','lobehub','dify','github','mcp','official'].includes(cat)) {
       query = query.eq('source', cat)
     } else {
       query = query.overlaps('tags', [cat])
