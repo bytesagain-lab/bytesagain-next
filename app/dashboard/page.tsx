@@ -6,7 +6,6 @@ import type { User } from '@supabase/supabase-js'
 
 export default function DashboardPage() {
   const [user, setUser] = useState<User | null>(null)
-  const [plan, setPlan] = useState<string>('free')
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -20,14 +19,6 @@ export default function DashboardPage() {
         return
       }
       setUser(data.user)
-
-      // Fetch plan from user_plans
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/user_plans?email=eq.${encodeURIComponent(data.user.email!)}&select=plan&limit=1`,
-        { headers: { apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!}` } }
-      )
-      const planData = await res.json()
-      if (planData?.[0]?.plan) setPlan(planData[0].plan)
       setLoading(false)
     })
   }, [])
@@ -45,7 +36,6 @@ export default function DashboardPage() {
     <div style={{ textAlign: 'center', padding: '80px 20px', color: '#555' }}>Loading…</div>
   )
 
-  const isPro = plan === 'pro'
   const joinedAt = user?.created_at ? new Date(user.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : ''
   const provider = user?.app_metadata?.provider || 'email'
 
@@ -55,7 +45,7 @@ export default function DashboardPage() {
 
       {/* Profile card */}
       <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: 28, marginBottom: 20 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 20, marginBottom: 20 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
           <div style={{
             width: 56, height: 56, borderRadius: '50%',
             background: 'linear-gradient(135deg,#667eea,#00d4ff)',
@@ -72,31 +62,7 @@ export default function DashboardPage() {
             </div>
           </div>
         </div>
-
-        <div style={{ display: 'flex', gap: 10 }}>
-          <span style={{
-            padding: '4px 12px', borderRadius: 20, fontSize: '.8em', fontWeight: 600,
-            background: isPro ? 'linear-gradient(135deg,#667eea,#00d4ff)' : '#1a1a2e',
-            color: isPro ? '#fff' : '#555',
-            border: isPro ? 'none' : '1px solid #333',
-          }}>
-            {isPro ? '⚡ Pro' : 'Free Plan'}
-          </span>
-        </div>
       </div>
-
-      {/* Upgrade CTA (only for free users) */}
-      {!isPro && (
-        <div style={{ background: 'linear-gradient(135deg,#0f0f2f,#1a1a4e)', border: '1px solid #667eea44', borderRadius: 16, padding: 24, marginBottom: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
-          <div>
-            <div style={{ fontWeight: 700, marginBottom: 4 }}>Upgrade to Pro</div>
-            <div style={{ color: '#888', fontSize: '.85em' }}>Early access, API, priority support — $9.9/mo</div>
-          </div>
-          <a href="/pro" style={{ padding: '10px 22px', background: 'linear-gradient(135deg,#667eea,#00d4ff)', borderRadius: 8, color: '#fff', fontWeight: 700, fontSize: '.9em', textDecoration: 'none', whiteSpace: 'nowrap' }}>
-            Upgrade →
-          </a>
-        </div>
-      )}
 
       {/* Account info */}
       <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: 28, marginBottom: 20 }}>
@@ -105,7 +71,6 @@ export default function DashboardPage() {
           { label: 'Email', value: user?.email },
           { label: 'User ID', value: user?.id?.slice(0, 8) + '…' },
           { label: 'Login method', value: provider === 'google' ? '🔵 Google' : '✉️ Email' },
-          { label: 'Plan', value: isPro ? '⚡ Pro' : 'Free' },
         ].map(({ label, value }) => (
           <div key={label} style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 0', borderBottom: '1px solid #1a1a2e' }}>
             <span style={{ color: '#666', fontSize: '.9em' }}>{label}</span>

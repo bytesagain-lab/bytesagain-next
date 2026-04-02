@@ -57,7 +57,7 @@ export default function NavBar() {
               <a href="/login" style={{ color: '#ccc', textDecoration: 'none', fontSize: '.9em' }}>Sign In</a>
             )
           )}
-          <a href="/pro" style={{ color: '#00d4ff', textDecoration: 'none', fontSize: '.9em', fontWeight: 600 }}>Pro</a>
+
         </nav>
       </div>
     </header>
