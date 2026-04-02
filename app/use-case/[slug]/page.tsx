@@ -1,6 +1,7 @@
 import { USE_CASES } from '@/lib/use-cases'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import UseCaseClient from './UseCaseClient'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -41,6 +42,7 @@ export default async function UseCasePage({ params }: Props) {
         })),
         "publisher": { "@type": "Organization", "name": "BytesAgain", "url": "https://bytesagain.com" },
       }) }} />
+
       <p style={{ margin: '0 0 16px' }}>
         <a href="/use-case" style={{ color: '#667eea', textDecoration: 'none', fontSize: '.85em' }}>← All Use Cases</a>
       </p>
@@ -61,42 +63,8 @@ export default async function UseCasePage({ params }: Props) {
         </span>
       </h2>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 48 }}>
-        {uc.skills.map((skill, i) => (
-          <a key={skill.slug} href={`/skill/${skill.slug}`} style={{
-            display: 'flex', gap: 16, padding: '18px 20px',
-            background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 12,
-            textDecoration: 'none', alignItems: 'flex-start',
-          }}>
-            <div style={{
-              width: 28, height: 28, borderRadius: '50%', flexShrink: 0, marginTop: 2,
-              background: 'linear-gradient(135deg,#667eea,#00d4ff)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: '.8em', fontWeight: 800, color: '#fff',
-            }}>{i + 1}</div>
-            <div>
-              <div style={{ fontWeight: 700, color: '#e0e0e0', marginBottom: 4 }}>{skill.name}</div>
-              <div style={{ color: '#667', fontSize: '.88em', lineHeight: 1.5 }}>{skill.reason}</div>
-            </div>
-            <div style={{ marginLeft: 'auto', color: '#333', fontSize: '1.2em', flexShrink: 0 }}>→</div>
-          </a>
-        ))}
-      </div>
-
-      {/* 查看更多 skills */}
-      <div style={{ textAlign: 'center', marginBottom: 48 }}>
-        <a
-          href={uc.searchLink || `/skills?q=${encodeURIComponent(uc.title)}`}
-          style={{
-            display: 'inline-block', padding: '12px 32px',
-            background: 'linear-gradient(135deg,#667eea,#00d4ff)',
-            borderRadius: 10, color: '#fff', fontWeight: 700,
-            textDecoration: 'none', fontSize: '.95em',
-          }}
-        >
-          Browse more {uc.title} skills →
-        </a>
-      </div>
+      {/* Client Component: hover描述 + 展开更多 */}
+      <UseCaseClient uc={uc} slug={slug} />
 
       {/* Other use cases */}
       <h2 style={{ fontSize: '1.1em', color: '#888', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 16 }}>
