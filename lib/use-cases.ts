@@ -3583,4 +3583,40 @@ export const USE_CASES: UseCase[] = [
     ],
     searchLink: '/skills?q=mental+health',
   },
+
+  {
+    slug: 'ai-email-automation',
+    title: 'Automate email workflows with AI',
+    description: 'Streamline email tasks using natural language commands.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-email-autopilot-pro', name: 'Email Autopilot', reason: 'Email Autopilot' }, { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Email Automation' }, { slug: 'clawhub-mailmolt', name: 'MailMolt - Email for AI Agents', reason: 'MailMolt - Email for AI Agents' }, { slug: 'clawhub-clawmail-skill', name: 'ClawMail', reason: 'ClawMail' }],
+  },
+  {
+    slug: 'git-agent-tool',
+    title: 'Automate Git with AI agents',
+    description: 'Simplify version control with intelligent automation.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-gitai-skill', name: 'Gitai - Git Commit Automation', reason: 'Gitai - Git Commit Automation' }, { slug: 'clawhub-macclaw-copilot-cli', name: 'MacClaw Copilot CLI', reason: 'MacClaw Copilot CLI' }, { slug: 'clawhub-squad-control', name: 'Squad Control', reason: 'Squad Control' }, { slug: 'clawhub-a6-github-intel', name: 'GitHub Intelligence', reason: 'GitHub Intelligence' }],
+  },
+  {
+    slug: 'browser-task-creator',
+    title: 'Generate browser scripts from English',
+    description: 'Turn tasks into code with natural language input.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-ai-content-rewriter', name: 'Ai Content Rewriter', reason: 'Ai Content Rewriter' }, { slug: 'clawhub-oxylabs-ai-studio', name: 'Oxylabs AI Studio — Web Scrape', reason: 'Oxylabs AI Studio — Web Scrape' }, { slug: 'clawhub-writer', name: 'Writer', reason: 'Writer' }, { slug: 'clawhub-fast-agent-browser', name: 'Fast Agent Browser', reason: 'Fast Agent Browser' }],
+  },
+  {
+    slug: 'python-to-mcp',
+    title: 'Expose Python functions as tools',
+    description: 'Integrate Python functions into AI workflows instantly.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-fal-ai-api', name: 'fal.ai', reason: 'fal.ai' }, { slug: 'clawhub-external-ai-integration', name: 'External Ai Integration', reason: 'External Ai Integration' }, { slug: 'clawhub-baidu-aistudio-llm-api', name: 'baidu-aistudio-llm-api', reason: 'baidu-aistudio-llm-api' }, { slug: 'clawhub-nango-api-integration', name: 'Nango API Integration', reason: 'Nango API Integration' }],
+  },
+  {
+    slug: 'sales-agent-builder',
+    title: 'Build AI agents for sales tasks',
+    description: 'Automate sales workflows with customizable agents.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-selva', name: 'Selva', reason: 'Selva' }, { slug: 'clawhub-afrexai-ai-agency-blueprint', name: 'AI Automation Agency Blueprint', reason: 'AI Automation Agency Blueprint' }, { slug: 'clawhub-aiprox-workflows', name: 'Aiprox Workflows', reason: 'Aiprox Workflows' }, { slug: 'clawhub-deal-works', name: 'Deal Works Mcp', reason: 'Deal Works Mcp' }],
+  },
 ]
