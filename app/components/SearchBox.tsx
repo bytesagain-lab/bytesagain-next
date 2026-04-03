@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import { useLang, T } from './LangContext'
 
 interface Skill {
   slug: string
@@ -12,7 +13,10 @@ interface Skill {
   _url?: string
 }
 
+
 export default function SearchBox() {
+  const { lang } = useLang()
+  const t = T[lang]
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<Skill[]>([])
   const [loading, setLoading] = useState(false)
@@ -52,7 +56,7 @@ export default function SearchBox() {
           type="text"
           value={query}
           onChange={e => setQuery(e.target.value)}
-          placeholder="Search 100,000+ AI skills…"
+          placeholder={t.search_placeholder}
           style={{
             width: '100%',
             padding: '12px 16px 12px 40px',
