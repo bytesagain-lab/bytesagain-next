@@ -3619,4 +3619,33 @@ export const USE_CASES: UseCase[] = [
     icon: '💼',
     skills: [{ slug: 'clawhub-selva', name: 'Selva', reason: 'Selva' }, { slug: 'clawhub-afrexai-ai-agency-blueprint', name: 'AI Automation Agency Blueprint', reason: 'AI Automation Agency Blueprint' }, { slug: 'clawhub-aiprox-workflows', name: 'Aiprox Workflows', reason: 'Aiprox Workflows' }, { slug: 'clawhub-deal-works', name: 'Deal Works Mcp', reason: 'Deal Works Mcp' }],
   },
+
+  {
+    slug: 'ai-gmail-automation',
+    title: 'Automate Email Workflows with AI',
+    description: 'Streamline email management using AI-powered automation.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-ai-intelligent-email-automation', name: 'Ai Intelligent Email Automatio', reason: 'Ai Intelligent Email Automatio' }, { slug: 'clawhub-moltmail', name: 'MoltMail', reason: 'MoltMail' }, { slug: 'clawhub-trade-email-assistant', name: 'Trade Email Assistant', reason: 'Trade Email Assistant' }, { slug: 'clawhub-a-safer-email-assistant', name: 'A safer e-mail assistant', reason: 'A safer e-mail assistant' }],
+  },
+  {
+    slug: 'git-agent-automation',
+    title: 'Automate Git Tasks with AI',
+    description: 'Simplify version control with intelligent AI-driven workflows.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-gitai-skill', name: 'Gitai - Git Commit Automation', reason: 'Gitai - Git Commit Automation' }, { slug: 'clawhub-gitlab', name: 'GitLab', reason: 'GitLab' }, { slug: 'clawhub-icd10-cpt-coding-assistant', name: 'Icd10 Cpt Coding Assistant', reason: 'Icd10 Cpt Coding Assistant' }, { slug: 'clawhub-macclaw-copilot-cli', name: 'MacClaw Copilot CLI', reason: 'MacClaw Copilot CLI' }],
+  },
+  {
+    slug: 'python-tool-exposer',
+    title: 'Expose Python Functions as Tools',
+    description: 'Make Python functions available for AI agents to use.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-fal-ai-api', name: 'fal.ai', reason: 'fal.ai' }, { slug: 'clawhub-external-ai-integration', name: 'External Ai Integration', reason: 'External Ai Integration' }, { slug: 'clawhub-baidu-aistudio-llm-api', name: 'baidu-aistudio-llm-api', reason: 'baidu-aistudio-llm-api' }, { slug: 'clawhub-nango-api-integration', name: 'Nango API Integration', reason: 'Nango API Integration' }],
+  },
+  {
+    slug: 'sales-automation-agent',
+    title: 'Automate Sales Tasks with AI',
+    description: 'Boost sales efficiency with AI-powered task automation.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-aiprox-workflows', name: 'Aiprox Workflows', reason: 'Aiprox Workflows' }, { slug: 'clawhub-deal-works-mcp', name: 'Deal Works Mcp', reason: 'Deal Works Mcp' }, { slug: 'clawhub-deal-works', name: 'Deal Works Mcp', reason: 'Deal Works Mcp' }, { slug: 'clawhub-selva', name: 'Selva', reason: 'Selva' }],
+  },
 ]
