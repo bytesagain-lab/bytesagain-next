@@ -59,11 +59,11 @@ export const USE_CASES: UseCase[] = [
     description: 'Land your next role faster with AI skills that help you craft applications, prep for interviews, and negotiate offers.',
     icon: '💼',
     skills: [
-      { slug: 'saas', name: 'SaaS', reason: '' },
-      { slug: 'competitive-intelligence-market-research', name: 'Competitive Intelligence & Market Research', reason: '' },
-      { slug: 'product', name: 'Product', reason: '' },
-      { slug: 'game-changing-features', name: 'Game Changing Features', reason: '' },
-      { slug: 'saas-landing-page-generator', name: 'SaaS Landing Page Generator', reason: '' },
+      { slug: 'clawhub-resume-cv-builder', name: 'Resume & CV Builder', reason: 'Build professional resumes' },
+      { slug: 'clawhub-resume-and-cover-letter', name: 'Resume & Cover Letter', reason: 'Craft tailored cover letters' },
+      { slug: 'clawhub-job-search', name: 'Job Search', reason: 'Find relevant job listings' },
+      { slug: 'clawhub-remote-job-hunter', name: 'Remote Job Hunter', reason: 'Find remote opportunities' },
+      { slug: 'clawhub-lofy-career', name: 'Career Advisor', reason: 'Career coaching and advice' },
     ],
   },
   {
