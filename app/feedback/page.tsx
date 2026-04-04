@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
 
 const TYPES = [
   { id: 'skill', label: '🔍 Missing Skill', desc: 'A skill you wish existed' },
@@ -14,6 +15,13 @@ export default function FeedbackPage() {
   const [message, setMessage] = useState('')
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'sending' | 'done' | 'error'>('idle')
+  const [showBanner, setShowBanner] = useState(true)
+
+  // 5秒后自动隐藏 banner
+  useEffect(() => {
+    const t = setTimeout(() => setShowBanner(false), 5000)
+    return () => clearTimeout(t)
+  }, [])
 
   const submit = async () => {
     if (!message.trim()) return
@@ -31,7 +39,44 @@ export default function FeedbackPage() {
   }
 
   return (
-    <div style={{ maxWidth: 640, margin: '0 auto', padding: '60px 20px' }}>
+    <div style={{ maxWidth: 640, margin: '0 auto', padding: '40px 20px' }}>
+
+      {/* 价值引导 Banner */}
+      {showBanner && (
+        <div style={{
+          background: 'linear-gradient(135deg, #0f0f23, #1a1a3e)',
+          border: '1px solid #667eea44',
+          borderRadius: 16, padding: '24px 28px', marginBottom: 32,
+          position: 'relative',
+        }}>
+          <div style={{ fontSize: '1.1em', fontWeight: 700, color: '#e0e0e0', marginBottom: 8 }}>
+            👋 Welcome to BytesAgain
+          </div>
+          <p style={{ color: '#888', fontSize: '.9em', marginBottom: 16, lineHeight: 1.6 }}>
+            We're building the most comprehensive AI agent skill directory — 50,000+ skills from ClawHub, GitHub, LobeHub and more.
+          </p>
+          <div style={{ display: 'flex', gap: 12 }}>
+            <Link href="/skills" style={{
+              padding: '8px 18px', borderRadius: 8, fontSize: '.85em', fontWeight: 600,
+              background: 'linear-gradient(135deg,#667eea,#00d4ff)', color: '#fff',
+              textDecoration: 'none',
+            }}>
+              Browse Skills →
+            </Link>
+            <button onClick={() => setShowBanner(false)} style={{
+              padding: '8px 18px', borderRadius: 8, fontSize: '.85em',
+              background: 'transparent', border: '1px solid #333', color: '#888',
+              cursor: 'pointer',
+            }}>
+              Leave Feedback
+            </button>
+          </div>
+          <div style={{ position: 'absolute', top: 12, right: 16, color: '#444', fontSize: '.75em' }}>
+            auto-close in 5s
+          </div>
+        </div>
+      )}
+
       <h1 style={{ fontSize: '1.8em', fontWeight: 800, marginBottom: 8 }}>Share Feedback</h1>
       <p style={{ color: '#666', marginBottom: 40 }}>
         Tell us what skills you need, what's broken, or how to make BytesAgain better.
