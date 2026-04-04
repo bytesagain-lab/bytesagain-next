@@ -63,5 +63,9 @@ export async function GET(req: NextRequest) {
     tags: s.tags,
     source: s.source,
     similarity: Math.round(s.similarity * 100) / 100,
+    downloads: s.downloads || 0,
+    installs_current: s.installs_current || 0,
+    stars: s.stars || 0,
+    score: Math.round((s.score || 0) * 100) / 100,
   })))
 }

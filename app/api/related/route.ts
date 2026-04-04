@@ -52,7 +52,11 @@ export async function GET(req: NextRequest) {
           slug: s.slug,
           name: s.name,
           description: s.description || '',
-          downloads: 0,
+          downloads: s.downloads || 0,
+          installs_current: s.installs_current || 0,
+          stars: s.stars || 0,
+          similarity: s.similarity || 0,
+          _score: s.score || 0,
           _vsearch: true,
         }))
     })(),
@@ -81,14 +85,20 @@ export async function GET(req: NextRequest) {
       }))
   }
 
-  // 向量结果优先，ClawHub补充到5个
+  // 加权排序后合并
   const combined = [...vsSkills, ...chSkills]
   const seen = new Set<string>()
-  const results = combined.filter(s => {
+  const deduped = combined.filter(s => {
     if (seen.has(s.slug)) return false
     seen.add(s.slug)
     return true
-  }).slice(0, 5)
+  })
+
+  // 按 score 排序（向量已有score，ClawHub补充的按downloads）
+  const results = deduped.map((s: any) => ({
+    ...s,
+    _score: s._score || (Math.log((s.downloads||0) + 1) * 0.5 + Math.log((s.installs_current||0) + 1) * 0.8 + (s.stars||0) * 0.3),
+  })).sort((a: any, b: any) => b._score - a._score).slice(0, 5)
 
   // 如果两者都没结果，fallback 到 DB ilike
   if (results.length < 2) {
