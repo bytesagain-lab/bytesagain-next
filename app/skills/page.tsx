@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import ForYouSection from '@/app/components/ForYouSection'
 
 // CSS-in-JS hover workaround via global style tag (Server Component safe)
 const hoverStyle = `
@@ -129,6 +130,9 @@ export default async function SkillsPage({
           ))}
         </div>
       </div>
+
+      {/* For You 个性化推荐（登录用户） */}
+      <ForYouSection />
 
       {/* skill卡片网格 */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))', gap: 16 }}>
