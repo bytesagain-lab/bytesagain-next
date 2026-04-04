@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import InstallCommand from '@/app/components/InstallCommand'
 import RelatedSkills from '@/app/components/RelatedSkills'
+import SkillActions from '@/app/components/SkillActions'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
@@ -103,6 +104,9 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
         </div>
 
         <h1 style={{ fontSize: '2em', margin: '0 0 12px', color: '#e0e0e0' }}>{skill.name || slug}</h1>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+          <SkillActions slug={slug} />
+        </div>
         <p style={{ color: '#888', margin: '0 0 24px', lineHeight: 1.7 }}>
           {skill.description || `${skill.name || slug} is an AI agent skill. Install it to supercharge your AI workflow.`}
         </p>
