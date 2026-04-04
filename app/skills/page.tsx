@@ -111,19 +111,23 @@ export default async function SkillsPage({
         </button>
       </form>
 
-      {/* 分类过滤 */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 28 }}>
-        {CATEGORIES.map(c => (
-          <Link key={c} href={`/skills?cat=${c}${q ? `&q=${encodeURIComponent(q)}` : ''}`}
-            style={{
-              padding: '5px 14px', borderRadius: 20, fontSize: '.85em', textDecoration: 'none',
-              background: cat === c ? '#667eea' : '#0f0f23',
-              color: cat === c ? '#fff' : '#888',
-              border: `1px solid ${cat === c ? '#667eea' : '#1a1a3e'}`,
-            }}>
-            {c === 'all' ? '🌐 All' : c}
-          </Link>
-        ))}
+      {/* 分类过滤 — 单行横向滚动 */}
+      <div style={{ overflowX: 'auto', marginBottom: 28, paddingBottom: 4,
+        scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+        <div style={{ display: 'flex', gap: 8, width: 'max-content' }}>
+          {CATEGORIES.map(c => (
+            <Link key={c} href={`/skills?cat=${c}${q ? `&q=${encodeURIComponent(q)}` : ''}`}
+              style={{
+                padding: '5px 14px', borderRadius: 20, fontSize: '.85em', textDecoration: 'none',
+                whiteSpace: 'nowrap',
+                background: cat === c ? '#667eea' : '#0f0f23',
+                color: cat === c ? '#fff' : '#888',
+                border: `1px solid ${cat === c ? '#667eea' : '#1a1a3e'}`,
+              }}>
+              {c === 'all' ? '🌐 All' : c}
+            </Link>
+          ))}
+        </div>
       </div>
 
       {/* skill卡片网格 */}
