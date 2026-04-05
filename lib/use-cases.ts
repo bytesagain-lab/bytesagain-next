@@ -3610,14 +3610,26 @@ export const USE_CASES: UseCase[] = [
     title: 'Expose Python functions as tools',
     description: 'Integrate Python functions into AI workflows instantly.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-fal-ai-api', name: 'fal.ai', reason: 'fal.ai' }, { slug: 'clawhub-external-ai-integration', name: 'External Ai Integration', reason: 'External Ai Integration' }, { slug: 'clawhub-baidu-aistudio-llm-api', name: 'baidu-aistudio-llm-api', reason: 'baidu-aistudio-llm-api' }, { slug: 'clawhub-nango-api-integration', name: 'Nango API Integration', reason: 'Nango API Integration' }],
+    skills: [
+      { slug: 'code-generator', name: 'Code Generator', reason: 'Generate Python functions and scripts from natural language' },
+      { slug: 'clawhub-python-auto-dev', name: 'Python Auto Dev', reason: 'Automate Python development tasks with AI' },
+      { slug: 'shell-script', name: 'Shell Script', reason: 'Run and automate scripts in your AI workflow' },
+      { slug: 'zapier-recipe', name: 'Automation Recipe', reason: 'Connect Python tools to any workflow with automation recipes' },
+      { slug: 'clawhub-workflow-runner', name: 'Workflow Runner', reason: 'Execute and manage Python-based workflows as AI tools' },
+    ],
   },
   {
     slug: 'sales-agent-builder',
     title: 'Build AI agents for sales tasks',
     description: 'Automate sales workflows with customizable agents.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-selva', name: 'Selva', reason: 'Selva' }, { slug: 'clawhub-afrexai-ai-agency-blueprint', name: 'AI Automation Agency Blueprint', reason: 'AI Automation Agency Blueprint' }, { slug: 'clawhub-aiprox-workflows', name: 'Aiprox Workflows', reason: 'Aiprox Workflows' }, { slug: 'clawhub-deal-works', name: 'Deal Works Mcp', reason: 'Deal Works Mcp' }],
+    skills: [
+      { slug: 'clawhub-crmy', name: 'CRMy', reason: 'AI CRM to manage leads and deals automatically' },
+      { slug: 'leads', name: 'Leads', reason: 'Generate and qualify sales leads with AI' },
+      { slug: 'clawhub-lead-intel-analyzer', name: 'Lead Intel Analyzer', reason: 'Analyze and score leads for sales prioritization' },
+      { slug: 'clawhub-salesforce-reporting-copilot', name: 'Salesforce Reporting Copilot', reason: 'Auto-generate Salesforce reports and pipeline insights' },
+      { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Automate sales outreach and follow-up sequences' },
+    ],
   },
 
   {
