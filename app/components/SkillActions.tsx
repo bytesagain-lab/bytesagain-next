@@ -70,7 +70,7 @@ export default function SkillActions({ slug }: { slug: string }) {
         borderRadius: 8,
         border: favorited ? '1px solid #f87171' : '1px solid #1a1a3e',
         background: favorited ? '#f8717122' : '#0f0f23',
-        color: favorited ? '#f87171' : '#666',
+        color: favorited ? '#f87171' : '#888',
         cursor: 'pointer',
         fontSize: '.9em',
         fontWeight: 600,
@@ -78,9 +78,10 @@ export default function SkillActions({ slug }: { slug: string }) {
         alignItems: 'center',
         gap: 6,
         transition: 'all .2s',
+        opacity: loading ? 0.5 : 1,
       }}
     >
-      {loading ? '...' : favorited ? '❤️ Saved' : '🤍 Save'}
+      {favorited ? '❤️ Saved' : '🤍 Save'}
     </button>
   )
 }
