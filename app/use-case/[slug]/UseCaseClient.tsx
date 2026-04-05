@@ -77,11 +77,17 @@ export default function UseCaseClient({ uc, slug }: { uc: UseCase; slug: string 
 
     setLoading(true)
     try {
-      const res = await fetch(`/api/search?q=${searchQ}&limit=12`)
+      const res = await fetch(`/api/search?q=${searchQ}&limit=20`)
       const data = await res.json()
       const existingSlugs = new Set(uc.skills.map(s => s.slug))
+      // 用 use case title 的关键词过滤，只保留 name 或 description 中包含相关词的
+      const titleWords = uc.title.toLowerCase().split(/\s+/).filter(w => w.length > 3)
       const extra = data
         .filter((s: any) => !existingSlugs.has(s.slug))
+        .filter((s: any) => {
+          const text = ((s.name || '') + ' ' + (s.description || '')).toLowerCase()
+          return titleWords.some(w => text.includes(w))
+        })
         .slice(0, 6)
         .map((s: any) => ({
           slug: s.slug,
