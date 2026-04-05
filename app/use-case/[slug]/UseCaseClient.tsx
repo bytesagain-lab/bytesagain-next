@@ -86,7 +86,8 @@ export default function UseCaseClient({ uc, slug }: { uc: UseCase; slug: string 
   const [extraSkills, setExtraSkills] = useState<Skill[]>([])
   const [loading, setLoading] = useState(false)
 
-  const searchQ = uc.searchLink?.replace('/skills?q=', '') || encodeURIComponent(uc.title)
+  const searchQ = uc.searchLink?.replace('/skills?q=', '') 
+    || encodeURIComponent(uc.description?.slice(0, 60) || uc.title)
 
   async function handleShowMore() {
     if (showMore) { setShowMore(false); return }
@@ -97,11 +98,14 @@ export default function UseCaseClient({ uc, slug }: { uc: UseCase; slug: string 
       const res = await fetch(`/api/search?q=${searchQ}&limit=20`)
       const data = await res.json()
       const existingSlugs = new Set(uc.skills.map(s => s.slug))
-      // 用 use case title 的关键词过滤，只保留 name 或 description 中包含相关词的
-      const titleWords = uc.title.toLowerCase().split(/\s+/).filter(w => w.length > 3)
+      // 用 use case title 的关键词过滤，排除太泛的词，只保留有实际含义的
+      const STOP_WORDS = new Set(['agent', 'tool', 'skill', 'helper', 'assistant', 'builder', 'maker', 'manager', 'generator', 'with', 'your', 'using', 'automation', 'auto', 'from', 'into', 'that', 'this', 'have', 'will'])
+      const titleWords = uc.title.toLowerCase().split(/\s+/)
+        .filter(w => w.length > 4 && !STOP_WORDS.has(w))
       const extra = data
         .filter((s: any) => !existingSlugs.has(s.slug))
         .filter((s: any) => {
+          if (titleWords.length === 0) return false // 全是泛词时不展示
           const text = ((s.name || '') + ' ' + (s.description || '')).toLowerCase()
           return titleWords.some(w => text.includes(w))
         })
