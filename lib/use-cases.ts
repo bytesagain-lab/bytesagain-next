@@ -19,11 +19,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Generate professional weekly, daily, and monthly reports automatically — save 2+ hours every week.',
     icon: '📝',
     skills: [
-      { slug: 'weekly-report-generator', name: 'Weekly Report Generator', reason: 'Automatically compiles your weekly accomplishments and tasks into a structured report' },
-      { slug: 'smart-weekly-report', name: 'Report Generator', reason: 'Generates polished reports from notes and logs with smart formatting' },
-      { slug: 'daily-report', name: 'Daily Report', reason: 'Create concise daily stand-up or end-of-day summaries with one command' },
-      { slug: 'reporting', name: 'Reporting', reason: 'Flexible reporting framework for custom intervals and team-specific formats' },
-      { slug: 'report', name: 'Report', reason: 'General-purpose report skill for ad-hoc summaries and document generation' },
+      { slug: 'story-writer', name: 'story writer', reason: 'Top-rated write skill with 1091 downloads' }, { slug: 'short-drama-writer', name: 'short drama writer', reason: 'Top-rated write skill with 853 downloads' }, { slug: 'jd-writer', name: 'jd writer', reason: 'Top-rated write skill with 455 downloads' }, { slug: 'ad-copywriter', name: 'ad copywriter', reason: 'Top-rated write skill with 435 downloads' }, { slug: 'sop-writer', name: 'sop writer', reason: 'Top-rated write skill with 357 downloads' }
     ],
     searchLink: '/skills?q=report+generator+weekly',
   },
@@ -59,11 +55,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Land your next role faster with AI skills that help you craft applications, prep for interviews, and negotiate offers.',
     icon: '💼',
     skills: [
-      { slug: 'clawhub-resume-cv-builder', name: 'Resume & CV Builder', reason: 'Build professional resumes' },
-      { slug: 'clawhub-resume-and-cover-letter', name: 'Resume & Cover Letter', reason: 'Craft tailored cover letters' },
-      { slug: 'clawhub-job-search', name: 'Job Search', reason: 'Find relevant job listings' },
-      { slug: 'clawhub-remote-job-hunter', name: 'Remote Job Hunter', reason: 'Find remote opportunities' },
-      { slug: 'clawhub-lofy-career', name: 'Career Advisor', reason: 'Career coaching and advice' },
+      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }, { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Highly-rated productivity skill' }
     ],
   },
   {
@@ -98,11 +90,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Deliver projects on time with AI skills for planning, tracking, reporting, and stakeholder communication.',
     icon: '📋',
     skills: [
-      { slug: 'freedcamp-agent-skill', name: 'Freedcamp Project Management', reason: 'Manage tasks, deadlines, and milestones with AI-powered project tools' },
-      { slug: 'clawhub-task-planner', name: 'Task Planner', reason: 'Break down complex projects into actionable tasks and priorities' },
-      { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Automate stakeholder updates and project status communications' },
-      { slug: 'clawhub-productivity-bot', name: 'Productivity Bot', reason: 'Keep the team focused and productive throughout the project lifecycle' },
-      { slug: 'clawhub-project-context-manager', name: 'Project Context Manager', reason: 'Maintain context and documentation across long-running projects' },
+      { slug: 'freedcamp-agent-skill', name: 'Freedcamp Project Management', reason: 'Manage tasks, deadlines, and milestones with AI-powered project tools' }, { slug: 'clawhub-task-planner', name: 'Task Planner', reason: 'Break down complex projects into actionable tasks and priorities' }, { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Automate stakeholder updates and project status communications' }, { slug: 'clawhub-productivity-bot', name: 'Productivity Bot', reason: 'Keep the team focused and productive throughout the project lifecycle' }, { slug: 'clawhub-ai-intelligent-expense-management', name: 'Ai Intelligent Expense Management', reason: 'Top-rated management skill with 158 downloads' }
     ],
   },
   {
@@ -111,11 +99,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Hire better and faster — AI skills for writing job posts, screening candidates, and onboarding new hires.',
     icon: '🧑‍💼',
     skills: [
-      { slug: 'clawhub-recruiting-interview-kit', name: 'Recruiting Interview Kit', reason: 'Structure and streamline technical and behavioral interviews' },
-      { slug: 'clawhub-recruit-email-monitor', name: 'Recruit Email Monitor', reason: 'Monitor and respond to candidate emails automatically' },
-      { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Automate candidate outreach, follow-ups, and offer letters' },
-      { slug: 'clawhub-task-planner', name: 'Task Planner', reason: 'Coordinate hiring pipelines and onboarding checklists efficiently' },
-      { slug: 'clawhub-productivity-bot', name: 'Productivity Bot', reason: 'Help HR teams stay organized and on schedule during hiring sprints' },
+      { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Automate candidate outreach, follow-ups, and offer letters' }, { slug: 'clawhub-task-planner', name: 'Task Planner', reason: 'Coordinate hiring pipelines and onboarding checklists efficiently' }, { slug: 'clawhub-productivity-bot', name: 'Productivity Bot', reason: 'Help HR teams stay organized and on schedule during hiring sprints' }
     ],
   },
 
@@ -165,11 +149,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Scale your marketing efforts with AI skills for content, email, analytics, and campaign management.',
     icon: '📣',
     skills: [
-      { slug: 'clawhub-ai-marketing-automation', name: 'AI Marketing Automation', reason: 'Automate end-to-end marketing campaigns across multiple channels' },
-      { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Set up automated email sequences for leads and customers' },
-      { slug: 'clawhub-larry-marketing', name: 'Larry Marketing', reason: 'AI marketing strategist for planning and executing campaigns' },
-      { slug: 'clawhub-super-marketing-pro', name: 'Super Marketing Pro', reason: 'Professional-grade marketing tools for growth-focused teams' },
-      { slug: 'clawhub-ai-seo-optimizer-pro', name: 'AI SEO Optimizer', reason: 'Drive organic traffic with data-driven SEO optimization' },
+      { slug: 'clawhub-ai-marketing-automation', name: 'AI Marketing Automation', reason: 'Automate end-to-end marketing campaigns across multiple channels' }, { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Set up automated email sequences for leads and customers' }, { slug: 'clawhub-larry-marketing', name: 'Larry Marketing', reason: 'AI marketing strategist for planning and executing campaigns' }, { slug: 'clawhub-marketing-video-editor', name: 'Marketing Video Editor', reason: 'Top-rated marketing skill with 102 downloads' }, { slug: 'clawhub-ai-seo-optimizer-pro', name: 'AI SEO Optimizer', reason: 'Drive organic traffic with data-driven SEO optimization' }
     ],
   },
   {
@@ -191,11 +171,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Plan, record, and grow your podcast — AI skills for show notes, guest research, and audience building.',
     icon: '🎙️',
     skills: [
-      { slug: 'podcast-notes', name: 'Podcast Notes', reason: 'Auto-generate structured show notes and key takeaways from episodes' },
-      { slug: 'clawhub-podcast-transcript-mining-authority-positioning', name: 'Podcast Transcript Mining', reason: 'Extract insights and authority positioning from podcast transcripts' },
-      { slug: 'clawhub-bilibili-video-transcribe-summary', name: 'Video Transcribe & Summary', reason: 'Transcribe audio/video content for repurposing into written formats' },
-      { slug: 'clawhub-ai-marketing-automation', name: 'AI Marketing Automation', reason: 'Grow your podcast audience with automated marketing campaigns' },
-      { slug: 'clawhub-ai-seo-optimizer-pro', name: 'AI SEO Optimizer', reason: 'Optimize episode titles and descriptions for discoverability' },
+      { slug: 'podcast-notes', name: 'Podcast Notes', reason: 'Auto-generate structured show notes and key takeaways from episodes' }, { slug: 'clawhub-bilibili-video-transcribe-summary', name: 'Video Transcribe & Summary', reason: 'Transcribe audio/video content for repurposing into written formats' }, { slug: 'clawhub-ai-marketing-automation', name: 'AI Marketing Automation', reason: 'Grow your podcast audience with automated marketing campaigns' }, { slug: 'clawhub-ai-seo-optimizer-pro', name: 'AI SEO Optimizer', reason: 'Optimize episode titles and descriptions for discoverability' }
     ],
   },
 
@@ -219,11 +195,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Pick up a new language faster with AI skills for translation, writing practice, and vocabulary building.',
     icon: '🌍',
     skills: [
-      { slug: 'clawhub-translator-pro', name: 'Translator Pro', reason: 'Translate text accurately across dozens of languages with context' },
-      { slug: 'clawhub-translation', name: 'Translation', reason: 'Practice reading and writing in your target language with AI help' },
-      { slug: 'subtitle-translator', name: 'Subtitle Translator', reason: 'Learn languages by translating video subtitles in real time' },
-      { slug: 'clawhub-language-learning', name: 'Language Learning Tutor', reason: 'Personalized AI tutor for vocabulary, grammar, and conversation practice' },
-      { slug: 'clawhub-language-coach', name: 'Language Coach', reason: 'Get coached on pronunciation, fluency, and natural language use' },
+      { slug: 'clawhub-translator-pro', name: 'Translator Pro', reason: 'Translate text accurately across dozens of languages with context' }, { slug: 'clawhub-translation', name: 'Translation', reason: 'Practice reading and writing in your target language with AI help' }, { slug: 'subtitle-translator', name: 'Subtitle Translator', reason: 'Learn languages by translating video subtitles in real time' }
     ],
   },
   {
@@ -327,11 +299,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Plan unforgettable trips with AI skills for itineraries, budgeting, language help, and local research.',
     icon: '✈️',
     skills: [
-      { slug: 'clawhub-kontour-travel-planner', name: 'Kontour Travel Planner', reason: 'Build detailed travel itineraries with locations, activities, and logistics' },
-      { slug: 'clawhub-travel-itinerary-builder', name: 'Travel Itinerary Builder', reason: 'Create day-by-day travel plans tailored to your preferences and budget' },
-      { slug: 'clawhub-translator-pro', name: 'Translator Pro', reason: 'Communicate in local languages and translate menus, signs, and more' },
-      { slug: 'budgetly', name: 'Budgetly', reason: 'Track travel expenses and stay within your trip budget' },
-      { slug: 'clawhub-travel-information-and-news', name: 'Travel Information and News', reason: 'Get real-time travel news, visa requirements, and destination info' },
+      { slug: 'clawhub-translator-pro', name: 'Translator Pro', reason: 'Communicate in local languages and translate menus, signs, and more' }, { slug: 'budgetly', name: 'Budgetly', reason: 'Track travel expenses and stay within your trip budget' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
     ],
   },
   {
@@ -340,11 +308,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Build sustainable healthy habits — AI skills for workout planning, nutrition tracking, and wellness goals.',
     icon: '💪',
     skills: [
-      { slug: 'fitness-plan', name: 'Fitness Plan', reason: 'Get personalized workout plans tailored to your goals and fitness level' },
-      { slug: 'clawhub-sparkyfitness', name: 'SparkyFitness', reason: 'AI fitness coach for tracking workouts, nutrition, and progress' },
-      { slug: 'mental-health', name: 'Mental Health', reason: 'Support mental wellness with mindfulness and stress management tools' },
-      { slug: 'clawhub-whoop-health-sync', name: 'WHOOP Health Sync', reason: 'Sync and analyze health metrics from wearables for better recovery' },
-      { slug: 'mealplan', name: 'Meal Plan', reason: 'Generate healthy meal plans aligned with your fitness and nutrition goals' },
+      { slug: 'fitness-plan', name: 'Fitness Plan', reason: 'Get personalized workout plans tailored to your goals and fitness level' }, { slug: 'clawhub-sparkyfitness', name: 'SparkyFitness', reason: 'AI fitness coach for tracking workouts, nutrition, and progress' }, { slug: 'mental-health', name: 'Mental Health', reason: 'Support mental wellness with mindfulness and stress management tools' }, { slug: 'clawhub-health-check', name: 'Health Check', reason: 'Top-rated health skill with 223 downloads' }, { slug: 'mealplan', name: 'Meal Plan', reason: 'Generate healthy meal plans aligned with your fitness and nutrition goals' }
     ],
   },
   {
@@ -353,11 +317,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Cook better meals at home — AI skills for recipe discovery, meal planning, and kitchen organization.',
     icon: '🍳',
     skills: [
-      { slug: 'chefpad', name: 'ChefPad — Recipe Manager', reason: 'Manage your recipe collection and get personalized cooking suggestions' },
-      { slug: 'mealplan', name: 'Meal Plan', reason: 'Plan weekly meals based on dietary preferences and nutritional goals' },
-      { slug: 'clawhub-meal-suggester', name: 'Meal Suggester', reason: 'Get AI-powered meal suggestions based on ingredients you have on hand' },
-      { slug: 'clawhub-cooking-recipe', name: 'Cooking Recipe', reason: 'Discover new recipes and get step-by-step cooking instructions' },
-      { slug: 'home-organizer', name: 'Home Organizer', reason: 'Organize your kitchen inventory and grocery shopping lists efficiently' },
+      { slug: 'chefpad', name: 'ChefPad — Recipe Manager', reason: 'Manage your recipe collection and get personalized cooking suggestions' }, { slug: 'mealplan', name: 'Meal Plan', reason: 'Plan weekly meals based on dietary preferences and nutritional goals' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated home skill with 371 downloads' }, { slug: 'home-organizer', name: 'Home Organizer', reason: 'Organize your kitchen inventory and grocery shopping lists efficiently' }
     ],
   },
   {
@@ -366,11 +326,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automate your home life with AI skills for device control, routines, and energy management.',
     icon: '🏡',
     skills: [
-      { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Control and automate all your smart home devices via Home Assistant' },
-      { slug: 'home-organizer', name: 'Home Organizer', reason: 'Organize home tasks, maintenance schedules, and household routines' },
-      { slug: 'clawhub-switchbot', name: 'SwitchBot Smart Home Control', reason: 'Control SwitchBot IoT devices and automate home scenes' },
-      { slug: 'clawhub-task-planner', name: 'Task Planner', reason: 'Schedule home maintenance tasks and automate reminder routines' },
-      { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Get automated alerts and reports about your home systems' },
+      { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Control and automate all your smart home devices via Home Assistant' }, { slug: 'home-organizer', name: 'Home Organizer', reason: 'Organize home tasks, maintenance schedules, and household routines' }, { slug: 'clawhub-use-smart-contract-platform', name: 'Use Smart Contract Platform', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'clawhub-task-planner', name: 'Task Planner', reason: 'Schedule home maintenance tasks and automate reminder routines' }, { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Get automated alerts and reports about your home systems' }
     ],
   },
   {
@@ -394,11 +350,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Let your AI agent manage leads, track deals, and automate follow-ups — no more manual CRM updates.',
     icon: '💼',
     skills: [
-      { slug: 'clawhub-crmy', name: 'CRMy', reason: 'AI-powered CRM for managing contacts, deals, and sales pipelines' },
-      { slug: 'clawhub-salesforce-reporting-copilot', name: 'Salesforce Reporting Copilot', reason: 'Generate Salesforce reports and dashboards automatically' },
-      { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Automate sales outreach sequences and follow-up emails' },
-      { slug: 'clawhub-follow-up-engine', name: 'Follow-up Engine', reason: 'Never miss a follow-up with automated CRM contact reminders' },
-      { slug: 'clawhub-ai-marketing-automation', name: 'AI Marketing Automation', reason: 'Align sales and marketing with automated lead nurturing workflows' },
+      { slug: 'clawhub-crmy', name: 'CRMy', reason: 'AI-powered CRM for managing contacts, deals, and sales pipelines' }, { slug: 'clawhub-salesforce-reporting-copilot', name: 'Salesforce Reporting Copilot', reason: 'Generate Salesforce reports and dashboards automatically' }, { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Automate sales outreach sequences and follow-up emails' }, { slug: 'clawhub-salesmsg', name: 'Salesmsg', reason: 'Top-rated sales skill with 107 downloads' }, { slug: 'clawhub-ai-marketing-automation', name: 'AI Marketing Automation', reason: 'Align sales and marketing with automated lead nurturing workflows' }
     ],
     searchLink: '/skills?q=crm+sales+leads',
   },
@@ -408,11 +360,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Convert your n8n flows, Zapier zaps, and manual processes into AI agent skills that run automatically.',
     icon: '⚡',
     skills: [
-      { slug: 'agentic-workflow-automation', name: 'Agentic Workflow Automation', reason: 'Build multi-step agentic workflows that run autonomously across tools' },
-      { slug: 'automation-workflow-builder', name: 'automation-workflow-builder（自动化工作流构建器，设计并执行跨平台自动化流程，支持定时触发、文件监控、多步骤操作。适用于数据同步、内容发布、报告生成。）', reason: 'Design and execute cross-platform automation flows with scheduled triggers and multi-step operations' },
-      { slug: 'ai-workflow-automation', name: 'AI Workflow Automation Expert', reason: 'Expert-level AI agent for complex workflow design, debugging, and optimization' },
-      { slug: 'workflow-automation-cn', name: 'Workflow Automation Cn', reason: 'Chinese-language workflow automation builder for domestic tool integrations' },
-      { slug: 'jpeng-workflow-automation', name: 'workflow-automation', reason: 'Lightweight workflow automation skill for quick process setup and scheduling' },
+      { slug: 'data-analysis-workflow', name: 'Data Analysis Workflow', reason: 'Top-rated workflow skill with 209 downloads' }, { slug: 'clawhub-workflow-runner', name: 'Workflow Runner', reason: 'Top-rated workflow skill with 107 downloads' }, { slug: 'clawhub-content-workflow-engine', name: 'Content Workflow Engine', reason: 'Top-rated workflow skill with 103 downloads' }, { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Top-rated automation skill with 611 downloads' }
     ],
     searchLink: '/skills?q=automation+workflow+n8n',
   },
@@ -422,11 +370,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Handle support tickets, auto-reply to common questions, and escalate edge cases — 24/7 without a team.',
     icon: '🎧',
     skills: [
-      { slug: 'automation-workflows', name: 'Automation Workflows', reason: 'Automate repetitive support ticket routing and response workflows' },
-      { slug: 'automation-workflows-0-1-0', name: 'Automation Workflows 0.1.0', reason: 'Trigger automated actions when new support tickets arrive or SLAs are breached' },
-      { slug: 'activecampaign-automation', name: 'Activecampaign Automation', reason: 'Send automated follow-up emails and status updates to customers after resolving tickets' },
-      { slug: 'afrexai-business-automation', name: 'Business Automation Architect', reason: 'Design end-to-end support automation pipelines from triage to resolution' },
-      { slug: 'afrexai-support-operations', name: 'Customer Support Operations Engine', reason: 'Core support operations engine for managing helpdesk workflows and escalations 24/7' },
+      { slug: 'customer-service-reply', name: 'customer service reply', reason: 'Top-rated customer skill with 650 downloads' }, { slug: 'clawhub-ai-customer-service-scripts', name: 'AI Customer Service Scripts Generator', reason: 'Top-rated customer skill with 125 downloads' }, { slug: 'clawhub-uplo-customer-success', name: 'Uplo Customer Success', reason: 'Top-rated customer skill with 102 downloads' }, { slug: 'clawhub-vidu-video-generate', name: 'The Vidu API supports text-based video, ', reason: 'Top-rated support skill with 159 downloads' }, { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Top-rated automation skill with 611 downloads' }
     ],
     searchLink: '/skills?q=customer+support+helpdesk',
   },
@@ -436,11 +380,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Query, migrate, and manage databases with AI — SQL generation, schema design, and data pipeline automation.',
     icon: '🗄️',
     skills: [
-      { slug: 'sql-toolkit', name: 'SQL Toolkit', reason: 'Write, optimize, and explain SQL queries across multiple database engines' },
-      { slug: 'database-operations', name: 'Database Operations', reason: 'Perform common database operations like backups, migrations, and indexing' },
-      { slug: 'db', name: 'Database', reason: 'General-purpose database interaction skill for querying and schema inspection' },
-      { slug: 'data-model-designer', name: 'Data Model Designer', reason: 'Design normalized schemas and entity relationships for new databases' },
-      { slug: 'sql-pro', name: 'Sql Pro', reason: 'Advanced SQL skill for complex joins, window functions, and query tuning' },
+      { slug: 'database-design', name: 'database design', reason: 'Top-rated database skill with 1012 downloads' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Top-rated data skill with 19813 downloads' }, { slug: 'data-analyst-pro', name: 'Data Analyst', reason: 'Top-rated data skill with 3316 downloads' }, { slug: 'data-anomaly-detector', name: 'Data Anomaly Detector', reason: 'Top-rated data skill with 2494 downloads' }, { slug: 'data-cog', name: 'Data Cog', reason: 'Top-rated data skill with 1641 downloads' }
     ],
     searchLink: '/skills?q=database+sql+data',
   },
@@ -450,11 +390,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Review AI agent skills, code, and configs for security risks — catch vulnerabilities before they become incidents.',
     icon: '🔒',
     skills: [
-      { slug: 'code-security-auditor', name: 'Code Security Auditor', reason: 'Scans code for injection flaws, authentication bugs, and insecure dependencies' },
-      { slug: 'security-auditor', name: 'Security Auditor', reason: 'Runs comprehensive security audits across your codebase and configurations' },
-      { slug: 'security-audit-toolkit', name: 'Security Audit Toolkit', reason: 'Bundled tools for automated vulnerability scanning and report generation' },
-      { slug: 'pentest', name: 'security-reviewer', reason: 'Performs penetration test simulations to identify exploitable weaknesses' },
-      { slug: 'openclaw-security-audit', name: 'Openclaw Security Audit', reason: 'Purpose-built audit skill for reviewing OpenClaw agent skills and configs' },
+      { slug: 'ring-security', name: 'Ring Security', reason: 'Top-rated security skill with 369 downloads' }, { slug: 'clawhub-security-shield', name: 'Security-Shield', reason: 'Top-rated security skill with 175 downloads' }, { slug: 'clawhub-skill-sec-scan', name: 'Skill Security Scanner', reason: 'Top-rated security skill with 162 downloads' }, { slug: 'clawhub-skill-security-vet', name: 'Skill Security Vet', reason: 'Top-rated security skill with 122 downloads' }, { slug: 'clawhub-agent-runtime-security', name: 'Agent Runtime Security', reason: 'Top-rated security skill with 112 downloads' }
     ],
     searchLink: '/skills?q=security+audit+vulnerability',
   },
@@ -466,11 +402,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Write faster and better — AI skills for blog posts, ad copy, social captions, product descriptions, and long-form content.',
     icon: '✍️',
     skills: [
-      { slug: 'copywriter', name: 'copywriter', reason: 'AI copywriter for persuasive ad copy, taglines, and short-form content' },
-      { slug: 'copywriting', name: 'Copywriting', reason: 'Structured copywriting framework for consistent brand voice across formats' },
-      { slug: 'content-writer', name: 'Content Writer 自媒体内容生成器', reason: 'Social media content generator optimized for Chinese platforms like WeChat and Weibo' },
-      { slug: 'copywriting-pro', name: 'Copywriting Pro', reason: 'Professional-grade copywriting with A/B testing suggestions and CTA optimization' },
-      { slug: 'seo-content-writer', name: 'Seo Content Writer', reason: 'Write blog posts and articles optimized for both readability and search ranking' },
+      { slug: 'clawhub-persona-content-creator', name: 'Persona Content Creator', reason: 'Top-rated content skill with 476 downloads' }, { slug: 'clawhub-post-content-moderation', name: 'Post Content Moderation', reason: 'Top-rated content skill with 147 downloads' }, { slug: 'clawhub-content-claw', name: 'Content Claw', reason: 'Top-rated content skill with 136 downloads' }, { slug: 'clawhub-ai-intelligent-content-generation', name: 'Ai Intelligent Content Generation', reason: 'Top-rated content skill with 127 downloads' }, { slug: 'clawhub-content-creation-multi-agent', name: 'Content Creation Multi Agent', reason: 'Top-rated content skill with 116 downloads' }
     ],
     searchLink: '/skills?q=writing+copywriting+content',
   },
@@ -494,11 +426,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Rank higher and grow traffic — AI skills for keyword research, content optimization, backlink strategy, and technical SEO.',
     icon: '🚀',
     skills: [
-      { slug: 'marketing-mode', name: 'Marketing Mode', reason: 'Switch your content strategy into growth mode with SEO-first marketing tactics' },
-      { slug: 'seo', name: 'SEO (Site Audit + Content Writer + Competitor Analysis)', reason: 'All-in-one SEO suite covering site audits, content writing, and competitor research' },
-      { slug: 'seo-competitor-analysis', name: 'SEO Intelligence & Competitor Analysis Pro', reason: 'Deep competitor gap analysis to find keywords and content opportunities you are missing' },
-      { slug: 'seo-optimizer', name: 'Seo Optimizer', reason: 'On-page optimization suggestions to improve rankings for your target keywords' },
-      { slug: 'master-marketing', name: 'Master Marketing', reason: 'Integrated marketing and SEO strategy for sustainable organic traffic growth' },
+      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }, { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Highly-rated productivity skill' }
     ],
     searchLink: '/skills?q=seo+keyword+traffic',
   },
@@ -508,11 +436,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Run your online store on autopilot — AI skills for product listings, inventory, customer service, and ad optimization.',
     icon: '🛒',
     skills: [
-      { slug: 'ecommerce', name: 'Ecommerce', reason: 'Core e-commerce skill for managing products, orders, and store operations' },
-      { slug: 'dropshipping', name: 'Dropshipping', reason: 'Automate supplier sourcing, order fulfillment, and dropshipping workflows' },
-      { slug: 'ecom-manager-d2c', name: 'Ecom Manager D2c', reason: 'Direct-to-consumer store management with inventory and customer analytics' },
-      { slug: 'returns-reverse-logistics', name: 'Returns Reverse Logistics', reason: 'Streamline return requests, refunds, and reverse logistics workflows' },
-      { slug: 'clawd-ecommerce-automation', name: 'Ecommerce Automation', reason: 'Automate product listing updates, pricing rules, and promotional campaigns' },
+      { slug: 'clawhub-clawd-ecommerce-automation', name: 'Ecommerce Automation', reason: 'Top-rated ecommerce skill with 401 downloads' }, { slug: 'clawhub-ecommerce-category-collector', name: 'Audtools Ecommerce Category Collector', reason: 'Top-rated ecommerce skill with 100 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Top-rated operations skill with 885 downloads' }, { slug: 'clawhub-claw-ops-manager', name: 'Claw Operations Manager', reason: 'Top-rated operations skill with 112 downloads' }
     ],
     searchLink: '/skills?q=ecommerce+product+listing',
   },
@@ -522,11 +446,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Break language barriers instantly — AI skills for translating documents, websites, subtitles, and multilingual content at scale.',
     icon: '🌐',
     skills: [
-      { slug: 'japanese-translation-and-tutor', name: 'Japanese Translation And Tutor', reason: 'Specialized Japanese translation with cultural context and language tutoring' },
-      { slug: 'translation', name: 'translation', reason: 'Fast and accurate text translation across dozens of language pairs' },
-      { slug: 'lyric-translator', name: 'Lyric Translator', reason: 'Translate song lyrics with attention to rhythm and cultural meaning' },
-      { slug: 'video-translator', name: 'Video Translator', reason: 'Translate and dub video content for multilingual audiences' },
-      { slug: 'clawhub-pdf-master-translator', name: 'PDF Master Translator', reason: 'Translate entire PDF documents while preserving formatting and layout' },
+      { slug: 'clawhub-translation', name: 'translation', reason: 'Top-rated translation skill with 686 downloads' }, { slug: 'clawhub-pdf-master-translator', name: 'PDF Master Translator', reason: 'Translate entire PDF documents while preserving formatting and layout' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
     ],
     searchLink: '/skills?q=translation+localization',
   },
@@ -536,11 +456,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Take charge of your health with AI — meal planning, workout tracking, symptom research, and wellness habit building.',
     icon: '💪',
     skills: [
-      { slug: 'health-coach-video', name: 'Health Coach Video — Coaching Approach and Client Transformation Videos for Health Coaches and Wellness Coaching Practices', reason: 'Create compelling video content for health coaching practices to attract and retain clients' },
-      { slug: 'health', name: 'Health', reason: 'General health assistant for symptom research, health tips, and wellness guidance' },
-      { slug: 'healthy-eating', name: 'Healthy Eating', reason: 'Get personalized healthy eating recommendations aligned with your dietary goals' },
-      { slug: 'intimate-wellbeing', name: 'Intimate Wellbeing (Non‑explicit)', reason: 'Support intimate health and relationship wellness with evidence-based guidance' },
-      { slug: 'doctor', name: 'Doctor', reason: 'AI doctor assistant for understanding symptoms, medications, and health conditions' },
+      { slug: 'mental-health', name: 'mental-health', reason: 'Top-rated health skill with 341 downloads' }, { slug: 'clawhub-health-check', name: 'Health Check', reason: 'Top-rated health skill with 223 downloads' }, { slug: 'clawhub-healthcheck-litiao', name: 'Healthcheck Litiao', reason: 'Top-rated health skill with 123 downloads' }, { slug: 'clawhub-tonic-vm-check', name: 'VM Health Check', reason: 'Top-rated health skill with 111 downloads' }
     ],
     searchLink: '/skills?q=health+fitness+wellness',
   },
@@ -553,11 +469,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Monitors government and foundation grant portals, parses deadlines, and sends proactive alerts with application prep steps.',
     icon: '⏰',
     skills: [
-      { slug: 'email-to-calendar', name: 'Email To Calendar', reason: 'Automatically extract grant deadline dates from emails and add them to your calendar' },
-      { slug: 'web3-grant-tracker', name: 'web3-grant-tracker', reason: 'Track Web3 and blockchain grant opportunities with deadline monitoring' },
-      { slug: 'afrexai-email-to-calendar', name: 'Email to Calendar Extraction Engine', reason: 'Enterprise-grade engine for parsing deadline alerts from grant portal emails' },
-      { slug: 'doro-email-to-calendar', name: 'Doro Email To Calendar', reason: 'Lightweight email-to-calendar tool for individual grant applicants' },
-      { slug: 'caseclaw', name: 'One missed deadline ends a career. caseclaw makes sure it never happens.  Point it at a matter and it auto-calculates every filing deadline from 600+ court rule sets. Throw a new client name at it and it checks conflicts against your entire case history in under a second. Start typing and its already timing your work in six-minute increments.  No browser tabs. No clunky SaaS dashboards. No $500/seat enterprise contracts. Just one command and the peace of mind that nothing is slipping through.', reason: 'Legal-grade deadline calculation engine adapted for grant filing rules and compliance calendars' },
+      { slug: 'clawhub-grant-budget-justification', name: 'Grant Budget Justification', reason: 'Top-rated grant skill with 109 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }, { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Highly-rated productivity skill' }
     ],
     searchLink: '/skills?q=deadline+monitoring+grant+application+calendar',
   },
@@ -567,11 +479,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Analyzes alert logs, correlates errors across tools, executes runbook actions, and documents resolution in real time.',
     icon: '🚨',
     skills: [
-      { slug: 'devops', name: 'DevOps', reason: 'Core DevOps skill for managing infrastructure, deployments, and system health' },
-      { slug: 'afrexai-incident-response', name: 'Incident Response Playbook', reason: 'Structured incident response workflows that guide teams from detection to resolution' },
-      { slug: 'production-readiness', name: 'Production Readiness', reason: 'Pre-incident checks to ensure systems are ready for production and resilient to failures' },
-      { slug: 'afrexai-post-mortem', name: 'Post-Mortem & Incident Review', reason: 'Generate blameless post-mortems and actionable follow-ups after incidents' },
-      { slug: 'afrexai-automation-strategy', name: 'Business Automation Strategy', reason: 'Automate runbook execution and incident escalation to reduce mean time to recovery' },
+      { slug: 'devops-bash-tools', name: 'devops bash tools', reason: 'Top-rated devops skill with 176 downloads' }, { slug: 'devops-scripts', name: 'devops scripts', reason: 'Top-rated devops skill with 138 downloads' }, { slug: 'devops-journey', name: 'Devops Journey', reason: 'Top-rated devops skill with 138 downloads' }, { slug: 'clawhub-uplo-devops', name: 'Uplo Devops', reason: 'Top-rated devops skill with 128 downloads' }, { slug: 'clawhub-devops-pipeline-management', name: 'Devops Pipeline Management', reason: 'Top-rated devops skill with 100 downloads' }
     ],
     searchLink: '/skills?q=devops+incident+response+pagerduty+prometheus',
   },
@@ -581,11 +489,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Manages end-to-end guest communication, dynamic pricing, cleaning coordination, and review requests across platforms.',
     icon: '🏡',
     skills: [
-      { slug: 'clawhub-airbnb-search', name: 'Airbnb Search', reason: 'Search and analyze Airbnb listings to benchmark your pricing and amenities' },
-      { slug: 'rental', name: 'Rental', reason: 'Manage rental property listings, bookings, and guest communications in one place' },
-      { slug: 'clawhub-ai-airbnb-revenue-maximizer-v2', name: 'AI Airbnb Revenue Maximizer — Spy on Top Listings & Earn 40% More From Your Property', reason: 'Analyze top-performing listings to optimize your pricing strategy and increase revenue' },
-      { slug: 'lead-auto-scraper', name: 'Lead Auto Scraper', reason: 'Scrape potential guest contact data and travel groups for direct booking outreach' },
-      { slug: 'client-onboarding-automator', name: 'Client Onboarding Automator', reason: 'Automate guest welcome messages, check-in instructions, and house rule delivery' },
+      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }, { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Highly-rated productivity skill' }
     ],
     searchLink: '/skills?q=airbnb+host+automation+pricing+cleaning+reviews',
   },
@@ -595,11 +499,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Watches long-form content, identifies high-engagement moments, clips them, adds captions and hooks, then publishes natively.',
     icon: '✂️',
     skills: [
-      { slug: 'video-frames', name: 'Video Frames', reason: 'Extract key frames from long videos to identify the most engaging moments' },
-      { slug: 'ytb-transcript-long', name: 'YouTube Long Video Transcript', reason: 'Transcribe long YouTube videos to find quotable highlights for short clips' },
-      { slug: 'youtube-video-analyzer', name: 'Youtube Video Analyzer', reason: 'Analyze YouTube video performance to identify which sections drive the most engagement' },
-      { slug: 'video-clip-extractor', name: 'Video Frames', reason: 'Extract and clip specific video segments based on timestamps or content markers' },
-      { slug: 'video-splitter', name: 'Video Splitter', reason: 'Split long videos into segments ready for repackaging as shorts or reels' },
+      { slug: 'return-policy', name: 'return policy', reason: 'Top-rated turn skill with 343 downloads' }, { slug: 'clawhub-juya-ai-daily-skills', name: 'Fetch the latest AI daily brief from imj', reason: 'Top-rated turn skill with 150 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Top-rated long skill with 885 downloads' }, { slug: 'clawhub-long-to-short', name: 'Long to Short', reason: 'Top-rated long skill with 165 downloads' }, { slug: 'clawhub-long-running-agent', name: 'long-running-agent', reason: 'Top-rated long skill with 109 downloads' }
     ],
     searchLink: '/skills?q=video+clipping+shorts+hook+caption+publishing',
   },
@@ -612,11 +512,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Launch domain-specific chatbots that answer questions using your internal documentation and knowledge bases.',
     icon: '🤖',
     skills: [
-      { slug: 'ai-boss-assistant', name: 'AI Boss Assistant', reason: 'Deploy a powerful AI assistant that handles FAQs and complex queries from your docs' },
-      { slug: 'botpress-adk', name: 'Create a Botpress AI agent with the ADK using OpenClaw', reason: 'Build and deploy Botpress chatbots with AI agent capabilities through OpenClaw' },
-      { slug: 'chatr', name: 'Chatr.ai - Real-time chat room for AI agents', reason: 'Create real-time chat interfaces where multiple AI agents can collaborate and respond' },
-      { slug: 'clawgang', name: 'ClawGang', reason: 'Coordinate a gang of specialized chatbots for different domains in your product' },
-      { slug: 'virtually-us', name: 'Virtually Us', reason: 'Build domain-specific virtual assistants with custom knowledge and personas' },
+      { slug: 'deploy-helper', name: 'deploy helper', reason: 'Top-rated deploy skill with 358 downloads' }, { slug: 'clawhub-k3s-deploy', name: 'K3s Kubernetes Deploy', reason: 'Top-rated deploy skill with 120 downloads' }, { slug: 'deployer', name: 'deployer', reason: 'Top-rated deploy skill with 111 downloads' }
     ],
     searchLink: '/skills?q=chatbot+knowledge+base',
   },
@@ -626,11 +522,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Chat interactively with your PDFs, internal wikis, and databases using retrieval-augmented generation.',
     icon: '📚',
     skills: [
-      { slug: 'rag', name: 'RAG', reason: 'Core retrieval-augmented generation framework for chatting with your own documents' },
-      { slug: 'rag-construction', name: 'Rag Construction', reason: 'Build and configure RAG pipelines with custom chunking and embedding strategies' },
-      { slug: 'raglite', name: 'RAGLite', reason: 'Lightweight RAG implementation for quick document Q&A without heavy infrastructure' },
-      { slug: 'rag-search', name: 'RAG Search', reason: 'Semantic search over your knowledge base using vector embeddings and retrieval' },
-      { slug: 'ragflow', name: 'Ragflow API Client', reason: 'Connect to RAGFlow for enterprise-grade document ingestion and knowledge retrieval' },
+      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Top-rated document skill with 885 downloads' }, { slug: 'clawhub-csv-documentation-generator', name: 'Csv Documentation Generator', reason: 'Top-rated document skill with 147 downloads' }, { slug: 'clawhub-document-ingestion', name: 'Document Ingestion', reason: 'Top-rated document skill with 134 downloads' }, { slug: 'wechat-mini-app', name: 'wechat mini app', reason: 'Top-rated chat skill with 535 downloads' }, { slug: 'clawhub-wechat-article-fetcher', name: 'WeChat Article Fetcher', reason: 'Top-rated chat skill with 431 downloads' }
     ],
     searchLink: '/skills?q=rag+pdf+chat',
   },
@@ -640,11 +532,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Instantly condense emails, meeting transcripts, reports, and web articles into key insights.',
     icon: '✂️',
     skills: [
-      { slug: 'summarizer', name: 'Summarizer', reason: 'Instantly summarize long articles, reports, and documents into key bullet points' },
-      { slug: 'summarize-pro', name: 'Summarize Pro', reason: 'Professional summarization with customizable length, tone, and focus areas' },
-      { slug: 'document-summary', name: 'Document Summary', reason: 'Generate executive summaries from uploaded documents and PDFs' },
-      { slug: 'clawhub-summarizer', name: 'Text Summarizer', reason: 'Fast text summarization optimized for emails, meeting notes, and web articles' },
-      { slug: 'summarize-1-0-0', name: 'Summarize 1.0.0', reason: 'Lightweight summarization skill for quick content condensing in any workflow' },
+      { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Top-rated auto skill with 611 downloads' }, { slug: 'slack-automator', name: 'slack automator', reason: 'Top-rated auto skill with 436 downloads' }, { slug: 'clawhub-clawd-ecommerce-automation', name: 'Ecommerce Automation', reason: 'Top-rated auto skill with 401 downloads' }, { slug: 'autohotkey', name: 'autohotkey', reason: 'Top-rated auto skill with 367 downloads' }, { slug: 'zapier-recipe', name: 'Automation Recipe', reason: 'Top-rated auto skill with 349 downloads' }
     ],
     searchLink: '/skills?q=summarize+email+meeting',
   },
@@ -654,11 +542,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Generate SEO-optimized blog posts, newsletters, and social media captions in seconds.',
     icon: '✍️',
     skills: [
-      { slug: 'content-writer', name: 'Content Writer 自媒体内容生成器', reason: 'Generate social media content for Chinese platforms with optimized hashtags and format' },
-      { slug: 'content-generation', name: 'Content Generation', reason: 'AI-powered content generation for blogs, newsletters, and marketing copy at scale' },
-      { slug: 'xhs-content-creator', name: '小红书内容创作', reason: 'Create viral Xiaohongshu (RedNote) posts with trending formats and engagement hooks' },
-      { slug: 'seo-content-engine', name: 'SEO Content Engine', reason: 'Generate SEO-optimized articles targeting specific keywords and search intent' },
-      { slug: 'dellight-content-marketing', name: 'DELLIGHT Content & Marketing Operations', reason: 'End-to-end content marketing operations from ideation to publishing and distribution' },
+      { slug: 'clawhub-persona-content-creator', name: 'Persona Content Creator', reason: 'Top-rated content skill with 476 downloads' }, { slug: 'clawhub-post-content-moderation', name: 'Post Content Moderation', reason: 'Top-rated content skill with 147 downloads' }, { slug: 'clawhub-content-claw', name: 'Content Claw', reason: 'Top-rated content skill with 136 downloads' }, { slug: 'clawhub-ai-intelligent-content-generation', name: 'Ai Intelligent Content Generation', reason: 'Top-rated content skill with 127 downloads' }, { slug: 'clawhub-content-creation-multi-agent', name: 'Content Creation Multi Agent', reason: 'Top-rated content skill with 116 downloads' }
     ],
     searchLink: '/skills?q=blog+social+newsletter',
   },
@@ -668,11 +552,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automatically sync contacts, update deal stages, and log interactions across HubSpot, Salesforce, and Pipedrive.',
     icon: '🔄',
     skills: [
-      { slug: 'clawhub-hubspot-crm', name: 'Hubspot Crm', reason: 'Sync contacts, deals, and activities across HubSpot with automated data consistency' },
-      { slug: 'clawhub-salesforce-reporting-copilot', name: 'Salesforce Reporting Copilot', reason: 'Auto-generate Salesforce reports and keep deal stages in sync with your pipeline' },
-      { slug: 'crm', name: 'CRM', reason: 'General CRM integration skill for syncing leads and contacts across platforms' },
-      { slug: 'clawhub-crmy', name: 'CRMy', reason: 'AI-native CRM that auto-logs interactions and updates deal stages without manual input' },
-      { slug: 'clawdbot-backup', name: 'Clawdbot Backup', reason: 'Back up your CRM data regularly to prevent loss during migrations or system failures' },
+      { slug: 'clawhub-git-sync-daemon', name: 'Git Sync Daemon', reason: 'Top-rated sync skill with 224 downloads' }, { slug: 'clawhub-salesforce-reporting-copilot', name: 'Salesforce Reporting Copilot', reason: 'Auto-generate Salesforce reports and keep deal stages in sync with your pipeline' }, { slug: 'clawhub-soulsync', name: 'Soulsync', reason: 'Top-rated sync skill with 137 downloads' }, { slug: 'clawhub-crmy', name: 'CRMy', reason: 'AI-native CRM that auto-logs interactions and updates deal stages without manual' }, { slug: 'clawhub-sync-obsidian', name: 'Sync Obsidian', reason: 'Top-rated sync skill with 100 downloads' }
     ],
     searchLink: '/skills?q=crm+sync+salesforce',
   },
@@ -685,11 +565,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Monitors real-time prices, executes trades, tracks portfolio performance, and sends price or event alerts.',
     icon: '📊',
     skills: [
-      { slug: 'crypto-trading-bot', name: 'Crypto Trading Bot', reason: 'Automated crypto trading bot for executing buy/sell strategies based on price signals' },
-      { slug: 'binance-pro', name: 'Binance Pro', reason: 'Trade on Binance with AI-powered order execution, portfolio tracking, and alert management' },
-      { slug: 'hyperliquid-trading', name: 'Hyperliquid Trading & Analysis', reason: 'Trade on Hyperliquid DEX with real-time on-chain analysis and position management' },
-      { slug: 'day-trading-skill', name: 'Day Trading Investor Pro', reason: 'Day trading assistant with technical analysis, entry/exit signals, and risk management' },
-      { slug: 'simul8or-trader', name: 'Simul8or Trader', reason: 'Simulate trading strategies on historical data before deploying with real capital' },
+      { slug: 'crypto-tracker-cn', name: 'crypto-tracker-cn', reason: 'Top-rated crypto skill with 543 downloads' }, { slug: 'crypto-defi', name: 'crypto defi', reason: 'Top-rated crypto skill with 421 downloads' }, { slug: 'crypto-tax-calc', name: 'Crypto Tax Calc', reason: 'Top-rated crypto skill with 407 downloads' }, { slug: 'crypto-whale-tracker', name: 'Crypto Whale Tracker', reason: 'Top-rated crypto skill with 385 downloads' }, { slug: 'crypto-news-feed', name: 'Crypto News Feed', reason: 'Top-rated crypto skill with 375 downloads' }
     ],
     searchLink: '/skills?q=crypto+trading+alert+portfolio',
   },
@@ -699,11 +575,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates CI/CD pipelines, monitors deployment health, and securely processes GitHub webhooks.',
     icon: '⚙️',
     skills: [
-      { slug: 'devops', name: 'DevOps', reason: 'Core DevOps skill for automating CI/CD pipelines, deployments, and infrastructure operations' },
-      { slug: 'automation-workflows-0-1-0', name: 'Automation Workflows 0.1.0', reason: 'Configure automated workflows for build, test, and deployment pipeline stages' },
-      { slug: 'devops-automation-pack', name: 'Devops Automation Pack', reason: 'Bundled toolkit for container orchestration, monitoring hooks, and release automation' },
-      { slug: 'afrexai-business-automation', name: 'Business Automation Architect', reason: 'Design scalable automation architecture for DevOps processes across teams' },
-      { slug: 'automate', name: 'Automate', reason: 'General automation skill for connecting GitHub webhooks and CI events to downstream actions' },
+      { slug: 'devops-bash-tools', name: 'devops bash tools', reason: 'Top-rated devops skill with 176 downloads' }, { slug: 'devops-scripts', name: 'devops scripts', reason: 'Top-rated devops skill with 138 downloads' }, { slug: 'devops-journey', name: 'Devops Journey', reason: 'Top-rated devops skill with 138 downloads' }, { slug: 'clawhub-uplo-devops', name: 'Uplo Devops', reason: 'Top-rated devops skill with 128 downloads' }, { slug: 'clawhub-devops-pipeline-management', name: 'Devops Pipeline Management', reason: 'Top-rated devops skill with 100 downloads' }
     ],
     searchLink: '/skills?q=devops+ci+cd+github+deployment',
   },
@@ -713,11 +585,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Extracts structured data like totals, dates, and line items from PDF invoices and receipts.',
     icon: '📄',
     skills: [
-      { slug: 'clawhub-pdf', name: 'PDF Reader', reason: 'Parses text and tables from scanned PDFs' },
-      { slug: 'clawhub-invoices', name: 'Invoice Parser', reason: 'Identifies and extracts key financial fields' },
-      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Validates and normalizes extracted numbers/dates' },
-      { slug: 'excel-formula', name: 'Excel Formula', reason: 'Generates formulas for reconciliation and reporting' },
-      { slug: 'report-generator', name: 'Report Generator', reason: 'Exports parsed data to CSV or Excel reports' },
+      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Top-rated document skill with 885 downloads' }, { slug: 'clawhub-csv-documentation-generator', name: 'Csv Documentation Generator', reason: 'Top-rated document skill with 147 downloads' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Validates and normalizes extracted numbers/dates' }, { slug: 'excel-formula', name: 'Excel Formula', reason: 'Generates formulas for reconciliation and reporting' }, { slug: 'clawhub-document-ingestion', name: 'Document Ingestion', reason: 'Top-rated document skill with 134 downloads' }
     ],
     searchLink: '/skills?q=pdf+invoice+receipt+extraction+structured',
   },
@@ -727,11 +595,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Converts, merges, and splits documents while syncing across Google Drive and Notion automatically.',
     icon: '🔄',
     skills: [
-      { slug: 'docx-cn', name: 'Docx Cn', reason: 'Create, convert, and edit DOCX files in Chinese-language workflows' },
-      { slug: 'openkm-rest', name: 'OpenKM Document Management', reason: 'Sync and manage documents across teams using OpenKM document repository' },
-      { slug: 'ops', name: 'Ops', reason: 'Automate document operations including format conversion, merging, and splitting' },
-      { slug: 'yh-minimax-docx', name: 'MiniMax DOCX', reason: 'Generate and process DOCX documents using MiniMax AI for content-rich outputs' },
-      { slug: 'document-docx', name: 'Docx', reason: 'Universal DOCX skill for reading, writing, and transforming Word documents programmatically' },
+      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Top-rated document skill with 885 downloads' }, { slug: 'clawhub-csv-documentation-generator', name: 'Csv Documentation Generator', reason: 'Top-rated document skill with 147 downloads' }, { slug: 'clawhub-document-ingestion', name: 'Document Ingestion', reason: 'Top-rated document skill with 134 downloads' }
     ],
     searchLink: '/skills?q=document+convert+merge+notion+drive',
   },
@@ -741,11 +605,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Organizes, renames, and moves files automatically across cloud storage based on rules and content.',
     icon: '🗂️',
     skills: [
-      { slug: 'clawdbot-filesystem', name: 'Filesystem Management', reason: 'AI-powered filesystem management for organizing, renaming, and moving files by rule' },
-      { slug: 'file-organizer-skill', name: 'File Organizer Skill', reason: 'Automatically sort and organize files into folders based on type, date, or content' },
-      { slug: 'feishu-doc-manager', name: '📄 Feishu Doc Manager | 飞书文档管理器', reason: 'Manage Feishu/Lark documents with AI for syncing, organizing, and sharing across teams' },
-      { slug: 'file-organizer-zh', name: 'File Organizer', reason: 'Chinese-language file organizer for structuring local and cloud storage automatically' },
-      { slug: 'files', name: 'Files', reason: 'Core file management skill for reading, writing, and manipulating files in any workflow' },
+      { slug: 'clawhub-use-smart-contract-platform', name: 'Use Smart Contract Platform', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'smart-lights', name: 'smart lights', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'clawhub-smart-web-search', name: 'Smart Web Search', reason: 'Top-rated smart skill with 110 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Top-rated file skill with 885 downloads' }, { slug: 'file-converter', name: 'file converter', reason: 'Top-rated file skill with 654 downloads' }
     ],
     searchLink: '/skills?q=file+organize+rename+cloud+storage',
   },
@@ -758,11 +618,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates job posting, resume screening, and new hire onboarding using integrated tools.',
     icon: '👥',
     skills: [
-      { slug: 'automation-workflows', name: 'Automation Workflows', reason: 'Automate HR workflows like job posting approval and candidate status updates' },
-      { slug: 'automation-workflows-0-1-0', name: 'Automation Workflows 0.1.0', reason: 'Trigger onboarding tasks automatically when a new hire record is created in your HRIS' },
-      { slug: 'cicd-pipeline', name: 'CI/CD Pipeline', reason: 'Automate HRIS integrations and data sync through structured pipeline workflows' },
-      { slug: 'afrexai-business-automation', name: 'Business Automation Architect', reason: 'Design end-to-end HR automation from job posting to onboarding completion' },
-      { slug: 'auto-workflow', name: 'Auto Workflow', reason: 'Trigger onboarding checklists and offboarding tasks automatically based on HR events' },
+      { slug: 'data-analysis-workflow', name: 'Data Analysis Workflow', reason: 'Top-rated workflow skill with 209 downloads' }, { slug: 'clawhub-workflow-runner', name: 'Workflow Runner', reason: 'Top-rated workflow skill with 107 downloads' }, { slug: 'clawhub-content-workflow-engine', name: 'Content Workflow Engine', reason: 'Top-rated workflow skill with 103 downloads' }, { slug: 'slack-automator', name: 'slack automator', reason: 'Top-rated automator skill with 436 downloads' }, { slug: 'social-automator', name: 'social automator', reason: 'Top-rated automator skill with 137 downloads' }
     ],
     searchLink: '/skills?q=hr+automation+onboarding',
   },
@@ -772,11 +628,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Keeps internal wikis fresh by syncing and transforming docs from Notion or Confluence.',
     icon: '📚',
     skills: [
-      { slug: 'auto-updater', name: 'Auto-Updater Skill', reason: 'Automatically sync wiki content with upstream sources on a schedule' },
-      { slug: 'openclaw-auto-updater', name: 'OpenClaw Auto‑Updater (Safe + Scheduled + Summary)', reason: 'Safe scheduled wiki updates with change summaries so nothing is silently overwritten' },
-      { slug: 'smart-auto-updater', name: 'Smart Auto Updater', reason: 'Intelligently merge doc updates from Notion or Confluence without breaking formatting' },
-      { slug: 'auto-updater-bak-2026-01-28t18-01-13-10-30', name: 'Auto Updater.Bak 2026 01 28T18:01:13+10:30', reason: 'Backup-safe auto-updater that preserves previous wiki versions before syncing' },
-      { slug: 'auto-updater-1-0-0', name: 'Auto Updater 1.0.0', reason: 'Stable first-version auto-updater for basic wiki sync workflows' },
+      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }, { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Highly-rated productivity skill' }
     ],
     searchLink: '/skills?q=wiki+notion+confluence+sync',
   },
@@ -786,11 +638,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Extracts line items, validates totals, reconciles payments, and syncs to QuickBooks or Xero.',
     icon: '🧾',
     skills: [
-      { slug: 'invoices', name: 'Invoices', reason: 'Manage and process multiple invoices with automated line-item extraction and reconciliation' },
-      { slug: 'ai-invoice-generator', name: 'Invoice Generator', reason: 'Generate professional invoices from project data and sync totals to accounting tools' },
-      { slug: 'invoice-chaser', name: 'Invoice Chaser', reason: 'Automatically chase overdue invoices with escalating follow-up reminders to clients' },
-      { slug: 'invoice', name: 'Invoice', reason: 'Core invoice skill for parsing, validating, and exporting invoice data to QuickBooks or Xero' },
-      { slug: 'invoice-template', name: 'Invoice Template', reason: 'Apply consistent invoice templates with your branding and payment terms automatically' },
+      { slug: 'clawhub-use-smart-contract-platform', name: 'Use Smart Contract Platform', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'smart-lights', name: 'smart lights', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'clawhub-smart-web-search', name: 'Smart Web Search', reason: 'Top-rated smart skill with 110 downloads' }, { slug: 'clawhub-bw-invoice-verification-service', name: 'BwInvoice', reason: 'Top-rated invoice skill with 172 downloads' }, { slug: 'clawhub-invoice-extractor', name: 'Invoice-Recognition', reason: 'Top-rated invoice skill with 116 downloads' }
     ],
     searchLink: '/skills?q=invoice+pdf+accounting+reconcile',
   },
@@ -800,11 +648,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Monitors server metrics, triggers auto-remediation scripts, and logs incidents in Jira.',
     icon: '🖥️',
     skills: [
-      { slug: 'secure-code-guardian', name: 'Secure Code Guardian', reason: 'Monitor code deployments for security vulnerabilities before they reach production' },
-      { slug: 'openclaw-ops-guardrails', name: 'OpenClaw Ops Guardrails', reason: 'Enforce operational guardrails to prevent unauthorized changes to production servers' },
-      { slug: 'delx-ops-guardian', name: 'Delx Ops Guardian', reason: 'Watch server metrics and trigger auto-remediation scripts when thresholds are breached' },
-      { slug: 'openclaw-guardian-ultra', name: 'Openclaw Guardian', reason: 'Ultra-mode monitoring for critical infrastructure with real-time Jira incident logging' },
-      { slug: 'agent-proxy-guardian', name: 'Agent Proxy Guardian', reason: 'Proxy-level guardian that inspects and filters all agent requests to prevent misuse' },
+      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }, { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Highly-rated productivity skill' }
     ],
     searchLink: '/skills?q=server+monitoring+alert+incident',
   },
@@ -814,11 +658,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Scrapes target websites, enriches contact data, scores leads, and pushes qualified ones to CRM.',
     icon: '🔍',
     skills: [
-      { slug: 'lead-generation', name: 'Lead Generation', reason: 'Scrape and generate targeted prospect lists from web sources and directories' },
-      { slug: 'lead-hunter', name: 'Lead Hunter', reason: 'Hunt for qualified leads matching your ICP across LinkedIn, web, and social platforms' },
-      { slug: 'cold-email', name: 'MachFive Cold Email', reason: 'Send personalized cold email campaigns at scale with high deliverability rates' },
-      { slug: 'linkedin-lead-generation', name: 'Linkedin Lead Generation', reason: 'Extract and enrich lead contact data from LinkedIn profiles and company pages' },
-      { slug: 'lead-scorer', name: 'Lead Scorer', reason: 'Score and prioritize leads by fit and engagement before pushing to CRM' },
+      { slug: 'leads', name: 'leads', reason: 'Top-rated lead skill with 239 downloads' }, { slug: 'leaderboard', name: 'leaderboard', reason: 'Top-rated lead skill with 172 downloads' }, { slug: 'clawhub-lead-intel-analyzer', name: 'AI Lead Intelligence Generator', reason: 'Top-rated lead skill with 111 downloads' }, { slug: 'clawhub-algernon-orchestrator', name: 'Algernon Orchestrator', reason: 'Top-rated orchestrator skill with 120 downloads' }, { slug: 'clawhub-vaccine-design-orchestrator', name: 'Vaccine Design Orchestrator', reason: 'Top-rated orchestrator skill with 101 downloads' }
     ],
     searchLink: '/skills?q=lead+scraping+enrichment+crm',
   },
@@ -831,11 +671,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates personalized email sequences and dynamically scores leads based on engagement and behavior.',
     icon: '📧',
     skills: [
-      { slug: 'lead-hunter', name: 'Lead Hunter', reason: 'Hunt for qualified leads matching your ICP across LinkedIn, web, and social platforms' },
-      { slug: 'lead-generation', name: 'Lead Generation', reason: 'Scrape and generate targeted prospect lists from web sources and directories' },
-      { slug: 'lead-scorer', name: 'Lead Scorer', reason: 'Score and prioritize leads by fit and engagement before pushing to CRM' },
-      { slug: 'leadklick', name: 'leadklick', reason: 'Track lead clicks and engagement to identify the most sales-ready prospects' },
-      { slug: 'lead-magnets', name: 'Lead Magnets', reason: 'Create high-converting lead magnets like checklists and guides to grow your prospect list' },
+      { slug: 'leads', name: 'leads', reason: 'Top-rated lead skill with 239 downloads' }, { slug: 'leaderboard', name: 'leaderboard', reason: 'Top-rated lead skill with 172 downloads' }, { slug: 'clawhub-lead-intel-analyzer', name: 'AI Lead Intelligence Generator', reason: 'Top-rated lead skill with 111 downloads' }, { slug: 'clawhub-algernon-orchestrator', name: 'Algernon Orchestrator', reason: 'Top-rated orchestrator skill with 120 downloads' }, { slug: 'clawhub-vaccine-design-orchestrator', name: 'Vaccine Design Orchestrator', reason: 'Top-rated orchestrator skill with 101 downloads' }
     ],
     searchLink: '/skills?q=email+lead+scoring+crm',
   },
@@ -845,11 +681,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Schedules social posts, tracks campaign KPIs across channels, and unifies analytics into actionable dashboards.',
     icon: '📊',
     skills: [
-      { slug: 'email-marketing', name: 'Email Marketing', reason: 'Design and send targeted email marketing campaigns with AI-optimized subject lines' },
-      { slug: 'marketing-drafter', name: 'Marketing Drafter', reason: 'Draft marketing emails, newsletters, and promotional copy that drives conversions' },
-      { slug: 'email-best-practices', name: 'Email Best Practices', reason: 'Apply deliverability best practices to maximize open rates and avoid spam filters' },
-      { slug: 'activecampaign-automation', name: 'Activecampaign Automation', reason: 'Build sophisticated ActiveCampaign drip sequences and behavioral trigger workflows' },
-      { slug: 'adcp-advertising', name: 'Ad Context Protocol (AdCP) Advertising', reason: 'Supplement email campaigns with contextual ad placements to reach more prospects' },
+      { slug: 'clawhub-ai-marketing-automation', name: 'AI Marketing Automation', reason: 'Top-rated marketing skill with 209 downloads' }, { slug: 'clawhub-larry-marketing', name: 'Larry Marketing', reason: 'Top-rated marketing skill with 165 downloads' }, { slug: 'clawhub-marketing-video-editor', name: 'Marketing Video Editor', reason: 'Top-rated marketing skill with 102 downloads' }, { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Top-rated automation skill with 611 downloads' }
     ],
     searchLink: '/skills?q=social+analytics+campaign+tracking',
   },
@@ -859,11 +691,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Monitors competitor moves, scans industry news, and aggregates real-time market signals for strategic decisions.',
     icon: '🔍',
     skills: [
-      { slug: 'scout-growth', name: 'Scout Growth — World-Class AI Market Intelligence', reason: 'World-class market intelligence for tracking competitors, trends, and emerging opportunities' },
-      { slug: 'market-research-agent', name: 'Market Research Agent', reason: 'Conduct systematic market research with AI agents that gather and synthesize data at scale' },
-      { slug: 'dellight-intelligence-ops', name: 'DELLIGHT Intelligence Operations', reason: 'Operationalize market intelligence into actionable insights for product and sales teams' },
-      { slug: 'dellight-strategic-intelligence', name: 'DELLIGHT Strategic Intelligence', reason: 'Strategic market analysis for competitive positioning and go-to-market planning' },
-      { slug: 'banana-farmer', name: 'Banana Farmer', reason: 'Niche market research and opportunity discovery for unconventional market segments' },
+      { slug: 'market-analysis-cn', name: 'Market Analysis CN | 市场分析服务', reason: 'Top-rated market skill with 7242 downloads' }, { slug: 'polymarket-screener', name: 'Polymarket Screener 🎯', reason: 'Top-rated market skill with 363 downloads' }, { slug: 'clawhub-a2a-market-stripe-payment', name: 'a2a-Market-Stripe-Payment', reason: 'Top-rated market skill with 215 downloads' }, { slug: 'clawhub-ai-marketing-automation', name: 'AI Marketing Automation', reason: 'Top-rated market skill with 209 downloads' }, { slug: 'clawhub-a2a-market-acp-lite-negotiation', name: 'a2a-Market-ACP-Lite-Negotiation', reason: 'Top-rated market skill with 169 downloads' }
     ],
     searchLink: '/skills?q=competitor+news+market+data',
   },
@@ -873,11 +701,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Transcribes audio/video, extracts insights from images and speech, and generates structured summaries.',
     icon: '🎥',
     skills: [
-      { slug: 'clawhub-bilibili-video-transcribe-summary', name: 'B站视频转文字&总结神器-Bilibili video transcribe&summary', reason: 'Transcribe Bilibili videos and extract structured summaries for analysis' },
-      { slug: 'clawhub-audio-transcribe-summarize', name: 'audio-transcribe-summarize', reason: 'Transcribe audio files and generate concise summaries of spoken content' },
-      { slug: 'clawhub-mosi-transcribe-diarize', name: 'MOSI Transcribe Diarize 多说话人转写', reason: 'Multi-speaker transcription with speaker diarization for meetings and interviews' },
-      { slug: 'clawhub-ytb-transcript', name: 'YouTube Transcript & Summary', reason: 'Extract full YouTube video transcripts and generate structured insight summaries' },
-      { slug: 'clawhub-ifly-speed-transcription', name: 'ifly-speed-transcription', reason: 'High-speed Chinese speech transcription using iFlytek for audio/video content' },
+      { slug: 'clawhub-bilibili-video-transcribe-summary', name: 'B站视频转文字&总结神器-Bilibili video transcribe&s', reason: 'Transcribe Bilibili videos and extract structured summaries for analysis' }, { slug: 'clawhub-audio-transcribe-summarize', name: 'audio-transcribe-summarize', reason: 'Transcribe audio files and generate concise summaries of spoken content' }, { slug: 'clawhub-mosi-transcribe-diarize', name: 'MOSI Transcribe Diarize 多说话人转写', reason: 'Multi-speaker transcription with speaker diarization for meetings and interviews' }, { slug: 'brand-identity-analyzer', name: 'Brand Identity Analyzer', reason: 'Top-rated analyzer skill with 1681 downloads' }, { slug: 'clawhub-ifly-speed-transcription', name: 'ifly-speed-transcription', reason: 'High-speed Chinese speech transcription using iFlytek for audio/video content' }
     ],
     searchLink: '/skills?q=transcription+audio+video+image+analysis',
   },
@@ -887,11 +711,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates task prioritization, triages incoming emails, syncs calendar events, and delivers smart reminders.',
     icon: '✅',
     skills: [
-      { slug: 'productivity', name: 'Productivity', reason: 'All-in-one productivity skill for task management, focus sessions, and goal tracking' },
-      { slug: 'crucial-conversations-coach', name: 'Crucial Conversations Coach', reason: 'Coach you through high-stakes conversations to reduce stress and improve outcomes' },
-      { slug: 'founder-coach', name: 'founder-coach', reason: 'Personal coach for founders to prioritize ruthlessly and maintain peak performance' },
-      { slug: 'personal-productivity', name: 'Personal Productivity', reason: 'Personalized daily productivity system that adapts to your work style and energy levels' },
-      { slug: 'wisdom-accountability-coach', name: 'Wisdom & Accountability Coach', reason: 'Hold yourself accountable to daily habits and goals with wisdom-driven reminders' },
+      { slug: 'personal-bookkeeper', name: 'personal bookkeeper', reason: 'Top-rated personal skill with 373 downloads' }, { slug: 'clawhub-personal-brand-builder', name: 'Personal Brand Builder', reason: 'Top-rated personal skill with 118 downloads' }, { slug: 'clawhub-productivity-bot', name: 'Productivity Bot', reason: 'Top-rated productivity skill with 798 downloads' }, { slug: 'clawhub-dida365-coach-skills', name: 'Dida Coach', reason: 'Top-rated coach skill with 137 downloads' }
     ],
     searchLink: '/skills?q=task+email+calendar+reminder',
   },
@@ -904,11 +724,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Syncs tasks across Jira, Linear, and Asana while auto-generating weekly status reports.',
     icon: '📊',
     skills: [
-      { slug: 'agent-autonomy-kit', name: 'Agent Autonomy Kit', reason: 'Give your task management agents the autonomy to plan, execute, and adapt independently' },
-      { slug: 'mission-control', name: 'Mission Control', reason: 'Command center for managing complex project tasks with dependencies and milestones' },
-      { slug: 'taskr', name: 'Taskr - Persistent Task Planning & Execution for AI Agents', reason: 'Persistent task planning that survives context resets so agents never lose their place' },
-      { slug: 'todoist-rs', name: 'todoist latest', reason: 'Sync tasks with Todoist and get AI-powered prioritization and scheduling suggestions' },
-      { slug: 'afrexai-business-automation', name: 'Business Automation Architect', reason: 'Automate recurring task creation and assignment based on business rules and calendars' },
+      { slug: 'freedcamp-agent-skill', name: 'Freedcamp Project Management', reason: 'Top-rated project skill with 1257 downloads' }, { slug: 'clawhub-git-sync-daemon', name: 'Git Sync Daemon', reason: 'Top-rated sync skill with 224 downloads' }, { slug: 'clawhub-soulsync', name: 'Soulsync', reason: 'Top-rated sync skill with 137 downloads' }, { slug: 'clawhub-sync-obsidian', name: 'Sync Obsidian', reason: 'Top-rated sync skill with 100 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Top-rated report skill with 885 downloads' }
     ],
     searchLink: '/skills?q=task+report+sync',
   },
@@ -918,11 +734,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates multi-channel outreach, tracks deal progression, and generates personalized proposals.',
     icon: '📈',
     skills: [
-      { slug: 'sales-pipeline-tracker', name: 'Sales Pipeline Tracker', reason: 'Track deals across pipeline stages with AI-predicted close probability and next steps' },
-      { slug: 'abm-outbound', name: 'ABM Outbound', reason: 'Run account-based marketing outbound campaigns targeting high-value enterprise accounts' },
-      { slug: 'lead-hunter', name: 'Lead Hunter', reason: 'Proactively hunt for new leads matching your ideal customer profile to fill the pipeline' },
-      { slug: 'lead-generation', name: 'Lead Generation', reason: 'Generate qualified leads from web scraping, directories, and social platforms at scale' },
-      { slug: 'outreach', name: 'Outreach', reason: 'Personalize and automate outreach sequences to move prospects through your pipeline' },
+      { slug: 'clawhub-salesforce-reporting-copilot', name: 'Salesforce Reporting Copilot', reason: 'Top-rated sales skill with 115 downloads' }, { slug: 'clawhub-salesmsg', name: 'Salesmsg', reason: 'Top-rated sales skill with 107 downloads' }, { slug: 'slack-automator', name: 'slack automator', reason: 'Top-rated automator skill with 436 downloads' }, { slug: 'social-automator', name: 'social automator', reason: 'Top-rated automator skill with 137 downloads' }
     ],
     searchLink: '/skills?q=sales+outreach+proposal',
   },
@@ -932,11 +744,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Monitors SIEM alerts, auto-triages incidents, triggers response playbooks, and scans for vulnerabilities.',
     icon: '🛡️',
     skills: [
-      { slug: 'agentguard', name: 'AgentGuard', reason: 'Monitor AI agent actions in real time and block suspicious or unauthorized behavior' },
-      { slug: 'alert-manager', name: 'Alert Manager', reason: 'Centralize security alerts from multiple sources and route them to the right responders' },
-      { slug: 'openclaw-security-monitor', name: 'Openclaw Security Monitor', reason: 'Continuously monitor OpenClaw agent activity for anomalies and policy violations' },
-      { slug: 'senior-security', name: 'Senior Security', reason: 'Senior-level security analysis for threat hunting, vulnerability assessment, and remediation' },
-      { slug: 'alerts', name: 'Alerts', reason: 'Configure intelligent security alert thresholds and escalation rules to reduce noise' },
+      { slug: 'ring-security', name: 'Ring Security', reason: 'Top-rated security skill with 369 downloads' }, { slug: 'clawhub-security-shield', name: 'Security-Shield', reason: 'Top-rated security skill with 175 downloads' }, { slug: 'clawhub-skill-sec-scan', name: 'Skill Security Scanner', reason: 'Top-rated security skill with 162 downloads' }, { slug: 'clawhub-skill-security-vet', name: 'Skill Security Vet', reason: 'Top-rated security skill with 122 downloads' }, { slug: 'clawhub-agent-runtime-security', name: 'Agent Runtime Security', reason: 'Top-rated security skill with 112 downloads' }
     ],
     searchLink: '/skills?q=security+alert+response',
   },
@@ -946,11 +754,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Schedules cross-platform posts, monitors brand mentions, and sends context-aware auto-replies.',
     icon: '📱',
     skills: [
-      { slug: 'postiz', name: 'Postiz is a tool to schedule social media and chat posts to 28+ channels X, LinkedIn, LinkedIn Page, Reddit, Instagram, Facebook Page, Threads, YouTube, Google My Business, TikTok, Pinterest, Dribbble, Discord, Slack, Kick, Twitch, Mastodon, Bluesky, Lemmy, Farcaster, Telegram, Nostr, VK, Medium, Dev.to, Hashnode, WordPress, ListMonk', reason: 'Schedule and manage social media posts across platforms from a single dashboard' },
-      { slug: 'upload-post', name: 'Upload Videos🎥, Photos📸 & Text🖊️ to TikTok, Instagram, YouTube, X, LinkedIn, Facebook, Threads, Pinterest, Reddit & Bluesky via Upload-Post API', reason: 'Upload and publish photos, videos, and text posts to TikTok, Instagram, and more' },
-      { slug: 'mixpost', name: 'Mixpost', reason: 'Self-hosted social media scheduling with multi-account support and analytics' },
-      { slug: 'linkedin-automation', name: 'LinkedIn Automation by Zich (BradAIs OpenClaw)', reason: 'Automate LinkedIn outreach, connection requests, and content posting at scale' },
-      { slug: 'linkedin-writer', name: 'LinkedIn Writer', reason: 'Write compelling LinkedIn posts and articles that drive engagement and followers' },
+      { slug: 'clawhub-clawd-social-publisher', name: 'Social Publisher', reason: 'Top-rated social skill with 171 downloads' }, { slug: 'social-automator', name: 'social automator', reason: 'Top-rated social skill with 137 downloads' }, { slug: 'clawhub-onlyclaw-social-commerce-cn', name: 'Onlyclaw Social Commerce', reason: 'Top-rated social skill with 126 downloads' }, { slug: 'clawhub-onlyclaw-social-commerce-en', name: 'Onlyclaw Social Commerce', reason: 'Top-rated social skill with 118 downloads' }, { slug: 'social-scraper', name: 'social scraper', reason: 'Top-rated social skill with 114 downloads' }
     ],
     searchLink: '/skills?q=social+schedule+monitor',
   },
@@ -960,11 +764,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Routes incoming support tickets by intent and urgency, drafts contextual replies, and escalates SLA breaches.',
     icon: '🎫',
     skills: [
-      { slug: '12306', name: '12306 Train Query', reason: 'Route Chinese train ticketing queries to the right support agent automatically' },
-      { slug: 'clawrouter', name: 'ClawRouter', reason: 'Route incoming support tickets to the appropriate team or queue by topic and priority' },
-      { slug: 'intelligent-router', name: 'Intelligent Model Router', reason: 'Intelligently route messages to the best AI model or agent based on content and complexity' },
-      { slug: 'openclaw-smart-router', name: 'Openclaw Smart Router', reason: 'Smart routing within OpenClaw to distribute support queries across specialized agents' },
-      { slug: 'smart-route', name: 'SmartRoute - Google Routes Calculator', reason: 'Calculate optimal routing paths for service requests using Google Maps-style logic' },
+      { slug: 'clawhub-use-smart-contract-platform', name: 'Use Smart Contract Platform', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'smart-lights', name: 'smart lights', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'clawhub-smart-web-search', name: 'Smart Web Search', reason: 'Top-rated smart skill with 110 downloads' }, { slug: 'clawhub-ticket-monitor-ichinosuke', name: 'Ticket Monitor Ichinosuke', reason: 'Top-rated ticket skill with 303 downloads' }, { slug: 'api-router', name: 'api router', reason: 'Top-rated router skill with 274 downloads' }
     ],
     searchLink: '/skills?q=support+ticket+escalate',
   },
@@ -977,11 +777,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates customer support with real-time answers from your knowledge base and docs.',
     icon: '💬',
     skills: [
-      { slug: 'writing-assistant', name: 'Writing Assistant', reason: 'Help support agents craft clear, professional responses to customer inquiries' },
-      { slug: 'ai-boss-assistant', name: 'AI Boss Assistant', reason: 'AI assistant that handles FAQs and escalates complex issues to human agents' },
-      { slug: 'therapy-mode', name: 'Therapy Mode', reason: 'Handle emotionally charged support conversations with empathy and de-escalation' },
-      { slug: 'searching-assistant', name: 'Searching Assistant', reason: 'Search your knowledge base and docs to find accurate answers for customer questions' },
-      { slug: 'openclaw-voiceai-voice-agent', name: 'Voice.Ai Voice Agents', reason: 'Deploy voice-enabled support bots for phone and IVR customer service channels' },
+      { slug: 'clawhub-vidu-video-generate', name: 'The Vidu API supports text-based video, ', reason: 'Top-rated support skill with 159 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }
     ],
     searchLink: '/skills?q=support+chatbot+kb',
   },
@@ -991,11 +787,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Auto-creates, triages, and routes support tickets from email, chat, and forms to the right team.',
     icon: '🎫',
     skills: [
-      { slug: 'stock-picker-orchestrator', name: 'Stock Picker Orchestrator', reason: 'Orchestrate ticket priority picking logic like portfolio optimization for maximum impact' },
-      { slug: 'fl-multi-agent-orchestrator', name: 'Multi-Agent Orchestrator', reason: 'Coordinate multiple specialized agents to handle different ticket categories in parallel' },
-      { slug: 'trello-orchestrator-runner', name: 'Trello Orchestrator Runner', reason: 'Sync support tickets with Trello boards for visual team workflow management' },
-      { slug: 'supportforge-api', name: 'supportforge-api', reason: 'Integrate with SupportForge API for full-featured ticket lifecycle management' },
-      { slug: 'agents-orchestrator', name: 'Agents Orchestrator', reason: 'Orchestrate agent handoffs and escalation paths for complex multi-tier support tickets' },
+      { slug: 'clawhub-use-smart-contract-platform', name: 'Use Smart Contract Platform', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'smart-lights', name: 'smart lights', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'clawhub-smart-web-search', name: 'Smart Web Search', reason: 'Top-rated smart skill with 110 downloads' }, { slug: 'clawhub-ticket-monitor-ichinosuke', name: 'Ticket Monitor Ichinosuke', reason: 'Top-rated ticket skill with 303 downloads' }, { slug: 'clawhub-algernon-orchestrator', name: 'Algernon Orchestrator', reason: 'Top-rated orchestrator skill with 120 downloads' }
     ],
     searchLink: '/skills?q=ticket+management+auto',
   },
@@ -1008,11 +800,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automate PDF editing, form filling, and document summarization directly inside Adobe Acrobat.',
     icon: '📄',
     skills: [
-      { slug: 'agent-browser-clawdbot', name: 'Agent Browser', reason: 'Browser agent for navigating Acrobat web features and processing PDFs online' },
-      { slug: 'airpoint', name: 'Airpoint', reason: 'Present PDF content and slides in real time with AI-powered Airpoint integration' },
-      { slug: 'vectcut', name: 'VectCut: The first "To-Agent" video editing platform. Build automated video workflows with our stable cloud APIs in Coze, Dify, or OpenClaw.', reason: 'Automate video generation from PDF presentations with AI workflow tools' },
-      { slug: 'happycoding-aicoding', name: 'HappyCoding AI Coding', reason: 'Write code to programmatically process and manipulate PDF documents' },
-      { slug: 'agent-desktop', name: 'Agent Desktop', reason: 'Control Acrobat desktop application using AI agent desktop automation' },
+      { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }, { slug: 'clawhub-openclaw-setup-assistant', name: 'OpenClaw Setup Assistant', reason: 'Top-rated assistant skill with 113 downloads' }
     ],
     searchLink: '/skills?q=ai+acrobat+pdf',
   },
@@ -1022,11 +810,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Simulate technical and behavioral interviews with real-time feedback on answers, tone, and body language.',
     icon: '🎤',
     skills: [
-      { slug: 'interview-coach-ai', name: 'Interview Coach', reason: 'Get real-time AI coaching on your interview answers with tone and delivery feedback' },
-      { slug: 'interview-simulator', name: 'Interview Simulator', reason: 'Simulate full technical and behavioral interviews tailored to specific roles and companies' },
-      { slug: 'interview-designer', name: 'Interview Designer', reason: 'Design custom interview rubrics and question banks for your target position' },
-      { slug: 'product-manager-toolkit', name: 'Product Manager Toolkit', reason: 'Practice PM-specific case studies and strategic thinking frameworks for product interviews' },
-      { slug: 'crucial-conversations-coach', name: 'Crucial Conversations Coach', reason: 'Build confidence in high-stakes interview conversations with structured coaching exercises' },
+      { slug: 'interview-analysis', name: 'Interview Analysis', reason: 'Top-rated interview skill with 1776 downloads' }, { slug: 'clawhub-ai-interview-system', name: 'Ai Interview', reason: 'Top-rated interview skill with 139 downloads' }, { slug: 'clawhub-algernon-interview', name: 'Algernon Interview', reason: 'Top-rated interview skill with 127 downloads' }, { slug: 'clawhub-user-interview', name: 'User Interview', reason: 'Top-rated interview skill with 122 downloads' }, { slug: 'clawhub-interview-question-gen', name: 'Interview Question Gen', reason: 'Top-rated interview skill with 104 downloads' }
     ],
     searchLink: '/skills?q=ai+interview+coach',
   },
@@ -1036,11 +820,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Scan, filter, and auto-apply to job listings using custom criteria like salary, remote status, and tech stack.',
     icon: '💼',
     skills: [
-      { slug: 'ai-automation-consulting', name: 'Ai Automation Consulting', reason: 'Get expert AI automation consulting to identify the best jobs and tasks to automate' },
-      { slug: 'lofy-career', name: 'Lofy Career', reason: 'Automate career development workflows including job search and application tracking' },
-      { slug: 'afrexai-business-automation', name: 'Business Automation Architect', reason: 'Design automated business job pipelines that run without human intervention' },
-      { slug: 'ai-ceo-automation', name: 'AI CEO Automation', reason: 'Automate executive-level decision workflows and management reporting processes' },
-      { slug: 'automation-tool', name: 'Automation Tool', reason: 'General-purpose automation tool for connecting job triggers to downstream AI actions' },
+      { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Top-rated automation skill with 611 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
     ],
     searchLink: '/skills?q=ai+job+automation+apply',
   },
@@ -1050,11 +830,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automatically monitor, A/B test, and adjust Google Ads campaigns based on performance KPIs and budget rules.',
     icon: '📈',
     skills: [
-      { slug: 'google-ads', name: 'Google Ads', reason: 'Manage Google Ads campaigns with AI-optimized bidding and keyword recommendations' },
-      { slug: 'meta-ads-manager', name: 'Meta Ads Manager — No API Key Required', reason: 'Run Meta (Facebook/Instagram) ads alongside Google campaigns without API key setup' },
-      { slug: 'landing-page-optimizer', name: 'Ads Landing Page Optimizer', reason: 'Optimize ad landing pages for higher conversion rates and quality scores' },
-      { slug: 'ads', name: 'Ads', reason: 'Core ads skill for creating, monitoring, and optimizing digital ad campaigns' },
-      { slug: 'budget-bidding-optimizer', name: 'Ads Bid Optimizer', reason: 'Optimize ad spend with AI-driven bid adjustments to maximize ROAS within budget' },
+      { slug: 'clawhub-google-drive-service-account', name: 'Google Drive', reason: 'Top-rated google skill with 166 downloads' }, { slug: 'clawhub-gkeep-notes', name: 'Manage Google Keep notes', reason: 'Top-rated google skill with 115 downloads' }, { slug: 'clawhub-google-search-2', name: 'Google Web Search', reason: 'Top-rated google skill with 110 downloads' }, { slug: 'clawhub-a2a-market-google-oauth', name: 'a2a-Market-Google-OAuth', reason: 'Top-rated google skill with 108 downloads' }, { slug: 'clawhub-civic-google', name: 'Civic Google', reason: 'Top-rated google skill with 104 downloads' }
     ],
     searchLink: '/skills?q=ai+google+ads+optimizer',
   },
@@ -1064,11 +840,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Generate room layouts, suggest furniture pairings, and simulate lighting/mood using uploaded floor plans or photos.',
     icon: '🛋️',
     skills: [
-      { slug: 'frontend-design-3', name: 'Frontend Design', reason: 'Generate room design mockups and visual layouts using frontend design tools' },
-      { slug: 'architecture-designer', name: 'Architecture Designer', reason: 'Design space layouts with architectural precision including room dimensions and flow' },
-      { slug: 'api-designer', name: 'Api Designer', reason: 'Connect interior design tools and product catalogs via API for seamless sourcing' },
-      { slug: 'interior-design', name: 'Interior Design', reason: 'Core interior design skill for style recommendations, mood boards, and furniture selection' },
-      { slug: 'agent-designer', name: 'Agent Designer', reason: 'Design and configure specialized interior design agents for different style niches' },
+      { slug: 'clawhub-agent-architecture-designer', name: 'Agent Architecture Designer', reason: 'Top-rated designer skill with 187 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }, { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Highly-rated productivity skill' }
     ],
     searchLink: '/skills?q=ai+interior+design+layout',
   },
@@ -1078,11 +850,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Manage daily operations including staff scheduling, inventory alerts, online review responses, and reservation sync.',
     icon: '🍽️',
     skills: [
-      { slug: 'ai-boss-assistant', name: 'AI Boss Assistant', reason: 'AI operations assistant for managing restaurant staff, orders, and inventory' },
-      { slug: 'voice-agent', name: 'Voice Agent', reason: 'Handle phone reservations and customer inquiries with voice AI for restaurants' },
-      { slug: 'openclaw-voiceai-voice-agent', name: 'Voice.Ai Voice Agents', reason: 'Voice agents for taking orders and answering questions at the restaurant front desk' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Coordinate specialized agents for kitchen, service, and reservations management' },
-      { slug: 'ai-employee-cn', name: 'Ai Employee Cn', reason: 'Chinese-language AI employee for managing restaurant operations and customer service' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=ai+restaurant+operations',
   },
@@ -1095,11 +863,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that monitors, detects, and responds to security threats in real time.',
     icon: '🛡️',
     skills: [
-      { slug: 'agent-browser-core', name: 'Agent Browser Core', reason: 'Use browser agents to scan web applications for vulnerabilities and misconfigurations' },
-      { slug: 'agent-security', name: 'Agent Security', reason: 'Core security agent for monitoring threats, enforcing policies, and detecting intrusions' },
-      { slug: 'security-hardening', name: 'Security Hardening', reason: 'Harden system configurations against attacks using AI-generated security recommendations' },
-      { slug: 'pwnclaw-security-scan', name: 'PwnClaw Security Scan', reason: 'Run automated penetration testing scans to discover exploitable vulnerabilities' },
-      { slug: 'agent-self-assessment', name: 'Agent Compliance & Security Assessment', reason: 'Self-assess agent compliance and security posture against defined security benchmarks' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=security-scanner+email-assistant+task-planner+report-generator+notion-assistant',
   },
@@ -1109,11 +873,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that automates form filling, record creation, and structured data ingestion from documents or emails.',
     icon: '📝',
     skills: [
-      { slug: 'ai-boss-assistant', name: 'AI Boss Assistant', reason: 'AI boss assistant that delegates and supervises automated data entry workflows' },
-      { slug: 'botpress-adk', name: 'Create a Botpress AI agent with the ADK using OpenClaw', reason: 'Build Botpress chatbots that collect and validate form data from users' },
-      { slug: 'afrexai-agent-manager', name: 'AI Agent Manager Playbook', reason: 'Manage and coordinate multiple data entry agents for high-volume processing' },
-      { slug: 'agents', name: 'Agents', reason: 'Core agents framework for orchestrating parallel data entry tasks at scale' },
-      { slug: 'ai-employee-cn', name: 'Ai Employee Cn', reason: 'Chinese-language AI employee for processing and entering Chinese data records' },
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Top-rated data skill with 19813 downloads' }, { slug: 'data-analyst-pro', name: 'Data Analyst', reason: 'Top-rated data skill with 3316 downloads' }, { slug: 'data-anomaly-detector', name: 'Data Anomaly Detector', reason: 'Top-rated data skill with 2494 downloads' }, { slug: 'data-cog', name: 'Data Cog', reason: 'Top-rated data skill with 1641 downloads' }, { slug: 'database-design', name: 'database design', reason: 'Top-rated data skill with 1012 downloads' }
     ],
     searchLink: '/skills?q=invoice-parser+pdf-reader+email-assistant+sql-assistant+scheduler',
   },
@@ -1123,11 +883,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that assists with exploratory analysis, model prototyping, visualization, and report generation.',
     icon: '📊',
     skills: [
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper for data science workflows including notebook management and experiment tracking' },
-      { slug: 'agents', name: 'Agents', reason: 'Core agents framework for building specialized data science agent pipelines' },
-      { slug: 'botpress-adk', name: 'Create a Botpress AI agent with the ADK using OpenClaw', reason: 'Create conversational interfaces for data science insights and model outputs' },
-      { slug: 'data-cog', name: 'Data Cog', reason: 'Cognitive data processing for pattern recognition and advanced statistical analysis' },
-      { slug: 'afrexai-agent-manager', name: 'AI Agent Manager Playbook', reason: 'Manage data science agent teams for distributed model training and evaluation' },
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Top-rated data skill with 19813 downloads' }, { slug: 'data-analyst-pro', name: 'Data Analyst', reason: 'Top-rated data skill with 3316 downloads' }, { slug: 'data-anomaly-detector', name: 'Data Anomaly Detector', reason: 'Top-rated data skill with 2494 downloads' }, { slug: 'data-cog', name: 'Data Cog', reason: 'Cognitive data processing for pattern recognition and advanced statistical analy' }, { slug: 'database-design', name: 'database design', reason: 'Top-rated data skill with 1012 downloads' }
     ],
     searchLink: '/skills?q=data-analysis+chart-generator+report-generator+note-taker+sql-assistant',
   },
@@ -1137,11 +893,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that manages schema design, query optimization, migration scripting, and real-time monitoring of relational databases.',
     icon: '🗃️',
     skills: [
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper for database query generation, optimization, and schema management' },
-      { slug: 'botpress-adk', name: 'Create a Botpress AI agent with the ADK using OpenClaw', reason: 'Build conversational database interfaces for non-technical users' },
-      { slug: 'agent-network', name: 'Agent Network', reason: 'Coordinate database agents across multiple nodes for distributed data management' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Multi-agent setup for specialized database operations like backup, sync, and migration' },
-      { slug: 'agents', name: 'Agents', reason: 'Core agents framework for automating database administration workflows' },
+      { slug: 'database-design', name: 'database design', reason: 'Top-rated database skill with 1012 downloads' }, { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }
     ],
     searchLink: '/skills?q=sql-assistant+web-scraper+code-reviewer+report-generator+notion-assistant',
   },
@@ -1151,11 +903,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that automates CI/CD pipeline configuration, environment validation, rollback planning, and deployment notifications.',
     icon: '🚀',
     skills: [
-      { slug: 'proactive-agent-lite', name: 'Proactive Agent Lite', reason: 'Proactively monitor deployment health and trigger rollbacks on failure detection' },
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that coordinates deployment steps, checks, and notifications' },
-      { slug: 'botpress-adk', name: 'Create a Botpress AI agent with the ADK using OpenClaw', reason: 'Build deployment chatbots that accept deploy commands via chat and Slack' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Coordinate specialized agents for staging, canary, and production deployment stages' },
-      { slug: 'agents', name: 'Agents', reason: 'Core agents framework for building automated deployment pipelines with rollback logic' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=code-reviewer+api-tester+slack-notifier+task-planner+github-assistant',
   },
@@ -1168,11 +916,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automate financial reporting, reconciliation, and compliance tasks for accountants and finance teams.',
     icon: '📊',
     skills: [
-      { slug: 'weekly-report-generator', name: 'Weekly Report Generator', reason: 'Generate weekly financial summaries and P&L reports automatically for stakeholders' },
-      { slug: 'afrexai-financial-due-diligence', name: 'Financial Due Diligence Analyzer', reason: 'Run AI-powered financial due diligence on company accounts and transactions' },
-      { slug: 'financial-tracker', name: 'Financial Tracker', reason: 'Track income, expenses, and cash flow with automatic categorization and trend analysis' },
-      { slug: 'accountant', name: 'Accountant', reason: 'Core accountant skill for bookkeeping, reconciliation, and financial statement preparation' },
-      { slug: 'afrexai-business-automation', name: 'Business Automation Architect', reason: 'Automate accounting workflows like invoice matching, accruals, and month-end close' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=ai+agent+for+accounting',
   },
@@ -1182,11 +926,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Accelerate full-stack application development with intelligent code generation, review, and integration support.',
     icon: '💻',
     skills: [
-      { slug: 'web', name: 'Web Development', reason: 'Full web development skill for building complete frontend and backend applications' },
-      { slug: 'react-expert', name: 'React Expert', reason: 'Expert React guidance for component architecture, hooks, and performance optimization' },
-      { slug: 'codeconductor', name: 'CodeConductor.ai', reason: 'AI coding conductor that orchestrates the development process from spec to deployment' },
-      { slug: 'react', name: 'React', reason: 'Build modern React applications with best practices for state management and routing' },
-      { slug: 'fullstack-developer', name: 'Fullstack Developer', reason: 'Full-stack development across frontend, backend, and database with AI assistance' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=ai+agent+for+app+development',
   },
@@ -1196,11 +936,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Assist solution architects in designing scalable, secure, and cloud-native system blueprints.',
     icon: '🏗️',
     skills: [
-      { slug: 'architecture-designer', name: 'Architecture Designer', reason: 'Design scalable software architectures with AI-powered pattern recommendations' },
-      { slug: 'agents', name: 'Agents', reason: 'Core agents for automating architecture documentation and diagram generation' },
-      { slug: 'agent-builder', name: 'Agent Builder', reason: 'Build specialized architecture review agents for different technology stacks' },
-      { slug: 'agent-designer', name: 'Agent Designer', reason: 'Design custom agents tailored to your specific architectural domains and constraints' },
-      { slug: 'agent', name: 'Agent', reason: 'Foundation agent for orchestrating architecture planning and review workflows' },
+      { slug: 'clawhub-interactive-architecture-diagram', name: 'Interactive Architecture Diagram', reason: 'Top-rated architecture skill with 294 downloads' }, { slug: 'clawhub-agent-architecture-designer', name: 'Agent Architecture Designer', reason: 'Top-rated architecture skill with 187 downloads' }, { slug: 'database-design', name: 'database design', reason: 'Top-rated design skill with 1012 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Top-rated design skill with 885 downloads' }, { slug: 'clawhub-stitch-design-agent', name: 'Stitch Design Agent', reason: 'Top-rated design skill with 110 downloads' }
     ],
     searchLink: '/skills?q=ai+agent+for+architecture+design',
   },
@@ -1210,11 +946,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Intelligently generate, maintain, and analyze end-to-end test suites for web, mobile, and API workflows.',
     icon: '🧪',
     skills: [
-      { slug: 'agent-browser-clawdbot', name: 'Agent Browser', reason: 'Browser automation agent for end-to-end UI testing across web applications' },
-      { slug: 'openclaw-agent-browser', name: 'Agent Browser', reason: 'OpenClaw browser agent for running automated test suites in real browser environments' },
-      { slug: 'agent-evaluation', name: 'Agent Evaluation', reason: 'Evaluate test coverage quality and identify untested code paths automatically' },
-      { slug: 'agent-ui', name: 'Agent Ui', reason: 'Automate UI interaction testing with AI-driven element detection and assertion' },
-      { slug: 'openclaw-agent-browser-clawdbot', name: 'Agent Browser Clawdbot', reason: 'Comprehensive browser automation for regression and smoke test execution' },
+      { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Top-rated automation skill with 611 downloads' }, { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }
     ],
     searchLink: '/skills?q=ai+agent+for+automation+testing',
   },
@@ -1224,11 +956,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Streamline daily bookkeeping operations including transaction classification, bank reconciliation, and expense tracking.',
     icon: '📒',
     skills: [
-      { slug: 'accountant', name: 'Accountant', reason: 'AI accountant for categorizing transactions and maintaining accurate ledger entries' },
-      { slug: 'accountsos', name: 'Accountsos', reason: 'Emergency bookkeeping assistance for catching up on overdue financial records' },
-      { slug: 'accounting', name: 'Accounting', reason: 'Comprehensive accounting skill for full-cycle bookkeeping and financial management' },
-      { slug: 'bookkeeping-basics', name: 'Bookkeeping Basics', reason: 'Learn and apply bookkeeping fundamentals with AI-guided training and practice' },
-      { slug: 'agentpayy', name: 'AgentPayy', reason: 'Automate payment processing and reconciliation integrated with your bookkeeping workflow' },
+      { slug: 'beancount', name: 'bookkeeping', reason: 'Top-rated bookkeeping skill with 262 downloads' }, { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }
     ],
     searchLink: '/skills?q=ai+agent+for+bookkeeping',
   },
@@ -1241,11 +969,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that automates vulnerability discovery, triage, and report generation for ethical hackers and security researchers.',
     icon: '🕵️',
     skills: [
-      { slug: 'agentarxiv', name: 'AgentArxiv', reason: 'Research known CVEs and security papers to inform bug bounty hunting strategies' },
-      { slug: 'agent-earner', name: 'Clawhub Skill', reason: 'Earn rewards by automating vulnerability discovery across eligible bug bounty programs' },
-      { slug: 'bountyhub-agent', name: 'BountyHub Agent', reason: 'Connect to BountyHub to find and submit bug bounty opportunities automatically' },
-      { slug: 'acp', name: 'Acp', reason: 'Use ACP protocol for secure agent communication during bug bounty investigations' },
-      { slug: 'github-bounty-hunter', name: 'Github Bounty Hunter', reason: 'Hunt for security vulnerabilities in GitHub repositories for bug bounty programs' },
+      { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }, { slug: 'clawhub-openclaw-setup-assistant', name: 'OpenClaw Setup Assistant', reason: 'Top-rated assistant skill with 113 downloads' }
     ],
     searchLink: '/skills?q=security-scanner+code-reviewer+api-tester+web-scraper+report-generator',
   },
@@ -1255,11 +979,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that transforms raw data into actionable insights, generates requirements, and models business processes.',
     icon: '📊',
     skills: [
-      { slug: 'ai-researcher', name: 'AI Researcher', reason: 'Conduct deep research and synthesize findings into structured reports' },
-      { slug: 'data-analyst-pro', name: 'Data Analyst', reason: 'Analyze data to uncover insights, trends, and actionable business intelligence' },
-      { slug: 'hk-ai-stock-expert', name: '港股 AI 概念板块专属投研顾问。结合宏观流动性、南向资金博弈与 AI 产业基本面，提供深度的个股挖掘与风控策略。', reason: 'Analyze stock markets and investment opportunities with AI-powered research' },
-      { slug: 'analyst', name: 'Analyst', reason: 'Analyze data to uncover insights, trends, and actionable business intelligence' },
-      { slug: 'ai-data-analyst-cn', name: 'Ai Data Analyst Cn', reason: 'Analyze data to uncover insights, trends, and actionable business intelligence' },
+      { slug: 'business-plan-cn', name: 'business plan cn', reason: 'Top-rated business skill with 479 downloads' }, { slug: 'data-analyst-pro', name: 'Data Analyst', reason: 'Analyze data to uncover insights, trends, and actionable business intelligence' }, { slug: 'clawhub-business-writing-litiao', name: 'Business Writing Litiao', reason: 'Top-rated business skill with 169 downloads' }, { slug: 'analyst', name: 'Analyst', reason: 'Analyze data to uncover insights, trends, and actionable business intelligence' }, { slug: 'ai-data-analyst-cn', name: 'Ai Data Analyst Cn', reason: 'Analyze data to uncover insights, trends, and actionable business intelligence' }
     ],
     searchLink: '/skills?q=data-analysis+report-generator+sql-assistant+note-taker+chart-generator',
   },
@@ -1269,11 +989,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that handles inbound/outbound voice calls with real-time transcription, intent analysis, and CRM sync.',
     icon: '📞',
     skills: [
-      { slug: 'agent-registry', name: 'Agent Registry', reason: 'Register and manage agent identities, permissions, and service discovery' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Deploy multi-agent agencies where specialized agents collaborate on complex tasks' },
-      { slug: 'agent-browser-cli', name: 'Agent Browser CLI', reason: 'Automate web browser interactions for data collection and UI testing' },
-      { slug: 'agent-services-cn', name: 'Agent Services Cn', reason: 'Agent Services Cn skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'agent-team', name: 'Agent Team', reason: 'Coordinate and manage agent teams for complex collaborative tasks' },
+      { slug: 'clawhub-calling-agent-squad', name: 'Calling Agent Squad', reason: 'Top-rated calling skill with 102 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }
     ],
     searchLink: '/skills?q=transcriber+support-bot+crm-manager+scheduler+slack-notifier',
   },
@@ -1283,11 +999,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that performs automated, context-aware code reviews with style enforcement, bug detection, and PR summarization.',
     icon: '🔍',
     skills: [
-      { slug: 'ai-code-reviewer', name: 'AI Code Reviewer', reason: 'Automated code review to catch bugs, style issues, and security vulnerabilities' },
-      { slug: 'critical-code-reviewer', name: 'Critical Code Reviewer', reason: 'Automated code review to catch bugs, style issues, and security vulnerabilities' },
-      { slug: 'quack-code-review', name: 'Code Review', reason: 'Automated code review to catch bugs, style issues, and security vulnerabilities' },
-      { slug: 'requesting-code-review', name: 'Requesting Code Review', reason: 'Automated code review to catch bugs, style issues, and security vulnerabilities' },
-      { slug: 'code-review1', name: 'code-review', reason: 'Automated code review to catch bugs, style issues, and security vulnerabilities' },
+      { slug: 'code-generator', name: 'code generator', reason: 'Top-rated code skill with 1683 downloads' }, { slug: 'ai-code-helper', name: 'ai code helper', reason: 'Top-rated code skill with 264 downloads' }, { slug: 'code-searcher', name: 'code searcher', reason: 'Top-rated code skill with 264 downloads' }, { slug: 'codepal', name: 'codepal', reason: 'Top-rated code skill with 223 downloads' }, { slug: 'encode', name: 'encode', reason: 'Top-rated code skill with 207 downloads' }
     ],
     searchLink: '/skills?q=code-reviewer+github-assistant+sql-assistant+shell+pdf-reader',
   },
@@ -1297,11 +1009,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that researches prospects, personalizes outreach, dials leads, and logs engagement—all while adapting to real-time responses.',
     icon: '❄️',
     skills: [
-      { slug: 'yc-cold-outreach', name: 'YC Cold Outreach', reason: 'Write and send personalized cold outreach campaigns to target prospects' },
-      { slug: 'cold-outreach', name: 'Cold Outreach', reason: 'Write and send personalized cold outreach campaigns to target prospects' },
-      { slug: 'campaign-orchestrator', name: 'Campaign Orchestrator', reason: 'Orchestrate complex multi-step workflows and coordinate specialized agent teams' },
-      { slug: 'cold-email-writer', name: 'Cold Email Writer', reason: 'Write and send personalized cold outreach campaigns to target prospects' },
-      { slug: 'brw-cold-outreach-sequence', name: 'Cold Outreach Sequence', reason: 'Write and send personalized cold outreach campaigns to target prospects' },
+      { slug: 'clawhub-calling-agent-squad', name: 'Calling Agent Squad', reason: 'Top-rated calling skill with 102 downloads' }, { slug: 'clawhub-algernon-orchestrator', name: 'Algernon Orchestrator', reason: 'Top-rated orchestrator skill with 120 downloads' }, { slug: 'clawhub-vaccine-design-orchestrator', name: 'Vaccine Design Orchestrator', reason: 'Top-rated orchestrator skill with 101 downloads' }
     ],
     searchLink: '/skills?q=lead-generator+email-assistant+crm-manager+scheduler+support-bot',
   },
@@ -1314,11 +1022,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that automates project scheduling, compliance checks, site reporting, and subcontractor coordination for construction teams.',
     icon: '🏗️',
     skills: [
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that assists in building, configuring, and debugging AI agent workflows' },
-      { slug: 'ai-boss-assistant', name: 'AI Boss Assistant', reason: 'AI boss that delegates tasks, monitors progress, and coordinates team workflows' },
-      { slug: 'botpress-adk', name: 'Create a Botpress AI agent with the ADK using OpenClaw', reason: 'Build Botpress AI agents using the ADK toolkit with OpenClaw integration' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Deploy multi-agent agencies where specialized agents collaborate on complex tasks' },
-      { slug: 'agents', name: 'Agents', reason: 'Core multi-agent framework for building and coordinating specialized AI agent teams' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=construction+ai+agent',
   },
@@ -1328,11 +1032,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that auto-populates forms, cleans spreadsheets, validates inputs, and syncs across CRMs, ERPs, and legacy systems.',
     icon: '📋',
     skills: [
-      { slug: 'ai-boss-assistant', name: 'AI Boss Assistant', reason: 'AI boss that delegates tasks, monitors progress, and coordinates team workflows' },
-      { slug: 'botpress-adk', name: 'Create a Botpress AI agent with the ADK using OpenClaw', reason: 'Build Botpress AI agents using the ADK toolkit with OpenClaw integration' },
-      { slug: 'afrexai-agent-manager', name: 'AI Agent Manager Playbook', reason: 'Manage and coordinate multiple AI agents across complex project workflows' },
-      { slug: 'agents', name: 'Agents', reason: 'Core multi-agent framework for building and coordinating specialized AI agent teams' },
-      { slug: 'ai-employee-cn', name: 'Ai Employee Cn', reason: 'Chinese-language AI employee for automating business tasks and customer service' },
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Top-rated data skill with 19813 downloads' }, { slug: 'data-analyst-pro', name: 'Data Analyst', reason: 'Top-rated data skill with 3316 downloads' }, { slug: 'data-anomaly-detector', name: 'Data Anomaly Detector', reason: 'Top-rated data skill with 2494 downloads' }, { slug: 'data-cog', name: 'Data Cog', reason: 'Top-rated data skill with 1641 downloads' }, { slug: 'database-design', name: 'database design', reason: 'Top-rated data skill with 1012 downloads' }
     ],
     searchLink: '/skills?q=data+entry+ai+agent',
   },
@@ -1342,11 +1042,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that assists with exploratory analysis, model prototyping, experiment tracking, and ML pipeline orchestration.',
     icon: '🔬',
     skills: [
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that assists in building, configuring, and debugging AI agent workflows' },
-      { slug: 'agents', name: 'Agents', reason: 'Core multi-agent framework for building and coordinating specialized AI agent teams' },
-      { slug: 'botpress-adk', name: 'Create a Botpress AI agent with the ADK using OpenClaw', reason: 'Build Botpress AI agents using the ADK toolkit with OpenClaw integration' },
-      { slug: 'data-cog', name: 'Data Cog', reason: 'Cognitive data processing for complex analytical and pattern recognition tasks' },
-      { slug: 'afrexai-agent-manager', name: 'AI Agent Manager Playbook', reason: 'Manage and coordinate multiple AI agents across complex project workflows' },
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Top-rated data skill with 19813 downloads' }, { slug: 'data-analyst-pro', name: 'Data Analyst', reason: 'Top-rated data skill with 3316 downloads' }, { slug: 'data-anomaly-detector', name: 'Data Anomaly Detector', reason: 'Top-rated data skill with 2494 downloads' }, { slug: 'data-cog', name: 'Data Cog', reason: 'Cognitive data processing for complex analytical and pattern recognition tasks' }, { slug: 'database-design', name: 'database design', reason: 'Top-rated data skill with 1012 downloads' }
     ],
     searchLink: '/skills?q=data+science+ai+agent',
   },
@@ -1356,11 +1052,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that writes, tests, optimizes, and documents SQL queries while monitoring schema health and access patterns.',
     icon: '🗃️',
     skills: [
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that assists in building, configuring, and debugging AI agent workflows' },
-      { slug: 'botpress-adk', name: 'Create a Botpress AI agent with the ADK using OpenClaw', reason: 'Build Botpress AI agents using the ADK toolkit with OpenClaw integration' },
-      { slug: 'agent-network', name: 'Agent Network', reason: 'Build networks of interconnected agents that share context and collaborate' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Deploy multi-agent agencies where specialized agents collaborate on complex tasks' },
-      { slug: 'agents', name: 'Agents', reason: 'Core multi-agent framework for building and coordinating specialized AI agent teams' },
+      { slug: 'database-design', name: 'database design', reason: 'Top-rated database skill with 1012 downloads' }, { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }
     ],
     searchLink: '/skills?q=database+ai+agent',
   },
@@ -1370,11 +1062,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that automates CI/CD pipelines, environment provisioning, health checks, rollback triggers, and infrastructure-as-code validation.',
     icon: '🚀',
     skills: [
-      { slug: 'proactive-agent-lite', name: 'Proactive Agent Lite', reason: 'Lightweight proactive agent for background monitoring and automatic task initiation' },
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that assists in building, configuring, and debugging AI agent workflows' },
-      { slug: 'botpress-adk', name: 'Create a Botpress AI agent with the ADK using OpenClaw', reason: 'Build Botpress AI agents using the ADK toolkit with OpenClaw integration' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Deploy multi-agent agencies where specialized agents collaborate on complex tasks' },
-      { slug: 'agents', name: 'Agents', reason: 'Core multi-agent framework for building and coordinating specialized AI agent teams' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=deployment+ai+agent',
   },
@@ -1387,11 +1075,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that assists lawyers and legal professionals with research, document review, case analysis, and compliance checks.',
     icon: '⚖️',
     skills: [
-      { slug: 'agent-evaluation', name: 'Agent Evaluation', reason: 'Evaluate agent outputs for quality, accuracy, and task completion effectiveness' },
-      { slug: 'agent', name: 'Agent', reason: 'Foundation agent skill for task planning, execution, and autonomous decision-making' },
-      { slug: 'afrexai-hipaa-compliance', name: 'HIPAA Compliance for AI Agents', reason: 'Ensure regulatory compliance with automated audit checks and documentation' },
-      { slug: 'afrexai-humanizer', name: 'Ai Humanizer', reason: 'Make AI-generated content sound naturally human with authentic tone and style' },
-      { slug: 'agents', name: 'Agents', reason: 'Core multi-agent framework for building and coordinating specialized AI agent teams' },
+      { slug: 'clawhub-legal-advisor', name: 'Legal Advisor', reason: 'Top-rated legal skill with 1157 downloads' }, { slug: 'legal-advisor', name: 'legal advisor', reason: 'Top-rated legal skill with 1126 downloads' }, { slug: 'precedent', name: 'Precedent — Legal Precedent Reference', reason: 'Top-rated legal skill with 100 downloads' }, { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }
     ],
     searchLink: '/skills?q=legal+ai',
   },
@@ -1401,11 +1085,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that optimizes supply chain operations, route planning, inventory forecasting, and carrier coordination.',
     icon: '🚚',
     skills: [
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that assists in building, configuring, and debugging AI agent workflows' },
-      { slug: 'agentledger', name: 'AgentLedger', reason: 'Manage financial ledger entries and accounting records with AI automation' },
-      { slug: 'afrexai-logistics-optimizer', name: 'Logistics Operations Optimizer', reason: 'Optimize logistics and operations workflows with AI-driven automation' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Deploy multi-agent agencies where specialized agents collaborate on complex tasks' },
-      { slug: 'ai-automation-consulting', name: 'Ai Automation Consulting', reason: 'Expert consultation for identifying and implementing AI automation opportunities' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=logistics+ai',
   },
@@ -1415,11 +1095,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that supports production planning, quality control, predictive maintenance, and shop-floor workflow automation.',
     icon: '🏭',
     skills: [
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that assists in building, configuring, and debugging AI agent workflows' },
-      { slug: 'ai-boss-assistant', name: 'AI Boss Assistant', reason: 'AI boss that delegates tasks, monitors progress, and coordinates team workflows' },
-      { slug: 'factory-ai', name: 'Factory AI Droid', reason: 'Optimize logistics and operations workflows with AI-driven automation' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Deploy multi-agent agencies where specialized agents collaborate on complex tasks' },
-      { slug: 'agents', name: 'Agents', reason: 'Core multi-agent framework for building and coordinating specialized AI agent teams' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=manufacturing+ai',
   },
@@ -1429,11 +1105,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that aids clinicians and researchers with clinical documentation, literature synthesis, patient cohort analysis, and regulatory documentation support.',
     icon: '🏥',
     skills: [
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that assists in building, configuring, and debugging AI agent workflows' },
-      { slug: 'ai-boss-assistant', name: 'AI Boss Assistant', reason: 'AI boss that delegates tasks, monitors progress, and coordinates team workflows' },
-      { slug: 'afrexai-hipaa-compliance', name: 'HIPAA Compliance for AI Agents', reason: 'Ensure regulatory compliance with automated audit checks and documentation' },
-      { slug: 'agents', name: 'Agents', reason: 'Core multi-agent framework for building and coordinating specialized AI agent teams' },
-      { slug: 'afrexai-agent-manager', name: 'AI Agent Manager Playbook', reason: 'Manage and coordinate multiple AI agents across complex project workflows' },
+      { slug: 'clawhub-medical-conference', name: 'NoahAI medical conference query', reason: 'Top-rated medical skill with 113 downloads' }, { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }
     ],
     searchLink: '/skills?q=medical+ai',
   },
@@ -1446,11 +1118,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that joins, transcribes, summarizes, and action-items virtual meetings.',
     icon: '📅',
     skills: [
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that assists in building, configuring, and debugging AI agent workflows' },
-      { slug: 'agent-council', name: 'Agent Council', reason: 'Convene a council of specialized agents to collectively solve complex problems' },
-      { slug: 'ai-boss-assistant', name: 'AI Boss Assistant', reason: 'AI boss that delegates tasks, monitors progress, and coordinates team workflows' },
-      { slug: 'voice-agent', name: 'Voice Agent', reason: 'Deploy voice-enabled AI agents for call handling and voice interactions' },
-      { slug: 'openclaw-voiceai-voice-agent', name: 'Voice.Ai Voice Agents', reason: 'Voice AI agents for phone, IVR, and spoken customer interaction' },
+      { slug: 'meeting-agenda', name: 'Meeting Agenda', reason: 'Top-rated meeting skill with 360 downloads' }, { slug: 'clawhub-meeting-summary', name: 'Meeting Summary', reason: 'Top-rated meeting skill with 135 downloads' }, { slug: 'clawhub-sjykj-meeting-minutes-generator', name: 'Meeting Minutes Generator', reason: 'Top-rated meeting skill with 114 downloads' }, { slug: 'clawhub-meeting-efficiency-pro', name: 'Meeting Efficiency Pro', reason: 'Top-rated meeting skill with 103 downloads' }, { slug: 'clawhub-meeting-record-analysis', name: 'meeting record analysis', reason: 'Top-rated meeting skill with 102 downloads' }
     ],
     searchLink: '/skills?q=meeting+transcribe+summarize+action+items',
   },
@@ -1460,11 +1128,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that continuously observes system metrics, logs, or workflows and triggers alerts or remediations.',
     icon: '📡',
     skills: [
-      { slug: 'agent-self-assessment', name: 'Agent Compliance & Security Assessment', reason: 'Self-assess agent compliance and security posture against benchmarks' },
-      { slug: 'ai-employee-cn', name: 'Ai Employee Cn', reason: 'Chinese-language AI employee for automating business tasks and customer service' },
-      { slug: 'agent-passport-system', name: 'Agent Passport', reason: 'Register and manage agent identities, permissions, and service discovery' },
-      { slug: 'agent-core', name: 'Agent Core', reason: 'Agent Core skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'anima-aios', name: 'Anima Aios', reason: 'Anima Aios skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=monitor+alert+log+anomaly+detect',
   },
@@ -1474,11 +1138,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that tracks, filters, summarizes, and delivers personalized news from diverse sources.',
     icon: '📰',
     skills: [
-      { slug: 'ai-news-oracle', name: 'ai-news-oracle', reason: 'Aggregate and summarize relevant news and market updates automatically' },
-      { slug: 'ai-news-zh', name: 'AI News ZH - 中文AI科技日报', reason: 'Aggregate and summarize relevant news and market updates automatically' },
-      { slug: 'ai-boss-assistant', name: 'AI Boss Assistant', reason: 'AI boss that delegates tasks, monitors progress, and coordinates team workflows' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Deploy multi-agent agencies where specialized agents collaborate on complex tasks' },
-      { slug: 'ai-news-research', name: 'AI行业新闻搜集小技能', reason: 'Ai News Research skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'crypto-news-feed', name: 'Crypto News Feed', reason: 'Top-rated news skill with 375 downloads' }, { slug: 'newsletter-writer', name: 'newsletter writer', reason: 'Top-rated news skill with 347 downloads' }, { slug: 'clawhub-news-sentiment-scan', name: 'News Sentiment Scan', reason: 'Top-rated news skill with 262 downloads' }, { slug: 'clawhub-tech-news', name: 'Tech News', reason: 'Top-rated news skill with 178 downloads' }, { slug: 'clawhub-cctv-news-fetcher-litiao', name: 'Cctv News Fetcher Litiao', reason: 'Top-rated news skill with 128 downloads' }
     ],
     searchLink: '/skills?q=news+aggregate+summarize+personalize+alert',
   },
@@ -1488,11 +1148,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent specialized in natural language processing tasks like parsing, classification, sentiment analysis, and generation.',
     icon: '💬',
     skills: [
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that assists in building, configuring, and debugging AI agent workflows' },
-      { slug: 'ai-boss-assistant', name: 'AI Boss Assistant', reason: 'AI boss that delegates tasks, monitors progress, and coordinates team workflows' },
-      { slug: 'voice-agent', name: 'Voice Agent', reason: 'Deploy voice-enabled AI agents for call handling and voice interactions' },
-      { slug: 'openclaw-voiceai-voice-agent', name: 'Voice.Ai Voice Agents', reason: 'Voice AI agents for phone, IVR, and spoken customer interaction' },
-      { slug: 'botpress-adk', name: 'Create a Botpress AI agent with the ADK using OpenClaw', reason: 'Build Botpress AI agents using the ADK toolkit with OpenClaw integration' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=nlp+parse+sentiment+classify+generate',
   },
@@ -1502,11 +1158,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that guides new hires or users through setup, training, documentation, and first tasks.',
     icon: '👋',
     skills: [
-      { slug: 'hire', name: 'Hire', reason: 'Streamline hiring and recruitment with AI-powered candidate matching' },
-      { slug: 'a0x-agents', name: 'A0X Agents', reason: 'A0X Agents skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'clawdnet', name: 'clawdnet', reason: 'Connect and coordinate agents across distributed networks and services' },
-      { slug: 'agents', name: 'Agents', reason: 'Core multi-agent framework for building and coordinating specialized AI agent teams' },
-      { slug: 'afrexai-agent-manager', name: 'AI Agent Manager Playbook', reason: 'Manage and coordinate multiple AI agents across complex project workflows' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=onboard+guide+training+setup+welcome',
   },
@@ -1519,11 +1171,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that automates financial reporting, reconciliations, and compliance tasks for accountants.',
     icon: '📊',
     skills: [
-      { slug: 'agentledger', name: 'AgentLedger', reason: 'Manage financial ledger entries and accounting records with AI automation' },
-      { slug: 'accountsos', name: 'Accountsos', reason: 'Emergency accounting support for backlog clearance and urgent financial tasks' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Deploy multi-agent agencies where specialized agents collaborate on complex tasks' },
-      { slug: 'agentpayy', name: 'AgentPayy', reason: 'Automate payment processing and financial transactions in agent workflows' },
-      { slug: 'afrexai-agent-manager', name: 'AI Agent Manager Playbook', reason: 'Manage and coordinate multiple AI agents across complex project workflows' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=ai+accounting+finance',
   },
@@ -1533,11 +1181,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that accelerates full-stack application development with code generation, testing, and deployment support.',
     icon: '📱',
     skills: [
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that assists in building, configuring, and debugging AI agent workflows' },
-      { slug: 'ai-boss-assistant', name: 'AI Boss Assistant', reason: 'AI boss that delegates tasks, monitors progress, and coordinates team workflows' },
-      { slug: 'agent-ui', name: 'Agent Ui', reason: 'Create and manage user interfaces for AI agents with visual dashboards' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Deploy multi-agent agencies where specialized agents collaborate on complex tasks' },
-      { slug: 'agents', name: 'Agents', reason: 'Core multi-agent framework for building and coordinating specialized AI agent teams' },
+      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }, { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Highly-rated productivity skill' }
     ],
     searchLink: '/skills?q=ai+app+development',
   },
@@ -1547,11 +1191,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that assists software architects in designing scalable, secure, and cloud-native system architectures.',
     icon: '🏗️',
     skills: [
-      { slug: 'frontend-design-3', name: 'Frontend Design', reason: 'Frontend design skill for creating beautiful UI layouts and visual components' },
-      { slug: 'architecture-designer', name: 'Architecture Designer', reason: 'AI assistant for designing software and system architecture patterns' },
-      { slug: 'architect', name: 'Architect', reason: 'Design scalable system architectures with AI-guided pattern recommendations' },
-      { slug: 'architecture', name: 'Architecture', reason: 'Design scalable system architectures with AI-guided pattern recommendations' },
-      { slug: 'api-designer', name: 'Api Designer', reason: 'Design RESTful and GraphQL APIs with OpenAPI specs and documentation' },
+      { slug: 'clawhub-interactive-architecture-diagram', name: 'Interactive Architecture Diagram', reason: 'Top-rated architecture skill with 294 downloads' }, { slug: 'clawhub-agent-architecture-designer', name: 'Agent Architecture Designer', reason: 'Top-rated architecture skill with 187 downloads' }, { slug: 'database-design', name: 'database design', reason: 'Top-rated design skill with 1012 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Top-rated design skill with 885 downloads' }, { slug: 'clawhub-stitch-design-agent', name: 'Stitch Design Agent', reason: 'Top-rated design skill with 110 downloads' }
     ],
     searchLink: '/skills?q=ai+system+architecture',
   },
@@ -1561,11 +1201,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that writes, maintains, and executes automated test suites across UI, API, and integration layers.',
     icon: '🧪',
     skills: [
-      { slug: 'ai-web-automation', name: 'AI Web Automation', reason: 'Automate web browser interactions for data collection and UI testing' },
-      { slug: 'test-master', name: 'Test Master', reason: 'Automate software testing with AI-generated test cases and execution' },
-      { slug: 'e2e-testing-patterns', name: 'E2E Testing Patterns', reason: 'Automate software testing with AI-generated test cases and execution' },
-      { slug: 'testing-patterns', name: 'Testing Patterns', reason: 'Automate software testing with AI-generated test cases and execution' },
-      { slug: 'afrexai-qa-test-plan', name: 'QA Test Plan Generator', reason: 'Automate software testing with AI-generated test cases and execution' },
+      { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Top-rated automation skill with 611 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
     ],
     searchLink: '/skills?q=ai+test+automation',
   },
@@ -1575,11 +1211,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that handles day-to-day bookkeeping tasks including transaction categorization, bank reconciliation, and tax prep support.',
     icon: '📒',
     skills: [
-      { slug: 'agentledger', name: 'AgentLedger', reason: 'Manage financial ledger entries and accounting records with AI automation' },
-      { slug: 'accountsos', name: 'Accountsos', reason: 'Emergency accounting support for backlog clearance and urgent financial tasks' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Deploy multi-agent agencies where specialized agents collaborate on complex tasks' },
-      { slug: 'ai-automation-consulting', name: 'Ai Automation Consulting', reason: 'Expert consultation for identifying and implementing AI automation opportunities' },
-      { slug: 'afrexai-agent-manager', name: 'AI Agent Manager Playbook', reason: 'Manage and coordinate multiple AI agents across complex project workflows' },
+      { slug: 'beancount', name: 'bookkeeping', reason: 'Top-rated bookkeeping skill with 262 downloads' }, { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }
     ],
     searchLink: '/skills?q=ai+bookkeeping',
   },
@@ -1592,11 +1224,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that automates vulnerability discovery, triage, and report generation for ethical hackers.',
     icon: '🕵️',
     skills: [
-      { slug: 'github-bounty-hunter', name: 'Github Bounty Hunter', reason: 'Hunt for security vulnerabilities in open-source GitHub repositories' },
-      { slug: 'cybersec-helper', name: 'Cybersec Helper', reason: 'Identify and report security vulnerabilities with automated scanning and analysis' },
-      { slug: 'bountyhub-agent', name: 'BountyHub Agent', reason: 'Connect to BountyHub for automated bug bounty hunting and submission' },
-      { slug: 'bountyswarm', name: 'Bountyswarm', reason: 'Identify and report security vulnerabilities with automated scanning and analysis' },
-      { slug: 'angus-bounty-hunter', name: 'Angus Bounty Hunter', reason: 'Identify and report security vulnerabilities with automated scanning and analysis' },
+      { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }, { slug: 'clawhub-openclaw-setup-assistant', name: 'OpenClaw Setup Assistant', reason: 'Top-rated assistant skill with 113 downloads' }
     ],
     searchLink: '/skills?q=security-scanner+code-reviewer+web-scraper+api-tester+report-generator',
   },
@@ -1606,11 +1234,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that transforms raw data into strategic insights, requirements, and stakeholder-ready documentation.',
     icon: '📊',
     skills: [
-      { slug: 'agent-orchestrator', name: 'Agent Orchestrator', reason: 'Orchestrate complex multi-step workflows and coordinate specialized agent teams' },
-      { slug: 'agent-evaluation', name: 'Agent Evaluation', reason: 'Evaluate agent outputs for quality, accuracy, and task completion effectiveness' },
-      { slug: 'agent', name: 'Agent', reason: 'Foundation agent skill for task planning, execution, and autonomous decision-making' },
-      { slug: 'agents-manager', name: 'Agent manager', reason: 'Coordinate and manage agent teams for complex collaborative tasks' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Deploy multi-agent agencies where specialized agents collaborate on complex tasks' },
+      { slug: 'business-plan-cn', name: 'business plan cn', reason: 'Top-rated business skill with 479 downloads' }, { slug: 'clawhub-business-writing-litiao', name: 'Business Writing Litiao', reason: 'Top-rated business skill with 169 downloads' }, { slug: 'clawhub-afrexai-business-automation-temp', name: 'Afrexai Business Automation TEMP', reason: 'Top-rated business skill with 118 downloads' }, { slug: 'clawhub-filed', name: 'Filed — US Business Entity Search', reason: 'Top-rated business skill with 111 downloads' }, { slug: 'data-analyst-pro', name: 'Data Analyst', reason: 'Top-rated analyst skill with 3316 downloads' }
     ],
     searchLink: '/skills?q=data-analysis+report-generator+sql-assistant+note-taker+chart-generator',
   },
@@ -1620,11 +1244,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that handles inbound/outbound voice calls with real-time transcription, intent detection, and dynamic response generation.',
     icon: '📞',
     skills: [
-      { slug: 'writing-assistant', name: 'Writing Assistant', reason: 'AI writing assistant for drafting, editing, and improving written content' },
-      { slug: 'searching-assistant', name: 'Searching Assistant', reason: 'Smart search assistant for finding relevant information across multiple sources' },
-      { slug: 'agentic-calling', name: 'Agentic Calling', reason: 'Automate voice calls and phone interactions using AI voice agent technology' },
-      { slug: 'vapi-calls', name: 'VAPI Calls', reason: 'Automate voice calls and phone interactions using AI voice agent technology' },
-      { slug: 'kallyai', name: 'KallyAI Executive Assistant', reason: 'Automate voice calls and phone interactions using AI voice agent technology' },
+      { slug: 'clawhub-calling-agent-squad', name: 'Calling Agent Squad', reason: 'Top-rated calling skill with 102 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }
     ],
     searchLink: '/skills?q=support-bot+scheduler+slack-notifier+note-taker+translator-pro',
   },
@@ -1634,11 +1254,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that performs automated, context-aware code reviews with style enforcement, bug detection, and PR-ready feedback.',
     icon: '👨‍💻',
     skills: [
-      { slug: 'code-review-assistant', name: 'Code Review Assistant', reason: 'Automated code review to catch bugs, style issues, and security vulnerabilities' },
-      { slug: 'code-review-assistant-zhuyu28', name: 'Code Review Assistant Zhuyu28', reason: 'Automated code review to catch bugs, style issues, and security vulnerabilities' },
-      { slug: 'openclaw-code-review-assistant', name: 'OpenClaw代码审查助手', reason: 'Openclaw Code Review Assistant skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'quack-code-review', name: 'Code Review', reason: 'Automated code review to catch bugs, style issues, and security vulnerabilities' },
-      { slug: 'critical-code-reviewer', name: 'Critical Code Reviewer', reason: 'Automated code review to catch bugs, style issues, and security vulnerabilities' },
+      { slug: 'code-generator', name: 'code generator', reason: 'Top-rated code skill with 1683 downloads' }, { slug: 'ai-code-helper', name: 'ai code helper', reason: 'Top-rated code skill with 264 downloads' }, { slug: 'code-searcher', name: 'code searcher', reason: 'Top-rated code skill with 264 downloads' }, { slug: 'codepal', name: 'codepal', reason: 'Top-rated code skill with 223 downloads' }, { slug: 'encode', name: 'encode', reason: 'Top-rated code skill with 207 downloads' }
     ],
     searchLink: '/skills?q=code-reviewer+github-assistant+sql-assistant+shell+report-generator',
   },
@@ -1648,11 +1264,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that automates prospect research, script personalization, call execution, and post-call CRM updates.',
     icon: '📈',
     skills: [
-      { slug: 'yc-cold-outreach', name: 'YC Cold Outreach', reason: 'Write and send personalized cold outreach campaigns to target prospects' },
-      { slug: 'cold-outreach', name: 'Cold Outreach', reason: 'Write and send personalized cold outreach campaigns to target prospects' },
-      { slug: 'campaign-orchestrator', name: 'Campaign Orchestrator', reason: 'Orchestrate complex multi-step workflows and coordinate specialized agent teams' },
-      { slug: 'cold-email-writer', name: 'Cold Email Writer', reason: 'Write and send personalized cold outreach campaigns to target prospects' },
-      { slug: 'brw-cold-outreach-sequence', name: 'Cold Outreach Sequence', reason: 'Write and send personalized cold outreach campaigns to target prospects' },
+      { slug: 'clawhub-calling-agent-squad', name: 'Calling Agent Squad', reason: 'Top-rated calling skill with 102 downloads' }, { slug: 'clawhub-algernon-orchestrator', name: 'Algernon Orchestrator', reason: 'Top-rated orchestrator skill with 120 downloads' }, { slug: 'clawhub-vaccine-design-orchestrator', name: 'Vaccine Design Orchestrator', reason: 'Top-rated orchestrator skill with 101 downloads' }
     ],
     searchLink: '/skills?q=lead-generator+support-bot+crm-manager+note-taker+email-assistant',
   },
@@ -1665,11 +1277,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that assists with graphic design, UI/UX prototyping, and visual asset generation.',
     icon: '🎨',
     skills: [
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that assists in building, configuring, and debugging AI agent workflows' },
-      { slug: 'agent', name: 'Agent', reason: 'Foundation agent skill for task planning, execution, and autonomous decision-making' },
-      { slug: 'agents', name: 'Agents', reason: 'Core multi-agent framework for building and coordinating specialized AI agent teams' },
-      { slug: 'botpress-adk', name: 'Create a Botpress AI agent with the ADK using OpenClaw', reason: 'Build Botpress AI agents using the ADK toolkit with OpenClaw integration' },
-      { slug: 'agent-development', name: 'Agent Development', reason: 'Development framework for creating production-ready AI agents with proper tooling' },
+      { slug: 'database-design', name: 'database design', reason: 'Top-rated design skill with 1012 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Top-rated design skill with 885 downloads' }, { slug: 'clawhub-agent-architecture-designer', name: 'Agent Architecture Designer', reason: 'Top-rated design skill with 187 downloads' }, { slug: 'clawhub-stitch-design-agent', name: 'Stitch Design Agent', reason: 'Top-rated design skill with 110 downloads' }, { slug: 'clawhub-design-researh', name: 'design-researh', reason: 'Top-rated design skill with 102 downloads' }
     ],
     searchLink: '/skills?q=design+ai+agent',
   },
@@ -1679,11 +1287,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that automates product listing, inventory sync, review analysis, and personalized recommendations.',
     icon: '🛒',
     skills: [
-      { slug: 'clawhub-content-writer', name: 'Content Writer', reason: 'Clawhub Content Writer skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'b2a', name: 'B2A', reason: 'B2A skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'afrexai-agent-manager', name: 'AI Agent Manager Playbook', reason: 'Manage and coordinate multiple AI agents across complex project workflows' },
-      { slug: 'linkfoxagent', name: 'LinkFoxAgent', reason: 'Linkfoxagent skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'afrexai-seo-writer', name: 'Seo Writer', reason: 'Afrexai Seo Writer skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-clawd-ecommerce-automation', name: 'Ecommerce Automation', reason: 'Top-rated ecommerce skill with 401 downloads' }, { slug: 'clawhub-ecommerce-category-collector', name: 'Audtools Ecommerce Category Collector', reason: 'Top-rated ecommerce skill with 100 downloads' }, { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }
     ],
     searchLink: '/skills?q=ecommerce+ai+agent',
   },
@@ -1693,11 +1297,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that tutors students, generates lesson plans, grades assignments, and adapts to learning styles.',
     icon: '📚',
     skills: [
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that assists in building, configuring, and debugging AI agent workflows' },
-      { slug: 'ai-boss-assistant', name: 'AI Boss Assistant', reason: 'AI boss that delegates tasks, monitors progress, and coordinates team workflows' },
-      { slug: 'agents', name: 'Agents', reason: 'Core multi-agent framework for building and coordinating specialized AI agent teams' },
-      { slug: 'afrexai-agent-manager', name: 'AI Agent Manager Playbook', reason: 'Manage and coordinate multiple AI agents across complex project workflows' },
-      { slug: 'multi-agent-coordinator', name: 'Multi-Agent Coordinator', reason: 'Multi Agent Coordinator skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'education', name: 'education', reason: 'Top-rated education skill with 601 downloads' }, { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }
     ],
     searchLink: '/skills?q=education+ai+agent',
   },
@@ -1707,11 +1307,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that drafts, prioritizes, categorizes, and follows up on professional email communication.',
     icon: '✉️',
     skills: [
-      { slug: 'ai-boss-assistant', name: 'AI Boss Assistant', reason: 'AI boss that delegates tasks, monitors progress, and coordinates team workflows' },
-      { slug: 'botpress-adk', name: 'Create a Botpress AI agent with the ADK using OpenClaw', reason: 'Build Botpress AI agents using the ADK toolkit with OpenClaw integration' },
-      { slug: 'langchain-email-agent', name: 'Backend Developer', reason: 'Langchain Email Agent skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'clawmail-skill', name: 'ClawMail', reason: 'Clawmail Skill skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'agentmail-kessler', name: 'AgentMail (Enhanced)', reason: 'AI-powered assistant for automating complex workflows and decision-making' },
+      { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Top-rated email skill with 611 downloads' }, { slug: 'email-template', name: 'email-template', reason: 'Top-rated email skill with 307 downloads' }, { slug: 'clawhub-ai-intelligent-email-automation', name: 'Ai Intelligent Email Automation', reason: 'Top-rated email skill with 164 downloads' }, { slug: 'clawhub-email-pro-optimized', name: 'email-pro-optimized', reason: 'Top-rated email skill with 123 downloads' }, { slug: 'clawhub-qq-email-ai', name: 'QQ Email with AI', reason: 'Top-rated email skill with 120 downloads' }
     ],
     searchLink: '/skills?q=email+ai+agent',
   },
@@ -1721,11 +1317,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that supports software and systems engineering through code assistance, architecture review, and infrastructure monitoring.',
     icon: '⚙️',
     skills: [
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that assists in building, configuring, and debugging AI agent workflows' },
-      { slug: 'ai-boss-assistant', name: 'AI Boss Assistant', reason: 'AI boss that delegates tasks, monitors progress, and coordinates team workflows' },
-      { slug: 'agent', name: 'Agent', reason: 'Foundation agent skill for task planning, execution, and autonomous decision-making' },
-      { slug: 'botpress-adk', name: 'Create a Botpress AI agent with the ADK using OpenClaw', reason: 'Build Botpress AI agents using the ADK toolkit with OpenClaw integration' },
-      { slug: 'agents', name: 'Agents', reason: 'Core multi-agent framework for building and coordinating specialized AI agent teams' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=engineering+ai+agent',
   },
@@ -1738,11 +1330,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates financial tasks and ensures accuracy in accounting processes.',
     icon: 'e',
     skills: [
-      { slug: 'writing-assistant', name: 'Writing Assistant', reason: 'AI writing assistant for drafting, editing, and improving written content' },
-      { slug: 'trading-coach', name: 'Trading Coach', reason: 'Analyze stock markets and investment opportunities with AI-powered research' },
-      { slug: 'finance-accounting', name: 'Finance Accounting', reason: 'Manage financial ledger entries and accounting records with AI automation' },
-      { slug: 'accountsos', name: 'Accountsos', reason: 'Emergency accounting support for backlog clearance and urgent financial tasks' },
-      { slug: 'searching-assistant', name: 'Searching Assistant', reason: 'Smart search assistant for finding relevant information across multiple sources' },
+      { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }, { slug: 'clawhub-openclaw-setup-assistant', name: 'OpenClaw Setup Assistant', reason: 'Top-rated assistant skill with 113 downloads' }
     ],
     searchLink: '/skills?q=ai-agent-for-accounting',
   },
@@ -1752,11 +1340,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Assists in building and managing software applications.',
     icon: 'e',
     skills: [
-      { slug: 'writing-assistant', name: 'Writing Assistant', reason: 'AI writing assistant for drafting, editing, and improving written content' },
-      { slug: 'searching-assistant', name: 'Searching Assistant', reason: 'Smart search assistant for finding relevant information across multiple sources' },
-      { slug: 'aso', name: 'ASO', reason: 'Aso skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'app-store', name: 'App Store', reason: 'App Store skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'mobile-app-builder', name: 'Mobile App Builder', reason: 'Mobile App Builder skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }, { slug: 'clawhub-openclaw-setup-assistant', name: 'OpenClaw Setup Assistant', reason: 'Top-rated assistant skill with 113 downloads' }
     ],
     searchLink: '/skills?q=ai-agent-for-app-development',
   },
@@ -1766,11 +1350,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Supports in creating and optimizing architectural designs.',
     icon: 'e',
     skills: [
-      { slug: 'architecture-designer', name: 'Architecture Designer', reason: 'AI assistant for designing software and system architecture patterns' },
-      { slug: 'frontend-design-3', name: 'Frontend Design', reason: 'Frontend design skill for creating beautiful UI layouts and visual components' },
-      { slug: 'api-designer', name: 'Api Designer', reason: 'Design RESTful and GraphQL APIs with OpenAPI specs and documentation' },
-      { slug: 'cc-godmode', name: 'Openclaw Godmode Skill Repo', reason: 'Cc Godmode skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'system-architect', name: 'System Architect', reason: 'Design scalable system architectures with AI-guided pattern recommendations' },
+      { slug: 'clawhub-interactive-architecture-diagram', name: 'Interactive Architecture Diagram', reason: 'Top-rated architecture skill with 294 downloads' }, { slug: 'clawhub-agent-architecture-designer', name: 'Agent Architecture Designer', reason: 'Top-rated architecture skill with 187 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
     ],
     searchLink: '/skills?q=ai-agent-for-architecture-design',
   },
@@ -1780,11 +1360,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates and manages daily financial records.',
     icon: 'e',
     skills: [
-      { slug: 'accountant', name: 'Accountant', reason: 'AI accountant for financial calculations, reporting, and bookkeeping tasks' },
-      { slug: 'zoho-books', name: 'Zoho Books', reason: 'Zoho Books skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'accounting', name: 'Accounting', reason: 'Comprehensive accounting management including ledger, reconciliation, and reports' },
-      { slug: 'bookkeeping-basics', name: 'Bookkeeping Basics', reason: 'Master bookkeeping fundamentals with AI-guided instruction and exercises' },
-      { slug: 'beancount-skill', name: 'Personal Finance Beancount', reason: 'Manage financial ledger entries and accounting records with AI automation' },
+      { slug: 'beancount', name: 'bookkeeping', reason: 'Top-rated bookkeeping skill with 262 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }
     ],
     searchLink: '/skills?q=ai-agent-for-bookkeeping',
   },
@@ -1794,11 +1370,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Identifies and manages security vulnerabilities in software.',
     icon: 'e',
     skills: [
-      { slug: 'cybersec-helper', name: 'Cybersec Helper', reason: 'Identify and report security vulnerabilities with automated scanning and analysis' },
-      { slug: 'open-claw-mind-001', name: 'Open Claw Mind', reason: 'Open Claw Mind 001 skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'open-claw-mind', name: 'Open Claw Mind', reason: 'Open Claw Mind skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'aegis-audit', name: 'Aegis Audit', reason: 'Aegis Audit skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'angus-bounty-hunter', name: 'Angus Bounty Hunter', reason: 'Identify and report security vulnerabilities with automated scanning and analysis' },
+      { slug: 'data-analyst-pro', name: 'Data Analyst', reason: 'Top-rated analyst skill with 3316 downloads' }, { slug: 'analyst', name: 'Analyst', reason: 'Top-rated analyst skill with 2041 downloads' }, { slug: 'data-analyst-cn', name: 'Data Analyst Cn', reason: 'Top-rated analyst skill with 999 downloads' }, { slug: 'ai-data-analyst-cn', name: 'Ai Data Analyst Cn', reason: 'Top-rated analyst skill with 788 downloads' }
     ],
     searchLink: '/skills?q=ai-agent-for-bug-bounty',
   },
@@ -1811,11 +1383,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates data analysis and decision-making for business insights.',
     icon: 'e',
     skills: [
-      { slug: 'agent-evaluation', name: 'Agent Evaluation', reason: 'Evaluate agent outputs for quality, accuracy, and task completion effectiveness' },
-      { slug: 'agent', name: 'Agent', reason: 'Foundation agent skill for task planning, execution, and autonomous decision-making' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Deploy multi-agent agencies where specialized agents collaborate on complex tasks' },
-      { slug: 'agents', name: 'Agents', reason: 'Core multi-agent framework for building and coordinating specialized AI agent teams' },
-      { slug: 'b2a', name: 'B2A', reason: 'B2A skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=ai-agent-for-business-analyst',
   },
@@ -1825,11 +1393,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates and optimizes outbound calling processes.',
     icon: 'e',
     skills: [
-      { slug: 'automation-workflows', name: 'Automation Workflows', reason: 'Automation Workflows skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'abm-outbound', name: 'ABM Outbound', reason: 'Abm Outbound skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'cold-outreach', name: 'Cold Outreach', reason: 'Write and send personalized cold outreach campaigns to target prospects' },
-      { slug: 'afrexai-business-automation', name: 'Business Automation Architect', reason: 'Design and implement end-to-end business automation strategies' },
-      { slug: 'kallyai', name: 'KallyAI Executive Assistant', reason: 'Automate voice calls and phone interactions using AI voice agent technology' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=ai-agent-for-calling',
   },
@@ -1839,11 +1403,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Streamlines and improves the efficiency of cold calling campaigns.',
     icon: 'e',
     skills: [
-      { slug: 'agent', name: 'Agent', reason: 'Foundation agent skill for task planning, execution, and autonomous decision-making' },
-      { slug: 'yc-cold-outreach', name: 'YC Cold Outreach', reason: 'Write and send personalized cold outreach campaigns to target prospects' },
-      { slug: 'vapi-calls', name: 'VAPI Calls', reason: 'Automate voice calls and phone interactions using AI voice agent technology' },
-      { slug: 'ringbot', name: 'RingBot', reason: 'Ringbot skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'cold-outreach', name: 'Cold Outreach', reason: 'Write and send personalized cold outreach campaigns to target prospects' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=ai-agent-for-cold-calling',
   },
@@ -1853,11 +1413,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Optimizes project management and resource allocation in construction.',
     icon: 'e',
     skills: [
-      { slug: 'agent-team-orchestration', name: 'Agent Team Orchestration', reason: 'Orchestrate complex multi-step workflows and coordinate specialized agent teams' },
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that assists in building, configuring, and debugging AI agent workflows' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Deploy multi-agent agencies where specialized agents collaborate on complex tasks' },
-      { slug: 'agent', name: 'Agent', reason: 'Foundation agent skill for task planning, execution, and autonomous decision-making' },
-      { slug: 'agent-ui', name: 'Agent Ui', reason: 'Create and manage user interfaces for AI agents with visual dashboards' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=ai-agent-for-construction',
   },
@@ -1867,11 +1423,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates and verifies data input processes.',
     icon: 'e',
     skills: [
-      { slug: 'agent-browser-clawdbot', name: 'Agent Browser', reason: 'Browser automation agent for web scraping, testing, and multi-step web interactions' },
-      { slug: 'ws-agent-browser', name: 'Agent Browser', reason: 'Automate web browser interactions for data collection and UI testing' },
-      { slug: 'agent', name: 'Agent', reason: 'Foundation agent skill for task planning, execution, and autonomous decision-making' },
-      { slug: 'agent-ui', name: 'Agent Ui', reason: 'Create and manage user interfaces for AI agents with visual dashboards' },
-      { slug: 'afrexai-agent-manager', name: 'AI Agent Manager Playbook', reason: 'Manage and coordinate multiple AI agents across complex project workflows' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=ai-agent-for-data-entry',
   },
@@ -1884,11 +1436,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent specialized in medical information, diagnosis support, and health-related tasks.',
     icon: 'e',
     skills: [
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that assists in building, configuring, and debugging AI agent workflows' },
-      { slug: 'ai-boss-assistant', name: 'AI Boss Assistant', reason: 'AI boss that delegates tasks, monitors progress, and coordinates team workflows' },
-      { slug: 'afrexai-hipaa-compliance', name: 'HIPAA Compliance for AI Agents', reason: 'Ensure regulatory compliance with automated audit checks and documentation' },
-      { slug: 'agents', name: 'Agents', reason: 'Core multi-agent framework for building and coordinating specialized AI agent teams' },
-      { slug: 'afrexai-agent-manager', name: 'AI Agent Manager Playbook', reason: 'Manage and coordinate multiple AI agents across complex project workflows' },
+      { slug: 'clawhub-medical-conference', name: 'NoahAI medical conference query', reason: 'Top-rated medical skill with 113 downloads' }, { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }
     ],
     searchLink: '/skills?q=ai-agent-for-medical',
   },
@@ -1898,11 +1446,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that curates, summarizes, and analyzes news content from various sources.',
     icon: 'e',
     skills: [
-      { slug: 'ai-news-oracle', name: 'ai-news-oracle', reason: 'Aggregate and summarize relevant news and market updates automatically' },
-      { slug: 'ai-news-zh', name: 'AI News ZH - 中文AI科技日报', reason: 'Aggregate and summarize relevant news and market updates automatically' },
-      { slug: 'ai-boss-assistant', name: 'AI Boss Assistant', reason: 'AI boss that delegates tasks, monitors progress, and coordinates team workflows' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Deploy multi-agent agencies where specialized agents collaborate on complex tasks' },
-      { slug: 'ai-news-research', name: 'AI行业新闻搜集小技能', reason: 'Ai News Research skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'crypto-news-feed', name: 'Crypto News Feed', reason: 'Top-rated news skill with 375 downloads' }, { slug: 'newsletter-writer', name: 'newsletter writer', reason: 'Top-rated news skill with 347 downloads' }, { slug: 'clawhub-news-sentiment-scan', name: 'News Sentiment Scan', reason: 'Top-rated news skill with 262 downloads' }, { slug: 'clawhub-tech-news', name: 'Tech News', reason: 'Top-rated news skill with 178 downloads' }, { slug: 'clawhub-cctv-news-fetcher-litiao', name: 'Cctv News Fetcher Litiao', reason: 'Top-rated news skill with 128 downloads' }
     ],
     searchLink: '/skills?q=ai-agent-for-news',
   },
@@ -1912,11 +1456,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that assists with photo editing, composition, and visual storytelling.',
     icon: 'e',
     skills: [
-      { slug: 'image-cog', name: 'Image Cog', reason: 'Image Cog skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'beauty-generation-api', name: 'beauty-generation-api', reason: 'Beauty Generation Api skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'image-generation', name: 'AI Image Generation', reason: 'Image Generation skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'ai-image-generation', name: 'Ai Image Generation', reason: 'Ai Image Generation skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'clawpix', name: 'Clawpix', reason: 'Clawpix skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=ai-agent-for-photography',
   },
@@ -1926,11 +1466,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent focused on Python programming, debugging, and development assistance.',
     icon: 'e',
     skills: [
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that assists in building, configuring, and debugging AI agent workflows' },
-      { slug: 'agent-council', name: 'Agent Council', reason: 'Convene a council of specialized agents to collectively solve complex problems' },
-      { slug: 'ai-boss-assistant', name: 'AI Boss Assistant', reason: 'AI boss that delegates tasks, monitors progress, and coordinates team workflows' },
-      { slug: 'azure-ai-agents-py', name: 'Azure Ai Agents Py - Microsoft Foundry', reason: 'AI-powered assistant for automating complex workflows and decision-making' },
-      { slug: 'botpress-adk', name: 'Create a Botpress AI agent with the ADK using OpenClaw', reason: 'Build Botpress AI agents using the ADK toolkit with OpenClaw integration' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=ai-agent-for-python',
   },
@@ -1940,11 +1476,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that supports real estate research, property analysis, and market insights.',
     icon: 'e',
     skills: [
-      { slug: 'real-estate-skill', name: 'Real Estate', reason: 'Real Estate Skill skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'afrexai-humanizer', name: 'Ai Humanizer', reason: 'Make AI-generated content sound naturally human with authentic tone and style' },
-      { slug: 'afrexai-agent-manager', name: 'AI Agent Manager Playbook', reason: 'Manage and coordinate multiple AI agents across complex project workflows' },
-      { slug: 'b2a', name: 'B2A', reason: 'B2A skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'camino-real-estate', name: 'Real Estate Intelligence', reason: 'Camino Real Estate skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-naver-real-estate-search', name: 'Naver Real Estate Search', reason: 'Top-rated real skill with 119 downloads' }, { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }
     ],
     searchLink: '/skills?q=ai-agent-for-real-estate',
   },
@@ -1956,11 +1488,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent designed to detect, analyze, and respond to cybersecurity threats in real-time.',
     icon: '🛡️',
     skills: [
-      { slug: 'agent-browser-core', name: 'Agent Browser Core', reason: 'Core browser agent for automated web navigation and data extraction tasks' },
-      { slug: 'agent', name: 'Agent', reason: 'Foundation agent skill for task planning, execution, and autonomous decision-making' },
-      { slug: 'agent-security', name: 'Agent Security', reason: 'Monitor and enforce security policies for AI agent operations' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Deploy multi-agent agencies where specialized agents collaborate on complex tasks' },
-      { slug: 'agents', name: 'Agents', reason: 'Core multi-agent framework for building and coordinating specialized AI agent teams' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=cybersecurity',
   },
@@ -1972,11 +1500,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Streamlines and automates software deployment processes with intelligent decision-making.',
     icon: '🚀',
     skills: [
-      { slug: 'ai-web-automation', name: 'AI Web Automation', reason: 'Automate web browser interactions for data collection and UI testing' },
-      { slug: 'agentic-workflow-automation', name: 'Agentic Workflow Automation', reason: 'Agentic Workflow Automation skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'productivity-automation-kit', name: 'Productivity Automation Kit', reason: 'Productivity Automation Kit skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'afrexai-business-automation', name: 'Business Automation Architect', reason: 'Design and implement end-to-end business automation strategies' },
-      { slug: 'auto-workflow', name: 'Auto Workflow', reason: 'Auto Workflow skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Top-rated automation skill with 611 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }
     ],
     searchLink: '/skills?q=deployment',
   },
@@ -1988,11 +1512,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that helps manage and optimize e-commerce operations.',
     icon: '🛒',
     skills: [
-      { slug: 'ecommerce', name: 'Ecommerce', reason: 'Ecommerce skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'ecom-manager-d2c', name: 'Ecom Manager D2c', reason: 'Coordinate and manage agent teams for complex collaborative tasks' },
-      { slug: 'linkfoxagent', name: 'LinkFoxAgent', reason: 'Linkfoxagent skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'alibaba-shopping', name: 'Alibaba Shopping', reason: 'Alibaba Shopping skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'cross-border-ecommerce-skill', name: 'Cross Border Ecommerce Skill', reason: 'Cross Border Ecommerce Skill skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-clawd-ecommerce-automation', name: 'Ecommerce Automation', reason: 'Top-rated ecommerce skill with 401 downloads' }, { slug: 'clawhub-ecommerce-category-collector', name: 'Audtools Ecommerce Category Collector', reason: 'Top-rated ecommerce skill with 100 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }
     ],
     searchLink: '/skills?q=ecommerce',
   },
@@ -2004,11 +1524,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent designed to streamline operations, enhance productivity, and support decision-making in enterprise environments.',
     icon: '🤖',
     skills: [
-      { slug: 'ai-boss-assistant', name: 'AI Boss Assistant', reason: 'AI boss that delegates tasks, monitors progress, and coordinates team workflows' },
-      { slug: 'therapy-mode', name: 'Therapy Mode', reason: 'Provide empathetic, therapeutic conversation support for emotional situations' },
-      { slug: 'botpress-adk', name: 'Create a Botpress AI agent with the ADK using OpenClaw', reason: 'Build Botpress AI agents using the ADK toolkit with OpenClaw integration' },
-      { slug: 'ai-automation-consulting', name: 'Ai Automation Consulting', reason: 'Expert consultation for identifying and implementing AI automation opportunities' },
-      { slug: 'afrexai-humanizer', name: 'Ai Humanizer', reason: 'Make AI-generated content sound naturally human with authentic tone and style' },
+      { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated enterprise skill with 127 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-openclaw-setup-assistant', name: 'OpenClaw Setup Assistant', reason: 'Top-rated assistant skill with 113 downloads' }
     ],
     searchLink: '/skills?q=enterprise-ai-assistant',
   },
@@ -2020,11 +1536,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that provides financial analysis, reporting, and decision support.',
     icon: '💰',
     skills: [
-      { slug: 'cfo', name: 'CFO / Chief Financial Officer', reason: 'Manage financial ledger entries and accounting records with AI automation' },
-      { slug: 'fin-cog', name: 'Fin Cog', reason: 'Fin Cog skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'financial-tracker', name: 'Financial Tracker', reason: 'Track and categorize financial transactions with AI-powered insights' },
-      { slug: 'financial-analyst', name: 'Financial Analyst', reason: 'Analyze data to uncover insights, trends, and actionable business intelligence' },
-      { slug: 'finance-report-analyzer', name: 'Finance Report Analyzer', reason: 'Manage financial ledger entries and accounting records with AI automation' },
+      { slug: 'clawhub-claw-insights-install', name: 'Claw Insights Install', reason: 'Top-rated insights skill with 122 downloads' }, { slug: 'clawhub-claw-insights-snapshot', name: 'Claw Insights Snapshot', reason: 'Top-rated insights skill with 111 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }
     ],
     searchLink: '/skills?q=finance',
   },
@@ -2036,11 +1548,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Identifies and prevents fraudulent activities using advanced analytics and machine learning.',
     icon: '🛡️',
     skills: [
-      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes transactional data to detect anomalies and patterns indicative of fraud.' },
-      { slug: 'security-scanner', name: 'Security Scanner', reason: 'Scans systems and networks for vulnerabilities that could be exploited in fraud schemes.' },
-      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates detailed reports on suspicious activities and fraud incidents.' },
-      { slug: 'api-tester', name: 'API Tester', reason: 'Tests APIs for security flaws that might be used in fraudulent transactions.' },
-      { slug: 'clawhub-security-sentinel-skill', name: 'SQL Assistant', reason: 'Queries and analyzes large datasets to identify potential fraud indicators.' },
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes transactional data to detect anomalies and patterns indicative of fraud' }, { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }
     ],
     searchLink: '/skills?q=fraud+detection',
   },
@@ -2052,11 +1560,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that helps with game design, scripting, and asset management.',
     icon: '🎮',
     skills: [
-      { slug: 'writing-assistant', name: 'Writing Assistant', reason: 'AI writing assistant for drafting, editing, and improving written content' },
-      { slug: 'game-cog', name: 'Game Cog', reason: 'Game Cog skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'game-developer-skill', name: 'Claude_Game_Developer', reason: 'Game Developer Skill skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'cc-godmode', name: 'Openclaw Godmode Skill Repo', reason: 'Cc Godmode skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'searching-assistant', name: 'Searching Assistant', reason: 'Smart search assistant for finding relevant information across multiple sources' },
+      { slug: 'clawhub-senseaudio-game-npc-director', name: 'senseaudio-game-npc-director', reason: 'Top-rated game skill with 129 downloads' }, { slug: 'clawhub-english-game', name: 'english-game', reason: 'Top-rated game skill with 109 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }
     ],
     searchLink: '/skills?q=game+development',
   },
@@ -2068,11 +1572,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automate tasks and enhance productivity within Google Workspace with AI-driven assistance.',
     icon: '🤖',
     skills: [
-      { slug: 'gog', name: 'Gog', reason: 'Gog skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'google-workspace-mcp', name: 'Google Workspace (No Cloud Console)', reason: 'Google Workspace Mcp skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'gogcli', name: 'gogcli - Google Workspace CLI', reason: 'Gogcli skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'ai-boss-assistant', name: 'AI Boss Assistant', reason: 'AI boss that delegates tasks, monitors progress, and coordinates team workflows' },
-      { slug: 'gcp', name: 'Google Cloud', reason: 'Gcp skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }, { slug: 'clawhub-openclaw-setup-assistant', name: 'OpenClaw Setup Assistant', reason: 'Top-rated assistant skill with 113 downloads' }
     ],
     searchLink: '/skills?q=google+workspace+ai',
   },
@@ -2084,11 +1584,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that handles customer support and technical assistance tasks efficiently.',
     icon: '🤖',
     skills: [
-      { slug: 'email-assistant', name: 'Email Assistant', reason: 'Automates email responses and manages communication with users.' },
-      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes user queries and support logs to identify trends and issues.' },
-      { slug: 'report-generator', name: 'Report Generator', reason: 'Creates detailed reports on common issues and resolution times.' },
-      { slug: 'web-scraper', name: 'Web Scraper', reason: 'Extracts relevant information from websites to assist with troubleshooting.' },
-      { slug: 'api-tester', name: 'API Tester', reason: 'Tests APIs to ensure they are functioning correctly for user support.' },
+      { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes user queries and support logs to identify trends and issues.' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }
     ],
     searchLink: '/skills?q=helpdesk',
   },
@@ -2100,11 +1596,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates image enhancement, analysis, and transformation tasks.',
     icon: '🖼️',
     skills: [
-      { slug: 'image-edit', name: 'Image Editing', reason: 'Image Edit skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'ai-image-generation', name: 'Ai Image Generation', reason: 'Ai Image Generation skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'image-generation', name: 'AI Image Generation', reason: 'Image Generation skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'image-vision', name: 'Image Vision', reason: 'Image Vision skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'image2prompt', name: 'Image2Prompt', reason: 'Image2Prompt skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'image-prompt', name: 'image prompt', reason: 'Top-rated image skill with 510 downloads' }, { slug: 'clawhub-ai-intelligent-image-generation', name: 'Ai Intelligent Image Generation', reason: 'Top-rated image skill with 282 downloads' }, { slug: 'image-processor', name: 'image processor', reason: 'Top-rated image skill with 213 downloads' }, { slug: 'clawhub-vidu-generation', name: 'Input prompts and generate images, video', reason: 'Top-rated image skill with 209 downloads' }, { slug: 'clawhub-vidu-video-generate', name: 'The Vidu API supports text-based video, ', reason: 'Top-rated image skill with 159 downloads' }
     ],
     searchLink: '/skills?q=image+processing',
   },
@@ -2116,11 +1608,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Assists with insurance-related tasks using AI technology.',
     icon: '🛡️',
     skills: [
-      { slug: 'afrexai-insurance-automation', name: 'Insurance Operations Automation', reason: 'Afrexai Insurance Automation skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'agent-evaluation', name: 'Agent Evaluation', reason: 'Evaluate agent outputs for quality, accuracy, and task completion effectiveness' },
-      { slug: 'agent-ui', name: 'Agent Ui', reason: 'Create and manage user interfaces for AI agents with visual dashboards' },
-      { slug: 'afrexai-insurance-claims', name: 'Insurance Claims Processor', reason: 'Afrexai Insurance Claims skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'agents', name: 'Agents', reason: 'Core multi-agent framework for building and coordinating specialized AI agent teams' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=insurance',
   },
@@ -2132,11 +1620,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that helps track, analyze, and optimize inventory levels.',
     icon: '📦',
     skills: [
-      { slug: 'afrexai-inventory-supply-chain', name: 'Inventory Supply Chain', reason: 'Optimize logistics and operations workflows with AI-driven automation' },
-      { slug: 'shopify-admin-api', name: 'Shopify Admin API', reason: 'Shopify Admin Api skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'inventory-manager', name: 'Inventory Manager', reason: 'Coordinate and manage agent teams for complex collaborative tasks' },
-      { slug: 'inventory-demand-planning', name: 'Inventory Demand Planning', reason: 'Inventory Demand Planning skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'yinan-inventory-manager', name: 'Inventory Manager', reason: 'Coordinate and manage agent teams for complex collaborative tasks' },
+      { slug: 'clawhub-use-smart-contract-platform', name: 'Use Smart Contract Platform', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'smart-lights', name: 'smart lights', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'inventory-manager', name: 'Inventory Manager', reason: 'Coordinate and manage agent teams for complex collaborative tasks' }, { slug: 'clawhub-smart-web-search', name: 'Smart Web Search', reason: 'Top-rated smart skill with 110 downloads' }, { slug: 'clawhub-inventory-eye', name: '库存慧眼 / Inventory Eye', reason: 'Top-rated inventory skill with 180 downloads' }
     ],
     searchLink: '/skills?q=inventory',
   },
@@ -2148,11 +1632,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that helps manage Jira tasks, issues, and workflows efficiently.',
     icon: '🛠️',
     skills: [
-      { slug: 'voice-agent', name: 'Voice Agent', reason: 'Deploy voice-enabled AI agents for call handling and voice interactions' },
-      { slug: 'clawbrain', name: 'Claw Brain', reason: 'Clawbrain skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'aster', name: 'Skill', reason: 'Aster skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'virtually-us', name: 'Virtually Us', reason: 'Create virtual environments and digital twins for simulation and testing' },
-      { slug: 'openclaw-setup', name: 'OpenClaw Setup on AWS (Free Tier) - Memory Upgrade', reason: 'Openclaw Setup skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-jira-api-rest', name: 'Jira API (REST + Agile)', reason: 'Top-rated jira skill with 114 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }
     ],
     searchLink: '/skills?q=jira+ai',
   },
@@ -2164,11 +1644,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that helps with video creation, editing, and analysis.',
     icon: '🎥',
     skills: [
-      { slug: 'ai-notes-of-video', name: 'AI Notes of Video', reason: 'Ai Notes Of Video skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'ai-notes-video', name: 'AI Notes Video', reason: 'Ai Notes Video skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'video-learn', name: 'Video Understanding', reason: 'Video Learn skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'ai-video-generation', name: 'Ai Video Generation', reason: 'Ai Video Generation skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'vectcut', name: 'VectCut: The first "To-Agent" video editing platform. Build automated video workflows with our stable cloud APIs in Coze, Dify, or OpenClaw.', reason: 'Automated video editing platform for creating professional video content with AI' },
+      { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }, { slug: 'clawhub-openclaw-setup-assistant', name: 'OpenClaw Setup Assistant', reason: 'Top-rated assistant skill with 113 downloads' }
     ],
     searchLink: '/skills?q=video',
   },
@@ -2180,11 +1656,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that helps manage and optimize website content, performance, and user engagement.',
     icon: '🌐',
     skills: [
-      { slug: 'ai-web-automation', name: 'AI Web Automation', reason: 'Automate web browser interactions for data collection and UI testing' },
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that assists in building, configuring, and debugging AI agent workflows' },
-      { slug: 'web-learner', name: 'Web Learner', reason: 'Web Learner skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'ai-automation-consulting', name: 'Ai Automation Consulting', reason: 'Expert consultation for identifying and implementing AI automation opportunities' },
-      { slug: 'ai-writing-agent', name: 'AI Writing Agent', reason: 'AI-powered assistant for automating complex workflows and decision-making' },
+      { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }, { slug: 'clawhub-openclaw-setup-assistant', name: 'OpenClaw Setup Assistant', reason: 'Top-rated assistant skill with 113 downloads' }
     ],
     searchLink: '/skills?q=website',
   },
@@ -2195,11 +1667,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Streamlines supply chain and delivery operations with intelligent automation.',
     icon: '🚚',
     skills: [
-      { slug: 'shopify-admin-api', name: 'Shopify Admin API', reason: 'Shopify Admin Api skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'afrexai-logistics-optimizer', name: 'Logistics Operations Optimizer', reason: 'Optimize logistics and operations workflows with AI-driven automation' },
-      { slug: 'dropshipping', name: 'Dropshipping', reason: 'Dropshipping skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'afrexai-warehouse-ops', name: 'Warehouse Operations Optimizer', reason: 'Afrexai Warehouse Ops skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'afrexai-supply-chain', name: 'Supply Chain Risk Monitor', reason: 'Optimize logistics and operations workflows with AI-driven automation' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=logistics',
   },
@@ -2210,11 +1678,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that assists with data science tasks, including analysis, visualization, and modeling.',
     icon: '🧠',
     skills: [
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that assists in building, configuring, and debugging AI agent workflows' },
-      { slug: 'ai-boss-assistant', name: 'AI Boss Assistant', reason: 'AI boss that delegates tasks, monitors progress, and coordinates team workflows' },
-      { slug: 'data-cog', name: 'Data Cog', reason: 'Cognitive data processing for complex analytical and pattern recognition tasks' },
-      { slug: 'botpress-adk', name: 'Create a Botpress AI agent with the ADK using OpenClaw', reason: 'Build Botpress AI agents using the ADK toolkit with OpenClaw integration' },
-      { slug: 'agents', name: 'Agents', reason: 'Core multi-agent framework for building and coordinating specialized AI agent teams' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'data-cog', name: 'Data Cog', reason: 'Cognitive data processing for complex analytical and pattern recognition tasks' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }
     ],
     searchLink: '/skills?q=data+science',
   },
@@ -2225,11 +1689,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that helps with Python development tasks, code generation, and problem solving.',
     icon: '🐍',
     skills: [
-      { slug: 'clawbrain', name: 'Claw Brain', reason: 'Clawbrain skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'searching-assistant', name: 'Searching Assistant', reason: 'Smart search assistant for finding relevant information across multiple sources' },
-      { slug: 'azure-ai-agents-py', name: 'Azure Ai Agents Py - Microsoft Foundry', reason: 'AI-powered assistant for automating complex workflows and decision-making' },
-      { slug: 'python-sdk', name: 'Python Sdk', reason: 'Python Sdk skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'ai-automation-consulting', name: 'Ai Automation Consulting', reason: 'Expert consultation for identifying and implementing AI automation opportunities' },
+      { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }, { slug: 'clawhub-openclaw-setup-assistant', name: 'OpenClaw Setup Assistant', reason: 'Top-rated assistant skill with 113 downloads' }
     ],
     searchLink: '/skills?q=python',
   },
@@ -2240,11 +1700,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates software testing processes using AI-driven test case generation and execution.',
     icon: '🧪',
     skills: [
-      { slug: 'agent-browser-clawdbot', name: 'Agent Browser', reason: 'Browser automation agent for web scraping, testing, and multi-step web interactions' },
-      { slug: 'agent-evaluation', name: 'Agent Evaluation', reason: 'Evaluate agent outputs for quality, accuracy, and task completion effectiveness' },
-      { slug: 'openclaw-agent-browser', name: 'Agent Browser', reason: 'OpenClaw browser automation for end-to-end web testing and data collection' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Deploy multi-agent agencies where specialized agents collaborate on complex tasks' },
-      { slug: 'agents', name: 'Agents', reason: 'Core multi-agent framework for building and coordinating specialized AI agent teams' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=test-automation',
   },
@@ -2255,11 +1711,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates and optimizes the software testing process with intelligent test case generation and execution.',
     icon: '🧪',
     skills: [
-      { slug: 'automation-workflows', name: 'Automation Workflows', reason: 'Automation Workflows skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'n8n', name: 'n8n', reason: 'N8N skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'test-runner', name: 'Test Runner', reason: 'Automate software testing with AI-generated test cases and execution' },
-      { slug: 'test-master', name: 'Test Master', reason: 'Automate software testing with AI-generated test cases and execution' },
-      { slug: 'e2e-testing-patterns', name: 'E2E Testing Patterns', reason: 'Automate software testing with AI-generated test cases and execution' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=software+testing',
   },
@@ -2270,11 +1722,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates the discovery and reporting of security vulnerabilities in web applications.',
     icon: '🐞',
     skills: [
-      { slug: 'agent-browser-clawdbot', name: 'Agent Browser', reason: 'Browser automation agent for web scraping, testing, and multi-step web interactions' },
-      { slug: 'agent-earner', name: 'Clawhub Skill', reason: 'Build agents that complete tasks and earn rewards on skill marketplaces' },
-      { slug: 'bountyhub-agent', name: 'BountyHub Agent', reason: 'Connect to BountyHub for automated bug bounty hunting and submission' },
-      { slug: 'clawexchange', name: 'Clawexchange', reason: 'Clawexchange skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'github-bounty-hunter', name: 'Github Bounty Hunter', reason: 'Hunt for security vulnerabilities in open-source GitHub repositories' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=bug+bounty',
   },
@@ -2285,11 +1733,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent designed to support academic research with data analysis, literature review, and report generation.',
     icon: '🧠',
     skills: [
-      { slug: 'ai-researcher', name: 'AI Researcher', reason: 'Conduct deep research and synthesize findings into structured reports' },
-      { slug: 'writing-assistant', name: 'Writing Assistant', reason: 'AI writing assistant for drafting, editing, and improving written content' },
-      { slug: 'market-research-agent', name: 'Market Research Agent', reason: 'Conduct deep research and synthesize findings into structured reports' },
-      { slug: 'research-cog', name: 'Research Cog', reason: 'Conduct deep research and synthesize findings into structured reports' },
-      { slug: 'searching-assistant', name: 'Searching Assistant', reason: 'Smart search assistant for finding relevant information across multiple sources' },
+      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Top-rated research skill with 885 downloads' }, { slug: 'clawhub-autoresearchclaw-integration', name: 'AutoResearchClaw Integration', reason: 'Top-rated research skill with 211 downloads' }, { slug: 'clawhub-investment-research', name: 'Investment Research', reason: 'Top-rated research skill with 177 downloads' }, { slug: 'clawhub-deep-research-pro-litiao', name: 'Deep Research Pro Litiao', reason: 'Top-rated research skill with 160 downloads' }, { slug: 'clawhub-amazon-keyword-research', name: 'Amazon Keyword Research', reason: 'Top-rated research skill with 153 downloads' }
     ],
     searchLink: '/skills?q=research+assistant',
   },
@@ -2300,11 +1744,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that helps with photo editing, composition suggestions, and camera settings.',
     icon: '📷',
     skills: [
-      { slug: 'image-cog', name: 'Image Cog', reason: 'Image Cog skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'photography', name: 'Photography', reason: 'Photography skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'ai-product-photography', name: 'Ai Product Photography', reason: 'Ai Product Photography skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'glasses-to-social', name: 'Glasses to Social', reason: 'Glasses To Social skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'afrexai-photography-mastery', name: 'Photography Mastery', reason: 'Afrexai Photography Mastery skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-use-smart-contract-platform', name: 'Use Smart Contract Platform', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'smart-lights', name: 'smart lights', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'clawhub-smart-web-search', name: 'Smart Web Search', reason: 'Top-rated smart skill with 110 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }
     ],
     searchLink: '/skills?q=photo',
   },
@@ -2315,11 +1755,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Assists in creating and optimizing game development processes using AI.',
     icon: '🕹️',
     skills: [
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that assists in building, configuring, and debugging AI agent workflows' },
-      { slug: 'agent-council', name: 'Agent Council', reason: 'Convene a council of specialized agents to collectively solve complex problems' },
-      { slug: 'multi-agent-cn', name: 'Multi-Agent CN', reason: 'Multi Agent Cn skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'agent-evaluation', name: 'Agent Evaluation', reason: 'Evaluate agent outputs for quality, accuracy, and task completion effectiveness' },
-      { slug: 'chessmaster', name: 'ChessMaster', reason: 'Chessmaster skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=game-development',
   },
@@ -2330,11 +1766,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Streamlines the customer onboarding process with automated tasks and personalized support.',
     icon: '🤝',
     skills: [
-      { slug: 'customer-onboarding', name: 'Customer Onboarding', reason: 'Customer Onboarding skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'automation-workflows-0-1-0', name: 'Automation Workflows 0.1.0', reason: 'Automation Workflows 0 1 0 skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'customer-onboarding-2', name: 'Customer Onboarding', reason: 'Customer Onboarding 2 skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'onboarding', name: 'Onboarding', reason: 'Onboarding skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'afrexai-employee-onboarding', name: 'Employee Onboarding Generator', reason: 'Afrexai Employee Onboarding skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=customer+onboarding',
   },
@@ -2345,11 +1777,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates contract creation, review, and management with AI-powered insights.',
     icon: '📄',
     skills: [
-      { slug: 'contract-reviewer', name: 'Contract Reviewer', reason: 'Contract Reviewer skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'afrexai-contract-review', name: 'Contract Review', reason: 'Afrexai Contract Review skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'codeconductor', name: 'CodeConductor.ai', reason: 'AI coding orchestrator that guides the entire software development lifecycle' },
-      { slug: 'afrexai-contract-analyzer', name: 'AfrexAI Contract Analyzer', reason: 'Afrexai Contract Analyzer skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'contract', name: 'Contract', reason: 'Contract skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=contract-management',
   },
@@ -2360,11 +1788,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that simplifies tax filing by gathering information, calculating deductions, and generating forms.',
     icon: '💰',
     skills: [
-      { slug: 'tax-professional', name: 'Tax Professional', reason: 'Tax Professional skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'afrexai-tax-planning', name: 'Tax Planning Framework', reason: 'Afrexai Tax Planning skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'accountant', name: 'Accountant', reason: 'AI accountant for financial calculations, reporting, and bookkeeping tasks' },
-      { slug: 'tax-planning', name: 'Tax Planning', reason: 'Tax Planning skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'kenya-tax-rates', name: 'Kenya Tax Rates', reason: 'Kenya Tax Rates skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'icp-filing', name: 'icp filing', reason: 'Top-rated filing skill with 360 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }
     ],
     searchLink: '/skills?q=tax+filing',
   },
@@ -2375,11 +1799,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates and optimizes supply chain operations using AI.',
     icon: '📦',
     skills: [
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Deploy multi-agent agencies where specialized agents collaborate on complex tasks' },
-      { slug: 'afrexai-logistics-optimizer', name: 'Logistics Operations Optimizer', reason: 'Optimize logistics and operations workflows with AI-driven automation' },
-      { slug: 'afrexai-supply-chain', name: 'Supply Chain Risk Monitor', reason: 'Optimize logistics and operations workflows with AI-driven automation' },
-      { slug: 'afrexai-agent-manager', name: 'AI Agent Manager Playbook', reason: 'Manage and coordinate multiple AI agents across complex project workflows' },
-      { slug: 'b2a', name: 'B2A', reason: 'B2A skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=supply+chain',
   },
@@ -2390,11 +1810,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates and optimizes the recruitment process with intelligent candidate matching and communication.',
     icon: '👩‍💼',
     skills: [
-      { slug: 'lofy-career', name: 'Lofy Career', reason: 'AI career assistant for job search, resume optimization, and interview prep' },
-      { slug: 'smart-recruitment-cn', name: 'Smart Recruitment Cn', reason: 'Streamline hiring and recruitment with AI-powered candidate matching' },
-      { slug: 'job-search', name: 'Job Search', reason: 'Streamline hiring and recruitment with AI-powered candidate matching' },
-      { slug: 'recruiter', name: 'Recruiter', reason: 'Streamline hiring and recruitment with AI-powered candidate matching' },
-      { slug: 'hiring', name: 'Hiring', reason: 'Hiring skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=recruitment',
   },
@@ -2405,11 +1821,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that ensures adherence to regulations and standards across various industries.',
     icon: '⚖️',
     skills: [
-      { slug: 'auto-monitor', name: 'Auto Monitor - System Monitoring', reason: 'Auto Monitor skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'cpc-mpqc-competence-tracker-compliance-uk', name: 'CPC/MPQC Training & Competence Tracking (UK)', reason: 'Cpc Mpqc Competence Tracker Compliance Uk skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'afrexai-compliance-audit', name: 'Compliance Audit Generator', reason: 'Ensure regulatory compliance with automated audit checks and documentation' },
-      { slug: 'sovereign-accessibility-auditor', name: 'Web Accessibility Auditor', reason: 'Sovereign Accessibility Auditor skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'afrexai-regulatory-compliance', name: 'Regulatory Compliance Audit', reason: 'Ensure regulatory compliance with automated audit checks and documentation' },
+      { slug: 'clawhub-pipl-compliance', name: 'PIPL-Compliance（PIPL合规工具）', reason: 'Top-rated compliance skill with 163 downloads' }, { slug: 'compliance', name: 'Compliance', reason: 'Top-rated compliance skill with 148 downloads' }, { slug: 'clawhub-eric-compliance-suite', name: 'eric-compliance-suite', reason: 'Top-rated compliance skill with 124 downloads' }, { slug: 'clawhub-vendor-compliance-1099', name: 'Vendor Compliance 1099', reason: 'Top-rated compliance skill with 112 downloads' }, { slug: 'clawhub-toolweb-privacy-compliance-assistant', name: 'Privacy Compliance Assistant', reason: 'Top-rated compliance skill with 109 downloads' }
     ],
     searchLink: '/skills?q=compliance',
   },
@@ -2420,11 +1832,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates financial data collection, analysis, and reporting with accuracy and efficiency.',
     icon: '💰',
     skills: [
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Deploy multi-agent agencies where specialized agents collaborate on complex tasks' },
-      { slug: 'fin-cog', name: 'Fin Cog', reason: 'Fin Cog skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'afrexai-financial-due-diligence', name: 'Financial Due Diligence Analyzer', reason: 'Run AI-powered financial due diligence on companies and investment targets' },
-      { slug: 'ai-financial-report-cn', name: 'Ai Financial Report Cn', reason: 'Manage financial ledger entries and accounting records with AI automation' },
-      { slug: 'afrexai-accounts-receivable', name: 'Accounts Receivable Manager', reason: 'Manage financial ledger entries and accounting records with AI automation' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=financial+reporting',
   },
@@ -2435,11 +1843,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Assists with product strategy, roadmap planning, and user feedback analysis.',
     icon: '🎯',
     skills: [
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that assists in building, configuring, and debugging AI agent workflows' },
-      { slug: 'agent-evaluation', name: 'Agent Evaluation', reason: 'Evaluate agent outputs for quality, accuracy, and task completion effectiveness' },
-      { slug: 'clawhub-content-writer', name: 'Content Writer', reason: 'Clawhub Content Writer skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'agent', name: 'Agent', reason: 'Foundation agent skill for task planning, execution, and autonomous decision-making' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Deploy multi-agent agencies where specialized agents collaborate on complex tasks' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=product-management',
   },
@@ -2450,11 +1854,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Assists in creating and optimizing user experiences through AI-driven insights and design recommendations.',
     icon: '🎨',
     skills: [
-      { slug: 'user-research', name: 'User Research', reason: 'Gathers insights about user behavior and preferences to inform design decisions.' },
-      { slug: 'wireframing', name: 'Wireframing', reason: 'Creates low-fidelity layouts to visualize the structure and functionality of a product.' },
-      { slug: 'clawhub-proto-cog', name: 'Prototyping', reason: 'Builds interactive models to test and refine user interactions before development.' },
-      { slug: 'clawhub-ui-audit', name: 'Usability Testing', reason: 'Evaluates how easy and efficient a product is for users to navigate and use.' },
-      { slug: 'design-system', name: 'Design System', reason: 'Establishes consistent visual and interaction patterns across all product interfaces.' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=ux-design',
   },
@@ -2465,11 +1865,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Streamlines API connections and data flow between applications.',
     icon: '🔌',
     skills: [
-      { slug: 'api-gateway', name: 'API Gateway', reason: 'Api Gateway skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'workflow', name: 'Workflow', reason: 'Workflow skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'nodejs-patterns', name: 'Nodejs Patterns', reason: 'Nodejs Patterns skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'flowfi', name: 'FlowFi', reason: 'Flowfi skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'fullstack-developer', name: 'Fullstack Developer', reason: 'Full-stack AI developer for frontend, backend, and database development' },
+      { slug: 'clawhub-autoresearchclaw-integration', name: 'AutoResearchClaw Integration', reason: 'Top-rated integration skill with 211 downloads' }, { slug: 'clawhub-feishu-integration', name: 'Feishu Integration', reason: 'Top-rated integration skill with 128 downloads' }, { slug: 'clawhub-rtk-integration', name: 'RTK Integration', reason: 'Top-rated integration skill with 110 downloads' }, { slug: 'clawhub-whatclaw', name: 'whatclaw-whatsapp-integration', reason: 'Top-rated integration skill with 104 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }
     ],
     searchLink: '/skills?q=api-integration',
   },
@@ -2480,11 +1876,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates and optimizes cloud infrastructure management with intelligent decision-making.',
     icon: '☁️',
     skills: [
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that assists in building, configuring, and debugging AI agent workflows' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Deploy multi-agent agencies where specialized agents collaborate on complex tasks' },
-      { slug: 'agents', name: 'Agents', reason: 'Core multi-agent framework for building and coordinating specialized AI agent teams' },
-      { slug: 'elizacloud', name: 'elizaOS Cloud', reason: 'Elizacloud skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'agent-security', name: 'Agent Security', reason: 'Monitor and enforce security policies for AI agent operations' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=cloud-infrastructure',
   },
@@ -2495,11 +1887,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that monitors, detects, and responds to network security threats in real-time.',
     icon: '🛡️',
     skills: [
-      { slug: 'agent-evaluation', name: 'Agent Evaluation', reason: 'Evaluate agent outputs for quality, accuracy, and task completion effectiveness' },
-      { slug: 'agent-security', name: 'Agent Security', reason: 'Monitor and enforce security policies for AI agent operations' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Deploy multi-agent agencies where specialized agents collaborate on complex tasks' },
-      { slug: 'praesidia', name: 'Praesidia', reason: 'Praesidia skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'agentns', name: 'Domain Name Registration For Agents', reason: 'AI-powered assistant for automating complex workflows and decision-making' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=network+security',
   },
@@ -2510,11 +1898,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Predict future sales trends using historical data and market insights.',
     icon: '📈',
     skills: [
-      { slug: 'afrexai-revenue-forecasting', name: 'Revenue Forecasting Engine', reason: 'Afrexai Revenue Forecasting skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'afrexai-demand-forecasting', name: 'Demand Forecasting Framework', reason: 'Afrexai Demand Forecasting skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'ai-automation-consulting', name: 'Ai Automation Consulting', reason: 'Expert consultation for identifying and implementing AI automation opportunities' },
-      { slug: 'ai-data-analyst-cn', name: 'Ai Data Analyst Cn', reason: 'Analyze data to uncover insights, trends, and actionable business intelligence' },
-      { slug: 'ai-intelligent-demand-forecasting', name: 'Ai Intelligent Demand Forecasting', reason: 'Ai Intelligent Demand Forecasting skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'ai-data-analyst-cn', name: 'Ai Data Analyst Cn', reason: 'Analyze data to uncover insights, trends, and actionable business intelligence' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }
     ],
     searchLink: '/skills?q=sales+forecasting',
   },
@@ -2525,11 +1909,7 @@ export const USE_CASES: UseCase[] = [
     description: 'AI agent that adjusts pricing strategies in real-time based on market demand, competition, and sales data.',
     icon: '💰',
     skills: [
-      { slug: 'afrexai-logistics-optimizer', name: 'Logistics Operations Optimizer', reason: 'Optimize logistics and operations workflows with AI-driven automation' },
-      { slug: 'afrexai-profit-margin', name: 'Profit Margin Analyzer', reason: 'Afrexai Profit Margin skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'price', name: 'Price', reason: 'Price skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'afrexai-margin-analysis', name: 'Margin Analysis & Profit Optimization', reason: 'Afrexai Margin Analysis skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'cs-pricing-strategy', name: 'pricing-strategy', reason: 'Cs Pricing Strategy skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-nonferrous-daily', name: 'Metal Price', reason: 'Top-rated price skill with 184 downloads' }, { slug: 'clawhub-memory-optimization', name: 'Memory Optimization', reason: 'Top-rated optimization skill with 211 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
     ],
     searchLink: '/skills?q=price+optimization',
   },
@@ -2540,11 +1920,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates and optimizes lead scoring based on user behavior and data analysis.',
     icon: '🤖',
     skills: [
-      { slug: 'lead-scorer', name: 'Lead Scorer', reason: 'Lead Scorer skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'lead-hunter', name: 'Lead Hunter', reason: 'Lead Hunter skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'afrexai-lead-scorer', name: 'Lead Scorer', reason: 'Afrexai Lead Scorer skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'lead-generation', name: 'Lead Generation', reason: 'Lead Generation skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'sales-bot', name: 'lead-generating', reason: 'Sales Bot skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'leads', name: 'leads', reason: 'Top-rated lead skill with 239 downloads' }, { slug: 'leaderboard', name: 'leaderboard', reason: 'Top-rated lead skill with 172 downloads' }, { slug: 'clawhub-lead-intel-analyzer', name: 'AI Lead Intelligence Generator', reason: 'Top-rated lead skill with 111 downloads' }
     ],
     searchLink: '/skills?q=lead+scoring',
   },
@@ -2555,11 +1931,7 @@ export const USE_CASES: UseCase[] = [
     description: 'AI agent that collects, analyzes, and acts on customer feedback.',
     icon: '💬',
     skills: [
-      { slug: 'agent-directory', name: 'Agent Directory', reason: 'Agent Directory skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'agentarxiv', name: 'AgentArxiv', reason: 'Search and retrieve academic papers from arXiv for research and analysis' },
-      { slug: 'agent', name: 'Agent', reason: 'Foundation agent skill for task planning, execution, and autonomous decision-making' },
-      { slug: 'agents', name: 'Agents', reason: 'Core multi-agent framework for building and coordinating specialized AI agent teams' },
-      { slug: 'afrexai-agent-manager', name: 'AI Agent Manager Playbook', reason: 'Manage and coordinate multiple AI agents across complex project workflows' },
+      { slug: 'customer-service-reply', name: 'customer service reply', reason: 'Top-rated customer skill with 650 downloads' }, { slug: 'clawhub-ai-customer-service-scripts', name: 'AI Customer Service Scripts Generator', reason: 'Top-rated customer skill with 125 downloads' }, { slug: 'clawhub-uplo-customer-success', name: 'Uplo Customer Success', reason: 'Top-rated customer skill with 102 downloads' }, { slug: 'brand-identity-analyzer', name: 'Brand Identity Analyzer', reason: 'Top-rated analyzer skill with 1681 downloads' }, { slug: 'clawhub-excel-ai-analyzer', name: 'Excel AI Analyzer', reason: 'Top-rated analyzer skill with 481 downloads' }
     ],
     searchLink: '/skills?q=customer+feedback',
   },
@@ -2570,11 +1942,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that provides personalized and interactive employee training solutions.',
     icon: '🎓',
     skills: [
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that assists in building, configuring, and debugging AI agent workflows' },
-      { slug: 'ai-boss-assistant', name: 'AI Boss Assistant', reason: 'AI boss that delegates tasks, monitors progress, and coordinates team workflows' },
-      { slug: 'agent', name: 'Agent', reason: 'Foundation agent skill for task planning, execution, and autonomous decision-making' },
-      { slug: 'agent-evaluation', name: 'Agent Evaluation', reason: 'Evaluate agent outputs for quality, accuracy, and task completion effectiveness' },
-      { slug: 'afrexai-training-program', name: 'Employee Training Program', reason: 'Afrexai Training Program skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=training',
   },
@@ -2585,11 +1953,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Efficiently search and analyze patents using AI-powered tools.',
     icon: '🔍',
     skills: [
-      { slug: 'bailian-web-search', name: 'Bailian Web Search', reason: 'Bailian Web Search skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'baidu-web-search', name: 'baidu web search', reason: 'Baidu Web Search skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'agnxi-search-skill', name: 'Agent Skills Search', reason: 'Agnxi Search Skill skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'searching-assistant', name: 'Searching Assistant', reason: 'Smart search assistant for finding relevant information across multiple sources' },
-      { slug: 'n2-free-search', name: 'N2 Free Search', reason: 'N2 Free Search skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-patent-search', name: 'patent-search', reason: 'Top-rated patent skill with 211 downloads' }, { slug: 'clawhub-patent-invalid-search', name: 'patent-invalid-search', reason: 'Top-rated patent skill with 123 downloads' }, { slug: 'clawhub-memory-lancedb-hybrid', name: 'LanceDB Hybrid Search Memory Plugin', reason: 'Top-rated search skill with 2099 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Top-rated search skill with 885 downloads' }, { slug: 'clawhub-openclaw-free-web-search', name: 'Cross-Validated Search', reason: 'Top-rated search skill with 849 downloads' }
     ],
     searchLink: '/skills?q=patent+search',
   },
@@ -2600,11 +1964,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Analyzes market trends, competitor data, and consumer behavior to provide actionable insights.',
     icon: '📊',
     skills: [
-      { slug: 'market-research-agent', name: 'Market Research Agent', reason: 'Conduct deep research and synthesize findings into structured reports' },
-      { slug: 'agent-evaluation', name: 'Agent Evaluation', reason: 'Evaluate agent outputs for quality, accuracy, and task completion effectiveness' },
-      { slug: 'stock-analysis-agent', name: 'Professional Stock Analysis Agent', reason: 'Analyze stock markets and investment opportunities with AI-powered research' },
-      { slug: 'hk-ai-stock-expert', name: '港股 AI 概念板块专属投研顾问。结合宏观流动性、南向资金博弈与 AI 产业基本面，提供深度的个股挖掘与风控策略。', reason: 'Analyze stock markets and investment opportunities with AI-powered research' },
-      { slug: 'priceforagent', name: 'Price for Agent', reason: 'Priceforagent skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=market+analysis',
   },
@@ -2615,11 +1975,7 @@ export const USE_CASES: UseCase[] = [
     description: 'AI agent for detecting and filtering inappropriate or harmful content.',
     icon: '🛡️',
     skills: [
-      { slug: 'agent', name: 'Agent', reason: 'Foundation agent skill for task planning, execution, and autonomous decision-making' },
-      { slug: 'praesidia', name: 'Praesidia', reason: 'Praesidia skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'agent-evaluation', name: 'Agent Evaluation', reason: 'Evaluate agent outputs for quality, accuracy, and task completion effectiveness' },
-      { slug: 'praesidia-a2a', name: 'Praesidia', reason: 'Praesidia A2A skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'skills-a2a', name: 'Praesidia', reason: 'Skills A2A skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-persona-content-creator', name: 'Persona Content Creator', reason: 'Top-rated content skill with 476 downloads' }, { slug: 'clawhub-post-content-moderation', name: 'Post Content Moderation', reason: 'Top-rated content skill with 147 downloads' }, { slug: 'clawhub-content-claw', name: 'Content Claw', reason: 'Top-rated content skill with 136 downloads' }, { slug: 'clawhub-ai-intelligent-content-generation', name: 'Ai Intelligent Content Generation', reason: 'Top-rated content skill with 127 downloads' }, { slug: 'clawhub-content-creation-multi-agent', name: 'Content Creation Multi Agent', reason: 'Top-rated content skill with 116 downloads' }
     ],
     searchLink: '/skills?q=content+moderation',
   },
@@ -2630,11 +1986,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Analyzes text to determine the emotional tone behind words.',
     icon: '🧠',
     skills: [
-      { slug: 'enteriva-ai-social-hub', name: 'Enteriva', reason: 'Enteriva Ai Social Hub skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'agent-intelligence-network-scan', name: 'Agent Intelligence Network Scan', reason: 'Connect and coordinate agents across distributed networks and services' },
-      { slug: 'scout', name: 'Scout', reason: 'Scout skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'aiprox', name: 'Aiprox', reason: 'Aiprox skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'agents', name: 'Agents', reason: 'Core multi-agent framework for building and coordinating specialized AI agent teams' },
+      { slug: 'clawhub-news-sentiment-scan', name: 'News Sentiment Scan', reason: 'Top-rated sentiment skill with 262 downloads' }, { slug: 'clawhub-risk-sentiment-scanner', name: 'risk-sentiment-scanner', reason: 'Top-rated sentiment skill with 104 downloads' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Top-rated analysis skill with 19813 downloads' }, { slug: 'us-stock-analysis', name: 'Us Stock Analysis', reason: 'Top-rated analysis skill with 13837 downloads' }, { slug: 'market-analysis-cn', name: 'Market Analysis CN | 市场分析服务', reason: 'Top-rated analysis skill with 7242 downloads' }
     ],
     searchLink: '/skills?q=sentiment+analysis',
   },
@@ -2645,11 +1997,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that reviews and analyzes documents for accuracy, compliance, and key information extraction.',
     icon: '📄',
     skills: [
-      { slug: 'writing-assistant', name: 'Writing Assistant', reason: 'AI writing assistant for drafting, editing, and improving written content' },
-      { slug: 'requesting-code-review', name: 'Requesting Code Review', reason: 'Automated code review to catch bugs, style issues, and security vulnerabilities' },
-      { slug: 'daily-review-ritual', name: 'Daily Review Ritual', reason: 'Daily Review Ritual skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'afrexai-contract-review', name: 'Contract Review', reason: 'Afrexai Contract Review skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'ai-review', name: 'AI-review', reason: 'Ai Review skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Top-rated document skill with 885 downloads' }, { slug: 'clawhub-csv-documentation-generator', name: 'Csv Documentation Generator', reason: 'Top-rated document skill with 147 downloads' }, { slug: 'clawhub-document-ingestion', name: 'Document Ingestion', reason: 'Top-rated document skill with 134 downloads' }, { slug: 'performance-review', name: 'performance review', reason: 'Top-rated review skill with 453 downloads' }, { slug: 'review-responder', name: 'review responder', reason: 'Top-rated review skill with 359 downloads' }
     ],
     searchLink: '/skills?q=document+review',
   },
@@ -2660,11 +2008,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates and streamlines the due diligence process with AI-driven analysis and insights.',
     icon: '🔍',
     skills: [
-      { slug: 'agent-evaluation', name: 'Agent Evaluation', reason: 'Evaluate agent outputs for quality, accuracy, and task completion effectiveness' },
-      { slug: 'afrexai-financial-due-diligence', name: 'Financial Due Diligence Analyzer', reason: 'Run AI-powered financial due diligence on companies and investment targets' },
-      { slug: 'agent-intelligence-network-scan', name: 'Agent Intelligence Network Scan', reason: 'Connect and coordinate agents across distributed networks and services' },
-      { slug: 'praesidia', name: 'Praesidia', reason: 'Praesidia skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'praesidia-a2a', name: 'Praesidia', reason: 'Praesidia A2A skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=due+diligence',
   },
@@ -2675,11 +2019,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates and enhances risk evaluation processes using AI-driven analysis.',
     icon: '🛡️',
     skills: [
-      { slug: 'afrexai-risk-assessment', name: 'Risk Assessment Framework', reason: 'Afrexai Risk Assessment skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'agent-evaluation', name: 'Agent Evaluation', reason: 'Evaluate agent outputs for quality, accuracy, and task completion effectiveness' },
-      { slug: 'praesidia', name: 'Praesidia', reason: 'Praesidia skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'agent-self-assessment', name: 'Agent Compliance & Security Assessment', reason: 'Self-assess agent compliance and security posture against benchmarks' },
-      { slug: 'praesidia-a2a', name: 'Praesidia', reason: 'Praesidia A2A skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-binance-event-contract-risk', name: 'Binance Event Contract Risk Manager', reason: 'Top-rated risk skill with 135 downloads' }, { slug: 'clawhub-riskadvisor', name: 'Riskadvisor', reason: 'Top-rated risk skill with 119 downloads' }, { slug: 'clawhub-gougoubi-activate-and-stake-risklp', name: 'Gougoubi Activate And Stake Risklp', reason: 'Top-rated risk skill with 108 downloads' }, { slug: 'clawhub-risk-sentiment-scanner', name: 'risk-sentiment-scanner', reason: 'Top-rated risk skill with 104 downloads' }, { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }
     ],
     searchLink: '/skills?q=risk+assessment',
   },
@@ -2690,11 +2030,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that assists in diagnosing medical conditions based on symptoms and patient data.',
     icon: '🩺',
     skills: [
-      { slug: 'writing-assistant', name: 'Writing Assistant', reason: 'AI writing assistant for drafting, editing, and improving written content' },
-      { slug: 'therapy-mode', name: 'Therapy Mode', reason: 'Provide empathetic, therapeutic conversation support for emotional situations' },
-      { slug: 'apple-health-skill', name: 'Apple Health Skill', reason: 'Apple Health Skill skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'patiently-ai', name: 'Patiently AI', reason: 'Patiently Ai skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'searching-assistant', name: 'Searching Assistant', reason: 'Smart search assistant for finding relevant information across multiple sources' },
+      { slug: 'clawhub-medical-conference', name: 'NoahAI medical conference query', reason: 'Top-rated medical skill with 113 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }
     ],
     searchLink: '/skills?q=medical+diagnosis',
   },
@@ -2705,11 +2041,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Accelerates the drug discovery process using AI-driven analysis and prediction.',
     icon: '🧪',
     skills: [
-      { slug: 'agentarxiv', name: 'AgentArxiv', reason: 'Search and retrieve academic papers from arXiv for research and analysis' },
-      { slug: 'agent-evaluation', name: 'Agent Evaluation', reason: 'Evaluate agent outputs for quality, accuracy, and task completion effectiveness' },
-      { slug: 'clawdiscover', name: 'ClawDiscover', reason: 'Clawdiscover skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'agents', name: 'Agents', reason: 'Core multi-agent framework for building and coordinating specialized AI agent teams' },
-      { slug: 'agent-designer', name: 'Agent Designer', reason: 'Design and prototype AI agent workflows with visual tooling' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=drug+discovery',
   },
@@ -2720,11 +2052,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Assists in managing and optimizing clinical trial processes.',
     icon: '🧪',
     skills: [
-      { slug: 'agent-browser-clawdbot', name: 'Agent Browser', reason: 'Browser automation agent for web scraping, testing, and multi-step web interactions' },
-      { slug: 'agent-evaluation', name: 'Agent Evaluation', reason: 'Evaluate agent outputs for quality, accuracy, and task completion effectiveness' },
-      { slug: 'agentarxiv', name: 'AgentArxiv', reason: 'Search and retrieve academic papers from arXiv for research and analysis' },
-      { slug: 'agent-analytics', name: 'Agent Analytics', reason: 'Agent Analytics skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Deploy multi-agent agencies where specialized agents collaborate on complex tasks' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=clinical+trials',
   },
@@ -2735,11 +2063,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that streamlines property management tasks with automation and insights.',
     icon: '🏠',
     skills: [
-      { slug: 'mcp-hass', name: '🏠 Home Assistant via MCP protocol', reason: 'Mcp Hass skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'homeassistant-assist', name: 'Home Assistant Assist', reason: 'Homeassistant Assist skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'assistant', name: 'Assistant', reason: 'Assistant skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'smart-home-energy-saver', name: 'Smart Home Energy Saver', reason: 'Smart Home Energy Saver skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'thermostat', name: 'Thermostat', reason: 'Thermostat skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-use-smart-contract-platform', name: 'Use Smart Contract Platform', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'smart-lights', name: 'smart lights', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'clawhub-smart-web-search', name: 'Smart Web Search', reason: 'Top-rated smart skill with 110 downloads' }, { slug: 'freedcamp-agent-skill', name: 'Freedcamp Project Management', reason: 'Top-rated management skill with 1257 downloads' }, { slug: 'clawhub-ai-intelligent-expense-management', name: 'Ai Intelligent Expense Management', reason: 'Top-rated management skill with 158 downloads' }
     ],
     searchLink: '/skills?q=property-management',
   },
@@ -2750,11 +2074,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates and streamlines the loan application and approval process using AI.',
     icon: '💰',
     skills: [
-      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes customer financial data to assess creditworthiness.' },
-      { slug: 'clawhub-pdf', name: 'PDF Reader', reason: 'Extracts relevant information from loan applications and documents.' },
-      { slug: 'task-planner', name: 'Task Planner', reason: 'Organizes and manages the loan processing workflow efficiently.' },
-      { slug: 'clawhub-invoices', name: 'Invoice Parser', reason: 'Processes and verifies financial statements and invoices.' },
-      { slug: 'clawhub-document-pro', name: 'Code Reviewer', reason: 'Reviews and validates automated loan decision algorithms.' },
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes customer financial data to assess creditworthiness.' }, { slug: 'loan-calculator', name: 'loan calculator', reason: 'Top-rated loan skill with 346 downloads' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Organizes and manages the loan processing workflow efficiently.' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }
     ],
     searchLink: '/skills?q=loan+processing',
   },
@@ -2765,11 +2085,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates and streamlines the claims processing workflow using AI.',
     icon: '🛡️',
     skills: [
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that assists in building, configuring, and debugging AI agent workflows' },
-      { slug: 'ai-automation-consulting', name: 'Ai Automation Consulting', reason: 'Expert consultation for identifying and implementing AI automation opportunities' },
-      { slug: 'ai-employee-cn', name: 'Ai Employee Cn', reason: 'Chinese-language AI employee for automating business tasks and customer service' },
-      { slug: 'ai-writing-agent', name: 'AI Writing Agent', reason: 'AI-powered assistant for automating complex workflows and decision-making' },
-      { slug: 'ai-writing-assistant-cn-payment', name: 'Ai Writing Assistant Cn Payment', reason: 'AI-powered assistant for automating complex workflows and decision-making' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=claims+processing',
   },
@@ -2780,11 +2096,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that helps with conducting and analyzing employee performance reviews.',
     icon: '📊',
     skills: [
-      { slug: 'interview-simulator', name: 'Interview Simulator', reason: 'Interview Simulator skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'ai-boss-assistant', name: 'AI Boss Assistant', reason: 'AI boss that delegates tasks, monitors progress, and coordinates team workflows' },
-      { slug: 'ai-productivity-audit', name: 'Ai Productivity Audit', reason: 'Ai Productivity Audit skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'interview-designer', name: 'Interview Designer', reason: 'Interview Designer skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'interview-coach-ai', name: 'Interview Coach', reason: 'Interview Coach Ai skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }, { slug: 'clawhub-openclaw-setup-assistant', name: 'OpenClaw Setup Assistant', reason: 'Top-rated assistant skill with 113 downloads' }
     ],
     searchLink: '/skills?q=performance+review',
   },
@@ -2795,11 +2107,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that helps users set, track, and achieve their Objectives and Key Results.',
     icon: '🎯',
     skills: [
-      { slug: 'product-strategist', name: 'Product Strategist', reason: 'Product Strategist skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'afrexai-okr-engine', name: 'OKR & Strategy Execution Engine', reason: 'Afrexai Okr Engine skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'agent-task-tracker', name: 'Task Tracker', reason: 'Agent Task Tracker skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'goal-tracker', name: 'Goal Tracker', reason: 'Goal Tracker skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'goal-setting-okrs', name: 'Goal Setting Okrs', reason: 'Goal Setting Okrs skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'crypto-tracker-cn', name: 'crypto-tracker-cn', reason: 'Top-rated tracker skill with 543 downloads' }, { slug: 'clawhub-stock-tracker-pro', name: 'Stock Tracker Pro', reason: 'Top-rated tracker skill with 475 downloads' }, { slug: 'wallet-tracker', name: 'Wallet Tracker', reason: 'Top-rated tracker skill with 438 downloads' }, { slug: 'sleep-tracker', name: 'sleep-tracker', reason: 'Top-rated tracker skill with 401 downloads' }, { slug: 'crypto-whale-tracker', name: 'Crypto Whale Tracker', reason: 'Top-rated tracker skill with 385 downloads' }
     ],
     searchLink: '/skills?q=okr',
   },
@@ -2810,11 +2118,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates and simplifies the creation and management of expense reports.',
     icon: '💰',
     skills: [
-      { slug: 'expense-tracker-pro', name: 'Expense Tracker Pro', reason: 'Expense Tracker Pro skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'intelligent-budget-tracker', name: 'Intelligent Budget Tracker', reason: 'Intelligent Budget Tracker skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'financial-tracker', name: 'Financial Tracker', reason: 'Track and categorize financial transactions with AI-powered insights' },
-      { slug: 'expenses', name: 'Expenses', reason: 'Expenses skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'accountsos', name: 'Accountsos', reason: 'Emergency accounting support for backlog clearance and urgent financial tasks' },
+      { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }, { slug: 'clawhub-openclaw-setup-assistant', name: 'OpenClaw Setup Assistant', reason: 'Top-rated assistant skill with 113 downloads' }
     ],
     searchLink: '/skills?q=expense+report',
   },
@@ -2825,11 +2129,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automate and optimize your time tracking with AI-powered insights and scheduling.',
     icon: '⏱️',
     skills: [
-      { slug: 'assistant', name: 'Assistant', reason: 'Assistant skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'time-management', name: 'Time Management', reason: 'Coordinate and manage agent teams for complex collaborative tasks' },
-      { slug: 'expenses', name: 'Expenses', reason: 'Expenses skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'daily-planner', name: 'Daily Planner', reason: 'Daily Planner skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'smart-expense-tracker-cn-payment', name: 'Smart Expense Tracker Cn Payment', reason: 'Smart Expense Tracker Cn Payment skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-use-smart-contract-platform', name: 'Use Smart Contract Platform', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'smart-lights', name: 'smart lights', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'clawhub-smart-web-search', name: 'Smart Web Search', reason: 'Top-rated smart skill with 110 downloads' }, { slug: 'clawhub-news-sentiment-scan', name: 'News Sentiment Scan', reason: 'Top-rated time skill with 262 downloads' }, { slug: 'unixtime', name: 'UnixTime', reason: 'Top-rated time skill with 249 downloads' }
     ],
     searchLink: '/skills?q=time-tracking',
   },
@@ -2840,11 +2140,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automatically generate and organize meeting notes using AI.',
     icon: '📝',
     skills: [
-      { slug: 'ai-daily-briefing', name: 'AI Daily Briefing', reason: 'Ai Daily Briefing skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'meetings', name: 'Meetings', reason: 'Meetings skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'meeting-to-action', name: 'Meeting To Action', reason: 'Meeting To Action skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'coordinate-meeting', name: 'Coordinate a Meeting', reason: 'Coordinate Meeting skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'afrexai-meeting-prep', name: 'Meeting Prep', reason: 'Afrexai Meeting Prep skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-use-smart-contract-platform', name: 'Use Smart Contract Platform', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'smart-lights', name: 'smart lights', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'clawhub-smart-web-search', name: 'Smart Web Search', reason: 'Top-rated smart skill with 110 downloads' }, { slug: 'meeting-agenda', name: 'Meeting Agenda', reason: 'Top-rated meeting skill with 360 downloads' }, { slug: 'clawhub-meeting-summary', name: 'Meeting Summary', reason: 'Top-rated meeting skill with 135 downloads' }
     ],
     searchLink: '/skills?q=meeting+notes',
   },
@@ -2855,11 +2151,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that helps teams create and manage daily standup reports efficiently.',
     icon: '🤖',
     skills: [
-      { slug: 'meeting-prep', name: 'meeting-prep', reason: 'Meeting Prep skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'writing-assistant', name: 'Writing Assistant', reason: 'AI writing assistant for drafting, editing, and improving written content' },
-      { slug: 'ai-daily-briefing', name: 'AI Daily Briefing', reason: 'Ai Daily Briefing skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'morning-briefing', name: 'Morning Briefing', reason: 'Morning Briefing skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'assistant', name: 'Assistant', reason: 'Assistant skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'dailylog', name: 'dailylog', reason: 'Top-rated daily skill with 286 downloads' }, { slug: 'clawhub-juya-ai-daily-skills', name: 'Fetch the latest AI daily brief from imj', reason: 'Top-rated daily skill with 150 downloads' }, { slug: 'clawhub-daily-to-goal-mcp', name: 'Daily-to-Goal MCP', reason: 'Top-rated daily skill with 135 downloads' }, { slug: 'clawhub-daily-report-recorder', name: 'Daily Report Recorder', reason: 'Top-rated daily skill with 133 downloads' }, { slug: 'clawhub-daily-news-brief-zh', name: 'daily-news-brief', reason: 'Top-rated daily skill with 123 downloads' }
     ],
     searchLink: '/skills?q=standup',
   },
@@ -2870,11 +2162,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Generate and optimize job descriptions with AI.',
     icon: '💼',
     skills: [
-      { slug: 'writing-assistant', name: 'Writing Assistant', reason: 'AI writing assistant for drafting, editing, and improving written content' },
-      { slug: 'zoho-recruit', name: 'Zoho Recruit', reason: 'Streamline hiring and recruitment with AI-powered candidate matching' },
-      { slug: 'searching-assistant', name: 'Searching Assistant', reason: 'Smart search assistant for finding relevant information across multiple sources' },
-      { slug: 'clawdwork', name: 'ClawdWork', reason: 'Clawdwork skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'lofy-career', name: 'Lofy Career', reason: 'AI career assistant for job search, resume optimization, and interview prep' },
+      { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }, { slug: 'clawhub-openclaw-setup-assistant', name: 'OpenClaw Setup Assistant', reason: 'Top-rated assistant skill with 113 downloads' }
     ],
     searchLink: '/skills?q=job+description',
   },
@@ -2885,11 +2173,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Helps users negotiate better salaries using data and strategy.',
     icon: '💼',
     skills: [
-      { slug: 'writing-assistant', name: 'Writing Assistant', reason: 'AI writing assistant for drafting, editing, and improving written content' },
-      { slug: 'searching-assistant', name: 'Searching Assistant', reason: 'Smart search assistant for finding relevant information across multiple sources' },
-      { slug: 'afrexai-negotiation-mastery', name: 'Negotiation Mastery', reason: 'Afrexai Negotiation Mastery skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'negotiation', name: 'Negotiation', reason: 'Negotiation skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'salary', name: 'Salary', reason: 'Salary skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-a2a-market-acp-lite-negotiation', name: 'a2a-Market-ACP-Lite-Negotiation', reason: 'Top-rated negotiation skill with 169 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }
     ],
     searchLink: '/skills?q=salary+negotiation',
   },
@@ -2900,11 +2184,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates and streamlines the background check process using AI.',
     icon: '🕵️‍♂️',
     skills: [
-      { slug: 'agent-directory', name: 'Agent Directory', reason: 'Agent Directory skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'agentns', name: 'Domain Name Registration For Agents', reason: 'AI-powered assistant for automating complex workflows and decision-making' },
-      { slug: 'registry-broker-hashnet-openclaw', name: 'Registry Broker', reason: 'Register and manage agent identities, permissions, and service discovery' },
-      { slug: 'agent-intelligence-network-scan', name: 'Agent Intelligence Network Scan', reason: 'Connect and coordinate agents across distributed networks and services' },
-      { slug: 'agent-security', name: 'Agent Security', reason: 'Monitor and enforce security policies for AI agent operations' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=background+check',
   },
@@ -2915,11 +2195,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Comprehensive AI-powered tool for analyzing and improving website SEO performance.',
     icon: '🔍',
     skills: [
-      { slug: 'seo', name: 'SEO (Site Audit + Content Writer + Competitor Analysis)', reason: 'Seo skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'pls-seo-audit', name: 'PLS SEO Audit', reason: 'Pls Seo Audit skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'seo-competitor-analysis', name: 'SEO Intelligence & Competitor Analysis Pro', reason: 'Seo Competitor Analysis skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'seo-optimizer', name: 'Seo Optimizer', reason: 'Seo Optimizer skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'on-page-seo-auditor', name: 'On Page Seo Auditor', reason: 'On Page Seo Auditor skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-ai-intelligent-audit-system', name: 'Ai Intelligent Audit System', reason: 'Top-rated audit skill with 149 downloads' }, { slug: 'clawhub-sql-audit', name: 'Sql Audit', reason: 'Top-rated audit skill with 114 downloads' }, { slug: 'clawhub-inference-audit', name: 'Inference Cost Audit', reason: 'Top-rated audit skill with 111 downloads' }, { slug: 'clawhub-alon-github-security-audit', name: 'Alon GitHub Security Audit', reason: 'Top-rated audit skill with 109 downloads' }, { slug: 'clawhub-self-audit', name: 'Self Audit', reason: 'Top-rated audit skill with 104 downloads' }
     ],
     searchLink: '/skills?q=seo-audit',
   },
@@ -2930,11 +2206,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Find high-value keywords and optimize your content strategy.',
     icon: '🔍',
     skills: [
-      { slug: 'keyword-research', name: 'Keyword Research', reason: 'Conduct deep research and synthesize findings into structured reports' },
-      { slug: 'seo-optimizer-pro', name: 'SEO Optimizer Pro', reason: 'Seo Optimizer Pro skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'seo-dataforseo', name: 'SEO DataForSEO', reason: 'Seo Dataforseo skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'searching-assistant', name: 'Searching Assistant', reason: 'Smart search assistant for finding relevant information across multiple sources' },
-      { slug: 'seo-research-master', name: 'SEO Research Master — Keyword & Content Strategy', reason: 'Conduct deep research and synthesize findings into structured reports' },
+      { slug: 'clawhub-amazon-keyword-research', name: 'Amazon Keyword Research', reason: 'Top-rated keyword skill with 153 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Top-rated research skill with 885 downloads' }, { slug: 'clawhub-autoresearchclaw-integration', name: 'AutoResearchClaw Integration', reason: 'Top-rated research skill with 211 downloads' }, { slug: 'clawhub-investment-research', name: 'Investment Research', reason: 'Top-rated research skill with 177 downloads' }, { slug: 'clawhub-deep-research-pro-litiao', name: 'Deep Research Pro Litiao', reason: 'Top-rated research skill with 160 downloads' }
     ],
     searchLink: '/skills?q=keywords',
   },
@@ -2945,11 +2217,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates the collection and analysis of competitor data to provide strategic insights.',
     icon: '🕵️‍♂️',
     skills: [
-      { slug: 'competitor-analysis', name: 'Competitor Analysis', reason: 'Competitor Analysis skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'competitor-analyst', name: 'Competitor Analyst', reason: 'Analyze data to uncover insights, trends, and actionable business intelligence' },
-      { slug: 'clawhub-content-writer', name: 'Content Writer', reason: 'Clawhub Content Writer skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'afrexai-competitor-monitor', name: 'AfrexAI Competitor Monitor', reason: 'Afrexai Competitor Monitor skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'competitor-watch', name: 'Competitor Watch', reason: 'Competitor Watch skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-competitor-trial-monitor', name: 'Competitor Trial Monitor', reason: 'Top-rated competitor skill with 109 downloads' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Top-rated analysis skill with 19813 downloads' }, { slug: 'us-stock-analysis', name: 'Us Stock Analysis', reason: 'Top-rated analysis skill with 13837 downloads' }, { slug: 'market-analysis-cn', name: 'Market Analysis CN | 市场分析服务', reason: 'Top-rated analysis skill with 7242 downloads' }, { slug: 'fundamental-stock-analysis', name: 'Fundamental Stock Analysis', reason: 'Top-rated analysis skill with 6948 downloads' }
     ],
     searchLink: '/skills?q=competitor+analysis',
   },
@@ -2960,11 +2228,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Generate compelling ad copy tailored to your brand and audience.',
     icon: '📝',
     skills: [
-      { slug: 'copywriter', name: 'copywriter', reason: 'Copywriter skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'copywriting', name: 'Copywriting', reason: 'Copywriting skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'copywriting-pro', name: 'Copywriting Pro', reason: 'Copywriting Pro skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'writer', name: 'Writer', reason: 'Writer skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'marketing-drafter', name: 'Marketing Drafter', reason: 'Create and manage marketing campaigns with AI-powered targeting and messaging' },
+      { slug: 'ad-copywriter', name: 'ad copywriter', reason: 'Top-rated copywriter skill with 435 downloads' }, { slug: 'adwords', name: 'Copywriter ✍️', reason: 'Top-rated copywriter skill with 294 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
     ],
     searchLink: '/skills?q=ad+copywriting',
   },
@@ -2975,11 +2239,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates and optimizes A/B testing processes with AI insights.',
     icon: '🧪',
     skills: [
-      { slug: 'test-master', name: 'Test Master', reason: 'Automate software testing with AI-generated test cases and execution' },
-      { slug: 'app-store-optimization', name: 'App Store Optimization', reason: 'App Store Optimization skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'ocms-ab-test-setup', name: 'ab-test-setup', reason: 'Automate software testing with AI-generated test cases and execution' },
-      { slug: 'abm-ab-test-setup', name: 'Ab Test Setup', reason: 'Automate software testing with AI-generated test cases and execution' },
-      { slug: 'afrexai-qa-test-plan', name: 'QA Test Plan Generator', reason: 'Automate software testing with AI-generated test cases and execution' },
+      { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }, { slug: 'clawhub-openclaw-setup-assistant', name: 'OpenClaw Setup Assistant', reason: 'Top-rated assistant skill with 113 downloads' }
     ],
     searchLink: '/skills?q=a+b+testing',
   },
@@ -2990,11 +2250,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates and improves conversion rates through data-driven funnel analysis.',
     icon: '🚀',
     skills: [
-      { slug: 'agent-evaluation', name: 'Agent Evaluation', reason: 'Evaluate agent outputs for quality, accuracy, and task completion effectiveness' },
-      { slug: 'affiliatematic', name: 'Affiliatematic', reason: 'Affiliatematic skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'agents', name: 'Agents', reason: 'Core multi-agent framework for building and coordinating specialized AI agent teams' },
-      { slug: 'afrexai-agent-manager', name: 'AI Agent Manager Playbook', reason: 'Manage and coordinate multiple AI agents across complex project workflows' },
-      { slug: 'afrexai-ad-ops', name: 'Ad Ops & Cross-Channel Advertising Agent', reason: 'Afrexai Ad Ops skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=funnel+optimization',
   },
@@ -3005,11 +2261,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automate and optimize affiliate marketing campaigns with AI-driven insights and actions.',
     icon: '💰',
     skills: [
-      { slug: 'affiliatematic', name: 'Affiliatematic', reason: 'Affiliatematic skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'affiliate-master', name: 'AffiliateMaster', reason: 'Affiliate Master skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'amazon', name: 'Amazon', reason: 'Amazon skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'affiliate-marketing', name: 'Affiliate Marketing', reason: 'Create and manage marketing campaigns with AI-powered targeting and messaging' },
-      { slug: 'affiliate-marketing-channels', name: 'affiliate-marketing', reason: 'Create and manage marketing campaigns with AI-powered targeting and messaging' },
+      { slug: 'clawhub-use-smart-contract-platform', name: 'Use Smart Contract Platform', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'smart-lights', name: 'smart lights', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'clawhub-smart-web-search', name: 'Smart Web Search', reason: 'Top-rated smart skill with 110 downloads' }, { slug: 'clawhub-affiliate-skills', name: 'Affiliate Skills', reason: 'Top-rated affiliate skill with 120 downloads' }, { slug: 'clawhub-shopping-affiliate-search', name: 'Shopping Affiliate Search', reason: 'Top-rated affiliate skill with 105 downloads' }
     ],
     searchLink: '/skills?q=affiliate+marketing',
   },
@@ -3020,11 +2272,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates and optimizes outreach to influencers for brand collaborations.',
     icon: '🤝',
     skills: [
-      { slug: 'pinchsocial', name: 'PinchSocial', reason: 'Pinchsocial skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'clawhub-content-writer', name: 'Content Writer', reason: 'Clawhub Content Writer skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'outreach', name: 'Outreach', reason: 'Create and manage marketing campaigns with AI-powered targeting and messaging' },
-      { slug: 'onlyagents-xxx', name: 'OnlyAgents', reason: 'Onlyagents Xxx skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'afrexai-social-repurposer', name: 'Content Repurposer', reason: 'Afrexai Social Repurposer skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=influencer+outreach',
   },
@@ -3035,11 +2283,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates the creation and distribution of professional press releases.',
     icon: '📰',
     skills: [
-      { slug: 'pa-admin-exec', name: 'Core PA Admin and Exec Support', reason: 'Pa Admin Exec skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'assistant', name: 'Assistant', reason: 'Assistant skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'persona-exec-assistant', name: 'Persona Exec Assistant', reason: 'Persona Exec Assistant skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'release-discipline', name: 'Release Discipline', reason: 'Release Discipline skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'press', name: 'Press', reason: 'Press skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'press-release', name: 'press release', reason: 'Top-rated press skill with 355 downloads' }, { slug: 'clawhub-per-agent-compression-universal', name: 'Per Agent Compression Universal', reason: 'Top-rated press skill with 136 downloads' }, { slug: 'clawhub-image-compression', name: 'Image Compression', reason: 'Top-rated press skill with 105 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }
     ],
     searchLink: '/skills?q=press+release',
   },
@@ -3050,11 +2294,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automatically generates and maintains high-quality code documentation.',
     icon: '📝',
     skills: [
-      { slug: 'code', name: 'Code', reason: 'Code skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'agentic-coding', name: 'Agentic Coding', reason: 'Agentic Coding skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that assists in building, configuring, and debugging AI agent workflows' },
-      { slug: 'coding-assistant', name: 'Coding Assistant', reason: 'Coding Assistant skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'vibe-coding', name: 'Vibe Coding', reason: 'Vibe Coding skill for automating and enhancing relevant tasks and workflows' },
+      { slug: 'code-generator', name: 'code generator', reason: 'Top-rated code skill with 1683 downloads' }, { slug: 'ai-code-helper', name: 'ai code helper', reason: 'Top-rated code skill with 264 downloads' }, { slug: 'code-searcher', name: 'code searcher', reason: 'Top-rated code skill with 264 downloads' }, { slug: 'codepal', name: 'codepal', reason: 'Top-rated code skill with 223 downloads' }, { slug: 'encode', name: 'encode', reason: 'Top-rated code skill with 207 downloads' }
     ],
     searchLink: '/skills?q=code+documentation',
   },
@@ -3065,11 +2305,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that improves code quality and structure automatically.',
     icon: '🤖',
     skills: [
-      { slug: 'code', name: 'Code', reason: 'Code skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'clean-code-review', name: 'Clean Code', reason: 'Clean Code Review skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'agentic-coding', name: 'Agentic Coding', reason: 'Agentic Coding skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'developer', name: 'Developer', reason: 'Developer skill for automating and enhancing relevant tasks and workflows' },
-      { slug: 'requesting-code-review', name: 'Requesting Code Review', reason: 'Automated code review to catch bugs, style issues, and security vulnerabilities' },
+      { slug: 'clawhub-use-smart-contract-platform', name: 'Use Smart Contract Platform', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'smart-lights', name: 'smart lights', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'clawhub-smart-web-search', name: 'Smart Web Search', reason: 'Top-rated smart skill with 110 downloads' }, { slug: 'developer', name: 'Developer', reason: 'Developer skill for automating and enhancing relevant tasks and workflows' }, { slug: 'code-generator', name: 'code generator', reason: 'Top-rated code skill with 1683 downloads' }
     ],
     searchLink: '/skills?q=code+refactoring',
   },
@@ -3080,11 +2316,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that reviews pull requests and provides actionable feedback.',
     icon: '🤖',
     skills: [
-      { slug: 'prisma-2020-review-assistant', name: 'PRISMA 2020 review assistant', reason: 'Systematic code review using PRISMA methodology for comprehensive coverage checks' },
-      { slug: 'requesting-code-review', name: 'Requesting Code Review', reason: 'Streamline the process of requesting and assigning PR reviewers with context-rich prompts' },
-      { slug: 'critical-code-reviewer', name: 'Critical Code Reviewer', reason: 'Provide brutally honest code review feedback covering bugs, style, and design issues' },
-      { slug: 'pr-review', name: 'pr-review', reason: 'Automated PR review that flags issues, suggests improvements, and approves clean changes' },
-      { slug: 'code-review-assistant', name: 'Code Review Assistant', reason: 'AI assistant that summarizes PR changes and highlights risk areas for human reviewers' },
+      { slug: 'performance-review', name: 'performance review', reason: 'Top-rated review skill with 453 downloads' }, { slug: 'review-responder', name: 'review responder', reason: 'Top-rated review skill with 359 downloads' }, { slug: 'movie-review', name: 'movie review', reason: 'Top-rated review skill with 305 downloads' }, { slug: 'clawhub-code-review-automation', name: 'Code Review Automation', reason: 'Top-rated review skill with 154 downloads' }, { slug: 'clawhub-golang-code-review', name: 'golang-code-review', reason: 'Top-rated review skill with 144 downloads' }
     ],
     searchLink: '/skills?q=pr+review',
   },
@@ -3095,11 +2327,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that simplifies and enhances API documentation processes.',
     icon: '📦',
     skills: [
-      { slug: 'writing-assistant', name: 'Writing Assistant', reason: 'Polish and structure API documentation with clear, consistent writing style' },
-      { slug: 'api-dev', name: 'API Development', reason: 'Generate API endpoint docs directly from code with parameter descriptions and examples' },
-      { slug: 'sovereign-api-docs-generator', name: 'API Documentation Generator', reason: 'Auto-generate OpenAPI/Swagger docs from your codebase with zero manual effort' },
-      { slug: 'codebase-documenter', name: 'Codebase Documenter', reason: 'Document entire codebases including internal APIs, utilities, and module interfaces' },
-      { slug: 'agent-docs', name: 'Agent Docs', reason: 'Generate documentation for AI agent skills and tool schemas in developer-friendly formats' },
+      { slug: 'clawhub-csv-documentation-generator', name: 'Csv Documentation Generator', reason: 'Top-rated documentation skill with 147 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }
     ],
     searchLink: '/skills?q=api+documentation',
   },
@@ -3110,11 +2338,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that helps with understanding, generating, and optimizing database schemas.',
     icon: '📊',
     skills: [
-      { slug: 'sql-toolkit', name: 'SQL Toolkit', reason: 'Write, optimize, and explain SQL queries across multiple database engines' },
-      { slug: 'lb-drizzle-skill', name: 'Drizzle ORM Complete Documentation', reason: 'Design type-safe database schemas using Drizzle ORM with full TypeScript support' },
-      { slug: 'duckdb-cli-ai-skills', name: 'DuckDB CLI skills', reason: 'Query and analyze databases at high speed using DuckDB directly from the CLI' },
-      { slug: 'data-model-designer', name: 'Data Model Designer', reason: 'Design normalized relational schemas and ER diagrams for complex data models' },
-      { slug: 'db-schema-gen', name: 'DB Schema Generator', reason: 'Auto-generate migration scripts and schema files from natural language descriptions' },
+      { slug: 'database-design', name: 'database design', reason: 'Top-rated database skill with 1012 downloads' }, { slug: 'schema-builder', name: 'schema builder', reason: 'Top-rated schema skill with 382 downloads' }, { slug: 'schema', name: 'schema', reason: 'Top-rated schema skill with 102 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }
     ],
     searchLink: '/skills?q=database+schema',
   },
@@ -3125,11 +2349,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates and optimizes the process of writing and executing unit tests.',
     icon: '🧪',
     skills: [
-      { slug: 'agent-browser-clawdbot', name: 'Agent Browser', reason: 'Run browser-based end-to-end tests automatically using an AI-controlled browser agent' },
-      { slug: 'agent-evaluation', name: 'Agent Evaluation', reason: 'Evaluate unit test coverage and quality with automated scoring and gap analysis' },
-      { slug: 'agent-development', name: 'Agent Development', reason: 'Scaffold and scaffold test suites with AI-generated unit tests for new code' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Coordinate multiple testing agents to run parallel unit test suites efficiently' },
-      { slug: 'agent-ui', name: 'Agent Ui', reason: 'Test UI components and interactions using AI-driven visual unit testing agents' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=unit+testing',
   },
@@ -3140,11 +2360,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates and optimizes continuous integration and delivery processes with intelligent decision-making.',
     icon: '⚙️',
     skills: [
-      { slug: 'ai-agent-helper', name: 'AI Agent Helper', reason: 'AI helper that monitors pipeline status and triggers rollbacks on failed deployments' },
-      { slug: 'agent-development', name: 'Agent Development', reason: 'Build custom CI/CD agents that integrate with GitHub Actions and deployment pipelines' },
-      { slug: 'agency-agents', name: 'Agency Agents', reason: 'Orchestrate multiple specialized agents across build, test, and deploy pipeline stages' },
-      { slug: 'agent-ui', name: 'Agent Ui', reason: 'Monitor CI/CD dashboard UI and surface pipeline failures through a visual agent interface' },
-      { slug: 'agents', name: 'Agents', reason: 'Core agents framework for wiring up intelligent automation across your CI/CD workflow' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=ci/cd+pipeline',
   },
@@ -3155,11 +2371,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that simplifies Kubernetes management and troubleshooting.',
     icon: '⎈',
     skills: [
-      { slug: 'ai-boss-assistant', name: 'AI Boss Assistant', reason: 'AI ops assistant that translates plain English commands into kubectl and Helm operations' },
-      { slug: 'botpress-adk', name: 'Create a Botpress AI agent with the ADK using OpenClaw', reason: 'Build Kubernetes management bots that respond to cluster events via chat interfaces' },
-      { slug: 'virtually-us', name: 'Virtually Us', reason: 'Virtual Kubernetes environment for safe cluster configuration testing and simulation' },
-      { slug: 'ai-automation-consulting', name: 'Ai Automation Consulting', reason: 'Expert AI consulting for optimizing Kubernetes deployment strategies and resource allocation' },
-      { slug: 'afrexai-humanizer', name: 'Ai Humanizer', reason: 'Translate cryptic Kubernetes error messages into clear, actionable troubleshooting steps' },
+      { slug: 'clawhub-k3s-deploy', name: 'K3s Kubernetes Deploy', reason: 'Top-rated kubernetes skill with 120 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }
     ],
     searchLink: '/skills?q=kubernetes',
   },
@@ -3170,11 +2382,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that assists with Terraform infrastructure as code.',
     icon: '🧱',
     skills: [
-      { slug: 'virtually-us', name: 'Virtually Us', reason: 'Plan and preview Terraform infrastructure changes in a virtual sandbox before applying' },
-      { slug: 'ai-automation-workflows', name: 'Ai Automation Workflows', reason: 'Automate Terraform plan, apply, and destroy workflows with approval gates' },
-      { slug: 'ai', name: 'Artificial Intelligence', reason: 'AI-assisted generation of Terraform modules and resource configurations from descriptions' },
-      { slug: 'openclaw-setup', name: 'OpenClaw Setup on AWS (Free Tier) - Memory Upgrade', reason: 'Bootstrap Terraform state backends and remote workspaces on AWS Free Tier' },
-      { slug: 'botpress-adk', name: 'Create a Botpress AI agent with the ADK using OpenClaw', reason: 'Build Terraform management chatbots that execute infra changes via conversational commands' },
+      { slug: 'terraform-helper', name: 'terraform helper', reason: 'Top-rated terraform skill with 342 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }
     ],
     searchLink: '/skills?q=terraform',
   },
@@ -3185,11 +2393,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Streamlines invoice processing and management with intelligent data extraction and workflow automation.',
     icon: '📄',
     skills: [
-      { slug: 'afrexai-invoice-gen', name: 'Invoice Generator', reason: 'Generate professional invoices from project scope, rates, and client data automatically' },
-      { slug: 'invoice-chaser', name: 'Invoice Chaser', reason: 'Send automated payment reminders to clients with overdue invoices on escalating schedule' },
-      { slug: 'invoices', name: 'Invoices', reason: 'Centralized invoice management for creating, tracking, and reconciling payments' },
-      { slug: 'afrexai-accounts-receivable', name: 'Accounts Receivable Manager', reason: 'Track outstanding receivables and automate follow-up to reduce days sales outstanding' },
-      { slug: 'afrexai-accounts-payable', name: 'Accounts Payable Automation', reason: 'Automate invoice matching, approval routing, and payment scheduling for payables' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=invoice+automation',
   },
@@ -3200,11 +2404,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that helps track and manage personal or business expenses effortlessly.',
     icon: '💰',
     skills: [
-      { slug: 'expense-tracker-pro', name: 'Expense Tracker Pro', reason: 'Log, categorize, and visualize expenses with AI-powered receipt scanning and tagging' },
-      { slug: 'financial-tracker', name: 'Financial Tracker', reason: 'Track income and expenses across accounts with automatic categorization and trends' },
-      { slug: 'expenses', name: 'Expenses', reason: 'Simple expense logging with approval workflows for team and corporate expense management' },
-      { slug: 'personal-finance', name: 'Personal Finance Tracker', reason: 'Monitor personal spending patterns and get AI-driven savings recommendations' },
-      { slug: 'intelligent-budget-tracker', name: 'Intelligent Budget Tracker', reason: 'Smart budget tracker that alerts you before you exceed category limits' },
+      { slug: 'clawhub-use-smart-contract-platform', name: 'Use Smart Contract Platform', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'smart-lights', name: 'smart lights', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'clawhub-smart-web-search', name: 'Smart Web Search', reason: 'Top-rated smart skill with 110 downloads' }, { slug: 'clawhub-ai-intelligent-expense-management', name: 'Ai Intelligent Expense Management', reason: 'Top-rated expense skill with 158 downloads' }
     ],
     searchLink: '/skills?q=expense+tracking',
   },
@@ -3215,11 +2415,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that helps users create and manage personal or business budgets efficiently.',
     icon: '💰',
     skills: [
-      { slug: 'personal-finance', name: 'Personal Finance Tracker', reason: 'Set personal financial goals and track budget progress with AI-powered recommendations' },
-      { slug: 'afrexai-budget-planner', name: 'AfrexAI Budget Planner', reason: 'Create detailed monthly and annual budgets with AI scenario planning and adjustments' },
-      { slug: 'expense-tracker-pro', name: 'Expense Tracker Pro', reason: 'Track actual spending against your budget in real time to stay on target' },
-      { slug: 'intelligent-budget-tracker', name: 'Intelligent Budget Tracker', reason: 'Intelligent alerts and forecasting to prevent budget overruns before they happen' },
-      { slug: 'expenses', name: 'Expenses', reason: 'Manage business expense claims and reimbursements alongside your budget planning' },
+      { slug: 'clawhub-use-smart-contract-platform', name: 'Use Smart Contract Platform', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'smart-lights', name: 'smart lights', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'clawhub-smart-web-search', name: 'Smart Web Search', reason: 'Top-rated smart skill with 110 downloads' }, { slug: 'budgetly', name: 'budgetly', reason: 'Top-rated budget skill with 266 downloads' }, { slug: 'clawhub-ai-intelligent-budget-management', name: 'Ai Intelligent Budget Management', reason: 'Top-rated budget skill with 125 downloads' }
     ],
     searchLink: '/skills?q=budget+planning',
   },
@@ -3230,11 +2426,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that generates and analyzes audit reports efficiently.',
     icon: '📄',
     skills: [
-      { slug: 'weekly-report-generator', name: 'Weekly Report Generator', reason: 'Generate structured weekly audit progress reports with findings and recommendations' },
-      { slug: 'sovereign-accessibility-auditor', name: 'Web Accessibility Auditor', reason: 'Run WCAG compliance audits and generate detailed accessibility issue reports' },
-      { slug: 'ai-financial-report-cn', name: 'Ai Financial Report Cn', reason: 'Generate Chinese-language financial audit reports with regulatory compliance sections' },
-      { slug: 'afrexai-annual-report', name: 'Annual Report Generator', reason: 'Compile comprehensive annual audit reports with executive summary and risk matrix' },
-      { slug: 'afrexai-stakeholder-report', name: 'Stakeholder Report Generator', reason: 'Create stakeholder-facing audit summaries with clear risk ratings and action items' },
+      { slug: 'clawhub-ai-intelligent-audit-system', name: 'Ai Intelligent Audit System', reason: 'Top-rated audit skill with 149 downloads' }, { slug: 'clawhub-sql-audit', name: 'Sql Audit', reason: 'Top-rated audit skill with 114 downloads' }, { slug: 'clawhub-inference-audit', name: 'Inference Cost Audit', reason: 'Top-rated audit skill with 111 downloads' }, { slug: 'clawhub-alon-github-security-audit', name: 'Alon GitHub Security Audit', reason: 'Top-rated audit skill with 109 downloads' }, { slug: 'clawhub-self-audit', name: 'Self Audit', reason: 'Top-rated audit skill with 104 downloads' }
     ],
     searchLink: '/skills?q=audit+report',
   },
@@ -3245,11 +2437,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates the creation and review of legal contracts with accuracy and efficiency.',
     icon: '📄',
     skills: [
-      { slug: 'agent-builder', name: 'Agent Builder', reason: 'Build AI agents that can draft specific contract types based on templates and inputs' },
-      { slug: 'agent-evaluation', name: 'Agent Evaluation', reason: 'Evaluate the accuracy and completeness of AI-drafted contracts against legal standards' },
-      { slug: 'afrexai-contract-analyzer', name: 'AfrexAI Contract Analyzer', reason: 'Analyze contracts for missing clauses, unfavorable terms, and compliance risks' },
-      { slug: 'agent-development', name: 'Agent Development', reason: 'Develop custom contract drafting agents specialized in specific legal domains' },
-      { slug: 'contract', name: 'Contract', reason: 'Core contract skill for generating, reviewing, and managing legal agreements' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=contract+drafting',
   },
@@ -3260,11 +2448,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates the review and analysis of non-disclosure agreements to identify key terms, risks, and compliance issues.',
     icon: '🛡️',
     skills: [
-      { slug: 'clawhub-pdf', name: 'PDF Reader', reason: 'To extract and process text from NDA documents.' },
-      { slug: 'security-scanner', name: 'Security Scanner', reason: 'To detect potential security risks and vulnerabilities in the agreement.' },
-      { slug: 'translator-pro', name: 'Translator Pro', reason: 'To translate NDAs into different languages for global teams.' },
-      { slug: 'task-planner', name: 'Task Planner', reason: 'To outline actions required after reviewing an NDA.' },
-      { slug: 'report-generator', name: 'Report Generator', reason: 'To create detailed summaries and risk assessments of reviewed NDAs.' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'To translate NDAs into different languages for global teams.' }, { slug: 'task-planner', name: 'Task Planner', reason: 'To outline actions required after reviewing an NDA.' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }
     ],
     searchLink: '/skills?q=nda+review',
   },
@@ -3275,11 +2459,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that helps organizations ensure compliance with GDPR regulations.',
     icon: '🛡️',
     skills: [
-      { slug: 'scrape', name: 'Scrape', reason: 'Scrape privacy policy pages and cookie banners to audit GDPR consent compliance' },
-      { slug: 'gdpr-cookie-consent', name: 'GDPR Cookie Consent', reason: 'Implement and audit cookie consent mechanisms that comply with GDPR requirements' },
-      { slug: 'gdpr-dsgvo-expert', name: 'Gdpr Dsgvo Expert', reason: 'Expert-level GDPR and DSGVO guidance for European data protection compliance' },
-      { slug: 'gdpr-compliance-tracker', name: 'Gdpr Compliance Tracker', reason: 'Track GDPR compliance tasks, data subject requests, and breach notification deadlines' },
-      { slug: 'afrexai-data-privacy', name: 'Data Privacy & Protection Program', reason: 'Build comprehensive data privacy programs covering GDPR, CCPA, and global regulations' },
+      { slug: 'gdpr-checker', name: 'gdpr checker', reason: 'Top-rated gdpr skill with 355 downloads' }, { slug: 'gdpr', name: 'gdpr', reason: 'Top-rated gdpr skill with 134 downloads' }, { slug: 'clawhub-pipl-compliance', name: 'PIPL-Compliance（PIPL合规工具）', reason: 'Top-rated compliance skill with 163 downloads' }, { slug: 'compliance', name: 'Compliance', reason: 'Top-rated compliance skill with 148 downloads' }, { slug: 'clawhub-eric-compliance-suite', name: 'eric-compliance-suite', reason: 'Top-rated compliance skill with 124 downloads' }
     ],
     searchLink: '/skills?q=gdpr',
   },
@@ -3290,11 +2470,7 @@ export const USE_CASES: UseCase[] = [
     description: 'AI agent that simplifies and explains legal terms for users.',
     icon: '⚖️',
     skills: [
-      { slug: 'legaldoc-ai', name: 'LegalDoc AI', reason: 'Generate and review legal documents including Terms of Service with AI precision' },
-      { slug: 'terms-of-service', name: 'Terms Of Service', reason: 'Draft clear, enforceable Terms of Service tailored to your product and jurisdiction' },
-      { slug: 'creator-rights-assistant', name: 'Creator Rights Assistant', reason: 'Identify intellectual property and creator rights clauses hidden in complex ToS documents' },
-      { slug: 'persona-exec-assistant', name: 'Persona Exec Assistant', reason: 'Executive-level legal assistant for reviewing and simplifying ToS before signing' },
-      { slug: 'services-agreement', name: 'Services Agreement', reason: 'Create services agreements with customizable scope, payment, and liability terms' },
+      { slug: 'terms', name: 'terms', reason: 'Top-rated terms skill with 117 downloads' }, { slug: 'terms-of-service', name: 'Terms Of Service', reason: 'Draft clear, enforceable Terms of Service tailored to your product and jurisdict' }, { slug: 'customer-service-reply', name: 'customer service reply', reason: 'Top-rated service skill with 650 downloads' }, { slug: 'clawhub-ai-customer-service-scripts', name: 'AI Customer Service Scripts Generator', reason: 'Top-rated service skill with 125 downloads' }, { slug: 'clawhub-bwinvoice-verification', name: 'Invoice Verification Service', reason: 'Top-rated service skill with 109 downloads' }
     ],
     searchLink: '/skills?q=terms',
   },
@@ -3305,11 +2481,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that helps generate, analyze, and explain privacy policies.',
     icon: '🔒',
     skills: [
-      { slug: 'privacy-policy', name: 'Privacy Policy', reason: 'Generate a complete Privacy Policy covering data collection, usage, and user rights' },
-      { slug: 'afrexai-policy-writer', name: 'Policy Writer', reason: 'Write legally sound privacy policies tailored to your industry and target regions' },
-      { slug: 'afrexai-data-privacy', name: 'Data Privacy & Protection Program', reason: 'Build a full data privacy program aligned with GDPR, CCPA, and global standards' },
-      { slug: 'toolweb-privacy-compliance-assistant', name: 'Privacy Compliance Assistant', reason: 'Audit existing privacy policies and flag gaps against current regulatory requirements' },
-      { slug: 'privacy-page-generator', name: 'privacy-page-generator', reason: 'Generate a hosted privacy page from your data practices with auto-update support' },
+      { slug: 'privacy-policy', name: 'Privacy Policy', reason: 'Generate a complete Privacy Policy covering data collection, usage, and user rig' }, { slug: 'privacy', name: 'privacy', reason: 'Top-rated privacy skill with 153 downloads' }, { slug: 'clawhub-toolweb-privacy-compliance-assistant', name: 'Privacy Compliance Assistant', reason: 'Top-rated privacy skill with 109 downloads' }, { slug: 'policy-reader', name: 'policy reader', reason: 'Top-rated policy skill with 383 downloads' }, { slug: 'return-policy', name: 'return policy', reason: 'Top-rated policy skill with 343 downloads' }
     ],
     searchLink: '/skills?q=privacy+policy',
   },
@@ -3320,11 +2492,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Generate compelling and accurate product descriptions using AI.',
     icon: '📦',
     skills: [
-      { slug: 'jtbd-analyzer', name: 'Jobs To Be Done Analyzer', reason: 'Uncover the real customer needs driving product demand to craft benefit-focused descriptions' },
-      { slug: 'argos-product-research', name: 'Argos Product Research', reason: 'Research product specifications and competitor listings to inform your descriptions' },
-      { slug: 'product-description-generator', name: 'Product Description Generator', reason: 'Generate SEO-optimized product descriptions that convert browsers into buyers' },
-      { slug: 'product', name: 'Product', reason: 'Core product skill for managing catalog data and syncing descriptions across channels' },
-      { slug: 'airshelf', name: 'AirShelf Agentic Commerce Platform', reason: 'Push finalized product descriptions to your commerce platform automatically' },
+      { slug: 'clawhub-use-smart-contract-platform', name: 'Use Smart Contract Platform', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'smart-lights', name: 'smart lights', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'clawhub-smart-web-search', name: 'Smart Web Search', reason: 'Top-rated smart skill with 110 downloads' }, { slug: 'clawhub-productivity-bot', name: 'Productivity Bot', reason: 'Top-rated product skill with 798 downloads' }, { slug: 'product-desc', name: 'product desc', reason: 'Top-rated product skill with 402 downloads' }
     ],
     searchLink: '/skills?q=product+descriptions',
   },
@@ -3335,11 +2503,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates and enhances responses to customer reviews with AI.',
     icon: '🤖',
     skills: [
-      { slug: 'requesting-code-review', name: 'Requesting Code Review', reason: 'Draft polite, professional requests to customers asking them to leave a review' },
-      { slug: 'critical-code-reviewer', name: 'Critical Code Reviewer', reason: 'Analyze negative reviews critically and craft empathetic, solution-focused responses' },
-      { slug: 'self-review', name: 'Self Review', reason: 'Self-audit your review responses for tone, brand consistency, and customer empathy' },
-      { slug: 'clawver-reviews', name: 'Clawver Reviews', reason: 'Aggregate and manage customer reviews from multiple platforms in a single dashboard' },
-      { slug: 'code-review-assistant', name: 'Code Review Assistant', reason: 'Use AI to classify review sentiment and auto-route responses to the right team member' },
+      { slug: 'clawhub-use-smart-contract-platform', name: 'Use Smart Contract Platform', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'smart-lights', name: 'smart lights', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'clawhub-smart-web-search', name: 'Smart Web Search', reason: 'Top-rated smart skill with 110 downloads' }, { slug: 'performance-review', name: 'performance review', reason: 'Top-rated review skill with 453 downloads' }, { slug: 'review-responder', name: 'review responder', reason: 'Top-rated review skill with 359 downloads' }
     ],
     searchLink: '/skills?q=review+response',
   },
@@ -3350,11 +2514,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates and streamlines the return and refund process for customers.',
     icon: '📦',
     skills: [
-      { slug: 'agent-orchestrator', name: 'Agent Orchestrator', reason: 'Orchestrate the full return workflow from request intake to refund confirmation' },
-      { slug: 'agent-council', name: 'Agent Council', reason: 'Route complex return cases to multiple specialized agents for fraud check and approval' },
-      { slug: 'agent', name: 'Agent', reason: 'Core agent skill for processing return requests and updating order management systems' },
-      { slug: 'agent-development', name: 'Agent Development', reason: 'Build custom return processing agents tailored to your return policy rules' },
-      { slug: 'x402-layer', name: 'x402 Singularity Layer', reason: 'Process crypto refunds and on-chain return settlements via x402 payment layer' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=return+processing',
   },
@@ -3365,11 +2525,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Track orders across multiple platforms with an AI-powered assistant.',
     icon: '📦',
     skills: [
-      { slug: 'ordercli', name: 'Ordercli', reason: 'Query order status from CLI with real-time shipping and fulfillment updates' },
-      { slug: 'shopify-admin-api', name: 'Shopify Admin API', reason: 'Track Shopify orders, fulfillment status, and customer information via Admin API' },
-      { slug: 'food-order', name: 'Food Order', reason: 'Track food delivery orders in real time with delivery ETA and status notifications' },
-      { slug: 'evenrealities-tracker', name: 'Evenrealities Tracker', reason: 'Track wearable device orders and shipments from EvenRealities platform' },
-      { slug: 'clawver-orders', name: 'Clawver Orders', reason: 'Manage and track all e-commerce orders from multiple stores in one unified view' },
+      { slug: 'orders', name: 'orders', reason: 'Top-rated order skill with 227 downloads' }, { slug: 'clawhub-zhang-cross-border-trade', name: '九章cross-border-trade专家V1.1.0', reason: 'Top-rated order skill with 151 downloads' }, { slug: 'clawhub-daily-report-recorder', name: 'Daily Report Recorder', reason: 'Top-rated order skill with 133 downloads' }
     ],
     searchLink: '/skills?q=order+tracking',
   },
@@ -3380,11 +2536,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automates and optimizes dropshipping operations with intelligent decision-making.',
     icon: '🛒',
     skills: [
-      { slug: 'dropshipping', name: 'Dropshipping', reason: 'Core dropshipping skill for managing supplier relationships, orders, and fulfillment' },
-      { slug: 'linkfoxagent', name: 'LinkFoxAgent', reason: 'Generate and track affiliate links for dropshipping product promotions automatically' },
-      { slug: 'b2a', name: 'B2A', reason: 'Business-to-agent marketplace integration for sourcing dropshipping products at scale' },
-      { slug: 'sp3nd', name: 'SP3ND — Buy from Amazon & eBay with USDC', reason: 'Purchase dropshipping inventory from Amazon and eBay using crypto payment automation' },
-      { slug: 'jd-shopping', name: 'JD Shopping', reason: 'Source products from JD.com for China-based dropshipping operations' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=dropshipping',
   },
@@ -3395,11 +2547,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Generate optimized product listings with AI.',
     icon: '📦',
     skills: [
-      { slug: 'amazon', name: 'Amazon', reason: 'Core Amazon integration for managing product listings, pricing, and inventory' },
-      { slug: 'amazon-product-search-api-skill', name: 'Amazon Product Search Api Skill', reason: 'Search Amazon product catalog to research competitor listings and pricing strategies' },
-      { slug: 'amazon-product-api-skill', name: 'Amazon Product Api Skill', reason: 'Fetch ASIN data, images, and attributes to keep your listing information up to date' },
-      { slug: 'amazon-reviews-api-skill', name: 'Amazon Reviews Api Skill', reason: 'Analyze customer reviews to identify keywords and USPs for your listing copy' },
-      { slug: 'buy-amazon', name: 'Buy from Amazon — Search, Cart & Order for AI Agents', reason: 'Enable AI agents to search and verify your Amazon listings from a buyer perspective' },
+      { slug: 'clawhub-strider-amazon', name: 'Strider Amazon', reason: 'Top-rated amazon skill with 173 downloads' }, { slug: 'clawhub-amazon-keyword-research', name: 'Amazon Keyword Research', reason: 'Top-rated amazon skill with 153 downloads' }, { slug: 'pinduoduo-listing', name: 'pinduoduo listing', reason: 'Top-rated listing skill with 465 downloads' }, { slug: 'taobao-listing', name: 'taobao listing', reason: 'Top-rated listing skill with 458 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }
     ],
     searchLink: '/skills?q=amazon+listing',
   },
@@ -3410,11 +2558,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that helps teachers create effective and engaging lesson plans.',
     icon: '📚',
     skills: [
-      { slug: 'language-learning', name: 'Language Learning Tutor', reason: 'Create language lesson plans with vocabulary, grammar exercises, and cultural context' },
-      { slug: 'learn-cog', name: 'Learn Cog', reason: 'Apply cognitive learning principles to design lessons that maximize knowledge retention' },
-      { slug: 'ai-evolution-engine-v2', name: 'Ai Evolution Engine V2', reason: 'Adaptively evolve lesson plans based on student performance and learning trajectory' },
-      { slug: 'active-learner', name: 'Active Learner', reason: 'Design active learning activities and Socratic discussions that engage students deeply' },
-      { slug: 'ai-learning-planner-cn', name: 'Ai Learning Planner Cn', reason: 'Chinese-language lesson planning tool aligned with national curriculum standards' },
+      { slug: 'clawhub-task-planner', name: 'Task Planner', reason: 'Top-rated planner skill with 1572 downloads' }, { slug: 'task-planner', name: 'task planner', reason: 'Top-rated planner skill with 1495 downloads' }, { slug: 'okr-planner', name: 'OKR Planner', reason: 'Top-rated planner skill with 356 downloads' }, { slug: 'clawhub-pcs-farming-planner', name: 'Farming Planner', reason: 'Top-rated planner skill with 111 downloads' }
     ],
     searchLink: '/skills?q=lesson-planning',
   },
@@ -3425,11 +2569,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Create personalized quizzes with AI-powered question generation.',
     icon: '🧠',
     skills: [
-      { slug: 'openclaw-aisa-web-search-tavily', name: 'Web Search by Tavily', reason: 'Search the web to gather up-to-date facts and source material for quiz questions' },
-      { slug: 'meow-finder', name: 'Meow Finder', reason: 'Find topic-specific content from online sources to generate trivia and knowledge quizzes' },
-      { slug: 'quiz', name: 'Quiz', reason: 'Core quiz generation skill for creating multiple choice, true/false, and open-ended questions' },
-      { slug: 'ai-native-websearch-via-tavily-api-returns-concise-relevant-results-for-openclaw', name: 'Web Search Tavily', reason: 'Pull current events and niche topics from the web to create timely quiz content' },
-      { slug: 'quiz-battle', name: 'Quiz Battle', reason: 'Turn quizzes into competitive games with real-time scoring and leaderboards' },
+      { slug: 'trivia-quiz', name: 'Trivia Quiz', reason: 'Top-rated quiz skill with 343 downloads' }, { slug: 'code-generator', name: 'code generator', reason: 'Top-rated generator skill with 1683 downloads' }, { slug: 'api-generator', name: 'api generator', reason: 'Top-rated generator skill with 1081 downloads' }, { slug: 'test-generator', name: 'test generator', reason: 'Top-rated generator skill with 855 downloads' }, { slug: 'sql-generator', name: 'sql generator', reason: 'Top-rated generator skill with 596 downloads' }
     ],
     searchLink: '/skills?q=quiz',
   },
@@ -3440,11 +2580,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that helps create, organize, and review study notes efficiently.',
     icon: '📚',
     skills: [
-      { slug: 'apple-notes', name: 'Apple Notes', reason: 'Organize and retrieve study notes from Apple Notes for quick review sessions' },
-      { slug: 'study-habits', name: 'Study Habits', reason: 'Build effective study habits with spaced repetition and proven memorization techniques' },
-      { slug: 'study', name: 'Study', reason: 'Core study skill for generating flashcards, summaries, and practice questions from notes' },
-      { slug: 'studying', name: 'Studying', reason: 'Structured study sessions with focus timers, goal setting, and progress tracking' },
-      { slug: 'notes', name: 'Notes (Local, Apple, Notion, Obsidian & more)', reason: 'Sync and organize study notes across all your note-taking apps in one place' },
+      { slug: 'clawhub-use-smart-contract-platform', name: 'Use Smart Contract Platform', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'smart-lights', name: 'smart lights', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'clawhub-smart-web-search', name: 'Smart Web Search', reason: 'Top-rated smart skill with 110 downloads' }, { slug: 'study-plan', name: 'Study Plan', reason: 'Top-rated study skill with 558 downloads' }, { slug: 'clawhub-studyclaw', name: 'Study Buddy', reason: 'Top-rated study skill with 117 downloads' }
     ],
     searchLink: '/skills?q=study+notes',
   },
@@ -3455,11 +2591,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Generate well-structured and original essays on any topic.',
     icon: '✍️',
     skills: [
-      { slug: 'writing-assistant', name: 'Writing Assistant', reason: 'Structure and refine essay arguments with AI-guided outlining and paragraph development' },
-      { slug: 'humanizer-zh', name: 'humanizer-zh', reason: 'Make Chinese essays sound natural and human-written with authentic tone adjustments' },
-      { slug: 'content-writer', name: 'Content Writer 自媒体内容生成器', reason: 'Generate essay content optimized for various styles from academic to opinion pieces' },
-      { slug: 'writer', name: 'Writer', reason: 'Professional writing skill for drafting polished essays with strong thesis and flow' },
-      { slug: 'human-writing', name: 'Human Writing', reason: 'Make AI-generated essay drafts indistinguishable from natural human writing' },
+      { slug: 'gaokao-essay', name: 'gaokao essay', reason: 'Top-rated essay skill with 362 downloads' }, { slug: 'story-writer', name: 'story writer', reason: 'Top-rated writer skill with 1091 downloads' }, { slug: 'short-drama-writer', name: 'short drama writer', reason: 'Top-rated writer skill with 853 downloads' }, { slug: 'jd-writer', name: 'jd writer', reason: 'Top-rated writer skill with 455 downloads' }, { slug: 'ad-copywriter', name: 'ad copywriter', reason: 'Top-rated writer skill with 435 downloads' }
     ],
     searchLink: '/skills?q=essay',
   },
@@ -3470,11 +2602,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Assists with literature review, data analysis, and writing support for academic theses.',
     icon: '📚',
     skills: [
-      { slug: 'agent-orchestrator', name: 'Agent Orchestrator', reason: 'Orchestrate multiple research agents to parallelize literature review and data collection' },
-      { slug: 'agentarxiv', name: 'AgentArxiv', reason: 'Search and summarize relevant academic papers from arXiv for your thesis topic' },
-      { slug: 'market-research-agent', name: 'Market Research Agent', reason: 'Conduct systematic research on existing studies and knowledge gaps in your field' },
-      { slug: 'agent-evaluation', name: 'Agent Evaluation', reason: 'Evaluate research quality and methodological rigor of sources before including them' },
-      { slug: 'agent', name: 'Agent', reason: 'Core research agent for automating literature collection, annotation, and organization' },
+      { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Top-rated agent skill with 132846 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
     ],
     searchLink: '/skills?q=thesis+research',
   },
@@ -3485,11 +2613,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Automate and organize your academic citations with ease.',
     icon: '📚',
     skills: [
-      { slug: 'academic-research-hub', name: 'Academic Research Hub', reason: 'Find and organize academic sources with citation metadata from multiple databases' },
-      { slug: 'agentarxiv', name: 'AgentArxiv', reason: 'Fetch arXiv paper details and auto-format citations in APA, MLA, or Chicago style' },
-      { slug: 'academic-citation-manager', name: 'Academic Citation Manager', reason: 'Manage your reference library and generate bibliographies for papers and theses' },
-      { slug: 'ai-writing-assistant-cn', name: 'Ai Writing Assistant Cn', reason: 'Add properly formatted Chinese academic citations to research papers' },
-      { slug: 'ai-news-researcher', name: 'Ai News Researcher', reason: 'Cite recent news articles and reports with auto-generated journalist-style references' },
+      { slug: 'inventory-manager', name: 'inventory manager', reason: 'Top-rated manager skill with 665 downloads' }, { slug: 'stripe-manager', name: 'stripe manager', reason: 'Top-rated manager skill with 465 downloads' }, { slug: 'gcal-manager', name: 'gcal manager', reason: 'Top-rated manager skill with 350 downloads' }, { slug: 'raspberry-pi-manager', name: 'Raspberry Pi Manager', reason: 'Top-rated manager skill with 341 downloads' }, { slug: 'cert-manager', name: 'cert manager', reason: 'Top-rated manager skill with 290 downloads' }
     ],
     searchLink: '/skills?q=citation+management',
   },
@@ -3500,11 +2624,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that helps plan healthy and personalized meals based on dietary preferences and goals.',
     icon: '🍽️',
     skills: [
-      { slug: 'meals', name: 'Meals', reason: 'Plan weekly meals balancing variety, nutrition, and your dietary preferences' },
-      { slug: 'healthy-eating', name: 'Healthy Eating', reason: 'Get science-based healthy eating recommendations tailored to your health goals' },
-      { slug: 'meal-planner', name: 'Meal Planner', reason: 'Generate personalized meal plans with shopping lists and calorie breakdowns' },
-      { slug: 'nutrition', name: 'Nutrition', reason: 'Analyze nutritional content of meals and ensure macros align with your targets' },
-      { slug: 'recipe', name: 'Recipes', reason: 'Discover and adapt recipes based on ingredients, dietary restrictions, and taste preferences' },
+      { slug: 'clawhub-use-smart-contract-platform', name: 'Use Smart Contract Platform', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'smart-lights', name: 'smart lights', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'clawhub-smart-web-search', name: 'Smart Web Search', reason: 'Top-rated smart skill with 110 downloads' }, { slug: 'mealplan', name: 'mealplan', reason: 'Top-rated meal skill with 229 downloads' }, { slug: 'clawhub-task-planner', name: 'Task Planner', reason: 'Top-rated planner skill with 1572 downloads' }
     ],
     searchLink: '/skills?q=meal+planning',
   },
@@ -3515,11 +2635,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that creates customized workout plans based on user goals and preferences.',
     icon: '💪',
     skills: [
-      { slug: 'fitness', name: 'Fitness', reason: 'Create personalized workout plans adapted to your fitness level, goals, and equipment' },
-      { slug: 'apple-health-skill', name: 'Apple Health Skill', reason: 'Sync workout data from Apple Health to track progress and adapt your training plan' },
-      { slug: 'lofy-fitness', name: 'Lofy Fitness', reason: 'Access structured fitness programs with progressive overload and recovery tracking' },
-      { slug: 'health', name: 'Health', reason: 'Monitor health metrics alongside workouts to optimize recovery and performance' },
-      { slug: 'fitness-support', name: 'Fitness Support', reason: 'Get AI support for form guidance, injury prevention, and motivation during training' },
+      { slug: 'fitness-plan', name: 'fitness plan', reason: 'Top-rated fitness skill with 489 downloads' }, { slug: 'clawhub-sparkyfitness', name: 'SparkyFitness', reason: 'Top-rated fitness skill with 108 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }
     ],
     searchLink: '/skills?q=workout+plan',
   },
@@ -3530,11 +2646,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that tracks and analyzes your sleep patterns to improve sleep quality.',
     icon: '🌙',
     skills: [
-      { slug: 'sleep', name: 'Sleep', reason: 'Track sleep duration and quality with personalized insights for better sleep hygiene' },
-      { slug: 'auto-monitor', name: 'Auto Monitor - System Monitoring', reason: 'Automatically log nightly sleep data from connected devices without manual input' },
-      { slug: 'monitoring', name: 'Monitoring', reason: 'Monitor sleep patterns over time and surface trends that affect your energy and focus' },
-      { slug: 'macbook-optimizer', name: 'Macbook optimizer', reason: 'Optimize your Mac Night Shift, Do Not Disturb, and screen settings for better sleep' },
-      { slug: 'personal-sleep', name: 'Personal Sleep Coach', reason: 'Personalized sleep coaching with tailored bedtime routines and wind-down recommendations' },
+      { slug: 'clawhub-use-smart-contract-platform', name: 'Use Smart Contract Platform', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'smart-lights', name: 'smart lights', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'clawhub-smart-web-search', name: 'Smart Web Search', reason: 'Top-rated smart skill with 110 downloads' }, { slug: 'sleep-tracker', name: 'sleep-tracker', reason: 'Top-rated sleep skill with 401 downloads' }, { slug: 'sleepwell', name: 'sleepwell', reason: 'Top-rated sleep skill with 232 downloads' }
     ],
     searchLink: '/skills?q=sleep+tracking',
   },
@@ -3545,11 +2657,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that helps users build and maintain daily habits with personalized reminders and progress tracking.',
     icon: '🌱',
     skills: [
-      { slug: 'habit-tracker', name: 'Habit Tracker', reason: 'Log and track daily habits with streaks, completion rates, and trend visualization' },
-      { slug: 'habits', name: 'Habits', reason: 'Build lasting habits using behavioral science principles and consistent micro-actions' },
-      { slug: 'habit-flow-skill', name: 'Habit Flow', reason: 'Create habit stacking flows that chain multiple habits into automated daily routines' },
-      { slug: 'study-habits', name: 'Study Habits', reason: 'Develop effective study and learning habits with spaced repetition and focus tracking' },
-      { slug: 'healthy-eating', name: 'Healthy Eating', reason: 'Build and track healthy eating habits alongside other daily wellness goals' },
+      { slug: 'clawhub-use-smart-contract-platform', name: 'Use Smart Contract Platform', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'smart-lights', name: 'smart lights', reason: 'Top-rated smart skill with 119 downloads' }, { slug: 'clawhub-smart-web-search', name: 'Smart Web Search', reason: 'Top-rated smart skill with 110 downloads' }, { slug: 'habithero', name: 'HabitHero', reason: 'Top-rated habit skill with 214 downloads' }, { slug: 'habit', name: 'habit', reason: 'Top-rated habit skill with 127 downloads' }
     ],
     searchLink: '/skills?q=habit+tracking',
   },
@@ -3560,11 +2668,7 @@ export const USE_CASES: UseCase[] = [
     description: 'An AI agent that helps users with meditation practices and mindfulness techniques.',
     icon: '🧘‍♂️',
     skills: [
-      { slug: 'mindfulness-meditation', name: 'Mindfulness Meditation', reason: 'Guide you through structured mindfulness meditation sessions with breathing techniques' },
-      { slug: 'writing-assistant', name: 'Writing Assistant', reason: 'Journal your meditation experiences and reflections with AI writing prompts' },
-      { slug: 'adhd-assistant', name: 'ADHD Assistant', reason: 'Tailored meditation techniques for ADHD minds to improve focus and reduce impulsivity' },
-      { slug: 'searching-assistant', name: 'Searching Assistant', reason: 'Find guided meditations, teachers, and practices matching your goals and tradition' },
-      { slug: 'mindfulness', name: 'Mindfulness (Tracker, Logger, Guided Practice)', reason: 'Track your mindfulness practice, log sessions, and follow guided exercises daily' },
+      { slug: 'meditation-guide', name: 'meditation guide', reason: 'Top-rated meditation skill with 364 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'clawhub-blind-date-assistant', name: 'Blind Date Assistant', reason: 'Top-rated assistant skill with 149 downloads' }, { slug: 'clawhub-stock-assistant-pro', name: 'Stock Assistant Pro', reason: 'Top-rated assistant skill with 139 downloads' }, { slug: 'clawhub-enterprise-ai-assistant-bundle', name: 'Enterprise AI Assistant Bundle', reason: 'Top-rated assistant skill with 127 downloads' }
     ],
     searchLink: '/skills?q=meditation',
   },
@@ -3575,11 +2679,7 @@ export const USE_CASES: UseCase[] = [
     description: 'A supportive AI agent designed to help with mental health tracking, mood management, and emotional support.',
     icon: '🧠',
     skills: [
-      { slug: 'therapy-mode', name: 'Therapy Mode', reason: 'Engage in supportive therapeutic conversations that help process emotions and stress' },
-      { slug: 'adhd-assistant', name: 'ADHD Assistant', reason: 'Structured support for ADHD challenges including focus, time management, and impulsivity' },
-      { slug: 'depression-support', name: 'Depression Support', reason: 'Compassionate support for low mood with evidence-based coping strategies and check-ins' },
-      { slug: 'agency-guardian', name: 'Agency Guardian', reason: 'Monitor your mental wellness habits and alert trusted contacts if patterns deteriorate' },
-      { slug: 'mens-mental-health', name: 'Mens Mental Health', reason: 'Mental health support tailored for men with practical, stigma-free conversations' },
+      { slug: 'fundamental-stock-analysis', name: 'Fundamental Stock Analysis', reason: 'Top-rated mental skill with 6948 downloads' }, { slug: 'mental-health', name: 'mental-health', reason: 'Top-rated mental skill with 341 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
     ],
     searchLink: '/skills?q=mental+health',
   },
@@ -3589,21 +2689,27 @@ export const USE_CASES: UseCase[] = [
     title: 'Automate email workflows with AI',
     description: 'Streamline email tasks using natural language commands.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-email-autopilot-pro', name: 'Email Autopilot', reason: 'Put your inbox on autopilot with AI-driven email triage, drafting, and auto-replies' }, { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Automate email sequences, follow-ups, and scheduled outreach with trigger-based rules' }, { slug: 'clawhub-mailmolt', name: 'MailMolt - Email for AI Agents', reason: 'Enable AI agents to send and receive emails programmatically in any workflow' }, { slug: 'clawhub-clawmail-skill', name: 'ClawMail', reason: 'Full-featured email management skill for reading, composing, and organizing your inbox' }],
+    skills: [
+      { slug: 'email-template', name: 'email-template', reason: 'Top-rated email skill with 307 downloads' }, { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Automate email sequences, follow-ups, and scheduled outreach with trigger-based ' }, { slug: 'clawhub-ai-intelligent-email-automation', name: 'Ai Intelligent Email Automation', reason: 'Top-rated email skill with 164 downloads' }, { slug: 'clawhub-email-pro-optimized', name: 'email-pro-optimized', reason: 'Top-rated email skill with 123 downloads' }
+    ],
   },
   {
     slug: 'git-agent-tool',
     title: 'Automate Git with AI agents',
     description: 'Simplify version control with intelligent automation.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-gitai-skill', name: 'Gitai - Git Commit Automation', reason: 'Automatically generate meaningful commit messages from your staged changes' }, { slug: 'clawhub-macclaw-copilot-cli', name: 'MacClaw Copilot CLI', reason: 'Run Git commands and manage repos through a natural language CLI interface on Mac' }, { slug: 'clawhub-squad-control', name: 'Squad Control', reason: 'Coordinate multi-repo Git workflows across a team with AI-driven change management' }, { slug: 'clawhub-a6-github-intel', name: 'GitHub Intelligence', reason: 'Extract insights from GitHub repos including PR trends, contributor activity, and issue patterns' }],
+    skills: [
+      { slug: 'clawhub-harbor', name: 'Harbor — Curated and shared Memory for A', reason: 'Top-rated agents skill with 115 downloads' }, { slug: 'clawhub-cxm-neural-memory', name: 'CXM: Neural Memory for Agents', reason: 'Top-rated agents skill with 112 downloads' }, { slug: 'clawhub-openclaw-agency-agents', name: 'OpenClaw Agency Agents', reason: 'Top-rated agents skill with 110 downloads' }
+    ],
   },
   {
     slug: 'browser-task-creator',
     title: 'Generate browser scripts from English',
     description: 'Turn tasks into code with natural language input.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-ai-content-rewriter', name: 'Ai Content Rewriter', reason: 'Rewrite browser-scraped content into polished scripts and task descriptions' }, { slug: 'clawhub-oxylabs-ai-studio', name: 'Oxylabs AI Studio — Web Scrape', reason: 'Use Oxylabs to scrape web pages as input for browser automation scripts' }, { slug: 'clawhub-writer', name: 'Writer', reason: 'Convert plain English task descriptions into structured browser automation instructions' }, { slug: 'clawhub-fast-agent-browser', name: 'Fast Agent Browser', reason: 'Execute browser tasks at speed using AI-generated scripts from natural language input' }],
+    skills: [
+      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Top-rated generate skill with 885 downloads' }, { slug: 'clawhub-nemo-generate', name: 'Nemo Generate', reason: 'Top-rated generate skill with 217 downloads' }, { slug: 'clawhub-vidu-generation', name: 'Input prompts and generate images, video', reason: 'Top-rated generate skill with 209 downloads' }, { slug: 'clawhub-video-generate', name: 'video-generate', reason: 'Top-rated generate skill with 127 downloads' }
+    ],
   },
   {
     slug: 'python-to-mcp',
@@ -3611,11 +2717,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Integrate Python functions into AI workflows instantly.',
     icon: '💼',
     skills: [
-      { slug: 'code-generator', name: 'Code Generator', reason: 'Generate Python functions and scripts from natural language' },
-      { slug: 'clawhub-python-auto-dev', name: 'Python Auto Dev', reason: 'Automate Python development tasks with AI' },
-      { slug: 'shell-script', name: 'Shell Script', reason: 'Run and automate scripts in your AI workflow' },
-      { slug: 'zapier-recipe', name: 'Automation Recipe', reason: 'Connect Python tools to any workflow with automation recipes' },
-      { slug: 'clawhub-workflow-runner', name: 'Workflow Runner', reason: 'Execute and manage Python-based workflows as AI tools' },
+      { slug: 'code-generator', name: 'Code Generator', reason: 'Generate Python functions and scripts from natural language' }, { slug: 'shell-script', name: 'Shell Script', reason: 'Run and automate scripts in your AI workflow' }, { slug: 'zapier-recipe', name: 'Automation Recipe', reason: 'Connect Python tools to any workflow with automation recipes' }, { slug: 'clawhub-workflow-runner', name: 'Workflow Runner', reason: 'Execute and manage Python-based workflows as AI tools' }
     ],
   },
   {
@@ -3637,27 +2739,35 @@ export const USE_CASES: UseCase[] = [
     title: 'Automate Email Workflows with AI',
     description: 'Streamline email management using AI-powered automation.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-ai-intelligent-email-automation', name: 'Ai Intelligent Email Automatio', reason: 'Intelligently route, label, and reply to emails using AI-powered automation rules' }, { slug: 'clawhub-moltmail', name: 'MoltMail', reason: 'Batch-process and automate Gmail workflows including scheduling and bulk actions' }, { slug: 'clawhub-trade-email-assistant', name: 'Trade Email Assistant', reason: 'Handle trade and business email correspondence with AI-powered templates and parsing' }, { slug: 'clawhub-a-safer-email-assistant', name: 'A safer e-mail assistant', reason: 'Email automation with privacy-first design — never leaks sensitive data in automated replies' }],
+    skills: [
+      { slug: 'clawhub-ai-intelligent-email-automation', name: 'Ai Intelligent Email Automatio', reason: 'Intelligently route, label, and reply to emails using AI-powered automation rule' }, { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Top-rated email skill with 611 downloads' }, { slug: 'email-template', name: 'email-template', reason: 'Top-rated email skill with 307 downloads' }, { slug: 'clawhub-email-pro-optimized', name: 'email-pro-optimized', reason: 'Top-rated email skill with 123 downloads' }
+    ],
   },
   {
     slug: 'git-agent-automation',
     title: 'Automate Git Tasks with AI',
     description: 'Simplify version control with intelligent AI-driven workflows.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-gitai-skill', name: 'Gitai - Git Commit Automation', reason: 'Automate commit message generation from staged diffs with semantic clarity' }, { slug: 'clawhub-gitlab', name: 'GitLab', reason: 'Manage GitLab repos, MRs, and CI/CD pipelines through AI-driven automation' }, { slug: 'clawhub-git-commit-helper-pro', name: 'Git Commit Helper Pro', reason: 'Write conventional commits with proper scope and type tagging automatically' }, { slug: 'clawhub-macclaw-copilot-cli', name: 'MacClaw Copilot CLI', reason: 'Run Git commands via natural language on Mac with full terminal integration' }],
+    skills: [
+      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Top-rated tasks skill with 885 downloads' }, { slug: 'clawhub-quark-auto-save', name: 'Manage quark-auto-save(QAS, 夸克自动转存, 夸克转存', reason: 'Top-rated tasks skill with 132 downloads' }, { slug: 'clawhub-git-commit-helper-pro', name: 'Git Commit Helper Pro', reason: 'Write conventional commits with proper scope and type tagging automatically' }
+    ],
   },
   {
     slug: 'python-tool-exposer',
     title: 'Expose Python Functions as Tools',
     description: 'Make Python functions available for AI agents to use.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-python-auto-dev', name: 'Python Auto Dev', reason: 'Automate Python development tasks and expose functions as callable AI tools' }, { slug: 'clawhub-python-script-generator', name: 'Python Script Generator', reason: 'Generate Python scripts that can be wrapped and exposed as MCP-compatible tools' }, { slug: 'clawhub-webmcp-bridge', name: 'Webmcp Bridge', reason: 'Bridge Python functions to the MCP protocol so AI agents can invoke them as tools' }, { slug: 'clawhub-nango-api-integration', name: 'Nango API Integration', reason: 'Use Nango to authenticate and connect your Python-exposed functions to external APIs' }],
+    skills: [
+      { slug: 'clawhub-webmcp-bridge', name: 'Webmcp Bridge', reason: 'Bridge Python functions to the MCP protocol so AI agents can invoke them as tool' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }, { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Highly-rated productivity skill' }
+    ],
   },
   {
     slug: 'sales-automation-agent',
     title: 'Automate Sales Tasks with AI',
     description: 'Boost sales efficiency with AI-powered task automation.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-aiprox-workflows', name: 'Aiprox Workflows', reason: 'Automate multi-step sales workflows including outreach, qualification, and follow-up' }, { slug: 'clawhub-deal-works-mcp', name: 'Deal Works Mcp', reason: 'Manage deals and sales tasks through MCP-connected tools for seamless automation' }, { slug: 'clawhub-deal-works', name: 'Deal Works Mcp', reason: 'Track and advance deals through your pipeline with AI-powered deal intelligence' }, { slug: 'clawhub-selva', name: 'Selva', reason: 'AI sales assistant that handles prospecting, outreach personalization, and meeting prep' }],
+    skills: [
+      { slug: 'clawhub-salesforce-reporting-copilot', name: 'Salesforce Reporting Copilot', reason: 'Top-rated sales skill with 115 downloads' }, { slug: 'clawhub-salesmsg', name: 'Salesmsg', reason: 'Top-rated sales skill with 107 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Top-rated tasks skill with 885 downloads' }, { slug: 'clawhub-quark-auto-save', name: 'Manage quark-auto-save(QAS, 夸克自动转存, 夸克转存', reason: 'Top-rated tasks skill with 132 downloads' }
+    ],
   },
 ]
