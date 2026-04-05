@@ -582,9 +582,13 @@ export const USE_CASES: UseCase[] = [
     description: 'Monitors real-time prices, executes trades, tracks portfolio performance, and sends price or event alerts.',
     icon: '📊',
     skills: [
-      { slug: 'crypto-tracker-cn', name: 'crypto-tracker-cn', reason: 'Top-rated crypto skill with 543 downloads' }, { slug: 'crypto-defi', name: 'crypto defi', reason: 'Top-rated crypto skill with 421 downloads' }, { slug: 'crypto-tax-calc', name: 'Crypto Tax Calc', reason: 'Top-rated crypto skill with 407 downloads' }, { slug: 'crypto-whale-tracker', name: 'Crypto Whale Tracker', reason: 'Top-rated crypto skill with 385 downloads' }, { slug: 'crypto-news-feed', name: 'Crypto News Feed', reason: 'Top-rated crypto skill with 375 downloads' }
+      { slug: 'clawhub-trade-signal-ttx', name: 'Trade Signal TTX', reason: 'Get real-time trading signals and market alerts for crypto positions' },
+      { slug: 'clawhub-crypto-trading-bot', name: 'Crypto Trading Bot', reason: 'Automate crypto buy/sell strategies with AI-powered trading bot' },
+      { slug: 'crypto-tracker-cn', name: 'Crypto Tracker', reason: 'Track real-time crypto prices and portfolio performance' },
+      { slug: 'clawhub-binance-derivatives-trading-usds-futures', name: 'Binance Futures Trading', reason: 'Trade Binance USDS futures with AI-assisted position management' },
+      { slug: 'crypto-whale-tracker', name: 'Crypto Whale Tracker', reason: 'Monitor large wallet movements to anticipate market moves' },
     ],
-    searchLink: '/skills?q=crypto+trading+alert+portfolio',
+    searchLink: '/skills?q=crypto+trading+signal+bot+portfolio',
   },
   {
     slug: 'devops-automation-hub',
