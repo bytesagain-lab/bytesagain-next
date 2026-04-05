@@ -112,23 +112,27 @@ export default async function SkillsPage({
         </button>
       </form>
 
-      {/* 分类过滤 — 单行横向滚动 */}
-      <div style={{ overflowX: 'auto', marginBottom: 28, paddingBottom: 4,
-        scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-        <div style={{ display: 'flex', gap: 8, width: 'max-content' }}>
-          {CATEGORIES.map(c => (
-            <Link key={c} href={`/skills?cat=${c}${q ? `&q=${encodeURIComponent(q)}` : ''}`}
-              style={{
-                padding: '5px 14px', borderRadius: 20, fontSize: '.85em', textDecoration: 'none',
-                whiteSpace: 'nowrap',
-                background: cat === c ? '#667eea' : '#0f0f23',
-                color: cat === c ? '#fff' : '#888',
-                border: `1px solid ${cat === c ? '#667eea' : '#1a1a3e'}`,
-              }}>
-              {c === 'all' ? '🌐 All' : c}
-            </Link>
-          ))}
-        </div>
+      {/* 分类过滤 — 桌面多行换行，移动单行横向滚动 */}
+      <style>{`
+        .cat-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+        @media (max-width: 640px) {
+          .cat-pills { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+          .cat-pills::-webkit-scrollbar { display: none; }
+        }
+      `}</style>
+      <div className="cat-pills">
+        {CATEGORIES.map(c => (
+          <Link key={c} href={`/skills?cat=${c}${q ? `&q=${encodeURIComponent(q)}` : ''}`}
+            style={{
+              padding: '5px 14px', borderRadius: 20, fontSize: '.85em', textDecoration: 'none',
+              whiteSpace: 'nowrap',
+              background: cat === c ? '#667eea' : '#0f0f23',
+              color: cat === c ? '#fff' : '#888',
+              border: `1px solid ${cat === c ? '#667eea' : '#1a1a3e'}`,
+            }}>
+            {c === 'all' ? '🌐 All' : c}
+          </Link>
+        ))}
       </div>
 
       {/* For You 个性化推荐（登录用户） */}
