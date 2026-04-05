@@ -25,6 +25,14 @@ const nextConfig: NextConfig = {
       { source: '/design-tool', destination: '/skill/wireframe', permanent: true },
       { source: '/design-tool/', destination: '/skill/wireframe', permanent: true },
 
+      // spec-workflow → spec-coder（GSC排名18，spec-workflow-mcp）
+      { source: '/spec-workflow', destination: '/skill/clawhub-spec-coder', permanent: true },
+      { source: '/spec-workflow/', destination: '/skill/clawhub-spec-coder', permanent: true },
+
+      // macos-toolkit → 直接对应skill
+      { source: '/macos-toolkit', destination: '/skill/macos-toolkit', permanent: true },
+      { source: '/macos-toolkit/', destination: '/skill/macos-toolkit', permanent: true },
+
       // 老 skill 页面（WP slug → Next.js /skill/slug）
       { source: '/excel-formula', destination: '/skill/excel-formula', permanent: true },
       { source: '/excel-formula/', destination: '/skill/excel-formula', permanent: true },
