@@ -4,29 +4,76 @@ import { useEffect, useState } from 'react'
 import { createBrowserClient } from '@supabase/ssr'
 import type { User } from '@supabase/supabase-js'
 import { useLang } from '../components/LangContext'
+import Link from 'next/link'
+
+const supabase = createBrowserClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+)
 
 export default function DashboardPage() {
   const { lang } = useLang()
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
+  const [favorites, setFavorites] = useState<any[]>([])
+  const [recentViews, setRecentViews] = useState<any[]>([])
 
   useEffect(() => {
-    const supabase = createBrowserClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    )
-    supabase.auth.getUser().then(({ data }) => {
+    supabase.auth.getUser().then(async ({ data }) => {
       if (!data.user) { window.location.href = '/login'; return }
       setUser(data.user)
+
+      // 拉收藏列表
+      const { data: favSlugs } = await supabase
+        .from('skill_favorites')
+        .select('skill_slug, created_at')
+        .eq('user_id', data.user.id)
+        .order('created_at', { ascending: false })
+        .limit(20)
+
+      if (favSlugs && favSlugs.length > 0) {
+        const slugs = favSlugs.map((f: any) => f.skill_slug)
+        const res = await fetch(`/api/search?q=${slugs[0]}&limit=1`) // 占位，直接查DB
+        // 用 supabase anon key 查 skills 表
+        const { data: skillData } = await supabase
+          .from('skills')
+          .select('slug, name, description, source, downloads')
+          .in('slug', slugs)
+        setFavorites(skillData || [])
+      }
+
+      // 拉最近浏览（去重，最近10个）
+      const { data: viewSlugs } = await supabase
+        .from('skill_views')
+        .select('skill_slug, viewed_at')
+        .eq('user_id', data.user.id)
+        .order('viewed_at', { ascending: false })
+        .limit(30)
+
+      if (viewSlugs && viewSlugs.length > 0) {
+        const seen = new Set<string>()
+        const unique = viewSlugs.filter((v: any) => {
+          if (seen.has(v.skill_slug)) return false
+          seen.add(v.skill_slug); return true
+        }).slice(0, 10)
+        const { data: skillData } = await supabase
+          .from('skills')
+          .select('slug, name, description, source, downloads')
+          .in('slug', unique.map((v: any) => v.skill_slug))
+        setRecentViews(skillData || [])
+      }
+
       setLoading(false)
     })
   }, [])
 
+  const removeFavorite = async (slug: string) => {
+    await supabase.from('skill_favorites').delete()
+      .eq('user_id', user!.id).eq('skill_slug', slug)
+    setFavorites(prev => prev.filter(s => s.slug !== slug))
+  }
+
   const handleSignOut = async () => {
-    const supabase = createBrowserClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    )
     await supabase.auth.signOut()
     window.location.href = '/'
   }
@@ -36,12 +83,32 @@ export default function DashboardPage() {
   const joinedAt = user?.created_at ? new Date(user.created_at).toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : ''
   const provider = user?.app_metadata?.provider || 'email'
 
+  const SkillRow = ({ s, onRemove }: { s: any; onRemove?: () => void }) => (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      padding: '12px 0', borderBottom: '1px solid #1a1a2e' }}>
+      <Link href={`/skill/${s.slug}`} style={{ textDecoration: 'none', flex: 1 }}>
+        <div style={{ fontWeight: 600, color: '#e0e0e0', fontSize: '.92em' }}>{s.name || s.slug}</div>
+        <div style={{ color: '#555', fontSize: '.78em', marginTop: 2,
+          overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 400 }}>
+          {s.description}
+        </div>
+      </Link>
+      {onRemove && (
+        <button onClick={onRemove} title="Remove" style={{
+          background: 'none', border: 'none', color: '#444', cursor: 'pointer',
+          fontSize: '1.1em', padding: '4px 8px', flexShrink: 0,
+        }}>✕</button>
+      )}
+    </div>
+  )
+
   return (
     <div style={{ maxWidth: 700, margin: '60px auto', padding: '0 20px' }}>
       <h1 style={{ fontSize: '2em', fontWeight: 800, marginBottom: 32 }}>
         {lang === 'zh' ? '我的账号' : 'My Account'}
       </h1>
 
+      {/* 用户信息卡 */}
       <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: 28, marginBottom: 20 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
           <div style={{
@@ -61,6 +128,32 @@ export default function DashboardPage() {
         </div>
       </div>
 
+      {/* 收藏列表 */}
+      <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: 28, marginBottom: 20 }}>
+        <h2 style={{ margin: '0 0 16px', fontSize: '1.05em', color: '#888', textTransform: 'uppercase', letterSpacing: 1 }}>
+          {lang === 'zh' ? '❤️ 我的收藏' : '❤️ Saved Skills'}
+        </h2>
+        {favorites.length === 0 ? (
+          <p style={{ color: '#444', fontSize: '.9em' }}>
+            {lang === 'zh' ? '还没有收藏。浏览 skill 时点 Save 加入收藏。' : 'No saved skills yet. Hit Save on any skill page.'}
+            {' '}<Link href="/skills" style={{ color: '#667eea' }}>{lang === 'zh' ? '去探索 →' : 'Browse →'}</Link>
+          </p>
+        ) : (
+          favorites.map(s => <SkillRow key={s.slug} s={s} onRemove={() => removeFavorite(s.slug)} />)
+        )}
+      </div>
+
+      {/* 最近浏览 */}
+      {recentViews.length > 0 && (
+        <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: 28, marginBottom: 20 }}>
+          <h2 style={{ margin: '0 0 16px', fontSize: '1.05em', color: '#888', textTransform: 'uppercase', letterSpacing: 1 }}>
+            {lang === 'zh' ? '🕐 最近浏览' : '🕐 Recently Viewed'}
+          </h2>
+          {recentViews.map(s => <SkillRow key={s.slug} s={s} />)}
+        </div>
+      )}
+
+      {/* 账号信息 */}
       <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: 28, marginBottom: 20 }}>
         <h2 style={{ margin: '0 0 20px', fontSize: '1.05em', color: '#888', textTransform: 'uppercase', letterSpacing: 1 }}>
           {lang === 'zh' ? '账号信息' : 'Account Info'}
