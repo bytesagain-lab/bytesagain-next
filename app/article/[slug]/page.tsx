@@ -44,7 +44,12 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
   // Detect HTML vs Markdown, convert markdown to HTML
   const isHtml = /<(h[1-6]|p|ul|ol|table|div|strong|em|a)[\s>]/i.test(article.content)
-  const content = isHtml ? article.content : marked(article.content) as string
+  const rawHtml = isHtml ? article.content : marked(article.content) as string
+  // 外部链接加 target="_blank" rel="noopener noreferrer"
+  const content = rawHtml.replace(
+    /<a\s+href="(https?:\/\/(?!bytesagain\.com)[^"]+)"/gi,
+    '<a href="$1" target="_blank" rel="noopener noreferrer"'
+  )
 
   return (
     <article style={{ maxWidth: 750, margin: '40px auto', padding: '0 20px' }}>
