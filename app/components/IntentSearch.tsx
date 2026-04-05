@@ -1,6 +1,7 @@
 'use client'
 import { useState, useRef } from 'react'
 import { USE_CASES } from '@/lib/use-cases'
+import { useLang } from '@/app/components/LangContext'
 
 // 意图关键词 → use case slug 映射
 const INTENT_MAP: { keywords: string[]; slugs: string[] }[] = [
@@ -55,6 +56,8 @@ function matchUseCases(query: string) {
 }
 
 export default function IntentSearch() {
+  const { lang } = useLang()
+  const zh = lang === 'zh'
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<typeof USE_CASES>([])
   const [skillResults, setSkillResults] = useState<any[]>([])
@@ -95,7 +98,7 @@ export default function IntentSearch() {
         <input
           value={query}
           onChange={handleChange}
-          placeholder="描述你的需求，比如：帮我写周报 / learn Python…"
+          placeholder={zh ? "描述你的需求，比如：帮我写周报 / learn Python…" : "Describe your goal, e.g. write a report / learn Python…"}
           style={{
             width: '100%', padding: '14px 16px 14px 44px',
             background: '#0f0f23', border: '1px solid #2a2a4e',
