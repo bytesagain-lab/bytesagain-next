@@ -206,11 +206,11 @@ export const USE_CASES: UseCase[] = [
     description: 'Accelerate your coding journey with AI skills that explain concepts, debug your code, and guide your learning path.',
     icon: '📚',
     skills: [
-      { slug: 'saas', name: 'SaaS', reason: '' },
-      { slug: 'competitive-intelligence-market-research', name: 'Competitive Intelligence & Market Research', reason: '' },
-      { slug: 'product', name: 'Product', reason: '' },
-      { slug: 'game-changing-features', name: 'Game Changing Features', reason: '' },
-      { slug: 'saas-landing-page-generator', name: 'SaaS Landing Page Generator', reason: '' },
+      { slug: 'code-generator', name: 'Code Generator', reason: 'Generate code in any language from natural language descriptions' },
+      { slug: 'ai-code-helper', name: 'AI Code Helper', reason: 'Get instant explanations and fixes for your code' },
+      { slug: 'clawhub-code-review-automation', name: 'Code Review Automation', reason: 'Automated code review to learn best practices' },
+      { slug: 'clawhub-github-code-analyzer', name: 'GitHub Code Analyzer', reason: 'Analyze and learn from real-world codebases' },
+      { slug: 'clawhub-openclaw-with-vscode', name: 'OpenClaw with VSCode', reason: 'AI-powered coding assistant inside your editor' },
     ],
   },
   {
