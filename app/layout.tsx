@@ -16,6 +16,9 @@ export const metadata: Metadata = {
     canonical: 'https://bytesagain.com',
     types: { 'text/plain': 'https://bytesagain.com/llms.txt' },
   },
+  verification: {
+    other: { 'baidu-site-verification': 'codeva-0evUqX1TFs' },
+  },
   openGraph: {
     siteName: 'BytesAgain',
     type: 'website',
