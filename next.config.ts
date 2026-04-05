@@ -21,6 +21,10 @@ const nextConfig: NextConfig = {
       { source: '/cam', destination: '/skills', permanent: true },
       { source: '/cam/', destination: '/skills', permanent: true },
 
+      // design-tool → wireframe skill（GSC排名19，penpot ai wireframe generator）
+      { source: '/design-tool', destination: '/skill/wireframe', permanent: true },
+      { source: '/design-tool/', destination: '/skill/wireframe', permanent: true },
+
       // 老 skill 页面（WP slug → Next.js /skill/slug）
       { source: '/excel-formula', destination: '/skill/excel-formula', permanent: true },
       { source: '/excel-formula/', destination: '/skill/excel-formula', permanent: true },
