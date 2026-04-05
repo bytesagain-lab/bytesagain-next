@@ -55,7 +55,11 @@ export const USE_CASES: UseCase[] = [
     description: 'Land your next role faster with AI skills that help you craft applications, prep for interviews, and negotiate offers.',
     icon: '💼',
     skills: [
-      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }, { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Highly-rated productivity skill' }
+      { slug: 'interview-analysis', name: 'Interview Analysis', reason: 'Analyze interview questions and prepare winning answers with AI' },
+      { slug: 'clawhub-ai-interview-system', name: 'AI Interview System', reason: 'Practice mock interviews with real-time AI coaching and feedback' },
+      { slug: 'clawhub-interview-simulator', name: 'Interview Simulator', reason: 'Simulate realistic job interviews for any role or company' },
+      { slug: 'clawhub-resume-builder', name: 'Resume Builder', reason: 'Build ATS-optimized resumes that get past screening filters' },
+      { slug: 'translator-pro', name: 'Translator Pro', reason: 'Translate and localize job applications for international opportunities' },
     ],
   },
   {
@@ -337,10 +341,10 @@ export const USE_CASES: UseCase[] = [
     icon: '⚖️',
     skills: [
       { slug: 'clawhub-legal-advisor', name: 'Legal Advisor', reason: 'Get AI-powered legal guidance and document drafting assistance' },
+      { slug: 'clawhub-legaldoc-ai', name: 'LegalDoc AI', reason: 'Generate and review legal documents with AI precision' },
       { slug: 'legal-advisor', name: 'Legal Advisor (Community)', reason: 'Community-built legal advisor for understanding laws and regulations' },
-      { slug: 'precedent', name: 'Precedent — Legal Precedent Reference', reason: 'Reference legal precedents and case law for document drafting' },
-      { slug: 'clawhub-task-planner', name: 'Task Planner', reason: 'Manage compliance deadlines and legal document review workflows' },
-      { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Automate legal notice delivery and compliance communication' },
+      { slug: 'precedent', name: 'Precedent', reason: 'Reference legal precedents and case law for document drafting' },
+      { slug: 'compliance', name: 'Compliance', reason: 'Check regulatory compliance across jurisdictions' },
     ],
   },
 
@@ -361,7 +365,11 @@ export const USE_CASES: UseCase[] = [
     description: 'Convert your n8n flows, Zapier zaps, and manual processes into AI agent skills that run automatically.',
     icon: '⚡',
     skills: [
-      { slug: 'data-analysis-workflow', name: 'Data Analysis Workflow', reason: 'Top-rated workflow skill with 209 downloads' }, { slug: 'clawhub-workflow-runner', name: 'Workflow Runner', reason: 'Top-rated workflow skill with 107 downloads' }, { slug: 'clawhub-content-workflow-engine', name: 'Content Workflow Engine', reason: 'Top-rated workflow skill with 103 downloads' }, { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Top-rated automation skill with 611 downloads' }
+      { slug: 'clawhub-n8n-workflow-automation', name: 'n8n Workflow Automation', reason: 'Build and run n8n automation workflows directly with AI agents' },
+      { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Automate email triage, routing, and responses end-to-end' },
+      { slug: 'data-analysis-workflow', name: 'Data Analysis Workflow', reason: 'Automate data pipelines from collection to insight generation' },
+      { slug: 'clawhub-workflow-runner', name: 'Workflow Runner', reason: 'Execute and monitor complex multi-step workflows autonomously' },
+      { slug: 'zapier-recipe', name: 'Automation Recipe', reason: 'Connect any app to any workflow with pre-built automation templates' },
     ],
     searchLink: '/skills?q=automation+workflow+n8n',
   },
