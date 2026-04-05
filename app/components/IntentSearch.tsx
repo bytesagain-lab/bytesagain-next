@@ -4,7 +4,7 @@ import { USE_CASES } from '@/lib/use-cases'
 
 // 意图关键词 → use case slug 映射
 const INTENT_MAP: { keywords: string[]; slugs: string[] }[] = [
-  { keywords: ['商业计划', '商业策划', '创业计划', '融资', '投资人', '路演', 'bp', '商业模式', 'pitch', '创业', '融资计划', 'ppt'], slugs: ['startup-founder', 'build-saas'] },
+  { keywords: ['商业计划', '商业策划', '创业计划', '融资', '投资人', '路演', 'bp', '商业模式', 'pitch', '创业', '融资计划', 'ppt'], slugs: ['startup-founder', 'business-plan'] },
   { keywords: ['saas', '产品', '软件', '网站', '开发', 'app', '程序', '代码', '编程', 'web app', 'webapp', '做网站', '开发产品'], slugs: ['build-saas', 'developer-workflow'] },
   { keywords: ['招聘', '面试', '简历', '求职', '找工作', '跳槽', 'offer', '薪资', '工作', 'resume', 'cv', '投递', '内推'], slugs: ['job-hunting', 'hr-recruiting'] },
   { keywords: ['远程', '在家办公', '居家', 'wfh', '专注', '番茄', '任务管理', 'todo', '效率', '工作效率'], slugs: ['remote-work', 'project-manager'] },
@@ -95,7 +95,7 @@ export default function IntentSearch() {
         <input
           value={query}
           onChange={handleChange}
-          placeholder="我要写商业策划书 / I want to learn Python…"
+          placeholder="描述你的需求，比如：帮我写周报 / learn Python…"
           style={{
             width: '100%', padding: '14px 16px 14px 44px',
             background: '#0f0f23', border: '1px solid #2a2a4e',
