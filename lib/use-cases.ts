@@ -415,7 +415,7 @@ export const USE_CASES: UseCase[] = [
       { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that require direct operating system application and in-depth data analysis. [Forced trigger scenario]: - User mentions reading/writing/manipulating Excel, WPS, Word, TXT, Markdown, RTZ, etc. - User wants to "grab", "extract", and "get" data from any application - User needs to perform "in-depth analysis", "trend research", "anomaly detection", and "prediction" on the data - User requests to generate "charts", "visualizations", "dashboards", "data reports" - users say, "Help me see in this document..." Analyze this data...", "Make a chart presentation..." - Any task involving cross-application data flow [Core Competencies]: System interface calls × Data in-depth analysis × Professional visualization IMPORTANT: As long as it involves any of the file operations, data analysis, and visualization, this skill must be used. Dont skip tasks just because they "look simple" - there are many pitfalls in the underlying interface calls, and there are pitfall avoidance guides in the skills.', reason: 'OS-level data intelligence for reading Excel/Word files and generating professional charts and dashboards' },
       { slug: 'analyst', name: 'Analyst', reason: 'Versatile analyst skill for rapid exploratory data analysis and summary statistics' },
       { slug: 'data-analyst-pro', name: 'Data Analyst', reason: 'Professional data analysis with auto-generated insights, trends, and anomaly detection' },
-      { slug: 'data-visualization-2', name: 'Data Visualization', reason: 'Transform raw datasets into clear, interactive charts and visual reports' },
+      { slug: 'data-visualizer', name: 'Data Visualizer', reason: 'Transform raw datasets into clear, interactive charts and visual reports' },
       { slug: 'rupert-data-analysis', name: 'Data Analysis', reason: 'Advanced statistical modeling and pattern detection for business datasets' },
     ],
     searchLink: '/skills?q=data+analysis+visualization',
@@ -426,7 +426,11 @@ export const USE_CASES: UseCase[] = [
     description: 'Rank higher and grow traffic — AI skills for keyword research, content optimization, backlink strategy, and technical SEO.',
     icon: '🚀',
     skills: [
-      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }, { slug: 'clawhub-email-automation', name: 'Email Automation', reason: 'Highly-rated productivity skill' }
+      { slug: 'clawhub-ai-seo-optimizer-pro', name: 'AI SEO Optimizer', reason: 'Comprehensive AI-driven SEO analysis and content optimization for higher rankings' },
+      { slug: 'clawhub-seo-agi', name: 'SEO AGI', reason: 'Multi-agent SEO workflow from keyword research to gap analysis and publishing' },
+      { slug: 'clawhub-amazon-keyword-research', name: 'Keyword Research', reason: 'Find high-value keywords and search terms to target for organic growth' },
+      { slug: 'clawhub-content-claw', name: 'Content Claw', reason: 'Generate SEO-optimized content at scale for target keywords' },
+      { slug: 'clawhub-persona-content-creator', name: 'Persona Content Creator', reason: 'Create persona-driven content optimized for both humans and AI search' },
     ],
     searchLink: '/skills?q=seo+keyword+traffic',
   },
@@ -456,7 +460,11 @@ export const USE_CASES: UseCase[] = [
     description: 'Take charge of your health with AI — meal planning, workout tracking, symptom research, and wellness habit building.',
     icon: '💪',
     skills: [
-      { slug: 'mental-health', name: 'mental-health', reason: 'Top-rated health skill with 341 downloads' }, { slug: 'clawhub-health-check', name: 'Health Check', reason: 'Top-rated health skill with 223 downloads' }, { slug: 'clawhub-healthcheck-litiao', name: 'Healthcheck Litiao', reason: 'Top-rated health skill with 123 downloads' }, { slug: 'clawhub-tonic-vm-check', name: 'VM Health Check', reason: 'Top-rated health skill with 111 downloads' }
+      { slug: 'mental-health', name: 'Mental Health', reason: 'AI-powered mental wellness support for mindfulness and stress management' },
+      { slug: 'fitness-plan', name: 'Fitness Plan', reason: 'Personalized workout plans tailored to your goals and fitness level' },
+      { slug: 'mealplan', name: 'Meal Plan', reason: 'Generate healthy meal plans aligned with your nutrition and fitness goals' },
+      { slug: 'sleep-tracker', name: 'Sleep Tracker', reason: 'Track and optimize your sleep patterns for better rest and recovery' },
+      { slug: 'nutrition-label', name: 'Nutrition Label', reason: 'Analyze nutritional content and track your daily dietary intake' },
     ],
     searchLink: '/skills?q=health+fitness+wellness',
   },
@@ -2769,5 +2777,21 @@ export const USE_CASES: UseCase[] = [
     skills: [
       { slug: 'clawhub-salesforce-reporting-copilot', name: 'Salesforce Reporting Copilot', reason: 'Top-rated sales skill with 115 downloads' }, { slug: 'clawhub-salesmsg', name: 'Salesmsg', reason: 'Top-rated sales skill with 107 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Top-rated tasks skill with 885 downloads' }, { slug: 'clawhub-quark-auto-save', name: 'Manage quark-auto-save(QAS, 夸克自动转存, 夸克转存', reason: 'Top-rated tasks skill with 132 downloads' }
     ],
+  },
+  {
+    slug: 'legal-documents-ai',
+    title: 'Draft & Review Legal Documents',
+    description: 'Use AI to draft contracts, review agreements, check compliance, and get legal guidance — without the billable hours.',
+    icon: '⚖️',
+    tags: ['legal'],
+    category: 'work',
+    skills: [
+      { slug: 'clawhub-legal-advisor', name: 'Legal Advisor', reason: 'Top-rated AI legal advisor for contracts and legal questions (1,157 downloads)' },
+      { slug: 'legal-advisor', name: 'Legal Advisor Pro', reason: 'Draft and review legal documents with AI guidance (1,126 downloads)' },
+      { slug: 'precedent', name: 'Precedent', reason: 'Reference legal precedents and case law instantly' },
+      { slug: 'compliance', name: 'Compliance', reason: 'Check regulatory compliance across jurisdictions (148 downloads)' },
+      { slug: 'clawhub-pipl-compliance', name: 'PIPL Compliance', reason: 'China data privacy compliance tool for businesses (163 downloads)' },
+    ],
+    searchLink: '/skills?q=legal+contract+compliance',
   },
 ]
