@@ -6,6 +6,7 @@ interface Skill {
   slug: string
   name: string
   reason: string
+  description?: string
 }
 
 interface UseCase {
@@ -20,16 +21,32 @@ interface UseCase {
 interface SkillCardProps {
   skill: Skill
   index: number
-  description?: string
 }
 
-function SkillCard({ skill, index, description }: SkillCardProps) {
+function SkillCard({ skill, index }: SkillCardProps) {
   const [hovered, setHovered] = useState(false)
+  const [desc, setDesc] = useState<string | null>(skill.description || null)
+  const [loaded, setLoaded] = useState(!!skill.description)
+
+  async function handleHover() {
+    setHovered(true)
+    if (!loaded) {
+      // 懒加载：首次 hover 时从 DB 拉取真实描述
+      try {
+        const res = await fetch(`/api/skill-desc?slug=${encodeURIComponent(skill.slug)}`)
+        if (res.ok) {
+          const data = await res.json()
+          setDesc(data.description || null)
+        }
+      } catch { /* ignore */ }
+      setLoaded(true)
+    }
+  }
 
   return (
     <a
       href={`/skill/${skill.slug}`}
-      onMouseEnter={() => setHovered(true)}
+      onMouseEnter={handleHover}
       onMouseLeave={() => setHovered(false)}
       style={{
         display: 'flex', gap: 16, padding: '18px 20px',
@@ -48,14 +65,14 @@ function SkillCard({ skill, index, description }: SkillCardProps) {
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{ fontWeight: 700, color: '#e0e0e0', marginBottom: 4 }}>{skill.name}</div>
         <div style={{ color: '#778', fontSize: '.88em', lineHeight: 1.5 }}>{skill.reason}</div>
-        {hovered && description && (
+        {hovered && desc && desc !== skill.reason && (
           <div style={{
             marginTop: 10, padding: '10px 14px',
             background: '#0a0a1e', borderRadius: 8, border: '1px solid #2a2a4e',
             color: '#aaa', fontSize: '.83em', lineHeight: 1.6,
             animation: 'fadeIn 0.15s ease',
           }}>
-            {description}
+            {desc}
           </div>
         )}
       </div>
@@ -109,7 +126,7 @@ export default function UseCaseClient({ uc, slug }: { uc: UseCase; slug: string 
       {/* skill 列表 */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
         {uc.skills.map((skill, i) => (
-          <SkillCard key={skill.slug} skill={skill} index={i} description={skill.reason} />
+          <SkillCard key={skill.slug} skill={skill} index={i} />
         ))}
       </div>
 
@@ -117,7 +134,7 @@ export default function UseCaseClient({ uc, slug }: { uc: UseCase; slug: string 
       {showMore && extraSkills.length > 0 && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
           {extraSkills.map((skill, i) => (
-            <SkillCard key={skill.slug} skill={skill} index={uc.skills.length + i} description={skill.reason} />
+            <SkillCard key={skill.slug} skill={skill} index={uc.skills.length + i} />
           ))}
         </div>
       )}
