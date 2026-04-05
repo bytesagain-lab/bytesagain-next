@@ -145,6 +145,14 @@ export default function LoginPage() {
                 : mode === 'signup' ? (zh ? '注册账号 →' : 'Create Account →')
                 : (zh ? '发送登录链接 →' : 'Send Magic Link →')}
             </button>
+            {mode === 'signup' && (
+              <p style={{ fontSize: '.75em', color: '#556', textAlign: 'center', marginTop: 12, lineHeight: 1.6 }}>
+                {zh
+                  ? <>注册即表示您同意我们的 <a href="/terms" style={{ color: '#667eea' }}>服务条款</a> 和 <a href="/privacy" style={{ color: '#667eea' }}>隐私政策</a>。BytesAgain 是 AI skill 导航目录，不对第三方 skill 内容承担责任。</>
+                  : <>By creating an account, you agree to our <a href="/terms" style={{ color: '#667eea' }}>Terms of Service</a> and <a href="/privacy" style={{ color: '#667eea' }}>Privacy Policy</a>. BytesAgain is an independent AI skill directory and does not endorse or guarantee third-party skill content.</>
+                }
+              </p>
+            )}
           </form>
         )}
       </div>
