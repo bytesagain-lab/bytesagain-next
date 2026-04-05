@@ -2783,8 +2783,6 @@ export const USE_CASES: UseCase[] = [
     title: 'Draft & Review Legal Documents',
     description: 'Use AI to draft contracts, review agreements, check compliance, and get legal guidance — without the billable hours.',
     icon: '⚖️',
-    tags: ['legal'],
-    category: 'work',
     skills: [
       { slug: 'clawhub-legal-advisor', name: 'Legal Advisor', reason: 'Top-rated AI legal advisor for contracts and legal questions (1,157 downloads)' },
       { slug: 'legal-advisor', name: 'Legal Advisor Pro', reason: 'Draft and review legal documents with AI guidance (1,126 downloads)' },
