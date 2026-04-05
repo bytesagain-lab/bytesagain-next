@@ -158,12 +158,13 @@ export const USE_CASES: UseCase[] = [
     description: 'Optimize your website for both traditional search engines and the new generation of AI-powered search.',
     icon: '🔍',
     skills: [
-      { slug: 'clawhub-ai-seo-optimizer-pro', name: 'AI SEO Optimizer', reason: 'Comprehensive AI-driven SEO analysis and content optimization' },
+      { slug: 'clawhub-geo-optimization', name: 'GEO Optimization', reason: 'Generative Engine Optimization — get cited by ChatGPT, Perplexity, and AI Overviews' },
+      { slug: 'clawhub-geo-optimizer', name: 'GEO Content Optimizer', reason: 'Optimize content specifically for AI citation in LLM-powered search' },
+      { slug: 'clawhub-seo-geo-audit', name: 'SEO + GEO Audit', reason: 'Run a unified audit covering both traditional SEO and AI search visibility' },
+      { slug: 'clawhub-ai-seo-optimizer-pro', name: 'AI SEO Optimizer', reason: 'Comprehensive AI-driven SEO keyword research and content optimization' },
       { slug: 'clawhub-seo-agi', name: 'SEO AGI', reason: 'Multi-agent SEO workflow from research to gap analysis to publishing' },
-      { slug: 'clawhub-ai-marketing-automation', name: 'AI Marketing Automation', reason: 'Integrate SEO insights into broader marketing automation campaigns' },
-      { slug: 'clawhub-content-claw', name: 'Content Claw', reason: 'Generate SEO-optimized content at scale for target keywords' },
-      { slug: 'clawhub-persona-content-creator', name: 'Persona Content Creator', reason: 'Create persona-driven content optimized for both humans and AI search' },
     ],
+    searchLink: '/skills?q=seo+geo+optimization+ai+search',
   },
   {
     slug: 'podcast-creator',
