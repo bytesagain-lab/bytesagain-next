@@ -1,10 +1,6 @@
+export const dynamic = 'force-dynamic'
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
 
 const DASHSCOPE_KEY = process.env.DASHSCOPE_EMBEDDING_KEY!
 
@@ -26,6 +22,10 @@ async function getEmbedding(text: string): Promise<number[] | null> {
 }
 
 export async function GET(req: NextRequest) {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
   const slug = req.nextUrl.searchParams.get('slug') || ''
   const name = req.nextUrl.searchParams.get('name') || ''
   const category = req.nextUrl.searchParams.get('category') || ''

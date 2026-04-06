@@ -1,21 +1,21 @@
+export const dynamic = 'force-dynamic'
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import nodemailer from 'nodemailer'
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
-
-const transporter = nodemailer.createTransport({
-  host: 'smtp.zoho.com',
-  port: 587,
-  secure: false,
-  auth: { user: 'hello@bytesagain.com', pass: process.env.ZOHO_PASS },
-})
-
 export async function POST(req: NextRequest) {
   try {
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    )
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.zoho.com',
+      port: 587,
+      secure: false,
+      auth: { user: 'hello@bytesagain.com', pass: process.env.ZOHO_PASS },
+    })
+
     const { type, message, email, page } = await req.json()
     if (!message || message.trim().length < 3) {
       return NextResponse.json({ error: 'Message too short' }, { status: 400 })

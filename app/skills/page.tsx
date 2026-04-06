@@ -16,11 +16,6 @@ export const metadata: Metadata = {
 
 export const revalidate = 3600
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
-
 const CATEGORIES = [
   'all',
   // 技术
@@ -57,6 +52,10 @@ export default async function SkillsPage({
 }: {
   searchParams: Promise<{ cat?: string; page?: string; q?: string }>
 }) {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
   const sp = await searchParams
   const cat  = sp.cat  || 'all'
   const page = Math.max(1, parseInt(sp.page || '1'))

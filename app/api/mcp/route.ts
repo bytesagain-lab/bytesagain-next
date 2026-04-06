@@ -1,14 +1,14 @@
+export const dynamic = 'force-dynamic'
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
 
 // MCP-compatible endpoint for AI agents
 // Supports: search, recommend, get, popular
 export async function GET(req: NextRequest) {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
   const { searchParams } = req.nextUrl
   const action = searchParams.get('action') || 'search'
   const query = searchParams.get('q') || ''
@@ -159,6 +159,10 @@ async function logMcpCall(params: {
   result_count?: number
   results_slugs?: string[]
 }) {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
   try {
     await supabase.from('mcp_logs').insert({
       action: params.action,

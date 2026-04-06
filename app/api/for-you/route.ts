@@ -1,11 +1,8 @@
+export const dynamic = 'force-dynamic'
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
-const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const SB_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!
 const DASHSCOPE_KEY = process.env.DASHSCOPE_EMBEDDING_KEY!
-
-const supabase = createClient(SB_URL, SB_KEY)
 
 async function getEmbedding(text: string): Promise<number[] | null> {
   try {
@@ -20,6 +17,11 @@ async function getEmbedding(text: string): Promise<number[] | null> {
 }
 
 export async function GET(req: NextRequest) {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
+
   const userId = req.nextUrl.searchParams.get('user_id')
   if (!userId) return NextResponse.json([])
 
@@ -32,11 +34,9 @@ export async function GET(req: NextRequest) {
   const favSlugs = (favsRes.data || []).map((r: any) => r.skill_slug)
   const viewSlugs = (viewsRes.data || []).map((r: any) => r.skill_slug)
 
-  // 合并已看过的 slug（用于排除）
   const seenSlugs = new Set([...favSlugs, ...viewSlugs])
   if (seenSlugs.size === 0) return NextResponse.json([])
 
-  // 取这些 skill 的 tags 和 name，拼成查询文本
   const allSlugs = [...new Set([...favSlugs, ...viewSlugs])].slice(0, 15)
   const { data: skillData } = await supabase
     .from('skills')
@@ -45,17 +45,15 @@ export async function GET(req: NextRequest) {
 
   if (!skillData || skillData.length === 0) return NextResponse.json([])
 
-  // 收藏的权重是浏览的2倍
   const queryParts: string[] = []
   for (const s of skillData) {
     const isFav = favSlugs.includes(s.slug)
     const text = [s.name, ...(s.tags || [])].filter(Boolean).join(' ')
-    if (isFav) { queryParts.push(text); queryParts.push(text) } // 收藏重复2次加权
+    if (isFav) { queryParts.push(text); queryParts.push(text) }
     else queryParts.push(text)
   }
   const queryText = queryParts.join(' ')
 
-  // 向量搜索
   const embedding = await getEmbedding(queryText)
   if (!embedding) return NextResponse.json([])
 
@@ -65,7 +63,6 @@ export async function GET(req: NextRequest) {
     match_threshold: 0.4,
   })
 
-  // 过滤掉已看过的，取前8个
   const recommendations = (results || [])
     .filter((s: any) => !seenSlugs.has(s.slug))
     .slice(0, 8)

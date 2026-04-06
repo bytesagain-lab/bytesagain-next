@@ -1,22 +1,22 @@
 import { MetadataRoute } from 'next'
-import { createClient } from '@supabase/supabase-js'
 import { USE_CASES } from '@/lib/use-cases'
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
+export const revalidate = 86400
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const { data: posts } = await supabase
-    .from('posts')
-    .select('slug, published_at')
-    .eq('status', 'published')
-    .order('published_at', { ascending: false })
-    .limit(500)
+  // 用 REST API + anon key（构建时安全）
+  let posts: { slug: string; published_at: string }[] = []
+  try {
+    const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://jfpeycpiyayrpjldppzq.supabase.co'
+    const SB_ANON = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+    const res = await fetch(
+      `${SB_URL}/rest/v1/posts?select=slug,published_at&status=eq.published&order=published_at.desc&limit=500`,
+      { headers: { apikey: SB_ANON, Authorization: `Bearer ${SB_ANON}` }, next: { revalidate: 86400 } }
+    )
+    if (res.ok) posts = await res.json()
+  } catch {}
 
-  // 文章页（放最前，确保 GEO/AI 爬虫优先取样到 Article schema 页）
-  const articlePages: MetadataRoute.Sitemap = (posts || []).map(a => ({
+  const articlePages: MetadataRoute.Sitemap = posts.map(a => ({
     url: `https://bytesagain.com/article/${a.slug}`,
     lastModified: a.published_at ? new Date(a.published_at) : new Date(),
     changeFrequency: 'monthly' as const,
@@ -29,7 +29,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: 'https://bytesagain.com/use-case', lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
     { url: 'https://bytesagain.com/articles', lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
     { url: 'https://bytesagain.com/about', lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
-    { url: 'https://bytesagain.com/pro', lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: 'https://bytesagain.com/contact', lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
     { url: 'https://bytesagain.com/privacy-policy', lastModified: new Date(), changeFrequency: 'monthly', priority: 0.3 },
     { url: 'https://bytesagain.com/terms', lastModified: new Date(), changeFrequency: 'monthly', priority: 0.3 },
@@ -43,6 +42,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }))
 
-  // 文章页优先输出，GEO 工具从 sitemap 取样时能命中 Article schema 页
   return [...articlePages, ...staticPages, ...useCasePages]
 }

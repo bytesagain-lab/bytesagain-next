@@ -1,10 +1,6 @@
+export const dynamic = 'force-dynamic'
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
 
 const ADMIN_SECRET = process.env.ADMIN_SECRET || 'bytesagain-admin-2026'
 const BATCH = 50
@@ -47,6 +43,10 @@ function itemToRow(item: any) {
 }
 
 export async function GET(req: NextRequest) {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
   const secret = req.nextUrl.searchParams.get('secret')
   if (secret !== ADMIN_SECRET) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
