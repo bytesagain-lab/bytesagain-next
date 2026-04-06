@@ -92,9 +92,28 @@ export default async function SkillsPage({
   return (
     <main style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 20px' }}>
       <style dangerouslySetInnerHTML={{ __html: hoverStyle }} />
-      <h1 style={{ fontSize: '2em', color: '#e0e0e0', marginBottom: 8 }}>
-        Browse AI Skills
-      </h1>
+
+      {/* Hero CTA */}
+      <div style={{ textAlign: 'center', padding: '32px 0 40px', borderBottom: '1px solid #1a1a2e', marginBottom: 32 }}>
+        <h1 style={{ fontSize: 'clamp(1.6em,4vw,2.4em)', fontWeight: 900, color: '#e0e0e0', margin: '0 0 12px' }}>
+          Find the Right AI Skill for Any Job
+        </h1>
+        <p style={{ color: '#666', fontSize: '1em', maxWidth: 520, margin: '0 auto 24px' }}>
+          Browse {(total || 43000).toLocaleString()}+ curated AI agent skills. Search by use case, filter by category, get the right tool instantly.
+        </p>
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <a href="/use-case" style={{ padding: '10px 24px', background: 'linear-gradient(135deg,#667eea,#00d4ff)', borderRadius: 8, color: '#fff', textDecoration: 'none', fontWeight: 700, fontSize: '.95em' }}>
+            Browse by Use Case →
+          </a>
+          <a href="/" style={{ padding: '10px 24px', background: 'transparent', border: '1px solid #667eea', borderRadius: 8, color: '#667eea', textDecoration: 'none', fontWeight: 600, fontSize: '.95em' }}>
+            Pick My Role
+          </a>
+        </div>
+      </div>
+
+      <h2 style={{ fontSize: '1.2em', color: '#e0e0e0', marginBottom: 8 }}>
+        All Skills {cat !== 'all' ? `— ${cat}` : ''}
+      </h2>
       <p style={{ color: '#666', marginBottom: 24 }}>
         {total.toLocaleString()} skills {cat !== 'all' ? `in "${cat}"` : 'total'}{rawQ ? ` matching "${rawQ}"` : ''}
       </p>
