@@ -56,43 +56,35 @@ export default async function HomePage() {
         </p>
 
         {/* Intent search */}
-        <div style={{ marginBottom: 24 }}>
+        <div style={{ marginBottom: 16 }}>
           <IntentSearch />
+        </div>
+
+        {/* Popular Use Cases — 紧跟 intent search 下方 */}
+        <div style={{ marginBottom: 24, textAlign: 'left' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+            <span style={{ fontSize: '.8em', color: '#555', textTransform: 'uppercase', letterSpacing: 1 }}>Popular use cases</span>
+            <a href="/use-case" style={{ color: '#667eea', fontSize: '.8em', fontWeight: 600, textDecoration: 'none' }}>View all →</a>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 10 }}>
+            {[
+              { icon: '📋', title: 'Meeting Notes', href: '/use-case/meeting-notes-actions' },
+              { icon: '📰', title: 'Daily Digest', href: '/use-case/daily-reddit-digest' },
+              { icon: '🧠', title: 'Knowledge Base', href: '/use-case/knowledge-base-rag' },
+              { icon: '📧', title: 'Inbox Cleanup', href: '/use-case/inbox-declutter' },
+            ].map(uc => (
+              <a key={uc.href} href={uc.href} style={{ textDecoration: 'none' }}>
+                <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 10, padding: '12px 14px', display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <span style={{ fontSize: '1.2em' }}>{uc.icon}</span>
+                  <span style={{ color: '#ccc', fontSize: '.88em', fontWeight: 600 }}>{uc.title}</span>
+                </div>
+              </a>
+            ))}
+          </div>
         </div>
 
         {/* Role selector + search */}
         <HomeClient articles={articles} searchAbove />
-      </section>
-
-      {/* Popular Use Cases */}
-      <section style={{ marginBottom: 48 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-          <div>
-            <h2 style={{ fontSize: '1.4em', color: '#e0e0e0', margin: 0, fontWeight: 700 }}>Popular Use Cases</h2>
-            <p style={{ color: '#555', fontSize: '.85em', margin: '4px 0 0' }}>Real workflows, ready-to-use skill stacks</p>
-          </div>
-          <a href="/use-case" style={{ color: '#667eea', fontSize: '.88em', fontWeight: 600, textDecoration: 'none', whiteSpace: 'nowrap' }}>
-            View all →
-          </a>
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 14 }}>
-          {[
-            { icon: '📋', title: 'Meeting Notes & Actions', desc: 'Auto-capture action items from any meeting', href: '/use-case/meeting-notes-actions' },
-            { icon: '📰', title: 'Daily Reddit Digest', desc: 'Top posts from your subreddits, summarized', href: '/use-case/daily-reddit-digest' },
-            { icon: '🧠', title: 'Personal Knowledge Base', desc: 'Build a searchable second brain with RAG', href: '/use-case/knowledge-base-rag' },
-            { icon: '💰', title: 'Quant Trading', desc: 'Backtesting, signals, and portfolio tools', href: '/use-case/quant-finance' },
-            { icon: '📧', title: 'Inbox Declutter', desc: 'Triage and summarize your email backlog', href: '/use-case/inbox-declutter' },
-            { icon: '🎙️', title: 'Podcast Production', desc: 'From recording to show notes, automated', href: '/use-case/podcast-production' },
-          ].map(uc => (
-            <a key={uc.href} href={uc.href} style={{ textDecoration: 'none' }}>
-              <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 12, padding: '18px 20px', cursor: 'pointer' }}>
-                <div style={{ fontSize: '1.6em', marginBottom: 8 }}>{uc.icon}</div>
-                <div style={{ fontWeight: 700, color: '#e0e0e0', fontSize: '.95em', marginBottom: 6 }}>{uc.title}</div>
-                <div style={{ fontSize: '.82em', color: '#555', lineHeight: 1.5 }}>{uc.desc}</div>
-              </div>
-            </a>
-          ))}
-        </div>
       </section>
 
       {/* AI Mode banner */}
