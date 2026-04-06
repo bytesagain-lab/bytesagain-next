@@ -37,8 +37,11 @@ export default function NavBar() {
   return (
     <header style={{ padding: '14px 0', background: '#0a0a1a', borderBottom: '1px solid #1a1a2e' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <a href="/" style={{ fontSize: '1.5em', fontWeight: 800, textDecoration: 'none', background: 'linear-gradient(135deg,#667eea,#00d4ff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-          BytesAgain
+        <a href="/" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
+          <img src="/avatar-x.jpg" alt="BytesAgain" style={{ width: 32, height: 32, borderRadius: '50%' }} />
+          <span style={{ fontSize: '1.2em', fontWeight: 800, background: 'linear-gradient(135deg,#667eea,#00d4ff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+            BytesAgain
+          </span>
         </a>
         <nav style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
           <a href="/articles" style={{ color: '#ccc', textDecoration: 'none', fontSize: '.9em' }}>{t.nav_articles}</a>
