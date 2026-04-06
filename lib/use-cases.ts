@@ -2849,4 +2849,40 @@ export const USE_CASES: UseCase[] = [
     ],
     searchLink: '/skills?q=podcast+production+audio',
   },
+
+  {
+    slug: 'ai-property-analyst',
+    title: 'Analyze real estate data quickly',
+    description: 'Automate property insights and market trends for agents.',
+    icon: '💼',
+    skills: [{ slug: 'data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }, { slug: 'us-stock-analysis', name: 'Us Stock Analysis', reason: 'Us Stock Analysis' }, { slug: 'market-analysis-cn', name: 'Market Analysis CN | 市场分析服务', reason: 'Market Analysis CN | 市场分析服务' }, { slug: 'fundamental-stock-analysis', name: 'Fundamental Stock Analysis', reason: 'Fundamental Stock Analysis' }],
+  },
+  {
+    slug: 'newsroom-ai-editor',
+    title: 'Edit and optimize news content',
+    description: 'Improve journalism quality with AI-driven editing tools.',
+    icon: '✍️',
+    skills: [{ slug: 'newsletter-writer', name: 'newsletter writer', reason: 'newsletter writer' }, { slug: 'zip', name: 'zip', reason: 'zip' }, { slug: 'communityhub', name: 'communityhub', reason: 'communityhub' }, { slug: 'campaign', name: 'campaign', reason: 'campaign' }],
+  },
+  {
+    slug: 'legal-doc-generator',
+    title: 'Generate legal documents fast',
+    description: 'Create contracts and forms using AI templates.',
+    icon: '💼',
+    skills: [{ slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios t', reason: 'It is designed for scenarios t' }, { slug: 'bookmark-keeper', name: 'bookmark keeper', reason: 'bookmark keeper' }, { slug: 'statute', name: 'statute', reason: 'statute' }, { slug: 'zapier-recipe', name: 'Automation Recipe', reason: 'Automation Recipe' }],
+  },
+  {
+    slug: 'task-automation-pro',
+    title: 'Automate repetitive work tasks',
+    description: 'Streamline workflows with AI-powered automation tools.',
+    icon: '💼',
+    skills: [{ slug: 'youtube-script', name: 'youtube script', reason: 'youtube script' }, { slug: 'instagram-caption', name: 'instagram caption', reason: 'instagram caption' }, { slug: 'newsletter-writer', name: 'newsletter writer', reason: 'newsletter writer' }, { slug: 'funnel-analyzer', name: 'funnel analyzer', reason: 'funnel analyzer' }],
+  },
+  {
+    slug: 'market-trend-insight',
+    title: 'Track real estate market changes',
+    description: 'Get real-time updates on property trends and prices.',
+    icon: '📈',
+    skills: [{ slug: 'data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }, { slug: 'us-stock-analysis', name: 'Us Stock Analysis', reason: 'Us Stock Analysis' }, { slug: 'market-analysis-cn', name: 'Market Analysis CN | 市场分析服务', reason: 'Market Analysis CN | 市场分析服务' }, { slug: 'fundamental-stock-analysis', name: 'Fundamental Stock Analysis', reason: 'Fundamental Stock Analysis' }],
+  },
 ]
