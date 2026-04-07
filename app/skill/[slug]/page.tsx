@@ -9,8 +9,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params
   const skill = await getSkill(slug)
   if (!skill) return { title: 'Not Found' }
-  // 低质量 slug 加 noindex：-old 后缀 或 0下载且非自有
-  const noindex = slug.endsWith('-old') || (skill.downloads === 0 && !skill.is_ours)
+  // 低质量 slug 加 noindex：仅 -old 后缀
+  const noindex = slug.endsWith('-old')
   return {
     title: skill.name || slug,
     description: skill.description?.slice(0, 160),
