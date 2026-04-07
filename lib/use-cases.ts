@@ -112,7 +112,7 @@ export const USE_CASES: UseCase[] = [
     description: 'AI skills for YouTubers, bloggers, and social media creators who want to produce more content with less effort.',
     icon: '🎬',
     skills: [
-      { slug: 'hr-toolkit', name: 'hr toolkit', reason: 'Top-rated toolkit skill with 636 downloads' }, { slug: 'shopify-toolkit', name: 'shopify toolkit', reason: 'Top-rated toolkit skill with 499 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated toolkit skill with 426 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated toolkit skill with 371 downloads' }, { slug: 'discord-toolkit', name: 'discord toolkit', reason: 'Top-rated toolkit skill with 340 downloads' }
+      { slug: 'bytesagain-x-algorithm-guide', name: 'X Algorithm Guide', reason: '2026 X algorithm rules, tweet auditor & AI draft generator' }, { slug: 'shopify-toolkit', name: 'shopify toolkit', reason: 'Top-rated toolkit skill with 499 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated toolkit skill with 426 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated toolkit skill with 371 downloads' }, { slug: 'discord-toolkit', name: 'discord toolkit', reason: 'Top-rated toolkit skill with 340 downloads' }
     ],
   },
   {
@@ -505,7 +505,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Generate SEO-optimized blog posts, newsletters, and social media captions in seconds.',
     icon: '✍️',
     skills: [
-      { slug: 'coze-studio', name: 'Coze Studio', reason: 'Top-rated studio skill with 277 downloads' }, { slug: 'azuredatastudio', name: 'azuredatastudio', reason: 'Top-rated studio skill with 264 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
+      { slug: 'coze-studio', name: 'Coze Studio', reason: 'Top-rated studio skill with 277 downloads' }, { slug: 'azuredatastudio', name: 'azuredatastudio', reason: 'Top-rated studio skill with 264 downloads' }, { slug: 'bytesagain-x-algorithm-guide', name: 'X Algorithm Guide', reason: '2026 X algorithm rules and tweet optimization' }
     ],
     searchLink: '/skills?q=blog+social+newsletter',
   },
@@ -717,7 +717,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Schedules cross-platform posts, monitors brand mentions, and sends context-aware auto-replies.',
     icon: '📱',
     skills: [
-      { slug: 'linkedin-post', name: 'linkedin post', reason: 'Top-rated post skill with 382 downloads' }, { slug: 'social-automator', name: 'social automator', reason: 'Top-rated social skill with 137 downloads' }, { slug: 'social-scraper', name: 'social scraper', reason: 'Top-rated social skill with 114 downloads' }
+      { slug: 'linkedin-post', name: 'linkedin post', reason: 'Top-rated post skill with 382 downloads' }, { slug: 'bytesagain-x-algorithm-guide', name: 'X Algorithm Guide', reason: '2026 X algorithm: 10x reach with right posting strategy' }, { slug: 'social-scraper', name: 'social scraper', reason: 'Top-rated social skill with 114 downloads' }
     ],
     searchLink: '/skills?q=social+schedule+monitor',
   },

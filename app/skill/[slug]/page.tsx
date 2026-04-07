@@ -62,7 +62,8 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
       .then(r => r.ok ? r.json() : null)
       .then(d => {
         if (!d) return
-        const dl = d.skill?.stats?.downloads || d.downloads || 0        if (dl > 0) {
+        const dl = d.skill?.stats?.downloads || d.downloads || 0
+        if (dl > 0) {
           // 写回 DB（用 service role key 的 REST API）
           const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
           const SB_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
