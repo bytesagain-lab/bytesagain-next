@@ -19,6 +19,9 @@ export interface Skill {
   downloads: number
   version: string
   owner: string
+  is_ours?: boolean
+  tags?: string[]
+  source?: string
 }
 
 export interface Article {
