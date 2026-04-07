@@ -55,6 +55,28 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
 
   if (!skill) notFound()
 
+  // 后台异步刷新 ClawHub 下载量（不阻塞渲染，fire-and-forget）
+  if ((skill as any).source === 'clawhub' || !(skill as any).source) {
+    fetch(`https://clawhub.ai/api/v1/skills/${slug}`, { next: { revalidate: 0 } })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        if (!d) return
+        const dl = d.skill?.stats?.downloads || d.downloads || 0
+        if (dl > 0) {
+          // 写回 DB（用 service role key 的 REST API）
+          const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
+          const SB_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
+          if (SB_URL && SB_KEY) {
+            fetch(`${SB_URL}/rest/v1/skills?slug=eq.${slug}`, {
+              method: 'PATCH',
+              headers: { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}`, 'Content-Type': 'application/json' },
+              body: JSON.stringify({ downloads: dl }),
+            }).catch(() => {})
+          }
+        }
+      }).catch(() => {})
+  }
+
   // 根据来源确定外链和badge
   const source = (skill as any).source || 'clawhub'
   const sourceUrl = (skill as any).source_url || ''
