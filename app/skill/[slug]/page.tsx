@@ -57,7 +57,8 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
 
   // 后台异步刷新 ClawHub 下载量（不阻塞渲染，fire-and-forget）
   if ((skill as any).source === 'clawhub' || !(skill as any).source) {
-    fetch(`https://clawhub.ai/api/v1/skills/${slug}`, { next: { revalidate: 0 } })
+    const chSlug = slug.startsWith('clawhub-') ? slug.slice('clawhub-'.length) : slug
+    fetch(`https://clawhub.ai/api/v1/skills/${chSlug}`, { next: { revalidate: 0 } })
       .then(r => r.ok ? r.json() : null)
       .then(d => {
         if (!d) return

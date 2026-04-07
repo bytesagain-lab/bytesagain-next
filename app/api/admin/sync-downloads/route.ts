@@ -33,8 +33,10 @@ export async function GET(req: NextRequest) {
   const results: { slug: string; downloads: number; status: string }[] = []
 
   for (const { slug } of skills) {
+    // DB slug 带 clawhub- 前缀，ClawHub API 用原始 slug
+    const chSlug = slug.startsWith('clawhub-') ? slug.slice('clawhub-'.length) : slug
     try {
-      const r = await fetch(`https://clawhub.ai/api/v1/skills/${slug}`, {
+      const r = await fetch(`https://clawhub.ai/api/v1/skills/${chSlug}`, {
         headers: { 'User-Agent': 'Mozilla/5.0 (compatible; BytesAgain/1.0)' },
         signal: AbortSignal.timeout(8000),
       })
