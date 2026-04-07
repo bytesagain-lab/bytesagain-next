@@ -48,7 +48,7 @@ export async function GET(req: NextRequest) {
       }
       if (r.ok) {
         const d = await r.json()
-        const dl = d?.downloads || d?.download_count || 0
+        const dl = d?.skill?.stats?.downloads || d?.downloads || d?.download_count || 0
         if (dl > 0) {
           await supabase.from('skills').update({ downloads: dl }).eq('slug', slug)
         }
