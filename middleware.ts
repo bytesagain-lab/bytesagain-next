@@ -27,5 +27,6 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+  // 只在 dashboard、auth 相关页面跑 middleware，避免 skill/use-case 等内容页超时
+  matcher: ['/dashboard/:path*', '/login', '/register', '/auth/:path*'],
 }
