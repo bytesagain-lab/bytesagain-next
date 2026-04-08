@@ -21,12 +21,11 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  // Refresh session
   await supabase.auth.getUser()
   return supabaseResponse
 }
 
 export const config = {
-  // 只在 dashboard、auth 相关页面跑 middleware，避免 skill/use-case 等内容页超时
-  matcher: ['/dashboard/:path*', '/login', '/register', '/auth/:path*'],
+  // 只匹配 dashboard，其余所有页面跳过 middleware
+  matcher: ['/dashboard/:path*'],
 }
