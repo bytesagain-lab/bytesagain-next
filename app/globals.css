@@ -44,3 +44,9 @@ body {
 .article-content hr { border: none; border-top: 1px solid #1a1a2e; margin: 2em 0; }
 .article-content strong { color: #e0e0e0; }
 .article-content blockquote { border-left: 3px solid #667eea; margin: 0 0 1em; padding-left: 16px; color: #777; }
+
+/* Homepage use case cards */
+.use-case-card:hover {
+  border-color: #667eea66 !important;
+  transform: translateY(-2px);
+}
