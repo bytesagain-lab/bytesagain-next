@@ -28,10 +28,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
-export async function generateStaticParams() {
-  const articles = await getArticles(100)
-  return articles.map(a => ({ slug: a.slug }))
-}
+export const dynamic = 'force-dynamic'
+export const revalidate = 3600
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params

@@ -1,6 +1,9 @@
 import { getArticles } from '@/lib/supabase'
 import type { Metadata } from 'next'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 3600
+
 export const metadata: Metadata = {
   title: 'Articles & Guides',
   description: 'Guides, comparisons, and tutorials about AI agent skills for developers and teams.',

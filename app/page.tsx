@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import { getArticles } from '@/lib/supabase'
 import { createClient } from '@supabase/supabase-js'
 import HomeClient from './components/HomeClient'
