@@ -1,18 +1,22 @@
 import { getSkills, getArticles } from '@/lib/supabase'
 import { NextResponse } from 'next/server'
 
-export async function GET() {
-  const [skills, articles] = await Promise.all([
-    getSkills(200),
-    getArticles(50),
-  ])
+export const dynamic = 'force-dynamic'
+export const revalidate = 3600
 
-  const text = `# BytesAgain — Full Content Index
+export async function GET() {
+  try {
+    const [skills, articles] = await Promise.all([
+      getSkills(200),
+      getArticles(50),
+    ])
+
+    const text = `# BytesAgain — Full Content Index
 
 > Curated AI agent skills for Claude, ChatGPT, Cursor, and every AI agent.
 
 BytesAgain is the skill recommendation platform for the open SKILL.md ecosystem.
-We curate, categorize, and recommend skills from 100,000+ sources worldwide.
+We curate, categorize, and recommend skills from 50,000+ sources worldwide.
 
 ## About
 
@@ -52,10 +56,15 @@ hello@bytesagain.com
 https://bytesagain.com
 `
 
-  return new NextResponse(text, {
-    headers: {
-      'Content-Type': 'text/plain; charset=utf-8',
-      'Cache-Control': 'public, max-age=3600',
-    },
-  })
+    return new NextResponse(text, {
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Cache-Control': 'public, max-age=3600',
+      },
+    })
+  } catch (e) {
+    return new NextResponse('# BytesAgain\n\nhttps://bytesagain.com\n', {
+      headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+    })
+  }
 }
