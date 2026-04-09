@@ -1,3 +1,4 @@
+export const revalidate = 86400
 import { USE_CASES } from '@/lib/use-cases'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'

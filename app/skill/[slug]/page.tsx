@@ -1,3 +1,4 @@
+export const revalidate = 86400
 import { getSkill, getSkills } from '@/lib/supabase'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
