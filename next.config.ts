@@ -11,6 +11,18 @@ const nextConfig: NextConfig = {
       { source: '/wp-admin', destination: '/login', permanent: true },
       { source: '/wp-admin/:path*', destination: '/login', permanent: true },
 
+      // ── 404 爬虫页面 → 相关页面 301 ─────────────────────────────
+      { source: '/traceroute-visual', destination: '/skills', permanent: true },
+      { source: '/traceroute-visual/', destination: '/skills', permanent: true },
+      { source: '/bmi', destination: '/use-case/health-wellness', permanent: true },
+      { source: '/shadow', destination: '/skills', permanent: true },
+      { source: '/assert', destination: '/skills', permanent: true },
+      { source: '/tidyup', destination: '/skills', permanent: true },
+      { source: '/cache', destination: '/skills', permanent: true },
+      { source: '/app-store-optimization', destination: '/use-case/app-store-optimization', permanent: false },
+      // ── 文章 slug 兼容 ───────────────────────────────────────────
+      { source: '/article/lora-fine-tuning-ai-skills-2026', destination: '/articles', permanent: false },
+
       // ── 老 EasyWP 页面 → Next.js 对应页面 ──────────────────────
       // GA4 有流量的页面
       { source: '/vision', destination: '/skill/vision', permanent: true },
