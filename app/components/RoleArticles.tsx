@@ -134,7 +134,11 @@ export default function RoleArticles({ role, allArticles }: { role: string | nul
       )}
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(240px,1fr))', gap: 12 }}>
-        {articles.map(a => (
+        {articles.length === 0 ? (
+          <div style={{ color: '#444', fontSize: '.88em', padding: '20px 0' }}>
+            Articles are loading… <a href="/articles" style={{ color: '#667eea' }}>View all →</a>
+          </div>
+        ) : articles.map(a => (
           <a key={a.slug} href={`/article/${a.slug}`} style={{
             display: 'block', padding: '18px 20px',
             background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 12,

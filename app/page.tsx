@@ -33,7 +33,8 @@ const POPULAR_USE_CASES = [
 ]
 
 export default async function HomePage() {
-  const articles = await getArticles(20)
+  let articles: Awaited<ReturnType<typeof getArticles>> = []
+  try { articles = await getArticles(20) } catch { articles = [] }
 
   return (
     <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 20px' }}>
