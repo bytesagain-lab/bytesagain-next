@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
 }
 
-export const revalidate = 86400
+
 
 const POPULAR_USE_CASES = [
   { icon: '🚀', title: 'Build SaaS', href: '/use-case/build-saas' },
