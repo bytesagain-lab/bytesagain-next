@@ -1,5 +1,4 @@
-export const dynamic = 'force-dynamic'
-export const revalidate = 3600
+export const revalidate = 86400
 
 import { USE_CASES } from '@/lib/use-cases'
 import type { Metadata } from 'next'

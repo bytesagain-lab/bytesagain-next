@@ -1,4 +1,4 @@
-export const dynamic = 'force-dynamic'
+export const revalidate = 3600
 import { getArticles } from '@/lib/supabase'
 import HomeClient from './components/HomeClient'
 import IntentSearch from './components/IntentSearch'
