@@ -86,20 +86,23 @@ export default async function HomePage() {
         flexWrap: 'wrap',
       }}>
         {[
-          { value: '262', label: 'Use Cases' },
-          { value: '50K+', label: 'Skills Indexed' },
-          { value: 'Free', label: 'No Sign-up Needed' },
+          { value: '50,000+', label: 'Skills Indexed', arrow: true },
+          { value: '262', label: 'Ready Workflows', arrow: true },
+          { value: 'Yours', label: 'Find in Seconds', arrow: false },
         ].map(s => (
-          <div key={s.label} style={{ textAlign: 'center' }}>
-            <div style={{
-              fontSize: 'clamp(1.6em, 4vw, 2.4em)',
-              fontWeight: 800,
-              background: 'linear-gradient(135deg, #667eea, #00d4ff)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              lineHeight: 1.1,
-            }}>{s.value}</div>
-            <div style={{ color: '#555', fontSize: '.85em', marginTop: 4 }}>{s.label}</div>
+          <div key={s.label} style={{ textAlign: 'center', display: 'flex', alignItems: 'center', gap: 'clamp(12px, 3vw, 40px)' }}>
+            <div>
+              <div style={{
+                fontSize: 'clamp(1.6em, 4vw, 2.4em)',
+                fontWeight: 800,
+                background: 'linear-gradient(135deg, #667eea, #00d4ff)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                lineHeight: 1.1,
+              }}>{s.value}</div>
+              <div style={{ color: '#555', fontSize: '.85em', marginTop: 4 }}>{s.label}</div>
+            </div>
+            {s.arrow && <div style={{ color: '#333', fontSize: '1.4em', flexShrink: 0 }}>→</div>}
           </div>
         ))}
       </section>
