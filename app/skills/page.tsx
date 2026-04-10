@@ -88,8 +88,15 @@ export default async function SkillsPage({
     }
   }
 
-  const { data: skills, count } = await query.throwOnError().catch(() => ({ data: [] as any[], count: 0, error: null })) as any
-  const total = count || 55000
+  let skills: any[] = []
+  let total = 55000
+  try {
+    const { data, count } = await query
+    skills = data || []
+    total = count || 55000
+  } catch {
+    skills = []
+  }
   const totalPages = Math.ceil(total / PAGE_SIZE)
 
   return (
