@@ -1,4 +1,4 @@
-export const dynamic = 'force-dynamic'
+export const revalidate = 3600
 
 
 import { createClient } from '@supabase/supabase-js'
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://bytesagain.com/skills' },
 }
 
-export const revalidate = 3600
+
 
 const CATEGORIES = [
   'all',
