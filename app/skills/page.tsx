@@ -73,7 +73,7 @@ export default async function SkillsPage({
 
   let query = supabase
     .from('skills')
-    .select('slug,name,description,category,tags,downloads,stars,source,source_url,owner', { count: 'exact' })
+    .select('slug,name,description,category,tags,downloads,stars,source,source_url,owner', { count: 'planned' })
     .order('downloads', { ascending: false })
     .range(from, from + PAGE_SIZE - 1)
 
@@ -88,8 +88,8 @@ export default async function SkillsPage({
     }
   }
 
-  const { data: skills, count } = await query
-  const total = count || 0
+  const { data: skills, count } = await query.throwOnError().catch(() => ({ data: [] as any[], count: 0, error: null })) as any
+  const total = count || 55000
   const totalPages = Math.ceil(total / PAGE_SIZE)
 
   return (
