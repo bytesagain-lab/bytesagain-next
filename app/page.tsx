@@ -30,6 +30,8 @@ const POPULAR_USE_CASES = [
   { icon: '🔍', title: 'SEO & GEO', href: '/use-case/seo-geo' },
   { icon: '📋', title: 'Meeting Notes', href: '/use-case/meeting-notes-actions' },
   { icon: '🧠', title: 'Knowledge Base', href: '/use-case/knowledge-base-rag' },
+  { icon: '💼', title: 'Job Hunting', href: '/use-case/job-hunting' },
+  { icon: '📈', title: 'Stock Investor', href: '/use-case/stock-investor' },
 ]
 
 export default async function HomePage() {
