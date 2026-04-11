@@ -91,9 +91,10 @@ export default async function SkillsPage({
   let skills: any[] = []
   let total = 55000
   try {
-    const { data, count } = await query
-    skills = data || []
-    total = count || 55000
+    const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 5000))
+    const result = await Promise.race([query, timeout]) as any
+    skills = result.data || []
+    total = result.count || 55000
   } catch {
     skills = []
   }
