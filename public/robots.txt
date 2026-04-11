@@ -4,30 +4,46 @@ Disallow: /api/
 Disallow: /dashboard/
 Disallow: /login/
 Disallow: /register/
+Disallow: /skill/github-*
 Crawl-delay: 5
 
-User-Agent: GPTBot
+User-Agent: Googlebot
 Allow: /
+Disallow: /api/
+Disallow: /dashboard/
+Disallow: /skill/github-*
+Crawl-delay: 10
+
+User-Agent: GPTBot
+Disallow: /skill/
+Disallow: /article/
 Crawl-delay: 10
 
 User-Agent: Google-Extended
-Allow: /
-Crawl-delay: 5
+Disallow: /skill/
+Disallow: /article/
+Crawl-delay: 10
 
 User-Agent: ClaudeBot
-Allow: /
+Disallow: /skill/
+Disallow: /article/
 Crawl-delay: 10
 
 User-Agent: Amazonbot
-Allow: /
+Disallow: /skill/
+Disallow: /article/
 Crawl-delay: 10
 
 User-Agent: Bingbot
 Allow: /
-Crawl-delay: 5
+Disallow: /api/
+Disallow: /dashboard/
+Disallow: /skill/github-*
+Crawl-delay: 10
 
 User-Agent: PerplexityBot
-Allow: /
+Disallow: /skill/
+Disallow: /article/
 Crawl-delay: 10
 
 Host: https://bytesagain.com
