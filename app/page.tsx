@@ -89,7 +89,7 @@ export default async function HomePage() {
       }}>
         {[
           { value: '50,000+', label: 'Skills Indexed', arrow: true },
-          { value: '262', label: 'Ready Workflows', arrow: true },
+          { value: '299', label: 'Ready Workflows', arrow: true },
           { value: 'Yours', label: 'Find in Seconds', arrow: false },
         ].map(s => (
           <div key={s.label} style={{ textAlign: 'center', display: 'flex', alignItems: 'center', gap: 'clamp(12px, 3vw, 40px)' }}>
@@ -129,7 +129,7 @@ export default async function HomePage() {
             color: '#667eea', fontSize: '.85em', fontWeight: 600,
             textDecoration: 'none', whiteSpace: 'nowrap',
           }}>
-            Browse all 262 →
+            Browse all 299 →
           </Link>
         </div>
 
