@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import InstallCommand from '@/app/components/InstallCommand'
 import RelatedSkills from '@/app/components/RelatedSkills'
+import RelatedUseCases from '@/app/components/RelatedUseCases'
 import SkillActions from '@/app/components/SkillActions'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -176,6 +177,8 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
           </p>
         </div>
       </div>
+
+      <RelatedUseCases tags={skill.tags || []} skillName={skill.name || slug} />
 
       <RelatedSkills category={skill.category} currentSlug={slug} name={skill.name} />
 
