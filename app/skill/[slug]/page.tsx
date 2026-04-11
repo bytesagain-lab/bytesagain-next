@@ -5,8 +5,8 @@ import type { Metadata } from 'next'
 import InstallCommand from '@/app/components/InstallCommand'
 import RelatedSkills from '@/app/components/RelatedSkills'
 import RelatedUseCases from '@/app/components/RelatedUseCases'
-import dynamic from 'next/dynamic'
-const SkillActions = dynamic(() => import('@/app/components/SkillActions'), { ssr: false })
+import nextDynamic from 'next/dynamic'
+const SkillActions = nextDynamic(() => import('@/app/components/SkillActions'), { ssr: false })
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
-export const dynamic = 'force-dynamic'
+
 
 
 export async function generateStaticParams() {
