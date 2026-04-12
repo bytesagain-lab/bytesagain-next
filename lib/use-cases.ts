@@ -3095,4 +3095,40 @@ export const USE_CASES: UseCase[] = [
     icon: '🧾',
     skills: [{ slug: 'clawhub-expense-tracker', name: 'Clawhub Expense Tracker', reason: 'Expense documentation' }, { slug: 'clawhub-excel-formula', name: 'Clawhub Excel Formula Pro', reason: 'Tax calculation formulas' }, { slug: 'legal-advisor', name: 'Legal Document Analyzer', reason: 'Tax document review' }],
   },
+
+  {
+    slug: 'startup-founder-toolkit',
+    title: 'Discover AI tools for startup founders',
+    description: 'Find the best AI tools tailored for startup founders.',
+    icon: '💼',
+    skills: [{ slug: 'gh-what-is-data-science-o-reilly', name: 'What is Data Science @ Oreilly', reason: 'What is Data Science @ Oreilly' }, { slug: 'lobehub-bizkaia-entrepreneurship-expert', name: 'Bizkaia Entrepreneurship Exper', reason: 'Bizkaia Entrepreneurship Exper' }, { slug: 'lobehub-entrepreneurship-and-competitiveness-expert', name: 'Entrepreneurship and Competiti', reason: 'Entrepreneurship and Competiti' }, { slug: 'clawhub-marketing-mode', name: 'Marketing Mode', reason: 'Marketing Mode' }],
+  },
+  {
+    slug: 'freelancer-writing-ai',
+    title: 'Boost freelance writing with AI',
+    description: 'Use AI to enhance content creation for freelancers.',
+    icon: '✍️',
+    skills: [{ slug: 'clawhub-youtube-watcher', name: 'YouTube Watcher', reason: 'YouTube Watcher' }, { slug: 'clawhub-humanize-ai-text', name: 'Humanize AI text', reason: 'Humanize AI text' }, { slug: 'clawhub-imap-smtp-email', name: 'imap-smtp-email', reason: 'imap-smtp-email' }, { slug: 'clawhub-liang-tavily-search', name: 'Tavily Search', reason: 'Tavily Search' }],
+  },
+  {
+    slug: 'legal-ai-assistant',
+    title: 'Automate legal tasks with AI',
+    description: 'Streamline legal workflows using AI-powered tools.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-tavily', name: 'Tavily AI Search', reason: 'Tavily AI Search' }, { slug: 'clawhub-web-search-exa', name: 'Web Search by Exa', reason: 'Web Search by Exa' }, { slug: 'clawhub-deep-research-pro', name: 'Deep Research Pro', reason: 'Deep Research Pro' }, { slug: 'clawhub-exa-web-search-free', name: 'Exa Web Search (Free)', reason: 'Exa Web Search (Free)' }],
+  },
+  {
+    slug: 'seo-tool-for-startups',
+    title: 'Optimize SEO for startups',
+    description: 'Leverage AI SEO tools to boost startup visibility.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-marketing-mode', name: 'Marketing Mode', reason: 'Marketing Mode' }, { slug: 'clawhub-wed-1-0-1', name: 'Wed 1.0.1', reason: 'Wed 1.0.1' }, { slug: 'clawhub-screenshot', name: 'Screenshot', reason: 'Screenshot' }, { slug: 'clawhub-marketing-strategy-pmm', name: 'Marketing Strategy Pmm', reason: 'Marketing Strategy Pmm' }],
+  },
+  {
+    slug: 'freelance-marketing-ai',
+    title: 'Enhance freelance marketing with AI',
+    description: 'Use AI to manage and grow freelance marketing efforts.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-marketing-mode', name: 'Marketing Mode', reason: 'Marketing Mode' }, { slug: 'clawhub-mailchimp', name: 'Mailchimp', reason: 'Mailchimp' }, { slug: 'clawhub-copywriting', name: 'Copywriting', reason: 'Copywriting' }, { slug: 'clawhub-marketing-skills', name: 'Marketing Skills', reason: 'Marketing Skills' }],
+  },
 ]
