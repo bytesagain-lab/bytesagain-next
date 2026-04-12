@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   // 低质量 slug 加 noindex：仅 -old 后缀
   const noindex = slug.endsWith('-old')
   return {
-    title: skill.name || slug,
+    title: `${skill.name || slug} — AI Agent Skill | BytesAgain`,
     description: skill.description?.slice(0, 160),
     alternates: { canonical: `https://bytesagain.com/skill/${slug}` },
     ...(noindex ? { robots: { index: false, follow: false } } : {}),
