@@ -3222,4 +3222,40 @@ export const USE_CASES: UseCase[] = [
     icon: '✍️',
     skills: [{ slug: 'clawhub-ffmpeg-video-editor', name: 'ffmpeg-video-editor', reason: 'ffmpeg-video-editor' }, { slug: 'clawhub-image-edit', name: 'Image Editing', reason: 'Image Editing' }, { slug: 'clawhub-image-generation', name: 'AI Image Generation', reason: 'AI Image Generation' }, { slug: 'clawhub-ai-video-gen', name: 'Ai Video Gen', reason: 'Ai Video Gen' }],
   },
+
+  {
+    slug: 'video-automation-suite',
+    title: 'Automate video production workflows',
+    description: 'Streamline video creation with AI-driven automation.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-humanizer', name: 'Humanizer', reason: 'Humanizer' }, { slug: 'clawhub-image-cog', name: 'Image Cog', reason: 'Image Cog' }, { slug: 'clawhub-ffmpeg-video-editor', name: 'ffmpeg-video-editor', reason: 'ffmpeg-video-editor' }, { slug: 'clawhub-best-image-generation', name: 'Best Image Generation', reason: 'Best Image Generation' }],
+  },
+  {
+    slug: 'podcast-audio-enhancer',
+    title: 'Enhance podcast audio quality',
+    description: 'Improve clarity and professionalism of audio tracks.',
+    icon: '✍️',
+    skills: [{ slug: 'clawhub-markdown-converter', name: 'Markdown Converter', reason: 'Markdown Converter' }, { slug: 'clawhub-pdf-extract', name: 'Pdf Extract', reason: 'Pdf Extract' }, { slug: 'clawhub-pdf-text-extractor', name: 'PDF Text Extractor', reason: 'PDF Text Extractor' }, { slug: 'clawhub-adaptive-reasoning', name: 'Adaptive Reasoning', reason: 'Adaptive Reasoning' }],
+  },
+  {
+    slug: 'legal-doc-automator',
+    title: 'Automate legal document drafting',
+    description: 'Generate and review legal documents quickly.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-tavily', name: 'Tavily AI Search', reason: 'Tavily AI Search' }, { slug: 'clawhub-web-search-exa', name: 'Web Search by Exa', reason: 'Web Search by Exa' }, { slug: 'clawhub-web-search', name: 'Web Search', reason: 'Web Search' }, { slug: 'clawhub-deep-research-pro', name: 'Deep Research Pro', reason: 'Deep Research Pro' }],
+  },
+  {
+    slug: 'content-clip-editor',
+    title: 'Edit video clips efficiently',
+    description: 'Quickly trim, arrange, and enhance video clips.',
+    icon: '✍️',
+    skills: [{ slug: 'clawhub-humanizer', name: 'Humanizer', reason: 'Humanizer' }, { slug: 'clawhub-image-cog', name: 'Image Cog', reason: 'Image Cog' }, { slug: 'clawhub-ffmpeg-video-editor', name: 'ffmpeg-video-editor', reason: 'ffmpeg-video-editor' }, { slug: 'clawhub-best-image-generation', name: 'Best Image Generation', reason: 'Best Image Generation' }],
+  },
+  {
+    slug: 'podcast-transcription-tool',
+    title: 'Transcribe podcast episodes',
+    description: 'Convert audio to text for easy reference.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-voice-wake-say', name: 'Voice Wake Say', reason: 'Voice Wake Say' }, { slug: 'clawhub-speech-recognition', name: 'speech-recognition', reason: 'speech-recognition' }, { slug: 'clawhub-tradingview-quantitative-skills', name: 'Tradingview Quantitative', reason: 'Tradingview Quantitative' }, { slug: 'clawhub-clawdbot-skill-voice-wake-say', name: 'Voice Wake Say TTS Responses (', reason: 'Voice Wake Say TTS Responses (' }],
+  },
 ]
