@@ -129,7 +129,7 @@ export default async function HomePage() {
             color: '#667eea', fontSize: '.85em', fontWeight: 600,
             textDecoration: 'none', whiteSpace: 'nowrap',
           }}>
-            Browse all 299 →
+            Browse all →
           </Link>
         </div>
 
