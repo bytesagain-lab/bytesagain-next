@@ -13,9 +13,19 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!skill) return { title: 'Not Found' }
   // 低质量 slug 加 noindex：仅 -old 后缀
   const noindex = slug.endsWith('-old')
+  // 生成可读 title：优先用 name，fallback 到 slug
+  const displayName = skill.name || slug
+  const title = `${displayName} — AI Agent Skill | BytesAgain`
+  // description：按句子截断，不硬截
+  const rawDesc = skill.description || ''
+  let metaDesc = rawDesc
+  if (rawDesc.length > 160) {
+    const cutoff = rawDesc.lastIndexOf('.', 158)
+    metaDesc = cutoff > 80 ? rawDesc.slice(0, cutoff + 1) : rawDesc.slice(0, 157) + '...'
+  }
   return {
-    title: `${skill.name || slug} — AI Agent Skill | BytesAgain`,
-    description: skill.description?.slice(0, 160),
+    title,
+    description: metaDesc,
     alternates: { canonical: `https://bytesagain.com/skill/${slug}` },
     ...(noindex ? { robots: { index: false, follow: false } } : {}),
   }
