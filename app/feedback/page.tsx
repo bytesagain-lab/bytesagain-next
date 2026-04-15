@@ -5,6 +5,8 @@ import Link from 'next/link'
 
 const TYPES = [
   { id: 'skill', label: '🔍 Missing Skill', desc: 'A skill you wish existed' },
+  { id: 'usecase', label: '🗂️ Missing Use Case', desc: 'A workflow or scenario not covered' },
+  { id: 'role', label: '🧑‍💼 My Role Isn\'t Here', desc: 'Your job or persona isn\'t listed' },
   { id: 'bug', label: '🐛 Bug Report', desc: 'Something is broken' },
   { id: 'idea', label: '💡 Feature Idea', desc: 'Make BytesAgain better' },
   { id: 'general', label: '💬 General', desc: 'Anything else' },
@@ -117,6 +119,8 @@ export default function FeedbackPage() {
             onChange={e => setMessage(e.target.value)}
             placeholder={
               type === 'skill' ? 'Describe the skill you need. What should it do?' :
+              type === 'usecase' ? 'What workflow or scenario are you trying to automate? What\'s the end goal?' :
+              type === 'role' ? 'What\'s your role or job title? What kind of tasks do you need help with?' :
               type === 'bug' ? 'What happened? What did you expect?' :
               type === 'idea' ? 'What feature would make BytesAgain better?' :
               'What\'s on your mind?'
