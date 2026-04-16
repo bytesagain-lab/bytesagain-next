@@ -17,13 +17,18 @@ function UseCaseSaveButton({ slug }: { slug: string }) {
 
   useEffect(() => {
     const init = async () => {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) { setLoading(false); return }
-      setUserId(user.id)
-      const { data } = await supabase.from('skill_favorites')
-        .select('id').eq('user_id', user.id).eq('skill_slug', favKey).single()
-      setSaved(!!data)
-      setLoading(false)
+      try {
+        const { data: { user } } = await supabase.auth.getUser()
+        if (!user) { setLoading(false); return }
+        setUserId(user.id)
+        const { data } = await supabase.from('skill_favorites')
+          .select('id').eq('user_id', user.id).eq('skill_slug', favKey).single()
+        setSaved(!!data)
+      } catch {
+        // 静默失败，不影响页面
+      } finally {
+        setLoading(false)
+      }
     }
     init()
   }, [slug])
