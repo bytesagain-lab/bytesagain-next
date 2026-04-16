@@ -1,6 +1,58 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { createBrowserClient } from '@supabase/ssr'
 import { USE_CASES } from '@/lib/use-cases'
+
+const supabase = createBrowserClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+)
+
+function UseCaseSaveButton({ slug }: { slug: string }) {
+  const [saved, setSaved] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [userId, setUserId] = useState<string | null>(null)
+  // 用 skill_favorites 表，slug 加 usecase: 前缀区分
+  const favKey = `usecase:${slug}`
+
+  useEffect(() => {
+    const init = async () => {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) { setLoading(false); return }
+      setUserId(user.id)
+      const { data } = await supabase.from('skill_favorites')
+        .select('id').eq('user_id', user.id).eq('skill_slug', favKey).single()
+      setSaved(!!data)
+      setLoading(false)
+    }
+    init()
+  }, [slug])
+
+  const toggle = async () => {
+    if (!userId) { window.location.href = '/login'; return }
+    if (saved) {
+      await supabase.from('skill_favorites').delete().eq('user_id', userId).eq('skill_slug', favKey)
+      setSaved(false)
+    } else {
+      await supabase.from('skill_favorites').insert({ user_id: userId, skill_slug: favKey })
+      setSaved(true)
+    }
+  }
+
+  return (
+    <button onClick={toggle} title={saved ? 'Remove from saved' : 'Save this use case'} style={{
+      padding: '8px 16px', borderRadius: 8,
+      border: saved ? '1px solid #f87171' : '1px solid #1a1a3e',
+      background: saved ? '#f8717122' : '#0f0f23',
+      color: saved ? '#f87171' : '#888',
+      cursor: 'pointer', fontSize: '.9em', fontWeight: 600,
+      display: 'flex', alignItems: 'center', gap: 6,
+      transition: 'all .2s', opacity: loading ? 0.5 : 1,
+    }}>
+      {saved ? '❤️ Saved' : '🤍 Save'}
+    </button>
+  )
+}
 
 interface Skill {
   slug: string
@@ -126,6 +178,11 @@ export default function UseCaseClient({ uc, slug }: { uc: UseCase; slug: string 
   return (
     <>
       <style>{`@keyframes fadeIn { from { opacity:0; transform:translateY(-4px) } to { opacity:1; transform:none } }`}</style>
+
+      {/* 收藏按钮 */}
+      <div style={{ marginBottom: 24 }}>
+        <UseCaseSaveButton slug={slug} />
+      </div>
 
       {/* skill 列表 */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
