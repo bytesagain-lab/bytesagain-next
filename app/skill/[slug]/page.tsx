@@ -90,8 +90,9 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
     : source === 'dify' ? 'View on Dify →'
     : 'View on ClawHub →'
 
-  // 只有自己的skill（is_ours）才显示安装命令
-  const isOurs = (skill as any).is_ours === true || source === 'clawhub' && !(skill as any).source
+  // 自有 skill 判断：owner 是我们的账号之一
+  const OUR_ACCOUNTS = ['ckchzh', 'xueyetianya', 'bytesagain3', 'bytesagain-lab', 'loutai0307-prog', 'bytesagain1']
+  const isOurs = OUR_ACCOUNTS.includes(skill.owner || '')
 
   return (
     <div style={{ maxWidth: 800, margin: '40px auto', padding: '0 20px' }}>
@@ -133,7 +134,18 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
           {skill.owner && <span style={{ fontSize: '.85em', color: '#555' }}>by {skill.owner}</span>}
         </div>
 
-        {/* 安装命令：只对ClawHub/自有skill显示 */}
+        {/* 自有skill：BytesAgain badge + 安装命令 */}
+        {isOurs && (
+          <div style={{ marginBottom: 20 }}>
+            <span style={{ display: 'inline-block', fontSize: '.75em', fontWeight: 700, color: '#00d4ff', background: '#00d4ff18', border: '1px solid #00d4ff44', borderRadius: 20, padding: '3px 12px', marginBottom: 12 }}>
+              ✦ Published by BytesAgain
+            </span>
+            <div style={{ background: '#0a0a18', border: '1px solid #1a1a3e', borderRadius: 8, padding: '12px 16px' }}>
+              <div style={{ fontSize: '.75em', color: '#667eea', marginBottom: 6, fontWeight: 600 }}>INSTALL</div>
+              <code style={{ fontSize: '.9em', color: '#00d4ff', fontFamily: 'monospace' }}>clawhub install {slug}</code>
+            </div>
+          </div>
+        )}
 
         {/* 外链按钮 */}
         <a href={externalUrl} target="_blank" rel="noopener"

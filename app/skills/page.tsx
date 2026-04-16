@@ -172,18 +172,29 @@ export default async function SkillsPage({
         {(skills || []).map(skill => {
           const src = skill.source || 'clawhub'
           const badge = SOURCE_BADGE[src] || SOURCE_BADGE.clawhub
+          const OUR_ACCOUNTS = ['ckchzh', 'xueyetianya', 'bytesagain3', 'bytesagain-lab', 'loutai0307-prog', 'bytesagain1']
+          const isOurs = OUR_ACCOUNTS.includes(skill.owner || '')
           return (
             <Link key={skill.slug} href={`/skill/${skill.slug}`} style={{ textDecoration: 'none' }}>
               <div className="skill-card" style={{
-                background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 12,
+                background: '#0f0f23',
+                border: isOurs ? '1px solid #00d4ff44' : '1px solid #1a1a3e',
+                borderRadius: 12,
                 padding: '20px', height: '100%', transition: 'border-color .2s',
                 cursor: 'pointer',
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                  <span style={{ fontSize: '.72em', background: badge.color, color: '#fff',
-                    borderRadius: 20, padding: '2px 8px', fontWeight: 600 }}>
-                    {badge.emoji} {badge.label}
-                  </span>
+                  <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+                    <span style={{ fontSize: '.72em', background: badge.color, color: '#fff',
+                      borderRadius: 20, padding: '2px 8px', fontWeight: 600 }}>
+                      {badge.emoji} {badge.label}
+                    </span>
+                    {isOurs && (
+                      <span style={{ fontSize: '.68em', color: '#00d4ff', background: '#00d4ff18', border: '1px solid #00d4ff33', borderRadius: 20, padding: '1px 7px', fontWeight: 600 }}>
+                        ✦ BytesAgain
+                      </span>
+                    )}
+                  </div>
                   {(skill.downloads ?? 0) > 0 && (
                     <span style={{ fontSize: '.75em', color: '#555' }}>
                       {Number(skill.downloads) >= 1000
