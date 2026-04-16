@@ -22,37 +22,53 @@ export default function DashboardPage() {
     supabase.auth.getUser().then(async ({ data }) => {
       if (!data.user) { window.location.href = '/login'; return }
       setUser(data.user)
+      setLoading(false) // 先渲染用户信息，不等收藏
 
-      // 拉收藏列表
-      const { data: favSlugs } = await supabase
-        .from('skill_favorites')
-        .select('skill_slug, created_at')
-        .eq('user_id', data.user.id)
-        .order('created_at', { ascending: false })
-        .limit(20)
+      // 并行拉收藏 + 最近浏览
+      const [favRes, viewRes] = await Promise.all([
+        supabase.from('skill_favorites')
+          .select('skill_slug, created_at')
+          .eq('user_id', data.user.id)
+          .order('created_at', { ascending: false })
+          .limit(30),
+        supabase.from('skill_views')
+          .select('skill_slug, viewed_at')
+          .eq('user_id', data.user.id)
+          .order('viewed_at', { ascending: false })
+          .limit(30)
+      ])
 
-      if (favSlugs && favSlugs.length > 0) {
-        const slugs = favSlugs.map((f: any) => f.skill_slug)
-        const res = await fetch(`/api/search?q=${slugs[0]}&limit=1`) // 占位，直接查DB
-        // 用 supabase anon key 查 skills 表
-        const { data: skillData } = await supabase
-          .from('skills')
-          .select('slug, name, description, source, downloads')
-          .in('slug', slugs)
-        setFavorites(skillData || [])
+      // 处理收藏：区分 skill 和 use-case
+      if (favRes.data && favRes.data.length > 0) {
+        const allSlugs: string[] = favRes.data.map((f: any) => f.skill_slug)
+        const skillSlugs = allSlugs.filter(s => !s.startsWith('usecase:'))
+        const usecaseSlugs = allSlugs.filter(s => s.startsWith('usecase:'))
+
+        const results: any[] = []
+
+        // 查 skill 收藏
+        if (skillSlugs.length > 0) {
+          const { data: skillData } = await supabase
+            .from('skills')
+            .select('slug, name, description, source, downloads')
+            .in('slug', skillSlugs)
+          if (skillData) results.push(...skillData.map((s: any) => ({ ...s, _type: 'skill' })))
+        }
+
+        // 处理 use-case 收藏（直接用 slug 构造显示数据，不查DB）
+        for (const uc of usecaseSlugs) {
+          const ucSlug = uc.replace('usecase:', '')
+          const ucName = ucSlug.replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase())
+          results.push({ slug: ucSlug, name: ucName, description: 'Use Case', _type: 'usecase' })
+        }
+
+        setFavorites(results)
       }
 
-      // 拉最近浏览（去重，最近10个）
-      const { data: viewSlugs } = await supabase
-        .from('skill_views')
-        .select('skill_slug, viewed_at')
-        .eq('user_id', data.user.id)
-        .order('viewed_at', { ascending: false })
-        .limit(30)
-
-      if (viewSlugs && viewSlugs.length > 0) {
+      // 处理最近浏览（只显示 skill，去重取前10）
+      if (viewRes.data && viewRes.data.length > 0) {
         const seen = new Set<string>()
-        const unique = viewSlugs.filter((v: any) => {
+        const unique = viewRes.data.filter((v: any) => {
           if (seen.has(v.skill_slug)) return false
           seen.add(v.skill_slug); return true
         }).slice(0, 10)
@@ -62,15 +78,14 @@ export default function DashboardPage() {
           .in('slug', unique.map((v: any) => v.skill_slug))
         setRecentViews(skillData || [])
       }
-
-      setLoading(false)
     })
   }, [])
 
-  const removeFavorite = async (slug: string) => {
+  const removeFavorite = async (s: any) => {
+    const favKey = s._type === 'usecase' ? `usecase:${s.slug}` : s.slug
     await supabase.from('skill_favorites').delete()
-      .eq('user_id', user!.id).eq('skill_slug', slug)
-    setFavorites(prev => prev.filter(s => s.slug !== slug))
+      .eq('user_id', user!.id).eq('skill_slug', favKey)
+    setFavorites(prev => prev.filter(f => f.slug !== s.slug || f._type !== s._type))
   }
 
   const handleSignOut = async () => {
@@ -86,8 +101,11 @@ export default function DashboardPage() {
   const SkillRow = ({ s, onRemove }: { s: any; onRemove?: () => void }) => (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       padding: '12px 0', borderBottom: '1px solid #1a1a2e' }}>
-      <Link href={`/skill/${s.slug}`} style={{ textDecoration: 'none', flex: 1 }}>
-        <div style={{ fontWeight: 600, color: '#e0e0e0', fontSize: '.92em' }}>{s.name || s.slug}</div>
+      <Link href={s._type === 'usecase' ? `/use-case/${s.slug}` : `/skill/${s.slug}`} style={{ textDecoration: 'none', flex: 1 }}>
+        <div style={{ fontWeight: 600, color: '#e0e0e0', fontSize: '.92em' }}>
+          {s._type === 'usecase' && <span style={{ fontSize: '.75em', color: '#667eea', marginRight: 6 }}>USE CASE</span>}
+          {s.name || s.slug}
+        </div>
         <div style={{ color: '#555', fontSize: '.78em', marginTop: 2,
           overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 400 }}>
           {s.description}
@@ -139,7 +157,7 @@ export default function DashboardPage() {
             {' '}<Link href="/skills" style={{ color: '#667eea' }}>{lang === 'zh' ? '去探索 →' : 'Browse →'}</Link>
           </p>
         ) : (
-          favorites.map(s => <SkillRow key={s.slug} s={s} onRemove={() => removeFavorite(s.slug)} />)
+          favorites.map(s => <SkillRow key={`${s._type}:${s.slug}`} s={s} onRemove={() => removeFavorite(s)} />)
         )}
       </div>
 
