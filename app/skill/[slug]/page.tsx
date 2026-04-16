@@ -111,12 +111,19 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
         <a href="/" style={{ color: '#667eea', textDecoration: 'none' }}>← Back</a>
       </p>
       <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: '32px' }}>
-        {/* Source badge + category */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-          <span style={{ fontSize: '.75em', color: '#fff', background: badge.color, borderRadius: 20, padding: '2px 10px', fontWeight: 600 }}>
-            {badge.emoji} {badge.label}
-          </span>
-          <span style={{ fontSize: '.8em', color: '#667eea', textTransform: 'uppercase', letterSpacing: 1 }}>{skill.category}</span>
+        {/* Source badge + category + BytesAgain badge */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, marginBottom: 8 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ fontSize: '.75em', color: '#fff', background: badge.color, borderRadius: 20, padding: '2px 10px', fontWeight: 600 }}>
+              {badge.emoji} {badge.label}
+            </span>
+            <span style={{ fontSize: '.8em', color: '#667eea', textTransform: 'uppercase', letterSpacing: 1 }}>{skill.category}</span>
+          </div>
+          {isOurs && (
+            <span style={{ fontSize: '.72em', fontWeight: 700, color: '#00d4ff', background: '#00d4ff18', border: '1px solid #00d4ff44', borderRadius: 20, padding: '3px 12px', whiteSpace: 'nowrap' }}>
+              ✦ Published by BytesAgain
+            </span>
+          )}
         </div>
 
         <h1 style={{ fontSize: '2em', margin: '0 0 12px', color: '#e0e0e0' }}>{skill.name || slug}</h1>
@@ -134,12 +141,9 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
           {skill.owner && <span style={{ fontSize: '.85em', color: '#555' }}>by {skill.owner}</span>}
         </div>
 
-        {/* 自有skill：BytesAgain badge + 安装命令 */}
+        {/* 安装命令：自有skill显示 */}
         {isOurs && (
           <div style={{ marginBottom: 20 }}>
-            <span style={{ display: 'inline-block', fontSize: '.75em', fontWeight: 700, color: '#00d4ff', background: '#00d4ff18', border: '1px solid #00d4ff44', borderRadius: 20, padding: '3px 12px', marginBottom: 12 }}>
-              ✦ Published by BytesAgain
-            </span>
             <div style={{ background: '#0a0a18', border: '1px solid #1a1a3e', borderRadius: 8, padding: '12px 16px' }}>
               <div style={{ fontSize: '.75em', color: '#667eea', marginBottom: 6, fontWeight: 600 }}>INSTALL</div>
               <code style={{ fontSize: '.9em', color: '#00d4ff', fontFamily: 'monospace' }}>clawhub install {slug}</code>
