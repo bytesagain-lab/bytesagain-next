@@ -149,11 +149,11 @@ export default function DashboardPage() {
       {/* 收藏列表 */}
       <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: 28, marginBottom: 20 }}>
         <h2 style={{ margin: '0 0 16px', fontSize: '1.05em', color: '#888', textTransform: 'uppercase', letterSpacing: 1 }}>
-          {lang === 'zh' ? '❤️ 我的收藏' : '❤️ Saved Skills'}
+          {lang === 'zh' ? '❤️ 我的收藏' : '❤️ Saved'}
         </h2>
         {favorites.length === 0 ? (
           <p style={{ color: '#444', fontSize: '.9em' }}>
-            {lang === 'zh' ? '还没有收藏。浏览 skill 时点 Save 加入收藏。' : 'No saved skills yet. Hit Save on any skill page.'}
+            {lang === 'zh' ? '还没有收藏。浏览 skill 时点 Save 加入收藏。' : 'Nothing saved yet. Hit Save on any skill or use case page.'}
             {' '}<Link href="/skills" style={{ color: '#667eea' }}>{lang === 'zh' ? '去探索 →' : 'Browse →'}</Link>
           </p>
         ) : (
