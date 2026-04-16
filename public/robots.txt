@@ -4,14 +4,12 @@ Disallow: /api/
 Disallow: /dashboard/
 Disallow: /login/
 Disallow: /register/
-Disallow: /skill/github-*
 Crawl-delay: 5
 
 User-Agent: Googlebot
 Allow: /
 Disallow: /api/
 Disallow: /dashboard/
-Disallow: /skill/github-*
 Crawl-delay: 10
 
 User-Agent: GPTBot
@@ -38,7 +36,6 @@ User-Agent: Bingbot
 Allow: /
 Disallow: /api/
 Disallow: /dashboard/
-Disallow: /skill/github-*
 Crawl-delay: 10
 
 User-Agent: PerplexityBot
