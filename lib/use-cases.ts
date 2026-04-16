@@ -3258,4 +3258,40 @@ export const USE_CASES: UseCase[] = [
     icon: '💼',
     skills: [{ slug: 'clawhub-voice-wake-say', name: 'Voice Wake Say', reason: 'Voice Wake Say' }, { slug: 'clawhub-speech-recognition', name: 'speech-recognition', reason: 'speech-recognition' }, { slug: 'clawhub-tradingview-quantitative-skills', name: 'Tradingview Quantitative', reason: 'Tradingview Quantitative' }, { slug: 'clawhub-clawdbot-skill-voice-wake-say', name: 'Voice Wake Say TTS Responses (', reason: 'Voice Wake Say TTS Responses (' }],
   },
+
+  {
+    slug: 'ai-code-reviewer',
+    title: 'Automate code reviews with AI',
+    description: 'Speed up development with intelligent code analysis.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-elite-longterm-memory', name: 'Elite Longterm Memory', reason: 'Elite Longterm Memory' }, { slug: 'clawhub-code', name: 'Code', reason: 'Code' }, { slug: 'clawhub-opencode-controller', name: 'Opencode-controller', reason: 'Opencode-controller' }, { slug: 'clawhub-cognitive-memory', name: 'Cognitive Memory', reason: 'Cognitive Memory' }],
+  },
+  {
+    slug: 'data-visualization-ai',
+    title: 'Generate data visualizations quickly',
+    description: 'Turn complex data into clear charts and graphs.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-stock-analysis', name: 'Stock Analysis', reason: 'Stock Analysis' }, { slug: 'clawhub-markdown-converter', name: 'Markdown Converter', reason: 'Markdown Converter' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }, { slug: 'clawhub-data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }],
+  },
+  {
+    slug: 'legal-document-summarizer',
+    title: 'Summarize legal documents fast',
+    description: 'Extract key points from contracts and agreements.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-tavily', name: 'Tavily AI Search', reason: 'Tavily AI Search' }, { slug: 'clawhub-web-search', name: 'Web Search', reason: 'Web Search' }, { slug: 'clawhub-web-search-exa', name: 'Web Search by Exa', reason: 'Web Search by Exa' }, { slug: 'clawhub-deep-research-pro', name: 'Deep Research Pro', reason: 'Deep Research Pro' }],
+  },
+  {
+    slug: 'devops-incident-analyzer',
+    title: 'Analyze devops incidents automatically',
+    description: 'Identify root causes of system failures quickly.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-sysadmin-toolbox', name: 'Sysadmin Toolbox', reason: 'Sysadmin Toolbox' }, { slug: 'clawhub-devops', name: 'DevOps', reason: 'DevOps' }, { slug: 'clawhub-gitflow', name: 'GitFlow', reason: 'GitFlow' }, { slug: 'clawhub-openclaw-master-skills', name: 'OpenClaw Master Skills', reason: 'OpenClaw Master Skills' }],
+  },
+  {
+    slug: 'task-automation-ai',
+    title: 'Automate repetitive tasks',
+    description: 'Save time with AI-driven task automation.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-agent-browser-clawdbot', name: 'Agent Browser', reason: 'Agent Browser' }, { slug: 'clawhub-automation-workflows', name: 'Automation Workflows', reason: 'Automation Workflows' }, { slug: 'clawhub-desktop-control', name: 'Desktop Control', reason: 'Desktop Control' }, { slug: 'clawhub-browser-automation', name: 'Browser Automation', reason: 'Browser Automation' }],
+  },
 ]
