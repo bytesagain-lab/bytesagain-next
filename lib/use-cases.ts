@@ -33,6 +33,29 @@ export const USE_CASES: UseCase[] = [
     ],
   },
   {
+    slug: 'vercel-supabase-stack',
+    title: 'Vercel + Supabase: The Modern Dev Stack',
+    description: 'Ship faster with AI skills that generate Vercel CLI commands and Supabase API calls — no credentials stored, no configuration needed.',
+    icon: '🛠️',
+    skills: [
+      { slug: 'vercel-tool', name: 'Vercel Tool', reason: 'Generate Vercel CLI commands for deployments, domains, env vars, and project management' },
+      { slug: 'supabase-tool', name: 'Supabase Tool', reason: 'Generate Supabase API calls for database, auth, storage, and edge functions' },
+    ],
+    searchLink: '/skills?q=vercel+supabase+deploy+database',
+  },
+  {
+    slug: 'data-science-toolkit',
+    title: 'Data Science & Analysis Toolkit',
+    description: 'Your AI-powered data science environment — Python code snippets, R-style statistical analysis, and Jupyter notebook management in one place.',
+    icon: '📊',
+    skills: [
+      { slug: 'python-cookbook', name: 'Python Cookbook', reason: '14 ready-to-use Python code snippets for data processing and automation' },
+      { slug: 'r-analyst', name: 'R Analyst', reason: 'Statistical analysis and data visualization in R style' },
+      { slug: 'jupyter-helper', name: 'Jupyter Helper', reason: 'Manage and run Jupyter notebooks from your terminal' },
+    ],
+    searchLink: '/skills?q=python+data+science+jupyter+R',
+  },
+  {
     slug: 'developer-workflow',
     title: 'Developer Daily Workflow',
     description: 'The skills that make your dev environment smarter — from writing code to shipping and monitoring.',
