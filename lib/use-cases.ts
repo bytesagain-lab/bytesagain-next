@@ -3344,4 +3344,40 @@ export const USE_CASES: UseCase[] = [
     icon: '💼',
     skills: [{ slug: 'clawhub-agent-browser-clawdbot', name: 'Agent Browser', reason: 'Agent Browser' }, { slug: 'clawhub-automation-workflows', name: 'Automation Workflows', reason: 'Automation Workflows' }, { slug: 'clawhub-desktop-control', name: 'Desktop Control', reason: 'Desktop Control' }, { slug: 'clawhub-browser-automation', name: 'Browser Automation', reason: 'Browser Automation' }],
   },
+
+  {
+    slug: 'ai-devops-optimizer',
+    title: 'Optimize DevOps workflows with AI',
+    description: 'Automate and enhance DevOps processes with intelligent insights.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-sysadmin-toolbox', name: 'Sysadmin Toolbox', reason: 'Sysadmin Toolbox' }, { slug: 'clawhub-devops', name: 'DevOps', reason: 'DevOps' }, { slug: 'clawhub-gitflow', name: 'GitFlow', reason: 'GitFlow' }, { slug: 'clawhub-openclaw-master-skills', name: 'OpenClaw Master Skills', reason: 'OpenClaw Master Skills' }],
+  },
+  {
+    slug: 'legal-ai-analyst',
+    title: 'Analyze legal documents with AI',
+    description: 'Extract key information from legal texts quickly and accurately.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-stock-analysis', name: 'Stock Analysis', reason: 'Stock Analysis' }, { slug: 'clawhub-markdown-converter', name: 'Markdown Converter', reason: 'Markdown Converter' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }, { slug: 'clawhub-data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }],
+  },
+  {
+    slug: 'productivity-ai-coach',
+    title: 'Boost productivity with AI guidance',
+    description: 'Receive personalized productivity tips and task management help.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-stock-analysis', name: 'Stock Analysis', reason: 'Stock Analysis' }, { slug: 'clawhub-xiaohongshu-mcp', name: 'Xiaohongshu (小红书) Automation', reason: 'Xiaohongshu (小红书) Automation' }, { slug: 'clawhub-docker-essentials', name: 'Docker Essentials', reason: 'Docker Essentials' }, { slug: 'clawhub-productivity', name: 'Productivity', reason: 'Productivity' }],
+  },
+  {
+    slug: 'devops-salary-analyzer',
+    title: 'Compare DevOps engineer salaries',
+    description: 'Get insights into salary trends for DevOps professionals.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-stock-analysis', name: 'Stock Analysis', reason: 'Stock Analysis' }, { slug: 'clawhub-markdown-converter', name: 'Markdown Converter', reason: 'Markdown Converter' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }, { slug: 'clawhub-data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }],
+  },
+  {
+    slug: 'automation-ai-helper',
+    title: 'Automate repetitive tasks with AI',
+    description: 'Streamline workflows by automating routine operations.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-agent-browser-clawdbot', name: 'Agent Browser', reason: 'Agent Browser' }, { slug: 'clawhub-automation-workflows', name: 'Automation Workflows', reason: 'Automation Workflows' }, { slug: 'clawhub-desktop-control', name: 'Desktop Control', reason: 'Desktop Control' }, { slug: 'clawhub-browser-automation', name: 'Browser Automation', reason: 'Browser Automation' }],
+  },
 ]
