@@ -28,6 +28,18 @@ export async function POST(req: NextRequest) {
   const createdAt = body?.record?.created_at || body?.created_at || new Date().toISOString()
   const time = new Date(createdAt).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })
 
+  // TG 通知
+  try {
+    await fetch(`https://api.telegram.org/bot8726371875:AAEjWVW7udg4QlE1QGAOtnwrER8PIcs3GyM/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: '1517831092',
+        text: `🎉 新用户注册\n邮箱: ${email}\n方式: ${provider}\n时间: ${time}`
+      })
+    })
+  } catch (e) { console.error('TG通知失败:', e) }
+
   try {
     await transporter.sendMail({
       from: '"BytesAgain" <hello@bytesagain.com>',
