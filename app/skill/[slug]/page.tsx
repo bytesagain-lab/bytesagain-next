@@ -89,9 +89,9 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
     : source === 'dify' ? 'View on Dify →'
     : 'View on ClawHub →'
 
-  // 自有 skill 判断：owner 是我们的账号之一
+  // 自有 skill 判断：读数据库 is_ours 字段（已批量标记），fallback 到 owner 列表
   const OUR_ACCOUNTS = ['ckchzh', 'xueyetianya', 'bytesagain3', 'bytesagain-lab', 'loutai0307-prog', 'bytesagain1']
-  const isOurs = OUR_ACCOUNTS.includes(skill.owner || '')
+  const isOurs = (skill as any).is_ours === true || OUR_ACCOUNTS.includes(skill.owner || '')
 
   return (
     <div style={{ maxWidth: 800, margin: '40px auto', padding: '0 20px' }}>
