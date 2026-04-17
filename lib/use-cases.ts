@@ -294,6 +294,33 @@ export const USE_CASES: UseCase[] = [
     ],
   },
 
+  {
+    slug: 'legal-document-assistant',
+    title: 'AI Legal Document Assistant',
+    description: 'Review contracts, generate NDAs, create privacy policies, and check GDPR compliance — all with free AI skills, no lawyer required.',
+    icon: '📋',
+    skills: [
+      { slug: 'contract-analyzer', name: 'Contract Analyzer', reason: 'Analyze contracts and detect high-risk clauses instantly' },
+      { slug: 'nda-generator', name: 'NDA Generator', reason: 'Generate mutual or one-way NDAs in seconds' },
+      { slug: 'privacy-policy-generator', name: 'Privacy Policy Generator', reason: 'Create GDPR & CCPA-compliant privacy policies' },
+      { slug: 'terms-checker', name: 'Terms Checker', reason: 'Score ToS fairness and get TL;DR summaries' },
+      { slug: 'gdpr-checker', name: 'GDPR Checker', reason: 'Full 24-point GDPR compliance audit checklist' },
+    ],
+    searchLink: '/skills?q=legal+contract+nda+policy',
+  },
+  {
+    slug: 'gdpr-compliance-toolkit',
+    title: 'GDPR Compliance Toolkit',
+    description: 'Everything you need to make your product GDPR-compliant — audit checklists, data processing agreements, breach notifications, and cookie consent.',
+    icon: '🔐',
+    skills: [
+      { slug: 'gdpr-checker', name: 'GDPR Checker', reason: 'Run a 24-point GDPR compliance audit in minutes' },
+      { slug: 'privacy-policy-generator', name: 'Privacy Policy Generator', reason: 'Generate GDPR-ready privacy policy with supplemental clauses' },
+      { slug: 'nda-generator', name: 'NDA Generator', reason: 'Create Data Processing Agreements and NDAs' },
+    ],
+    searchLink: '/skills?q=gdpr+compliance+privacy',
+  },
+
   // ── NEW: HackerNews-validated high-demand use cases ──
   {
     slug: 'crm-sales',
