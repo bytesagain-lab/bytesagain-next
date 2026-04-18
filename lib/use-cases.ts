@@ -3436,4 +3436,33 @@ export const USE_CASES: UseCase[] = [
     icon: '🤖',
     skills: [{ slug: 'bytesagain-mcp', name: 'Bytesagain Mcp', reason: 'Bytesagain Mcp' }],
   },
+
+  {
+    slug: 'study-ai-helper',
+    title: 'Create smarter study plans with AI',
+    description: 'Generate personalized study schedules and track progress.',
+    icon: '📚',
+    skills: [{ slug: 'clawhub-self-improving-agent', name: 'self-improving-agent', reason: 'self-improving-agent' }, { slug: 'clawhub-skill-vetter', name: 'Skill Vetter', reason: 'Skill Vetter' }, { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Proactive Agent' }, { slug: 'clawhub-humanizer', name: 'Humanizer', reason: 'Humanizer' }],
+  },
+  {
+    slug: 'note-summarizer',
+    title: 'Summarize class notes in seconds',
+    description: 'Automate note-taking and highlight key concepts.',
+    icon: '📚',
+    skills: [{ slug: 'clawhub-self-improving-agent', name: 'self-improving-agent', reason: 'self-improving-agent' }, { slug: 'clawhub-skill-vetter', name: 'Skill Vetter', reason: 'Skill Vetter' }, { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Proactive Agent' }, { slug: 'clawhub-humanizer', name: 'Humanizer', reason: 'Humanizer' }],
+  },
+  {
+    slug: 'feedback-analyzer',
+    title: 'Analyze student feedback automatically',
+    description: 'Identify trends and improve teaching strategies.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-self-improving-agent', name: 'self-improving-agent', reason: 'self-improving-agent' }, { slug: 'clawhub-skill-vetter', name: 'Skill Vetter', reason: 'Skill Vetter' }, { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Proactive Agent' }, { slug: 'clawhub-humanizer', name: 'Humanizer', reason: 'Humanizer' }],
+  },
+  {
+    slug: 'legal-doc-scraper',
+    title: 'Extract key info from legal documents',
+    description: 'Quickly find relevant clauses and details.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-self-improving-agent', name: 'self-improving-agent', reason: 'self-improving-agent' }, { slug: 'clawhub-skill-vetter', name: 'Skill Vetter', reason: 'Skill Vetter' }, { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Proactive Agent' }, { slug: 'clawhub-humanizer', name: 'Humanizer', reason: 'Humanizer' }],
+  },
 ]
