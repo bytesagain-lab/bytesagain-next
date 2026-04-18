@@ -65,7 +65,8 @@ export async function GET(req: NextRequest) {
 
       const results = [...local, ...remote, ...ghResults].slice(0, limit)
       const ua = req.headers.get('user-agent') || ''
-      logMcpCall({ action, query, user_agent: ua, result_count: results.length, results_slugs: results.map((s:any) => s.slug) })
+      const ip = req.headers.get('x-forwarded-for')?.split(',')[0].trim() || ''
+      logMcpCall({ action, query, user_agent: ua, ip, result_count: results.length })
       return NextResponse.json({ action, query, results, count: results.length }, { headers })
     }
 
@@ -87,7 +88,8 @@ export async function GET(req: NextRequest) {
         .order('downloads', { ascending: false })
         .limit(limit)
       const ua2 = req.headers.get('user-agent') || ''
-      logMcpCall({ action, role, user_agent: ua2, result_count: (data||[]).length, results_slugs: (data||[]).map((s:any) => s.slug) })
+      const ip2 = req.headers.get('x-forwarded-for')?.split(',')[0].trim() || ''
+      logMcpCall({ action, role, user_agent: ua2, ip: ip2, result_count: (data||[]).length })
       return NextResponse.json({
         action, role,
         results: data || [],
@@ -144,21 +146,23 @@ async function logMcpCall(params: {
   query?: string
   role?: string
   user_agent?: string
+  ip?: string
+  latency_ms?: number
   result_count?: number
-  results_slugs?: string[]
 }) {
-  const supabase = createClient(
+  const sb = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!
   )
   try {
-    await supabase.from('mcp_logs').insert({
+    await sb.from('api_logs').insert({
+      endpoint: 'rest',
       action: params.action,
       query: params.query || null,
-      role: params.role || null,
       user_agent: params.user_agent || null,
-      result_count: params.result_count || 0,
-      results_slugs: params.results_slugs || [],
+      ip: params.ip || null,
+      latency_ms: params.latency_ms || null,
+      result_count: params.result_count ?? null,
     })
   } catch { /* 日志失败不影响主流程 */ }
 }

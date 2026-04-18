@@ -16,6 +16,17 @@ function cacheSet(k: string, data: any, ttlMs = 60_000) {
   cache.set(k, { data, exp: Date.now() + ttlMs })
 }
 
+// ── Async logging (fire-and-forget) ───────────────────────────
+async function logCall(entry: {
+  endpoint: string; action?: string; query?: string; slug?: string;
+  user_agent?: string; ip?: string; latency_ms?: number; result_count?: number; cache_hit?: boolean
+}) {
+  try {
+    const db = supabase()
+    await db.from('api_logs').insert(entry)
+  } catch { /* never block the response */ }
+}
+
 // 自有账号白名单 — 只返回我们自己发布的 skill，确保合规
 const OUR_OWNERS = [
   'ckchzh', 'xueyetianya', 'bytesagain1',
@@ -171,12 +182,26 @@ async function handleRpc(body: any): Promise<any> {
   if (method === 'tools/call') {
     const name = params?.name
     const args = params?.arguments || {}
+    const t0 = Date.now()
     try {
       let result: any
       if (name === 'search_skills') result = await toolSearch(args)
       else if (name === 'get_skill') result = await toolGet(args)
       else if (name === 'popular_skills') result = await toolPopular(args)
       else return err(id, -32601, `Unknown tool: ${name}`)
+
+      // async log — fire and forget
+      logCall({
+        endpoint: 'mcp_sse',
+        action: name,
+        query: args.query || undefined,
+        slug: args.slug || undefined,
+        user_agent: (globalThis as any).__mcp_ua,
+        ip: (globalThis as any).__mcp_ip,
+        latency_ms: Date.now() - t0,
+        result_count: result?.count ?? result?.results?.length ?? undefined,
+        cache_hit: result?._cache ?? false,
+      })
 
       return ok(id, {
         content: [{ type: 'text', text: JSON.stringify(result, null, 2) }],
@@ -235,6 +260,10 @@ export async function GET(req: NextRequest) {
 // ── HTTP POST transport（主要入口）────────────────────────────
 export async function POST(req: NextRequest) {
   try {
+    // stash UA + IP for logCall inside handleRpc
+    ;(globalThis as any).__mcp_ua = req.headers.get('user-agent') || undefined
+    ;(globalThis as any).__mcp_ip = req.headers.get('x-forwarded-for')?.split(',')[0].trim() || undefined
+
     const body = await req.json()
     // 支持批量请求
     if (Array.isArray(body)) {
