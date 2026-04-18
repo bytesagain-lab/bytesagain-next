@@ -3380,4 +3380,44 @@ export const USE_CASES: UseCase[] = [
     icon: '💼',
     skills: [{ slug: 'clawhub-agent-browser-clawdbot', name: 'Agent Browser', reason: 'Agent Browser' }, { slug: 'clawhub-automation-workflows', name: 'Automation Workflows', reason: 'Automation Workflows' }, { slug: 'clawhub-desktop-control', name: 'Desktop Control', reason: 'Desktop Control' }, { slug: 'clawhub-browser-automation', name: 'Browser Automation', reason: 'Browser Automation' }],
   },
+  {
+    slug: 'write-shopify-product-descriptions',
+    title: 'Write Shopify product descriptions with AI',
+    description: 'Generate professional, SEO-friendly product descriptions for your Shopify store in seconds.',
+    icon: '🛍️',
+    skills: [
+      { slug: 'ai-product-description-writer', name: 'AI Product Description Writer', reason: 'Generates descriptions in 4 styles from product name and features' },
+      { slug: 'ai-product-description-generator-free', name: 'AI Product Description Generator Free', reason: 'Free option using Ollama or HuggingFace' },
+    ],
+  },
+  {
+    slug: 'generate-product-copy-from-photo',
+    title: 'Generate product copy from a photo',
+    description: 'Upload a product image and instantly get compelling descriptions for Amazon, Etsy, or your own store.',
+    icon: '📸',
+    skills: [
+      { slug: 'ai-product-description-from-image', name: 'AI Product Description from Image', reason: 'Converts local product photos to descriptions via Grok Vision' },
+      { slug: 'ai-product-description-generator-from-image', name: 'AI Product Description Generator from Image URL', reason: 'Analyzes public image URLs to generate product copy' },
+    ],
+  },
+  {
+    slug: 'bulk-product-description-ecommerce',
+    title: 'Batch-generate descriptions for entire product catalog',
+    description: 'Process a whole folder of product images and generate descriptions for all of them at once.',
+    icon: '📦',
+    skills: [
+      { slug: 'ai-product-description-from-image', name: 'AI Product Description from Image', reason: 'Supports batch mode to process entire image folders' },
+      { slug: 'ai-product-description-writer', name: 'AI Product Description Writer', reason: 'Generates multi-style copy from product specs' },
+    ],
+  },
+  {
+    slug: 'amazon-listing-ai-copywriting',
+    title: 'Create Amazon product listings with AI copywriting',
+    description: 'Craft keyword-rich, conversion-optimized product descriptions tailored for Amazon search ranking.',
+    icon: '🛒',
+    skills: [
+      { slug: 'ai-product-description-writer', name: 'AI Product Description Writer', reason: 'SEO style generates keyword-rich Amazon-ready copy' },
+      { slug: 'ai-product-description-generator-from-image', name: 'AI Product Description Generator from Image URL', reason: 'Analyze product images from URLs for instant listing copy' },
+    ],
+  },
 ]
