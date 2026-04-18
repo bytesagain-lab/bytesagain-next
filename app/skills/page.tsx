@@ -72,7 +72,7 @@ export default async function SkillsPage({
     : rawQ
 
   let query = supabase
-    .from('skills')
+    .from('skills_list')
     .select('slug,name,description,category,tags,downloads,stars,source,source_url,owner', { count: 'planned' })
     .order('downloads', { ascending: false })
     .range(from, from + PAGE_SIZE - 1)
