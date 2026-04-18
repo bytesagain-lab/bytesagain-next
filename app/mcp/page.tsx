@@ -80,7 +80,7 @@ export default function McpDocsPage() {
         </h1>
         <p style={{ color: '#888', fontSize: '1em', lineHeight: 1.7, maxWidth: 640 }}>
           Connect your AI agent to 788+ curated skills via MCP SSE protocol or plain REST API.
-          Data is sourced exclusively from BytesAgain — no third-party scraping.
+          Returns skills published by BytesAgain authors. Search also indexes ClawHub and GitHub skill repos.
         </p>
         <div style={{ marginTop: 20, display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
           <span style={{ padding: '6px 14px', background: '#00d4ff18', border: '1px solid #00d4ff44', borderRadius: 8, fontSize: '.8em', color: '#00d4ff' }}>✦ Free</span>
@@ -157,7 +157,7 @@ export default function McpDocsPage() {
       </Section>
 
       <div style={{ borderTop: '1px solid #1a1a3e', paddingTop: 32, color: '#444', fontSize: '.85em' }}>
-        Built by <a href="https://bytesagain.com" style={{ color: '#667eea', textDecoration: 'none' }}>BytesAgain</a> · 788+ original skills · Data sourced exclusively from BytesAgain authors.
+        Built by <a href="https://bytesagain.com" style={{ color: '#667eea', textDecoration: 'none' }}>BytesAgain</a> · 788+ BytesAgain skills · Also indexes ClawHub & GitHub.
       </div>
     </main>
   )
