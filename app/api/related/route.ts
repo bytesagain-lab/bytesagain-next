@@ -61,11 +61,8 @@ export async function GET(req: NextRequest) {
         }))
     })(),
 
-    // ClawHub 语义搜索（补充）
-    fetch(`https://clawhub.ai/api/v1/search?q=${encodeURIComponent(searchQ)}&limit=8`, {
-      headers: { 'User-Agent': 'Mozilla/5.0' },
-      next: { revalidate: 3600 },
-    }).then(r => r.ok ? r.json() : { results: [] }).catch(() => ({ results: [] })),
+    // ClawHub disabled
+    Promise.resolve({ status: 'fulfilled', value: [] }),
   ])
 
   const vsSkills = vsResult.status === 'fulfilled' ? vsResult.value : []

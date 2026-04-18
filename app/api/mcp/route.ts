@@ -42,8 +42,7 @@ export async function GET(req: NextRequest) {
           .or(`name.ilike.%${query}%,description.ilike.%${query}%`)
           .order('downloads', { ascending: false })
           .limit(Math.ceil(limit * 0.5)),
-        fetch(`https://clawhub.ai/api/v1/search?q=${encodeURIComponent(query)}&limit=${limit}`,
-          { next: { revalidate: 300 } }),
+        Promise.resolve(null), // ClawHub disabled
         fetch(`https://api.github.com/search/repositories?q=${encodeURIComponent(query)}+filename:SKILL.md&sort=stars&per_page=5`,
           { headers: { Authorization: `token ${process.env.GITHUB_TOKEN || ''}`, Accept: 'application/vnd.github.v3+json' }, next: { revalidate: 600 } }),
       ])
@@ -51,17 +50,7 @@ export async function GET(req: NextRequest) {
       const local = localRes.status === 'fulfilled' ? (localRes.value.data || []) : []
       const seenSlugs = new Set(local.map((s: any) => s.slug))
 
-      let remote: any[] = []
-      if (chRes.status === 'fulfilled' && chRes.value.ok) {
-        const chData = await chRes.value.json()
-        remote = (chData.results || [])
-          .filter((s: any) => !seenSlugs.has(s.slug))
-          .slice(0, 3)
-          .map((s: any) => {
-            seenSlugs.add(s.slug)
-            return { slug: s.slug, name: s.displayName || s.slug, description: s.summary || '', category: '', downloads: 0, owner: '', _source: 'clawhub' }
-          })
-      }
+      const remote: any[] = [] // ClawHub disabled
 
       let ghResults: any[] = []
       if (ghRes.status === 'fulfilled' && ghRes.value.ok) {

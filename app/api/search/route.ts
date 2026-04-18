@@ -220,11 +220,8 @@ export async function GET(req: NextRequest) {
         .order('downloads', { ascending: false })
         .limit(6),
 
-      // 3. ClawHub 语义搜索
-      fetch(`https://clawhub.ai/api/v1/search?q=${encodeURIComponent(searchQ)}&limit=6`, {
-        headers: { 'User-Agent': 'Mozilla/5.0' },
-        next: { revalidate: 300 },
-      }),
+      // 3. ClawHub disabled
+      Promise.resolve(null),
     ])
 
     const fts = ftsRes.status === 'fulfilled' ? (ftsRes.value.data || []) : []
@@ -239,23 +236,7 @@ export async function GET(req: NextRequest) {
       }
     }
 
-    let chExtra: any[] = []
-    if (chRes.status === 'fulfilled' && (chRes.value as Response).ok) {
-      const chData = await (chRes.value as Response).json()
-      chExtra = (chData.results || [])
-        .filter((s: any) => !seen.has(`clawhub-${s.slug}`) && !seen.has(s.slug))
-        .slice(0, 3)
-        .map((s: any) => ({
-          slug: `clawhub-${s.slug}`,
-          name: s.displayName || s.slug,
-          description: s.summary || '',
-          category: '',
-          downloads: 0,
-          stars: 0,
-          owner: s.ownerHandle || '',
-          _source: 'clawhub',
-        }))
-    }
+    const chExtra: any[] = [] // ClawHub disabled
 
     // 向量搜索补充（结果太少时）
     let vsearchExtra: any[] = []
