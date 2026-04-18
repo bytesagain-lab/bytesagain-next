@@ -41,7 +41,8 @@ async function toolSearch(args: any) {
     return { results: data || [], count: data?.length || 0 }
   }
 
-  const { data } = await db
+  // First: search own skills
+  const { data: ownData } = await db
     .from('skills')
     .select('slug,name,description,category,tags,downloads')
     .in('owner', OUR_OWNERS)
@@ -49,10 +50,29 @@ async function toolSearch(args: any) {
     .order('downloads', { ascending: false })
     .limit(limit)
 
+  if ((ownData || []).length > 0) {
+    return {
+      results: ownData,
+      count: ownData!.length,
+      source: 'bytesagain',
+      install_hint: ownData!.slice(0, 3).map((s: any) => `clawhub install ${s.slug}`).join('\n'),
+    }
+  }
+
+  // Fallback: search full index (ClawHub + GitHub)
+  const { data: allData } = await db
+    .from('skills')
+    .select('slug,name,description,category,tags,downloads,owner')
+    .or(`name.ilike.%${q}%,description.ilike.%${q}%,slug.ilike.%${q}%`)
+    .order('downloads', { ascending: false })
+    .limit(limit)
+
   return {
-    results: data || [],
-    count: data?.length || 0,
-    install_hint: (data || []).slice(0, 3).map((s: any) => `clawhub install ${s.slug}`).join('\n'),
+    results: allData || [],
+    count: (allData || []).length,
+    source: 'clawhub_index',
+    note: 'No BytesAgain-authored skills matched. Showing results from full ClawHub index.',
+    install_hint: (allData || []).slice(0, 3).map((s: any) => `clawhub install ${s.slug}`).join('\n'),
   }
 }
 
