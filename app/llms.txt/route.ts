@@ -33,6 +33,42 @@ We index 50,000+ AI agent skills from ClawHub, GitHub, LobeHub, and Dify — hel
 - [Knowledge Base](https://bytesagain.com/use-case/knowledge-base-rag)
 - [Meeting Notes](https://bytesagain.com/use-case/meeting-notes-actions)
 
+
+## API & MCP
+
+BytesAgain provides a machine-readable Agent API and MCP SSE server for AI agents.
+
+- MCP SSE endpoint: https://bytesagain.com/api/mcp/sse (transport: streamable-http)
+- REST API: https://bytesagain.com/api/mcp?action=search&q=<query>
+- API docs: https://bytesagain.com/mcp
+- Install guide: https://bytesagain.com/install
+
+### Connect via OpenClaw
+openclaw mcp set bytesagain '{"url":"https://bytesagain.com/api/mcp/sse","transport":"streamable-http"}'
+
+### Available MCP Tools
+- search_skills(query, limit) — search 788+ BytesAgain skills
+- get_skill(slug) — get full details + install command
+- popular_skills(limit) — top skills by downloads
+
+
+## API & MCP
+
+BytesAgain provides a machine-readable Agent API and MCP SSE server for AI agents.
+
+- MCP SSE endpoint: https://bytesagain.com/api/mcp/sse (transport: streamable-http)
+- REST API: https://bytesagain.com/api/mcp?action=search&q=<query>
+- API docs: https://bytesagain.com/mcp
+- Install guide: https://bytesagain.com/install
+
+### Connect via OpenClaw
+openclaw mcp set bytesagain '{"url":"https://bytesagain.com/api/mcp/sse","transport":"streamable-http"}'
+
+### Available MCP Tools
+- search_skills(query, limit) — search 788+ BytesAgain skills
+- get_skill(slug) — get full details + install command
+- popular_skills(limit) — top skills by downloads
+
 ## Contact
 
 hello@bytesagain.com
