@@ -34,6 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: 'https://bytesagain.com/terms', lastModified: new Date(), changeFrequency: 'monthly', priority: 0.3 },
     { url: 'https://bytesagain.com/feedback', lastModified: new Date(), changeFrequency: 'monthly', priority: 0.3 },
     { url: 'https://bytesagain.com/mcp', lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
+    { url: 'https://bytesagain.com/install', lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
   ]
 
   const useCasePages: MetadataRoute.Sitemap = USE_CASES.map(uc => ({
