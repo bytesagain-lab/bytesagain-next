@@ -3420,4 +3420,12 @@ export const USE_CASES: UseCase[] = [
       { slug: 'ai-product-description-generator-from-image', name: 'AI Product Description Generator from Image URL', reason: 'Analyze product images from URLs for instant listing copy' },
     ],
   },
+
+  {
+    slug: 'ai-tools-for-writing-product-descriptions',
+    title: 'AI tools for writing product descriptions',
+    description: 'Use AI skills to ai tools for writing product descriptions — fast, accurate, and ready to deploy.',
+    icon: '🤖',
+    skills: [{ slug: 'ai-product-description-writer', name: 'Ai Product Description Writer', reason: 'Ai Product Description Writer' }, { slug: 'ai-product-description-from-image', name: 'Ai Product Description From Image', reason: 'Ai Product Description From Image' }, { slug: 'ai-product-description-generator-free', name: 'Ai Product Description Generator Free', reason: 'Ai Product Description Generator Free' }],
+  },
 ]
