@@ -127,10 +127,10 @@ export default function McpDocsPage() {
       <section style={{ marginBottom: 48 }}>
         <h2 style={{ fontSize: '1.1em', color: '#667eea', marginBottom: 16, textTransform: 'uppercase', letterSpacing: '.1em' }}>Example Usage</h2>
         <div style={{ background: '#0a0a1a', border: '1px solid #1a1a3e', borderRadius: 12, padding: '24px' }}>
-          <pre style={{ margin: 0, color: '#a0a0c0', fontSize: '.85em', lineHeight: 1.7, overflowX: 'auto' }}>{`curl "https://bytesagain.com/api/mcp?action=search&q=data+analysis"`}</pre>
+          <pre style={{ margin: 0, color: '#a0a0c0', fontSize: '.85em', lineHeight: 1.7, overflowX: 'auto' }}>{`curl -X POST https://bytesagain.com/api/mcp/sse -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"search_skills","arguments":{"query":"data analysis"}}}'`}</pre>
         </div>
         <p style={{ color: '#555', fontSize: '.85em', marginTop: 12 }}>
-          Returns structured JSON — no HTML parsing, no scraping needed.
+          MCP SSE endpoint: https://bytesagain.com/api/mcp/sse — compatible with OpenClaw, Claude Desktop, and any MCP client.
         </p>
       </section>
 

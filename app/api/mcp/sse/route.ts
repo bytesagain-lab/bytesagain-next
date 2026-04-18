@@ -1,0 +1,235 @@
+import { NextRequest } from 'next/server'
+import { createClient } from '@supabase/supabase-js'
+
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
+
+// 自有账号白名单 — 只返回我们自己发布的 skill，确保合规
+const OUR_OWNERS = [
+  'ckchzh', 'xueyetianya', 'bytesagain1',
+  'bytesagain3', 'bytesagain-lab', 'loutai0307-prog', 'PRESSBYTESAGAIN'
+]
+
+function supabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
+}
+
+// MCP JSON-RPC helper
+function ok(id: any, result: any) {
+  return { jsonrpc: '2.0', id, result }
+}
+function err(id: any, code: number, message: string) {
+  return { jsonrpc: '2.0', id, error: { code, message } }
+}
+
+// ── Tool handlers ─────────────────────────────────────────────
+async function toolSearch(args: any) {
+  const q = (args.query || '').trim()
+  const limit = Math.min(args.limit || 10, 50)
+  const db = supabase()
+
+  if (!q) {
+    const { data } = await db
+      .from('skills')
+      .select('slug,name,description,category,tags,downloads')
+      .in('owner', OUR_OWNERS)
+      .order('downloads', { ascending: false })
+      .limit(limit)
+    return { results: data || [], count: data?.length || 0 }
+  }
+
+  const { data } = await db
+    .from('skills')
+    .select('slug,name,description,category,tags,downloads')
+    .in('owner', OUR_OWNERS)
+    .or(`name.ilike.%${q}%,description.ilike.%${q}%,slug.ilike.%${q}%`)
+    .order('downloads', { ascending: false })
+    .limit(limit)
+
+  return {
+    results: data || [],
+    count: data?.length || 0,
+    install_hint: (data || []).slice(0, 3).map((s: any) => `clawhub install ${s.slug}`).join('\n'),
+  }
+}
+
+async function toolGet(args: any) {
+  const slug = (args.slug || '').trim()
+  if (!slug) throw new Error('slug is required')
+  const db = supabase()
+  const { data } = await db
+    .from('skills')
+    .select('*')
+    .eq('slug', slug)
+    .in('owner', OUR_OWNERS)
+    .single()
+  if (!data) throw new Error(`Skill not found: ${slug}`)
+  return {
+    skill: data,
+    install: `clawhub install ${slug}`,
+    page: `https://bytesagain.com/skill/${slug}`,
+  }
+}
+
+async function toolPopular(args: any) {
+  const limit = Math.min(args.limit || 10, 50)
+  const db = supabase()
+  const { data } = await db
+    .from('skills')
+    .select('slug,name,description,category,downloads')
+    .in('owner', OUR_OWNERS)
+    .order('downloads', { ascending: false })
+    .limit(limit)
+  return { results: data || [], count: data?.length || 0 }
+}
+
+// ── MCP protocol ──────────────────────────────────────────────
+const TOOLS = [
+  {
+    name: 'search_skills',
+    description: 'Search BytesAgain skills by keyword. Returns name, slug, description, category, downloads.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        query: { type: 'string', description: 'Search keyword' },
+        limit: { type: 'number', description: 'Max results (default 10, max 50)' },
+      },
+      required: [],
+    },
+  },
+  {
+    name: 'get_skill',
+    description: 'Get full details for a single skill by slug, including install command.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        slug: { type: 'string', description: 'Skill slug, e.g. chart-generator' },
+      },
+      required: ['slug'],
+    },
+  },
+  {
+    name: 'popular_skills',
+    description: 'Get top skills ranked by download count.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        limit: { type: 'number', description: 'Max results (default 10, max 50)' },
+      },
+      required: [],
+    },
+  },
+]
+
+async function handleRpc(body: any): Promise<any> {
+  const { id, method, params } = body
+
+  if (method === 'initialize') {
+    return ok(id, {
+      protocolVersion: '2024-11-05',
+      capabilities: { tools: {} },
+      serverInfo: { name: 'BytesAgain Skill Server', version: '1.0.0' },
+    })
+  }
+
+  if (method === 'tools/list') {
+    return ok(id, { tools: TOOLS })
+  }
+
+  if (method === 'tools/call') {
+    const name = params?.name
+    const args = params?.arguments || {}
+    try {
+      let result: any
+      if (name === 'search_skills') result = await toolSearch(args)
+      else if (name === 'get_skill') result = await toolGet(args)
+      else if (name === 'popular_skills') result = await toolPopular(args)
+      else return err(id, -32601, `Unknown tool: ${name}`)
+
+      return ok(id, {
+        content: [{ type: 'text', text: JSON.stringify(result, null, 2) }],
+      })
+    } catch (e: any) {
+      return ok(id, {
+        content: [{ type: 'text', text: `Error: ${e.message}` }],
+        isError: true,
+      })
+    }
+  }
+
+  if (method === 'notifications/initialized') {
+    return null // no response needed
+  }
+
+  return err(id, -32601, `Method not found: ${method}`)
+}
+
+// ── SSE transport ─────────────────────────────────────────────
+export async function GET(req: NextRequest) {
+  const encoder = new TextEncoder()
+
+  const stream = new ReadableStream({
+    start(controller) {
+      // SSE 握手
+      controller.enqueue(encoder.encode(': MCP SSE\n\n'))
+
+      // 保持连接（Vercel max 25s，客户端会重连）
+      const hb = setInterval(() => {
+        try {
+          controller.enqueue(encoder.encode(': ping\n\n'))
+        } catch {
+          clearInterval(hb)
+        }
+      }, 10000)
+
+      req.signal.addEventListener('abort', () => {
+        clearInterval(hb)
+        controller.close()
+      })
+    },
+  })
+
+  return new Response(stream, {
+    headers: {
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      'Connection': 'keep-alive',
+      'Access-Control-Allow-Origin': '*',
+      'X-MCP-Version': '2024-11-05',
+    },
+  })
+}
+
+// ── HTTP POST transport（主要入口）────────────────────────────
+export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json()
+    // 支持批量请求
+    if (Array.isArray(body)) {
+      const results = await Promise.all(body.map(handleRpc))
+      return Response.json(results.filter(Boolean), {
+        headers: { 'Access-Control-Allow-Origin': '*' },
+      })
+    }
+    const result = await handleRpc(body)
+    if (!result) return new Response(null, { status: 204 })
+    return Response.json(result, {
+      headers: { 'Access-Control-Allow-Origin': '*' },
+    })
+  } catch (e: any) {
+    return Response.json(err(null, -32700, 'Parse error'), { status: 400 })
+  }
+}
+
+export async function OPTIONS() {
+  return new Response(null, {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+  })
+}
