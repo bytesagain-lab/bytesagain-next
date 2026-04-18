@@ -19,7 +19,6 @@ export async function GET(req: NextRequest) {
   const headers = {
     'Content-Type': 'application/json; charset=utf-8',
     'Access-Control-Allow-Origin': '*',
-    'X-MCP-Version': '1.0',
     'X-Provider': 'BytesAgain (bytesagain.com)',
   }
 

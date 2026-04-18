@@ -1,8 +1,8 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'MCP API — BytesAgain Developer Docs',
-  description: 'BytesAgain MCP-compatible API for AI agents. Search, recommend, and retrieve 55,000+ AI skills programmatically.',
+  title: 'Agent API — BytesAgain Developer Docs',
+  description: 'BytesAgain AI-readable REST API for agents. Search, recommend, and retrieve 55,000+ AI skills programmatically.',
 }
 
 export default function McpDocsPage() {
@@ -13,10 +13,10 @@ export default function McpDocsPage() {
           Developer Docs
         </span>
         <h1 style={{ fontSize: 'clamp(1.6em,4vw,2.2em)', fontWeight: 900, margin: '16px 0 8px', color: '#fff' }}>
-          BytesAgain MCP API
+          BytesAgain Agent API
         </h1>
         <p style={{ color: '#888', fontSize: '1em', lineHeight: 1.7, maxWidth: 620 }}>
-          MCP-compatible REST API for AI agents. Search and retrieve structured skill data from 55,000+ curated AI skills — no scraping required.
+          AI-readable REST API for agents. Search and retrieve structured skill data from 55,000+ curated AI skills — no scraping required.
         </p>
         <div style={{ marginTop: 16, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
           <code style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 8, padding: '8px 16px', fontSize: '.9em', color: '#00d4ff' }}>
@@ -125,12 +125,12 @@ export default function McpDocsPage() {
 
       {/* OpenClaw config */}
       <section style={{ marginBottom: 48 }}>
-        <h2 style={{ fontSize: '1.1em', color: '#667eea', marginBottom: 16, textTransform: 'uppercase', letterSpacing: '.1em' }}>Connect via OpenClaw</h2>
+        <h2 style={{ fontSize: '1.1em', color: '#667eea', marginBottom: 16, textTransform: 'uppercase', letterSpacing: '.1em' }}>Example Usage</h2>
         <div style={{ background: '#0a0a1a', border: '1px solid #1a1a3e', borderRadius: 12, padding: '24px' }}>
-          <pre style={{ margin: 0, color: '#a0a0c0', fontSize: '.85em', lineHeight: 1.7, overflowX: 'auto' }}>{`openclaw mcp set bytesagain '{"url":"https://bytesagain.com/api/mcp"}'`}</pre>
+          <pre style={{ margin: 0, color: '#a0a0c0', fontSize: '.85em', lineHeight: 1.7, overflowX: 'auto' }}>{`curl "https://bytesagain.com/api/mcp?action=search&q=data+analysis"`}</pre>
         </div>
         <p style={{ color: '#555', fontSize: '.85em', marginTop: 12 }}>
-          Once connected, your AI agent can search and install skills directly via natural language.
+          Returns structured JSON — no HTML parsing, no scraping needed.
         </p>
       </section>
 
