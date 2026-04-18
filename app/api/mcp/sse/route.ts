@@ -32,47 +32,32 @@ async function toolSearch(args: any) {
   const db = supabase()
 
   if (!q) {
+    // No query: return popular own skills
     const { data } = await db
-      .from('skills')
+      .from('skills_list')
       .select('slug,name,description,category,tags,downloads')
       .in('owner', OUR_OWNERS)
       .order('downloads', { ascending: false })
       .limit(limit)
-    return { results: data || [], count: data?.length || 0 }
+    return { results: data || [], count: data?.length || 0, source: 'bytesagain' }
   }
 
-  // First: search own skills
-  const { data: ownData } = await db
-    .from('skills')
-    .select('slug,name,description,category,tags,downloads')
-    .in('owner', OUR_OWNERS)
-    .or(`name.ilike.%${q}%,description.ilike.%${q}%,slug.ilike.%${q}%`)
-    .order('downloads', { ascending: false })
-    .limit(limit)
-
-  if ((ownData || []).length > 0) {
-    return {
-      results: ownData,
-      count: ownData!.length,
-      source: 'bytesagain',
-      install_hint: ownData!.slice(0, 3).map((s: any) => `clawhub install ${s.slug}`).join('\n'),
-    }
-  }
-
-  // Fallback: search full index (ClawHub + GitHub)
-  const { data: allData } = await db
-    .from('skills')
+  // Single query across full index — mark own vs external in results
+  const { data } = await db
+    .from('skills_list')
     .select('slug,name,description,category,tags,downloads,owner')
     .or(`name.ilike.%${q}%,description.ilike.%${q}%,slug.ilike.%${q}%`)
     .order('downloads', { ascending: false })
     .limit(limit)
 
+  const results = data || []
+  const ownCount = results.filter((s: any) => OUR_OWNERS.includes(s.owner)).length
+
   return {
-    results: allData || [],
-    count: (allData || []).length,
-    source: 'clawhub_index',
-    note: 'No BytesAgain-authored skills matched. Showing results from full ClawHub index.',
-    install_hint: (allData || []).slice(0, 3).map((s: any) => `clawhub install ${s.slug}`).join('\n'),
+    results,
+    count: results.length,
+    source: ownCount > 0 ? 'bytesagain+clawhub_index' : 'clawhub_index',
+    install_hint: results.slice(0, 3).map((s: any) => `clawhub install ${s.slug}`).join('\n'),
   }
 }
 
@@ -98,7 +83,7 @@ async function toolPopular(args: any) {
   const limit = Math.min(args.limit || 10, 50)
   const db = supabase()
   const { data } = await db
-    .from('skills')
+    .from('skills_list')
     .select('slug,name,description,category,downloads')
     .in('owner', OUR_OWNERS)
     .order('downloads', { ascending: false })
