@@ -6,7 +6,18 @@ export const metadata: Metadata = {
 }
 
 const CODE = {
-  mcpConnect: `openclaw mcp set bytesagain '{"url":"https://bytesagain.com/api/mcp/sse"}'`,
+  mcpConnect: `# OpenClaw
+openclaw mcp set bytesagain '{"url":"https://bytesagain.com/api/mcp/sse","transport":"streamable-http"}'
+
+# Claude Desktop (claude_desktop_config.json)
+{
+  "mcpServers": {
+    "bytesagain": {
+      "url": "https://bytesagain.com/api/mcp/sse",
+      "transport": "streamable-http"
+    }
+  }
+}`,
   mcpSearch: `curl -X POST https://bytesagain.com/api/mcp/sse \\
   -H "Content-Type: application/json" \\
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"search_skills","arguments":{"query":"data analysis"}}}'`,
