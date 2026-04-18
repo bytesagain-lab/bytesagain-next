@@ -3428,4 +3428,12 @@ export const USE_CASES: UseCase[] = [
     icon: '🤖',
     skills: [{ slug: 'ai-product-description-writer', name: 'Ai Product Description Writer', reason: 'Ai Product Description Writer' }, { slug: 'ai-product-description-from-image', name: 'Ai Product Description From Image', reason: 'Ai Product Description From Image' }, { slug: 'ai-product-description-generator-free', name: 'Ai Product Description Generator Free', reason: 'Ai Product Description Generator Free' }],
   },
+
+  {
+    slug: 'connect-ai-agents-to-skill-search-with-mcp-sse-protocol',
+    title: 'Connect AI agents to skill search with MCP SSE protocol',
+    description: 'Use AI skills to connect ai agents to skill search with mcp sse protocol — fast, accurate, and ready to deploy.',
+    icon: '🤖',
+    skills: [{ slug: 'bytesagain-mcp', name: 'Bytesagain Mcp', reason: 'Bytesagain Mcp' }],
+  },
 ]
