@@ -78,7 +78,7 @@ export default async function SkillsPage({
     .range(from, from + PAGE_SIZE - 1)
 
   if (q) {
-    query = query.or(`name.ilike.%${q}%,description.ilike.%${q}%`)
+    query = query.or(`name.ilike.%${q}%,description.ilike.%${q}%,slug.ilike.%${q}%`)
   }
   if (cat !== 'all') {
     if (['clawhub','lobehub','dify','github','mcp','official'].includes(cat)) {
