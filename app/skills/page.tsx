@@ -73,7 +73,7 @@ export default async function SkillsPage({
 
   let query = supabase
     .from('skills')
-    .select('slug,name,description,category,tags,downloads,stars,source,source_url,owner', { count: 'exact' })
+    .select('slug,name,description,category,tags,downloads,stars,source,source_url,owner', { count: 'planned' })
     .order('downloads', { ascending: false })
     .range(from, from + PAGE_SIZE - 1)
 
@@ -91,10 +91,11 @@ export default async function SkillsPage({
   let skills: any[] = []
   let total = 55000
   try {
-    const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 10000))
-    const result = await Promise.race([query, timeout]) as any
-    skills = result.data || []
-    total = result.count || 55000
+    const { data, count, error } = await query
+    if (!error) {
+      skills = data || []
+      if (count !== null && count !== undefined) total = count
+    }
   } catch {
     skills = []
   }
