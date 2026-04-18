@@ -94,7 +94,12 @@ export default async function SkillsPage({
     const { data, count, error } = await query
     if (!error) {
       skills = data || []
-      if (count !== null && count !== undefined) total = count
+      // 有搜索词时 count=planned 是估算值，用实际返回数量
+      if (rawQ || cat !== 'all') {
+        total = skills.length < PAGE_SIZE ? skills.length : (count ?? skills.length)
+      } else if (count !== null && count !== undefined) {
+        total = count
+      }
     }
   } catch {
     skills = []
