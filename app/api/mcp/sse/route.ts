@@ -4,6 +4,18 @@ import { createClient } from '@supabase/supabase-js'
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
 
+// ── In-memory cache (per serverless instance, TTL 60s) ────────
+const cache = new Map<string, { data: any; exp: number }>()
+function cacheGet(k: string) {
+  const v = cache.get(k)
+  if (!v) return null
+  if (Date.now() > v.exp) { cache.delete(k); return null }
+  return v.data
+}
+function cacheSet(k: string, data: any, ttlMs = 60_000) {
+  cache.set(k, { data, exp: Date.now() + ttlMs })
+}
+
 // 自有账号白名单 — 只返回我们自己发布的 skill，确保合规
 const OUR_OWNERS = [
   'ckchzh', 'xueyetianya', 'bytesagain1',
@@ -29,6 +41,10 @@ function err(id: any, code: number, message: string) {
 async function toolSearch(args: any) {
   const q = (args.query || '').trim()
   const limit = Math.min(args.limit || 10, 50)
+  const cacheKey = `search:${q}:${limit}`
+  const cached = cacheGet(cacheKey)
+  if (cached) return cached
+
   const db = supabase()
 
   if (!q) {
@@ -39,10 +55,12 @@ async function toolSearch(args: any) {
       .in('owner', OUR_OWNERS)
       .order('downloads', { ascending: false })
       .limit(limit)
-    return { results: data || [], count: data?.length || 0, source: 'bytesagain' }
+    const result = { results: data || [], count: data?.length || 0, source: 'bytesagain' }
+    cacheSet(cacheKey, result)
+    return result
   }
 
-  // Single query across full index — mark own vs external in results
+  // Single query across full index
   const { data } = await db
     .from('skills_list')
     .select('slug,name,description,category,tags,downloads,owner')
@@ -52,13 +70,14 @@ async function toolSearch(args: any) {
 
   const results = data || []
   const ownCount = results.filter((s: any) => OUR_OWNERS.includes(s.owner)).length
-
-  return {
+  const result = {
     results,
     count: results.length,
     source: ownCount > 0 ? 'bytesagain+clawhub_index' : 'clawhub_index',
     install_hint: results.slice(0, 3).map((s: any) => `clawhub install ${s.slug}`).join('\n'),
   }
+  cacheSet(cacheKey, result)
+  return result
 }
 
 async function toolGet(args: any) {
@@ -81,6 +100,9 @@ async function toolGet(args: any) {
 
 async function toolPopular(args: any) {
   const limit = Math.min(args.limit || 10, 50)
+  const cacheKey = `popular:${limit}`
+  const cached = cacheGet(cacheKey)
+  if (cached) return cached
   const db = supabase()
   const { data } = await db
     .from('skills_list')
@@ -88,7 +110,9 @@ async function toolPopular(args: any) {
     .in('owner', OUR_OWNERS)
     .order('downloads', { ascending: false })
     .limit(limit)
-  return { results: data || [], count: data?.length || 0 }
+  const result = { results: data || [], count: data?.length || 0 }
+  cacheSet(cacheKey, result, 300_000) // 5min TTL
+  return result
 }
 
 // ── MCP protocol ──────────────────────────────────────────────
