@@ -194,24 +194,31 @@ async function toolSearch(args: any) {
     return result
   }
 
-  // Split translated query into tokens, search each, merge by downloads
-  const STOPWORDS = new Set(['tool','tools','generator','maker','builder','helper','assistant','app','bot','ai','for','the','and','or','with'])
-  const tokens = [...new Set(q.split(/\s+/).filter(t => t.length > 1 && !STOPWORDS.has(t.toLowerCase())))]
+  // Hybrid search: full-text (fts) + ilike fallback, sorted by ts_rank + downloads
+  const { data: ftsData } = await db.rpc('fts_search_skills', { query_text: q, match_count: limit * 2 })
   const seen = new Map<string, any>()
-
-  await Promise.all(tokens.map(async token => {
-    const { data } = await db
-      .from('skills_list')
-      .select('slug,name,description,category,tags,downloads,owner')
-      .or(`name.ilike.%${token}%,description.ilike.%${token}%,slug.ilike.%${token}%`)
-      .order('downloads', { ascending: false })
-      .limit(limit)
-    for (const row of data || []) {
-      if (!seen.has(row.slug)) seen.set(row.slug, row)
+  for (const row of ftsData || []) {
+    seen.set(row.slug, { ...row, _score: row.fts_rank || 0 })
+  }
+  // ilike fallback for short/untranslated tokens
+  if (seen.size < limit) {
+    const STOPWORDS = new Set(['tool','tools','generator','maker','builder','helper','assistant','app','bot','ai','for','the','and','or','with'])
+    const tokens = [...new Set(q.split(/\s+/).filter((t:string) => t.length > 1 && !STOPWORDS.has(t.toLowerCase())))]
+    for (const token of tokens.slice(0, 3)) {
+      const { data } = await db
+        .from('skills_list')
+        .select('slug,name,description,category,tags,downloads,owner')
+        .or(`name.ilike.%${token}%,description.ilike.%${token}%,slug.ilike.%${token}%`)
+        .order('downloads', { ascending: false })
+        .limit(limit)
+      for (const row of data || []) {
+        if (!seen.has(row.slug)) seen.set(row.slug, { ...row, _score: 0 })
+      }
     }
-  }))
-
-  const results = [...seen.values()].sort((a, b) => (b.downloads || 0) - (a.downloads || 0)).slice(0, limit)
+  }
+  const results = [...seen.values()]
+    .sort((a, b) => (b._score || 0) - (a._score || 0) || (b.downloads || 0) - (a.downloads || 0))
+    .slice(0, limit)
   const ownCount = results.filter((s: any) => OUR_OWNERS.includes(s.owner)).length
   const result = {
     results,

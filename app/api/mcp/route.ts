@@ -158,22 +158,24 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ action, query, results: data || [], count: data?.length || 0 }, { headers })
       }
 
-      // Token-based search: split translated query, search each token, merge by downloads
-      const STOPWORDS = new Set(['tool','tools','generator','maker','builder','helper','assistant','app','bot','ai','for','the','and','or','with'])
-      const tokens = [...new Set(effectiveQuery.split(/\s+/).filter((t: string) => t.length > 1 && !STOPWORDS.has(t.toLowerCase())))]
+      // Hybrid search: full-text first (ts_rank), ilike fallback
+      const { data: ftsData } = await supabase.rpc('fts_search_skills', { query_text: effectiveQuery, match_count: limit * 2 })
       const seen = new Map<string, any>()
-      await Promise.all(tokens.map(async (token: string) => {
-        const { data } = await supabase
-          .from('skills_list')
-          .select('slug, name, description, category, tags, downloads, owner')
-          .or(`name.ilike.%${token}%,description.ilike.%${token}%,slug.ilike.%${token}%`)
-          .order('downloads', { ascending: false })
-          .limit(limit)
-        for (const row of data || []) {
-          if (!seen.has(row.slug)) seen.set(row.slug, row)
+      for (const row of ftsData || []) seen.set(row.slug, { ...row, _score: row.fts_rank || 0 })
+      if (seen.size < limit) {
+        const STOPWORDS = new Set(['tool','tools','generator','maker','builder','helper','assistant','app','bot','ai','for','the','and','or','with'])
+        const tokens = [...new Set(effectiveQuery.split(/\s+/).filter((t: string) => t.length > 1 && !STOPWORDS.has(t.toLowerCase())))]
+        for (const token of tokens.slice(0, 3)) {
+          const { data } = await supabase.from('skills_list')
+            .select('slug, name, description, category, tags, downloads, owner')
+            .or(`name.ilike.%${token}%,description.ilike.%${token}%,slug.ilike.%${token}%`)
+            .order('downloads', { ascending: false }).limit(limit)
+          for (const row of data || []) { if (!seen.has(row.slug)) seen.set(row.slug, { ...row, _score: 0 }) }
         }
-      }))
-      const local = [...seen.values()].sort((a: any, b: any) => (b.downloads || 0) - (a.downloads || 0)).slice(0, limit)
+      }
+      const local = [...seen.values()]
+        .sort((a: any, b: any) => (b._score||0)-(a._score||0)||(b.downloads||0)-(a.downloads||0))
+        .slice(0, limit)
 
       const [ghRes] = await Promise.allSettled([
         fetch(`https://api.github.com/search/repositories?q=${encodeURIComponent(effectiveQuery)}+filename:SKILL.md&sort=stars&per_page=3`,
