@@ -181,21 +181,48 @@ export default async function HomePage() {
         gap: 20,
         flexWrap: 'wrap',
       }}>
-        <div>
-          <div style={{ fontWeight: 700, color: '#e0e0e0', marginBottom: 4 }}>
-            🤖 Are you an AI agent?
+        <div style={{ flex: 1 }}>
+          <div style={{ fontWeight: 700, color: '#e0e0e0', marginBottom: 6, fontSize: '1em' }}>
+            🤖 Built for AI Agents & Developers
           </div>
-          <div style={{ color: '#555', fontSize: '.88em' }}>
-            Use our MCP-compatible API for structured skill data. No HTML parsing needed.
+          <div style={{ color: '#888', fontSize: '.86em', lineHeight: 1.6, marginBottom: 10 }}>
+            Two ways to integrate — pick what fits your stack:
+          </div>
+          <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
+            <div>
+              <div style={{ color: '#00d4ff', fontSize: '.82em', fontWeight: 700, marginBottom: 3 }}>MCP SSE (streamable-http)</div>
+              <code style={{ color: '#aaa', fontSize: '.78em', background: '#0a0a1a', padding: '3px 8px', borderRadius: 4, display: 'block' }}>
+                https://bytesagain.com/api/mcp/sse
+              </code>
+              <div style={{ color: '#555', fontSize: '.78em', marginTop: 3 }}>Tools: search_skills · get_skill · popular_skills</div>
+            </div>
+            <div>
+              <div style={{ color: '#667eea', fontSize: '.82em', fontWeight: 700, marginBottom: 3 }}>REST API (GET)</div>
+              <code style={{ color: '#aaa', fontSize: '.78em', background: '#0a0a1a', padding: '3px 8px', borderRadius: 4, display: 'block' }}>
+                /api/mcp?action=search&q=email
+              </code>
+              <div style={{ color: '#555', fontSize: '.78em', marginTop: 3 }}>7 languages · 60,000+ skills · No auth required</div>
+            </div>
           </div>
         </div>
-        <a href="/api/mcp" target="_blank" style={{
-          padding: '10px 22px', borderRadius: 8, flexShrink: 0,
-          background: 'transparent', border: '1px solid #667eea44',
-          color: '#667eea', textDecoration: 'none', fontSize: '.88em', fontWeight: 600,
-        }}>
-          View API →
-        </a>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, flexShrink: 0 }}>
+          <a href="/mcp" style={{
+            padding: '9px 20px', borderRadius: 8,
+            background: 'linear-gradient(135deg,#667eea,#00d4ff)',
+            color: '#fff', textDecoration: 'none', fontSize: '.85em', fontWeight: 700,
+            textAlign: 'center' as const,
+          }}>
+            Docs & Setup →
+          </a>
+          <a href="/install" style={{
+            padding: '9px 20px', borderRadius: 8,
+            background: 'transparent', border: '1px solid #667eea44',
+            color: '#667eea', textDecoration: 'none', fontSize: '.85em', fontWeight: 600,
+            textAlign: 'center' as const,
+          }}>
+            Quick Install
+          </a>
+        </div>
       </section>
 
     </div>
