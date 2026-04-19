@@ -173,7 +173,7 @@ function err(id: any, code: number, message: string) {
 
 // ── Tool handlers ─────────────────────────────────────────────
 async function toolSearch(args: any) {
-  const q = translateQuery((args.query || '').trim())
+  const q = translateQuery((args.query || args.keyword || args.q || args.search || '').trim())
   const limit = Math.min(args.limit || 10, 50)
   const cacheKey = `search:${q}:${limit}`
   const cached = cacheGet(cacheKey)
@@ -273,7 +273,7 @@ const TOOLS = [
     inputSchema: {
       type: 'object',
       properties: {
-        query: { type: 'string', description: 'Search keyword' },
+        query: { type: 'string', description: 'Search keyword or phrase. Aliases: q, keyword, search' },
         limit: { type: 'number', description: 'Max results (default 10, max 50)' },
       },
       required: [],
