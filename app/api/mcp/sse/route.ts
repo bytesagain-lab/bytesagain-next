@@ -200,7 +200,7 @@ async function handleRpc(body: any): Promise<any> {
 
   if (method === 'tools/call') {
     const name = params?.name
-    const args = params?.arguments || {}
+    const args = params?.arguments || params?.input || {}
     const t0 = Date.now()
     try {
       let result: any
