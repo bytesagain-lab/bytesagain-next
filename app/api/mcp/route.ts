@@ -22,52 +22,75 @@ export async function GET(req: NextRequest) {
     'X-Provider': 'BytesAgain (bytesagain.com)',
   }
 
+  // ── Chinese → English keyword mapping ──
+  const ZH_MAP: Record<string, string> = {
+    '微信': 'wechat', '公众号': 'wechat', '微信公众号': 'wechat article',
+    '写作': 'writer writing', '文章': 'article writer', '抛文': 'writer',
+    '数据分析': 'data analysis', '图表': 'chart generator',
+    '翻译': 'translator', '代码': 'code developer',
+    '简历': 'resume', '邮件': 'email', '会议': 'meeting',
+    'SEO': 'seo', '搜索': 'search', '爬虫': 'scraper crawler',
+    '超标': 'caption', '视频': 'video', '音频': 'audio',
+    '加密': 'crypto encrypt', '密码': 'password',
+    '日历': 'calendar', '天气': 'weather',
+    '新闻': 'news', '笔记': 'notes',
+  }
+  function translateQuery(q: string): string {
+    let result = q
+    for (const [zh, en] of Object.entries(ZH_MAP)) {
+      result = result.replace(new RegExp(zh, 'g'), en)
+    }
+    return result.trim()
+  }
+  const effectiveQuery = translateQuery(query)
+
   try {
     if (action === 'search') {
-      if (!query) {
-        // 空query返回热门
+      const t0 = Date.now()
+      if (!effectiveQuery) {
         const { data } = await supabase
-          .from('skills')
+          .from('skills_list')
           .select('slug, name, description, category, tags, downloads, owner')
           .order('downloads', { ascending: false })
           .limit(limit)
         return NextResponse.json({ action, query, results: data || [], count: data?.length || 0 }, { headers })
       }
 
-      // 并行：本地精确匹配 + ClawHub语义搜索 + GitHub
-      const [localRes, chRes, ghRes] = await Promise.allSettled([
+      // Search skills_list (no embedding = fast) + GitHub
+      const [localRes, ghRes] = await Promise.allSettled([
         supabase
-          .from('skills')
+          .from('skills_list')
           .select('slug, name, description, category, tags, downloads, owner')
-          .or(`name.ilike.%${query}%,description.ilike.%${query}%`)
+          .or(`name.ilike.%${effectiveQuery}%,description.ilike.%${effectiveQuery}%,slug.ilike.%${effectiveQuery}%`)
           .order('downloads', { ascending: false })
-          .limit(Math.ceil(limit * 0.5)),
-        Promise.resolve(null), // ClawHub disabled
-        fetch(`https://api.github.com/search/repositories?q=${encodeURIComponent(query)}+filename:SKILL.md&sort=stars&per_page=5`,
+          .limit(limit),
+        fetch(`https://api.github.com/search/repositories?q=${encodeURIComponent(effectiveQuery)}+filename:SKILL.md&sort=stars&per_page=3`,
           { headers: { Authorization: `token ${process.env.GITHUB_TOKEN || ''}`, Accept: 'application/vnd.github.v3+json' }, next: { revalidate: 600 } }),
       ])
 
       const local = localRes.status === 'fulfilled' ? (localRes.value.data || []) : []
       const seenSlugs = new Set(local.map((s: any) => s.slug))
 
-      const remote: any[] = [] // ClawHub disabled
-
       let ghResults: any[] = []
-      if (ghRes.status === 'fulfilled' && ghRes.value.ok) {
-        const ghData = await ghRes.value.json()
+      if (ghRes.status === 'fulfilled' && (ghRes.value as Response).ok) {
+        const ghData = await (ghRes.value as Response).json()
         ghResults = (ghData.items || []).slice(0, 2).map((repo: any) => {
-          const slug = repo.name.toLowerCase().replace(/[^a-z0-9-]/g, '-')
-          if (seenSlugs.has(slug)) return null
-          seenSlugs.add(slug)
-          return { slug, name: repo.name, description: repo.description || '', category: 'github', downloads: repo.stargazers_count || 0, owner: repo.owner?.login || '', _source: 'github', _url: repo.html_url }
+          const s = repo.name.toLowerCase().replace(/[^a-z0-9-]/g, '-')
+          if (seenSlugs.has(s)) return null
+          seenSlugs.add(s)
+          return { slug: s, name: repo.name, description: repo.description || '', category: 'github', downloads: repo.stargazers_count || 0, owner: repo.owner?.login || '', _source: 'github', _url: repo.html_url }
         }).filter(Boolean)
       }
 
-      const results = [...local, ...remote, ...ghResults].slice(0, limit)
+      const results = [...local, ...ghResults].slice(0, limit)
       const ua = req.headers.get('user-agent') || ''
       const ip = req.headers.get('x-forwarded-for')?.split(',')[0].trim() || ''
-      logMcpCall({ action, query, user_agent: ua, ip, result_count: results.length })
-      return NextResponse.json({ action, query, results, count: results.length }, { headers })
+      logMcpCall({ action, query, user_agent: ua, ip, latency_ms: Date.now() - t0, result_count: results.length })
+      return NextResponse.json({
+        action, query,
+        ...(effectiveQuery !== query ? { translated_query: effectiveQuery } : {}),
+        results, count: results.length
+      }, { headers })
     }
 
     if (action === 'recommend') {
@@ -82,14 +105,14 @@ export async function GET(req: NextRequest) {
       }
       const tags = ROLE_TAGS[role] || ROLE_TAGS['developer']
       const { data } = await supabase
-        .from('skills')
+        .from('skills_list')
         .select('slug, name, description, category, tags, downloads, owner')
         .overlaps('tags', tags)
         .order('downloads', { ascending: false })
         .limit(limit)
       const ua2 = req.headers.get('user-agent') || ''
       const ip2 = req.headers.get('x-forwarded-for')?.split(',')[0].trim() || ''
-      logMcpCall({ action, role, user_agent: ua2, ip: ip2, result_count: (data||[]).length })
+      logMcpCall({ action, role, user_agent: ua2, ip: ip2, result_count: (data || []).length })
       return NextResponse.json({
         action, role,
         results: data || [],
@@ -114,7 +137,7 @@ export async function GET(req: NextRequest) {
 
     if (action === 'popular') {
       const { data } = await supabase
-        .from('skills')
+        .from('skills_list')
         .select('slug, name, description, category, downloads, owner')
         .order('downloads', { ascending: false })
         .limit(limit)
@@ -123,15 +146,16 @@ export async function GET(req: NextRequest) {
 
     // Default: API info
     return NextResponse.json({
-      name: 'BytesAgain MCP API',
-      description: 'AI-readable skill recommendation API. Curated from 100,000+ skills worldwide.',
-      version: '1.0',
+      name: 'BytesAgain Agent API',
+      description: 'AI-readable skill search API. Curated from 100,000+ skills worldwide.',
+      version: '1.1',
       actions: {
         search: '?action=search&q=<query>&limit=10',
         recommend: '?action=recommend&role=<developer|creator|trader|marketer|student|ecommerce>&limit=10',
         get: '?action=get&slug=<slug>',
         popular: '?action=popular&limit=20',
       },
+      mcp_sse: 'https://bytesagain.com/api/mcp/sse',
       homepage: 'https://bytesagain.com',
       llms_txt: 'https://bytesagain.com/llms.txt',
     }, { headers })
