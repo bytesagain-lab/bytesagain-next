@@ -303,3 +303,85 @@ async function logMcpCall(params: {
     })
   } catch { /* 日志失败不影响主流程 */ }
 }
+
+// ── POST: Streamable HTTP MCP (for Glama / MCP Inspector compatibility) ──────
+export async function POST(req: NextRequest) {
+  const headers = {
+    'Content-Type': 'application/json; charset=utf-8',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+  }
+
+  let body: any
+  try { body = await req.json() } catch {
+    return NextResponse.json({ jsonrpc: '2.0', id: null, error: { code: -32700, message: 'Parse error' } }, { headers })
+  }
+
+  const { id, method, params } = body
+
+  if (method === 'initialize') {
+    return NextResponse.json({
+      jsonrpc: '2.0', id,
+      result: {
+        protocolVersion: '2024-11-05',
+        capabilities: { tools: {} },
+        serverInfo: { name: 'BytesAgain', version: '1.1.0' }
+      }
+    }, { headers })
+  }
+
+  if (method === 'tools/list') {
+    return NextResponse.json({
+      jsonrpc: '2.0', id,
+      result: { tools: [
+        { name: 'search_skills', description: 'Search 60,000+ AI agent skills by keyword. Supports EN/ZH/JA/KO/DE/FR/ES.',
+          inputSchema: { type: 'object', properties: { query: { type: 'string', description: 'Search keyword or phrase' }, limit: { type: 'number', description: 'Max results (1-50, default 10)' } }, required: [] } },
+        { name: 'get_skill', description: 'Get full details for a specific skill by slug.',
+          inputSchema: { type: 'object', properties: { slug: { type: 'string' } }, required: ['slug'] } },
+        { name: 'popular_skills', description: 'Get top skills by download count.',
+          inputSchema: { type: 'object', properties: { limit: { type: 'number', description: 'Max results (1-50, default 20)' } }, required: [] } },
+      ]}
+    }, { headers })
+  }
+
+  if (method === 'tools/call') {
+    const name = params?.name
+    const args = params?.arguments ?? params?.input ?? {}
+    const baseUrl = `${req.nextUrl.protocol}//${req.nextUrl.host}`
+
+    try {
+      let apiUrl = ''
+      if (name === 'search_skills') {
+        const q = encodeURIComponent(args.query || args.q || args.keyword || '')
+        const limit = args.limit || 10
+        apiUrl = `${baseUrl}/api/mcp?action=search&q=${q}&limit=${limit}`
+      } else if (name === 'get_skill') {
+        apiUrl = `${baseUrl}/api/mcp?action=get&slug=${encodeURIComponent(args.slug || '')}`
+      } else if (name === 'popular_skills') {
+        apiUrl = `${baseUrl}/api/mcp?action=popular&limit=${args.limit || 20}`
+      } else {
+        return NextResponse.json({ jsonrpc: '2.0', id, error: { code: -32601, message: `Unknown tool: ${name}` } }, { headers })
+      }
+
+      const res = await fetch(apiUrl)
+      const data = await res.json()
+      return NextResponse.json({
+        jsonrpc: '2.0', id,
+        result: { content: [{ type: 'text', text: JSON.stringify(data) }] }
+      }, { headers })
+    } catch (e: any) {
+      return NextResponse.json({ jsonrpc: '2.0', id, error: { code: -32603, message: e.message } }, { headers })
+    }
+  }
+
+  return NextResponse.json({ jsonrpc: '2.0', id, error: { code: -32601, message: `Method not found: ${method}` } }, { headers })
+}
+
+export async function OPTIONS() {
+  return new Response(null, { status: 204, headers: {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+  }})
+}
