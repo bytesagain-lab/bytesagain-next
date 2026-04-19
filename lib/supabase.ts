@@ -32,6 +32,8 @@ export interface Article {
   category: string
   author_name: string
   published_at: string
+  updated_at?: string
+  tags?: string[]
   post_type: string
 }
 
