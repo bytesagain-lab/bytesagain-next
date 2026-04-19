@@ -269,34 +269,54 @@ async function toolPopular(args: any) {
 const TOOLS = [
   {
     name: 'search_skills',
-    description: 'Search BytesAgain skills by keyword. Returns name, slug, description, category, downloads.',
+    description: [
+      'Search 60,000+ AI agent skills by keyword or natural language query.',
+      'Supports 7 languages: English, Chinese (中文), Japanese (日本語), Korean (한국어), German, French, Portuguese/Spanish.',
+      'Returns an array of matching skills, each with: slug, name, description, category, tags, downloads, stars, source, and source_url.',
+      'Results are ranked by relevance (full-text score) then download count.',
+      'Use this tool when the user wants to find or discover skills for a specific task or topic.',
+      'Example queries: "email automation", "邮件自动化", "data analysis", "메일 자동화".',
+      'If no results are found, try a shorter or more general keyword.',
+    ].join(' '),
     inputSchema: {
       type: 'object',
       properties: {
-        query: { type: 'string', description: 'Search keyword or phrase. Aliases: q, keyword, search' },
-        limit: { type: 'number', description: 'Max results (default 10, max 50)' },
+        query: { type: 'string', description: 'Search keyword or phrase in any supported language (EN/ZH/JA/KO/DE/FR/ES). Example: "email automation" or "邮件自动化".' },
+        limit: { type: 'number', description: 'Number of results to return. Default: 10. Max: 50.' },
       },
       required: [],
     },
   },
   {
     name: 'get_skill',
-    description: 'Get full details for a single skill by slug, including install command.',
+    description: [
+      'Fetch complete details for a single AI agent skill by its unique slug identifier.',
+      'Returns full skill metadata: name, description, category, tags, version, author, downloads, stars, source platform, source URL, and install instructions.',
+      'Use this tool after search_skills to get more information about a specific skill the user is interested in.',
+      'The slug is the unique identifier found in search results (e.g. "chart-generator", "email-automation").',
+      'Returns an error object if the slug does not exist.',
+    ].join(' '),
     inputSchema: {
       type: 'object',
       properties: {
-        slug: { type: 'string', description: 'Skill slug, e.g. chart-generator' },
+        slug: { type: 'string', description: 'Unique skill identifier (slug). Example: "chart-generator" or "email-automation". Obtain from search_skills results.' },
       },
       required: ['slug'],
     },
   },
   {
     name: 'popular_skills',
-    description: 'Get top skills ranked by download count.',
+    description: [
+      'Get the most popular AI agent skills ranked by total download count.',
+      'Returns a list of top skills with: slug, name, description, category, downloads, stars, and source.',
+      'Use this tool when the user wants to discover trending or widely-used skills without a specific topic in mind.',
+      'Ideal for onboarding: show users what skills others are using most.',
+      'Default returns top 20 skills; increase limit up to 50 for broader discovery.',
+    ].join(' '),
     inputSchema: {
       type: 'object',
       properties: {
-        limit: { type: 'number', description: 'Max results (default 10, max 50)' },
+        limit: { type: 'number', description: 'Number of top skills to return. Default: 20. Max: 50.' },
       },
       required: [],
     },

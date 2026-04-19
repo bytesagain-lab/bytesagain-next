@@ -335,12 +335,22 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       jsonrpc: '2.0', id,
       result: { tools: [
-        { name: 'search_skills', description: 'Search 60,000+ AI agent skills by keyword. Supports EN/ZH/JA/KO/DE/FR/ES.',
-          inputSchema: { type: 'object', properties: { query: { type: 'string', description: 'Search keyword or phrase' }, limit: { type: 'number', description: 'Max results (1-50, default 10)' } }, required: [] } },
-        { name: 'get_skill', description: 'Get full details for a specific skill by slug.',
-          inputSchema: { type: 'object', properties: { slug: { type: 'string' } }, required: ['slug'] } },
-        { name: 'popular_skills', description: 'Get top skills by download count.',
-          inputSchema: { type: 'object', properties: { limit: { type: 'number', description: 'Max results (1-50, default 20)' } }, required: [] } },
+        { name: 'search_skills',
+          description: 'Search 60,000+ AI agent skills by keyword or natural language query. Supports 7 languages (EN/ZH/JA/KO/DE/FR/ES). Returns skills with slug, name, description, category, downloads, stars. Results ranked by relevance then popularity. Use when user wants to find skills for a specific task. Example: "email automation" or "邮件自动化".',
+          inputSchema: { type: 'object', properties: {
+            query: { type: 'string', description: 'Search keyword in any supported language. Example: "data analysis" or "数据分析".' },
+            limit: { type: 'number', description: 'Number of results. Default: 10. Max: 50.' }
+          }, required: [] } },
+        { name: 'get_skill',
+          description: 'Fetch complete details for a single skill by its unique slug. Returns full metadata: name, description, category, tags, version, author, downloads, stars, source URL, and install instructions. Use after search_skills to get more info about a specific skill. Returns error if slug not found.',
+          inputSchema: { type: 'object', properties: {
+            slug: { type: 'string', description: 'Unique skill slug from search results. Example: "chart-generator" or "email-automation".' }
+          }, required: ['slug'] } },
+        { name: 'popular_skills',
+          description: 'Get the most popular AI agent skills ranked by download count. Returns top skills with slug, name, description, category, downloads, stars. Use when user wants to discover trending skills without a specific topic. Ideal for onboarding. Default returns top 20.',
+          inputSchema: { type: 'object', properties: {
+            limit: { type: 'number', description: 'Number of top skills to return. Default: 20. Max: 50.' }
+          }, required: [] } },
       ]}
     }, { headers })
   }
