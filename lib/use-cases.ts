@@ -3465,4 +3465,40 @@ export const USE_CASES: UseCase[] = [
     icon: '💼',
     skills: [{ slug: 'clawhub-self-improving-agent', name: 'self-improving-agent', reason: 'self-improving-agent' }, { slug: 'clawhub-skill-vetter', name: 'Skill Vetter', reason: 'Skill Vetter' }, { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Proactive Agent' }, { slug: 'clawhub-humanizer', name: 'Humanizer', reason: 'Humanizer' }],
   },
+
+  {
+    slug: 'student-note-organizer',
+    title: 'Organize student notes with AI',
+    description: 'Automatically organize and summarize student notes for better study sessions.',
+    icon: '📚',
+    skills: [{ slug: 'clawhub-guicountrol', name: 'Linux GUI  Control', reason: 'Linux GUI  Control' }, { slug: 'clawhub-binance-pro', name: 'Binance Pro', reason: 'Binance Pro' }, { slug: 'clawhub-openclaw-agent-browser', name: 'Agent Browser', reason: 'Agent Browser' }, { slug: 'clawhub-arc-security', name: 'Arc Security - Agent Trust Pro', reason: 'Arc Security - Agent Trust Pro' }],
+  },
+  {
+    slug: 'research-paper-helper',
+    title: 'Generate research paper outlines',
+    description: 'Create structured outlines for research papers using AI.',
+    icon: '✍️',
+    skills: [{ slug: 'clawhub-academic-deep-research', name: 'Academic Deep Research', reason: 'Academic Deep Research' }, { slug: 'clawhub-research-paper-writer', name: 'Research Paper Writer', reason: 'Research Paper Writer' }, { slug: 'clawhub-academic-writing', name: 'academic-writing', reason: 'academic-writing' }, { slug: 'clawhub-arxiv', name: 'arXiv Research Assistant', reason: 'arXiv Research Assistant' }],
+  },
+  {
+    slug: 'writer-feedback-tool',
+    title: 'Get AI feedback on writing',
+    description: 'Receive real-time feedback to improve writing quality and clarity.',
+    icon: '✍️',
+    skills: [{ slug: 'clawhub-code-review', name: 'Code Review', reason: 'Code Review' }, { slug: 'clawhub-interview-simulator', name: 'Interview Simulator', reason: 'Interview Simulator' }, { slug: 'clawhub-android-adb', name: 'ADB Connection', reason: 'ADB Connection' }, { slug: 'clawhub-receiving-code-review', name: 'Receiving Code Review', reason: 'Receiving Code Review' }],
+  },
+  {
+    slug: 'legal-doc-summarizer',
+    title: 'Summarize legal documents quickly',
+    description: 'Use AI to extract key points from complex legal texts.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-stock-analysis', name: 'Stock Analysis', reason: 'Stock Analysis' }, { slug: 'clawhub-markdown-converter', name: 'Markdown Converter', reason: 'Markdown Converter' }, { slug: 'clawhub-data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }],
+  },
+  {
+    slug: 'email-writing-assistant',
+    title: 'Write professional emails faster',
+    description: 'Generate clear and professional email drafts in seconds.',
+    icon: '💼',
+    skills: [{ slug: 'clawhub-humanizer', name: 'Humanizer', reason: 'Humanizer' }, { slug: 'clawhub-ai-humanizer', name: 'Humanizer', reason: 'Humanizer' }, { slug: 'clawhub-marketing-mode', name: 'Marketing Mode', reason: 'Marketing Mode' }, { slug: 'clawhub-remotion-video-toolkit', name: 'Remotion Video Toolkit', reason: 'Remotion Video Toolkit' }],
+  },
 ]
