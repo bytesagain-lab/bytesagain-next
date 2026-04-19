@@ -195,7 +195,8 @@ async function toolSearch(args: any) {
   }
 
   // Split translated query into tokens, search each, merge by downloads
-  const tokens = [...new Set(q.split(/\s+/).filter(t => t.length > 1))]
+  const STOPWORDS = new Set(['tool','tools','generator','maker','builder','helper','assistant','app','bot','ai','for','the','and','or','with'])
+  const tokens = [...new Set(q.split(/\s+/).filter(t => t.length > 1 && !STOPWORDS.has(t.toLowerCase())))]
   const seen = new Map<string, any>()
 
   await Promise.all(tokens.map(async token => {

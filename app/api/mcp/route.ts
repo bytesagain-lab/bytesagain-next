@@ -159,7 +159,8 @@ export async function GET(req: NextRequest) {
       }
 
       // Token-based search: split translated query, search each token, merge by downloads
-      const tokens = [...new Set(effectiveQuery.split(/\s+/).filter((t: string) => t.length > 1))]
+      const STOPWORDS = new Set(['tool','tools','generator','maker','builder','helper','assistant','app','bot','ai','for','the','and','or','with'])
+      const tokens = [...new Set(effectiveQuery.split(/\s+/).filter((t: string) => t.length > 1 && !STOPWORDS.has(t.toLowerCase())))]
       const seen = new Map<string, any>()
       await Promise.all(tokens.map(async (token: string) => {
         const { data } = await supabase
