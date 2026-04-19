@@ -60,6 +60,13 @@ export default function InstallPage() {
         <p style={{ color: '#555', fontSize: '.85em', margin: '8px 0 0' }}>
           Don't have OpenClaw? <a href="https://openclaw.ai" target="_blank" rel="noopener noreferrer" style={{ color: '#667eea', textDecoration: 'none' }}>Get it here →</a>
         </p>
+        <div style={{ marginTop: 12, padding: '12px 16px', background: '#1a1000', border: '1px solid #f59e0b44', borderRadius: 8, fontSize: '.83em', color: '#888' }}>
+          ⚠️ <strong style={{ color: '#f59e0b' }}>SSE not working?</strong> If you're in a sandboxed environment (restricted network), use the REST API instead:
+          <div style={{ marginTop: 8, color: '#a0a0c0', fontFamily: 'monospace', background: '#0a0a1a', padding: '8px 12px', borderRadius: 6 }}>
+            curl "https://bytesagain.com/api/mcp?action=search&q=email+automation"
+          </div>
+          <div style={{ marginTop: 6 }}>See <a href="/mcp#rest" style={{ color: '#667eea', textDecoration: 'none' }}>REST API docs →</a></div>
+        </div>
       </div>
 
       {/* Step 2 */}
@@ -81,6 +88,8 @@ export default function InstallPage() {
           {[
             '"Find me a skill for data analysis"',
             '"What are the most popular AI skills right now?"',
+            '"邮件自动化工具有哪些？"  (Chinese)',
+            '"データ分析スキルを探して"  (Japanese)',
             '"Get me the chart-generator skill details"',
           ].map(q => (
             <div key={q} style={{ background: '#050510', borderRadius: 8, padding: '12px 16px', color: '#888', fontSize: '.9em', fontStyle: 'italic' }}>

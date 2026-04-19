@@ -79,8 +79,8 @@ export default function McpDocsPage() {
           BytesAgain Agent API
         </h1>
         <p style={{ color: '#888', fontSize: '1em', lineHeight: 1.7, maxWidth: 640 }}>
-          Connect your AI agent to 788+ curated skills via MCP SSE protocol or plain REST API.
-          Returns skills published by BytesAgain authors. Search also indexes ClawHub and GitHub skill repos.
+          Connect your AI agent to 60,000+ indexed skills via MCP SSE or REST API.
+          Supports 7 languages: English, Chinese, Japanese, Korean, German, French, Portuguese, Spanish. Free, no auth required.
         </p>
         <div style={{ marginTop: 20, display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
           <span style={{ padding: '6px 14px', background: '#00d4ff18', border: '1px solid #00d4ff44', borderRadius: 8, fontSize: '.8em', color: '#00d4ff' }}>✦ Free</span>
@@ -91,9 +91,10 @@ export default function McpDocsPage() {
       </div>
 
       {/* MCP SSE */}
-      <Section title="MCP SSE Server (Recommended)">
+      <Section title="MCP SSE (Recommended for desktop clients)">
         <p style={{ color: '#888', fontSize: '.9em', marginBottom: 16 }}>
-          Standard MCP protocol over SSE. Compatible with OpenClaw, Claude Desktop, Cursor, and any MCP client.
+          Standard MCP protocol (streamable-http). Works with OpenClaw, Claude Desktop, Cursor, and any MCP 2024-11-05 compatible client.
+          <span style={{ color: '#f59e0b', marginLeft: 8, fontSize: '.85em' }}>⚠️ May not work in sandboxed environments (network restrictions apply)</span>
         </p>
         <Card>
           <div style={{ marginBottom: 16 }}>
@@ -118,9 +119,10 @@ export default function McpDocsPage() {
       </Section>
 
       {/* REST API */}
-      <Section title="REST API">
+      <Section title="REST API (Works everywhere, including sandboxes)">
         <p style={{ color: '#888', fontSize: '.9em', marginBottom: 16 }}>
-          Simple GET requests returning JSON. No client library needed.
+          Simple GET requests. No client library, no streaming, no SSE. Works in any environment including sandboxed agents.
+          Supports 7 languages — search in Chinese, Japanese, Korean, German, French, Portuguese, or Spanish directly.
         </p>
         {[
           { action: 'search', desc: 'Search skills by keyword.', params: 'q=<query>&limit=10', },
