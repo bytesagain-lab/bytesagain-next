@@ -61,9 +61,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             "@type": "Organization",
             "name": "BytesAgain",
             "url": "https://bytesagain.com",
-            "logo": "https://bytesagain.com/logo.png",
-            "sameAs": ["https://x.com/bytesagain"],
-            "contactPoint": { "@type": "ContactPoint", "email": "hello@bytesagain.com" }
+            "logo": { "@type": "ImageObject", "url": "https://bytesagain.com/og-image.png" },
+            "description": "Search 60,000+ AI agent skills via MCP API or REST. Supports 7 languages. Free, no auth required.",
+            "foundingDate": "2026",
+            "sameAs": ["https://x.com/bytesagain", "https://github.com/bytesagain/ai-skills"],
+            "contactPoint": { "@type": "ContactPoint", "email": "hello@bytesagain.com", "contactType": "customer support" }
           }) }} />
           <main>{children}</main>
           <FooterClient />

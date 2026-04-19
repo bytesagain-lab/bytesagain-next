@@ -61,7 +61,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         "author": { "@type": "Organization", "name": "BytesAgain", "url": "https://bytesagain.com" },
         "publisher": { "@type": "Organization", "name": "BytesAgain", "url": "https://bytesagain.com", "logo": { "@type": "ImageObject", "url": "https://bytesagain.com/og-image.png" } },
         "datePublished": article.published_at,
-        "dateModified": article.published_at,
+        "dateModified": article.updated_at || article.published_at,
+        "keywords": article.tags?.join(', ') || 'AI skills, MCP, agent',
+        "inLanguage": "en-US",
         "url": `https://bytesagain.com/article/${slug}`,
         "mainEntityOfPage": { "@type": "WebPage", "@id": `https://bytesagain.com/article/${slug}` },
       }) }} />
