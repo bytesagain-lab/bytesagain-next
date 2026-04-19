@@ -194,15 +194,23 @@ async function toolSearch(args: any) {
     return result
   }
 
-  // Single query across full index
-  const { data } = await db
-    .from('skills_list')
-    .select('slug,name,description,category,tags,downloads,owner')
-    .or(`name.ilike.%${q}%,description.ilike.%${q}%,slug.ilike.%${q}%`)
-    .order('downloads', { ascending: false })
-    .limit(limit)
+  // Split translated query into tokens, search each, merge by downloads
+  const tokens = [...new Set(q.split(/\s+/).filter(t => t.length > 1))]
+  const seen = new Map<string, any>()
 
-  const results = data || []
+  await Promise.all(tokens.map(async token => {
+    const { data } = await db
+      .from('skills_list')
+      .select('slug,name,description,category,tags,downloads,owner')
+      .or(`name.ilike.%${token}%,description.ilike.%${token}%,slug.ilike.%${token}%`)
+      .order('downloads', { ascending: false })
+      .limit(limit)
+    for (const row of data || []) {
+      if (!seen.has(row.slug)) seen.set(row.slug, row)
+    }
+  }))
+
+  const results = [...seen.values()].sort((a, b) => (b.downloads || 0) - (a.downloads || 0)).slice(0, limit)
   const ownCount = results.filter((s: any) => OUR_OWNERS.includes(s.owner)).length
   const result = {
     results,

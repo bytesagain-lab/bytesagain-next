@@ -158,19 +158,27 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ action, query, results: data || [], count: data?.length || 0 }, { headers })
       }
 
-      // Search skills_list (no embedding = fast) + GitHub
-      const [localRes, ghRes] = await Promise.allSettled([
-        supabase
+      // Token-based search: split translated query, search each token, merge by downloads
+      const tokens = [...new Set(effectiveQuery.split(/\s+/).filter((t: string) => t.length > 1))]
+      const seen = new Map<string, any>()
+      await Promise.all(tokens.map(async (token: string) => {
+        const { data } = await supabase
           .from('skills_list')
           .select('slug, name, description, category, tags, downloads, owner')
-          .or(`name.ilike.%${effectiveQuery}%,description.ilike.%${effectiveQuery}%,slug.ilike.%${effectiveQuery}%`)
+          .or(`name.ilike.%${token}%,description.ilike.%${token}%,slug.ilike.%${token}%`)
           .order('downloads', { ascending: false })
-          .limit(limit),
+          .limit(limit)
+        for (const row of data || []) {
+          if (!seen.has(row.slug)) seen.set(row.slug, row)
+        }
+      }))
+      const local = [...seen.values()].sort((a: any, b: any) => (b.downloads || 0) - (a.downloads || 0)).slice(0, limit)
+
+      const [ghRes] = await Promise.allSettled([
         fetch(`https://api.github.com/search/repositories?q=${encodeURIComponent(effectiveQuery)}+filename:SKILL.md&sort=stars&per_page=3`,
           { headers: { Authorization: `token ${process.env.GITHUB_TOKEN || ''}`, Accept: 'application/vnd.github.v3+json' }, next: { revalidate: 600 } }),
       ])
 
-      const local = localRes.status === 'fulfilled' ? (localRes.value.data || []) : []
       const seenSlugs = new Set(local.map((s: any) => s.slug))
 
       let ghResults: any[] = []
