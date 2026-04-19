@@ -22,25 +22,35 @@ export async function GET(req: NextRequest) {
     'X-Provider': 'BytesAgain (bytesagain.com)',
   }
 
-  // ── Chinese → English keyword mapping ──
-  const ZH_MAP: Record<string, string> = {
-    '微信': 'wechat', '公众号': 'wechat', '微信公众号': 'wechat article',
-    '写作': 'writer writing', '文章': 'article writer', '抛文': 'writer',
-    '数据分析': 'data analysis', '图表': 'chart generator',
-    '翻译': 'translator', '代码': 'code developer',
-    '简历': 'resume', '邮件': 'email', '会议': 'meeting',
-    'SEO': 'seo', '搜索': 'search', '爬虫': 'scraper crawler',
-    '超标': 'caption', '视频': 'video', '音频': 'audio',
-    '加密': 'crypto encrypt', '密码': 'password',
-    '日历': 'calendar', '天气': 'weather',
-    '新闻': 'news', '笔记': 'notes',
-  }
+  // ── Chinese → English keyword mapping (longer phrases first) ──
+  const ZH_MAP: [string, string][] = [
+    ['微信公众号', 'wechat article'],
+    ['数据分析', 'data analysis'],
+    ['图表', 'chart generator'],
+    ['爬虫', 'scraper crawler'],
+    ['加密', 'crypto encrypt'],
+    ['微信', 'wechat'],
+    ['公众号', 'wechat'],
+    ['写作', 'writing'],
+    ['文章', 'article'],
+    ['翻译', 'translator'],
+    ['代码', 'code'],
+    ['简历', 'resume'],
+    ['邮件', 'email'],
+    ['会议', 'meeting'],
+    ['搜索', 'search'],
+    ['视频', 'video'],
+    ['音频', 'audio'],
+    ['密码', 'password'],
+    ['日历', 'calendar'],
+    ['天气', 'weather'],
+    ['新闻', 'news'],
+    ['笔记', 'notes'],
+  ]
   function translateQuery(q: string): string {
-    let result = q
-    for (const [zh, en] of Object.entries(ZH_MAP)) {
-      result = result.replace(new RegExp(zh, 'g'), en)
-    }
-    return result.trim()
+    let r = q
+    for (const [zh, en] of ZH_MAP) r = r.replace(new RegExp(zh, 'g'), ' ' + en + ' ')
+    return r.replace(/\s+/g, ' ').trim()
   }
   const effectiveQuery = translateQuery(query)
 

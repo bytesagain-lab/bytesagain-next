@@ -34,22 +34,36 @@ const OUR_OWNERS = [
 ]
 
 // Chinese → English query translation
-const ZH_MAP: Record<string, string> = {
-  '微信': 'wechat', '公众号': 'wechat', '微信公众号': 'wechat article',
-  '写作': 'writer writing', '文章': 'article writer',
-  '数据分析': 'data analysis', '图表': 'chart generator',
-  '翻译': 'translator', '代码': 'code developer',
-  '简历': 'resume', '邮件': 'email', '会议': 'meeting',
-  '搜索': 'search', '爬虫': 'scraper crawler',
-  '视频': 'video', '音频': 'audio',
-  '加密': 'crypto encrypt', '密码': 'password',
-  '日历': 'calendar', '天气': 'weather',
-  '新闻': 'news', '笔记': 'notes',
-}
+const ZH_MAP: [string, string][] = [
+  // 长词组优先（必须放前面）
+  ['微信公众号', 'wechat article'],
+  ['数据分析', 'data analysis'],
+  ['图表', 'chart generator'],
+  ['爬虫', 'scraper crawler'],
+  ['加密', 'crypto encrypt'],
+  // 单词
+  ['微信', 'wechat'],
+  ['公众号', 'wechat'],
+  ['写作', 'writing'],
+  ['文章', 'article'],
+  ['翻译', 'translator'],
+  ['代码', 'code'],
+  ['简历', 'resume'],
+  ['邮件', 'email'],
+  ['会议', 'meeting'],
+  ['搜索', 'search'],
+  ['视频', 'video'],
+  ['音频', 'audio'],
+  ['密码', 'password'],
+  ['日历', 'calendar'],
+  ['天气', 'weather'],
+  ['新闻', 'news'],
+  ['笔记', 'notes'],
+]
 function translateQuery(q: string): string {
   let r = q
-  for (const [zh, en] of Object.entries(ZH_MAP)) r = r.replace(new RegExp(zh, 'g'), en)
-  return r.trim()
+  for (const [zh, en] of ZH_MAP) r = r.replace(new RegExp(zh, 'g'), ' ' + en + ' ')
+  return r.replace(/\s+/g, ' ').trim()
 }
 
 function supabase() {
