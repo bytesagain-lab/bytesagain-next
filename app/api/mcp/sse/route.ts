@@ -39,6 +39,9 @@ const ZH_MAP: [string, string][] = [
   ['微信公众号', 'wechat article'],
   ['数据分析', 'data analysis'],
   ['图表', 'chart generator'],
+  ['自动化脚本', 'automation workflow script'],
+  ['自动化', 'automation workflow'],
+  ['抖音', 'douyin tiktok video'],
   ['爬虫', 'scraper crawler'],
   ['加密', 'crypto encrypt'],
   // 单词
