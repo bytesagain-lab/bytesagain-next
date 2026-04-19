@@ -71,38 +71,68 @@ export default async function SkillsPage({
     ? words.reduce((a, b) => a.length >= b.length ? a : b, words[0])
     : rawQ
 
-  let query = supabase
-    .from('skills_list')
-    .select('slug,name,description,category,tags,downloads,stars,source,source_url,owner', { count: 'planned' })
-    .order('downloads', { ascending: false })
-    .range(from, from + PAGE_SIZE - 1)
-
-  if (q) {
-    query = query.or(`name.ilike.%${q}%,description.ilike.%${q}%,slug.ilike.%${q}%`)
-  }
-  if (cat !== 'all') {
-    if (['clawhub','lobehub','dify','github','mcp','official'].includes(cat)) {
-      query = query.eq('source', cat)
-    } else {
-      query = query.overlaps('tags', [cat])
-    }
-  }
-
+  // 有搜索词时用全文搜索 RPC（更准确），否则用 skills_list 翻页
   let skills: any[] = []
   let total = 55000
-  try {
-    const { data, count, error } = await query
-    if (!error) {
-      skills = data || []
-      // 有搜索词时 count=planned 是估算值，用实际返回数量
-      if (rawQ || cat !== 'all') {
-        total = skills.length < PAGE_SIZE ? skills.length : (count ?? skills.length)
-      } else if (count !== null && count !== undefined) {
-        total = count
+
+  if (q) {
+    try {
+      // 全文搜索：不支持翻页，直接返回 top N
+      const { data: ftsData } = await supabase.rpc('fts_search_skills', {
+        query_text: q.replace(/-/g, ' '), // api-generator → api generator
+        match_count: 48
+      })
+      let results = ftsData || []
+      // ilike fallback：全文搜不到时用 slug 匹配（补捉 api-generator 这类带连字符的 slug）
+      if (results.length === 0) {
+        const { data: ilikeData } = await supabase
+          .from('skills_list')
+          .select('slug,name,description,category,tags,downloads,stars,source,source_url,owner')
+          .or(`name.ilike.%${q}%,description.ilike.%${q}%,slug.ilike.%${q}%`)
+          .order('downloads', { ascending: false })
+          .limit(48)
+        results = ilikeData || []
+      }
+      // 分类过滤
+      if (cat !== 'all') {
+        if (['clawhub','lobehub','dify','github','mcp','official'].includes(cat)) {
+          results = results.filter((s: any) => s.source === cat)
+        } else {
+          results = results.filter((s: any) => (s.tags || []).includes(cat))
+        }
+      }
+      skills = results
+      total = results.length
+    } catch (e) {
+      console.error('search error', e)
+    }
+  } else {
+    // 无搜索词：正常分页
+    let query = supabase
+      .from('skills_list')
+      .select('slug,name,description,category,tags,downloads,stars,source,source_url,owner', { count: 'planned' })
+      .order('downloads', { ascending: false })
+      .range(from, from + PAGE_SIZE - 1)
+    if (cat !== 'all') {
+      if (['clawhub','lobehub','dify','github','mcp','official'].includes(cat)) {
+        query = query.eq('source', cat)
+      } else {
+        query = query.overlaps('tags', [cat])
       }
     }
-  } catch {
-    skills = []
+    try {
+      const { data, count, error } = await query
+      if (!error) {
+        skills = data || []
+        if (cat !== 'all') {
+          total = skills.length < PAGE_SIZE ? skills.length : (count ?? skills.length)
+        } else if (count !== null && count !== undefined) {
+          total = count
+        }
+      }
+    } catch {
+      skills = []
+    }
   }
   const totalPages = Math.ceil(total / PAGE_SIZE)
 
