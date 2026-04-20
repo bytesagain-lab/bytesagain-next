@@ -71,6 +71,19 @@ export async function GET(req: NextRequest) {
     'X-Provider': 'BytesAgain (bytesagain.com)',
   }
 
+  // Health check: no params → return MCP server info (for Glama/uptime monitors)
+  if (!searchParams.has('action') && !searchParams.has('q') && !searchParams.has('slug')) {
+    return NextResponse.json({
+      jsonrpc: '2.0',
+      result: {
+        protocolVersion: '2024-11-05',
+        capabilities: { tools: {} },
+        serverInfo: { name: 'BytesAgain', version: '1.1.0' },
+        status: 'healthy',
+      }
+    }, { headers })
+  }
+
   // Rate limit check
   const ip = req.headers.get('x-forwarded-for')?.split(',')[0].trim() || 'unknown'
   if (!checkRateLimit(ip)) {
