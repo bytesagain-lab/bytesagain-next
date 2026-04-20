@@ -71,12 +71,6 @@ export async function GET(req: NextRequest) {
     'X-Provider': 'BytesAgain (bytesagain.com)',
   }
 
-  // Streamable HTTP spec: GET with no query params = client wants SSE stream
-  // We don't support server→client push, return 405 per spec
-  if (!searchParams.has('action') && !searchParams.has('q') && !searchParams.has('slug')) {
-    return new Response(null, { status: 405, headers: { 'Allow': 'POST', 'Access-Control-Allow-Origin': '*' } })
-  }
-
   // Rate limit check
   const ip = req.headers.get('x-forwarded-for')?.split(',')[0].trim() || 'unknown'
   if (!checkRateLimit(ip)) {
@@ -425,7 +419,6 @@ export async function POST(req: NextRequest) {
   }
 
   if (method === 'initialize') {
-    const sessionId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2)
     return NextResponse.json({
       jsonrpc: '2.0', id,
       result: {
@@ -433,16 +426,7 @@ export async function POST(req: NextRequest) {
         capabilities: { tools: {} },
         serverInfo: { name: 'BytesAgain', version: '1.1.0' }
       }
-    }, { headers: { ...headers, 'Mcp-Session-Id': sessionId } })
-
-
-  if (method === 'ping') {
-    return NextResponse.json({ jsonrpc: '2.0', id, result: {} }, { headers })
-  }
-
-  if (method === 'notifications/initialized') {
-    // Notification — 202 Accepted per MCP spec 2025-03-26
-    return new NextResponse(undefined, { status: 202, headers: { 'Access-Control-Allow-Origin': '*' } })
+    }, { headers })
   }
 
   if (method === 'tools/list') {
@@ -456,12 +440,12 @@ export async function POST(req: NextRequest) {
             limit: { type: 'number', description: 'Number of results. Default: 10. Max: 50.' }
           }, required: [] } },
         { name: 'get_skill',
-          description: 'Fetch complete details for a single skill by its exact slug identifier. Returns full metadata including: name, description, category, tags array, version (semver), author/owner, download count, star count, source repository URL, homepage URL, and clawhub install command (e.g. \"clawhub install chart-generator\"). Use this tool AFTER search_skills or popular_skills when the user wants to inspect a specific skill in depth — do NOT call this for every result in a list, only when the user explicitly selects one. Behavior on error: returns {error: \"Skill not found\"} if the slug does not exist; in that case, call search_skills with a related keyword and suggest alternatives. Do not guess, modify, or truncate slugs — always use exact slugs returned from search_skills or popular_skills. Typical workflow: search_skills → user picks one → get_skill for full details.',
+          description: 'Fetch complete details for a single skill by its exact slug identifier. Returns full metadata including: name, description, category, tags array, version (semver), author/owner, download count, star count, source repository URL, homepage URL, and clawhub install command. Use this tool AFTER search_skills when the user wants to inspect a specific skill in depth — do NOT call this for every result in a list, only when the user selects one. Returns a structured error with message "Skill not found" if the slug does not exist; in that case, suggest calling search_skills with a related keyword instead. Do not guess slugs — always use slugs returned from search_skills or popular_skills.',
           inputSchema: { type: 'object', properties: {
             slug: { type: 'string', description: 'Exact skill slug as returned by search_skills or popular_skills. Slugs are lowercase hyphenated strings. Example: "chart-generator", "email-automation", "python-cookbook". Do not modify or guess slugs.' }
           }, required: ['slug'] } },
         { name: 'popular_skills',
-          description: 'Get the most-downloaded AI agent skills on BytesAgain, ranked by total download count descending. Each result includes: slug, name, description snippet, category, download count, and star count. Use this tool when: (1) user wants to discover trending or popular skills without a specific topic in mind, (2) user asks \"what are the best AI skills\" or \"show me top skills\", (3) during onboarding to showcase the platform. Do NOT use this when the user has a specific task or keyword — use search_skills instead for better relevance. Behavior: always returns results (never empty); ordered globally by downloads across all categories and languages. After calling this, offer to call get_skill for any item the user selects, or search_skills to narrow by topic. Optionally pass limit (default 20, max 50).',
+          description: 'Get the most-downloaded AI agent skills on BytesAgain, ranked by total download count descending. Returns each skill with: slug, name, description, category, download count, star count. Use this tool when: (1) user wants to discover trending or popular skills without a specific topic, (2) user asks "what are the best AI skills", (3) during onboarding to show what is available. Do NOT use this when the user has a specific task in mind — use search_skills instead. Results are global across all categories. Combine with get_skill to fetch full details on any result.',
           inputSchema: { type: 'object', properties: {
             limit: { type: 'number', description: 'How many top skills to return. Default: 20. Max: 50. Use 5-10 for quick recommendations, 20-50 for browsing.' }
           }, required: [] } },
@@ -531,7 +515,6 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({ jsonrpc: '2.0', id, error: { code: -32601, message: `Method not found: ${method}` } }, { headers })
 }
 
-}
 export async function OPTIONS() {
   return new Response(null, { status: 204, headers: {
     'Access-Control-Allow-Origin': '*',
