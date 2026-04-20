@@ -1,11 +1,14 @@
 export const dynamic = 'force-dynamic'
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import toolsConfig from './tools-config.json'
 
 // ── Security: input sanitization & rate limiting ──────────────────────────
-// Allowed MCP methods and tool names (whitelist)
-const ALLOWED_METHODS = new Set(['initialize', 'tools/list', 'tools/call', 'ping'])
-const ALLOWED_TOOLS = new Set(['search_skills', 'get_skill', 'popular_skills', 'search_use_cases'])
+// Whitelists driven by tools-config.json (managed via mcp-manager skill)
+const ALLOWED_METHODS = new Set(toolsConfig.allowed_methods)
+const ALLOWED_TOOLS = new Set(
+  toolsConfig.allowed_tools.filter(t => t.status === 'active').map(t => t.name)
+)
 
 // Strip characters that could be used in prompt injection or SQL injection.
 // Keeps letters, numbers, spaces, common punctuation — removes control chars,

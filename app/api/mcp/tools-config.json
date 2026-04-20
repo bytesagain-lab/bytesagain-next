@@ -1,0 +1,45 @@
+{
+  "_comment": "MCP whitelist config — edit here to add/remove tools or methods. Auto-loaded at runtime.",
+  "_managed_by": "mcp-manager skill (skills/mcp-manager/SKILL.md)",
+  "allowed_methods": [
+    "initialize",
+    "tools/list",
+    "tools/call",
+    "ping"
+  ],
+  "allowed_tools": [
+    {
+      "name": "search_skills",
+      "rest_action": "search",
+      "description": "Search 60,000+ AI agent skills by keyword or natural language",
+      "status": "active"
+    },
+    {
+      "name": "get_skill",
+      "rest_action": "get",
+      "description": "Fetch complete details for a single skill by slug",
+      "status": "active"
+    },
+    {
+      "name": "popular_skills",
+      "rest_action": "popular",
+      "description": "Get most-downloaded AI agent skills ranked by download count",
+      "status": "active"
+    },
+    {
+      "name": "search_use_cases",
+      "rest_action": "use_cases",
+      "description": "Search 342 real-world AI use-cases by task or goal",
+      "status": "active"
+    }
+  ],
+  "rate_limit": {
+    "requests_per_minute": 60,
+    "cleanup_interval_ms": 300000
+  },
+  "sanitize": {
+    "query_max_len": 200,
+    "slug_max_len": 80,
+    "role_max_len": 50
+  }
+}
