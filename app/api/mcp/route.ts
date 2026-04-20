@@ -442,7 +442,7 @@ export async function POST(req: NextRequest) {
 
   if (method === 'notifications/initialized') {
     // Notification — 202 Accepted per MCP spec 2025-03-26
-    return NextResponse.json('', { status: 202, headers })
+    return new NextResponse(undefined, { status: 202, headers: { 'Access-Control-Allow-Origin': '*' } })
   }
 
   if (method === 'tools/list') {
