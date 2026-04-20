@@ -2,6 +2,52 @@ export const dynamic = 'force-dynamic'
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
+// ── Security: input sanitization & rate limiting ──────────────────────────
+// Allowed MCP methods and tool names (whitelist)
+const ALLOWED_METHODS = new Set(['initialize', 'tools/list', 'tools/call', 'ping'])
+const ALLOWED_TOOLS = new Set(['search_skills', 'get_skill', 'popular_skills', 'search_use_cases'])
+
+// Strip characters that could be used in prompt injection or SQL injection.
+// Keeps letters, numbers, spaces, common punctuation — removes control chars,
+// angle brackets, backticks, and common prompt-injection openers.
+function sanitize(raw: string, maxLen = 200): string {
+  if (typeof raw !== 'string') return ''
+  return raw
+    .slice(0, maxLen)                        // hard length cap
+    .replace(/[\x00-\x1f\x7f]/g, ' ')        // control characters → space
+    .replace(/[<>`;{}\[\]\\]/g, '')           // remove injection-prone chars
+    .replace(/ignore\s+(previous|above|all|prior)/gi, '') // prompt injection phrases
+    .replace(/system\s*prompt/gi, '')         // prompt injection phrases
+    .replace(/\[\[.*?\]\]/g, '')              // [[instruction]] patterns
+    .replace(/  +/g, ' ')                    // collapse spaces
+    .trim()
+}
+
+// Slug validation: only lowercase alphanum + hyphen, max 80 chars
+function sanitizeSlug(raw: string): string {
+  return raw.replace(/[^a-z0-9-]/gi, '').slice(0, 80).toLowerCase()
+}
+
+// Simple in-memory rate limiter: max 60 req / 60s per IP
+const RL_MAP = new Map<string, { count: number; reset: number }>()
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now()
+  const entry = RL_MAP.get(ip)
+  if (!entry || now > entry.reset) {
+    RL_MAP.set(ip, { count: 1, reset: now + 60_000 })
+    return true
+  }
+  entry.count++
+  if (entry.count > 60) return false
+  return true
+}
+// Cleanup old entries every 5 minutes to avoid memory leak
+setInterval(() => {
+  const now = Date.now()
+  for (const [k, v] of RL_MAP) if (now > v.reset) RL_MAP.delete(k)
+}, 300_000)
+// ─────────────────────────────────────────────────────────────────────────
+
 // MCP-compatible endpoint for AI agents
 // Supports: search, recommend, get, popular
 export async function GET(req: NextRequest) {
@@ -11,15 +57,21 @@ export async function GET(req: NextRequest) {
   )
   const { searchParams } = req.nextUrl
   const action = searchParams.get('action') || 'search'
-  const query = searchParams.get('q') || ''
-  const role = searchParams.get('role') || ''
-  const slug = searchParams.get('slug') || ''
+  const query = sanitize(searchParams.get('q') || '')
+  const role = sanitize(searchParams.get('role') || '', 50)
+  const slug = sanitizeSlug(searchParams.get('slug') || '')
   const limit = Math.min(parseInt(searchParams.get('limit') || '10'), 50)
 
   const headers = {
     'Content-Type': 'application/json; charset=utf-8',
     'Access-Control-Allow-Origin': '*',
     'X-Provider': 'BytesAgain (bytesagain.com)',
+  }
+
+  // Rate limit check
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0].trim() || 'unknown'
+  if (!checkRateLimit(ip)) {
+    return NextResponse.json({ error: 'Rate limit exceeded. Max 60 requests/minute.' }, { status: 429, headers })
   }
 
   // Multi-language query translation (ZH/JA/KO/DE/FR/PT/ES -> English)
@@ -350,7 +402,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ jsonrpc: '2.0', id: null, error: { code: -32700, message: 'Parse error' } }, { headers })
   }
 
+  // Rate limit check
+  const postIp = req.headers.get('x-forwarded-for')?.split(',')[0].trim() || 'unknown'
+  if (!checkRateLimit(postIp)) {
+    return NextResponse.json({ jsonrpc: '2.0', id: body?.id ?? null, error: { code: -32000, message: 'Rate limit exceeded. Max 60 requests/minute.' } }, { status: 429, headers })
+  }
+
   const { id, method, params } = body
+
+  // Method whitelist
+  if (!method || !ALLOWED_METHODS.has(method)) {
+    return NextResponse.json({ jsonrpc: '2.0', id: id ?? null, error: { code: -32601, message: `Method not found: ${String(method).slice(0,50)}` } }, { status: 404, headers })
+  }
 
   if (method === 'initialize') {
     return NextResponse.json({
@@ -395,22 +458,27 @@ export async function POST(req: NextRequest) {
 
   if (method === 'tools/call') {
     const name = params?.name
+    // Tool name whitelist
+    if (!name || !ALLOWED_TOOLS.has(name)) {
+      return NextResponse.json({ jsonrpc: '2.0', id, error: { code: -32601, message: `Unknown tool: ${String(name).slice(0,50)}` } }, { status: 404, headers })
+    }
     const args = params?.arguments ?? params?.input ?? {}
     const baseUrl = `${req.nextUrl.protocol}//${req.nextUrl.host}`
 
     try {
       let apiUrl = ''
       if (name === 'search_skills') {
-        const q = encodeURIComponent(args.query || args.q || args.keyword || '')
-        const limit = args.limit || 10
+        const q = encodeURIComponent(sanitize(args.query || args.q || args.keyword || ''))
+        const limit = Math.min(parseInt(args.limit) || 10, 50)
         apiUrl = `${baseUrl}/api/mcp?action=search&q=${q}&limit=${limit}`
       } else if (name === 'get_skill') {
-        apiUrl = `${baseUrl}/api/mcp?action=get&slug=${encodeURIComponent(args.slug || '')}`
+        apiUrl = `${baseUrl}/api/mcp?action=get&slug=${encodeURIComponent(sanitizeSlug(args.slug || ''))}`
       } else if (name === 'popular_skills') {
-        apiUrl = `${baseUrl}/api/mcp?action=popular&limit=${args.limit || 20}`
+        const limit = Math.min(parseInt(args.limit) || 20, 50)
+        apiUrl = `${baseUrl}/api/mcp?action=popular&limit=${limit}`
       } else if (name === 'search_use_cases') {
-        const q = encodeURIComponent(args.query || '')
-        const limit = args.limit || 10
+        const q = encodeURIComponent(sanitize(args.query || ''))
+        const limit = Math.min(parseInt(args.limit) || 10, 30)
         apiUrl = `${baseUrl}/api/mcp?action=use_cases&q=${q}&limit=${limit}`
       } else {
       }
