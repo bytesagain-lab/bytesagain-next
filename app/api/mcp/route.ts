@@ -257,6 +257,37 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ action, results: data || [], total_in_db: data?.length }, { headers })
     }
 
+    if (action === 'use_cases') {
+      const ucLimit = Math.min(limit, 30)
+      let results: any[] = []
+      if (query) {
+        // 关键词匹配（title ilike）
+        const tokens = query.split(/\s+/).filter((t: string) => t.length > 1).slice(0, 3)
+        const orClause = tokens.map((t: string) => `title.ilike.%${t}%`).join(',')
+        const { data } = await supabase
+          .from('use_cases')
+          .select('slug, title, description')
+          .or(orClause)
+          .limit(ucLimit)
+        results = (data || []).map((uc: any) => ({
+          ...uc,
+          url: `https://bytesagain.com/use-case/${uc.slug}`,
+        }))
+      } else {
+        const { data } = await supabase
+          .from('use_cases')
+          .select('slug, title, description')
+          .limit(ucLimit)
+        results = (data || []).map((uc: any) => ({
+          ...uc,
+          url: `https://bytesagain.com/use-case/${uc.slug}`,
+        }))
+      }
+      return NextResponse.json({ action, query, results, count: results.length,
+        hint: 'Use search_skills with the use-case title to find matching AI skills.'
+      }, { headers })
+    }
+
     // Default: API info
     return NextResponse.json({
       name: 'BytesAgain Agent API',
@@ -352,6 +383,12 @@ export async function POST(req: NextRequest) {
           inputSchema: { type: 'object', properties: {
             limit: { type: 'number', description: 'How many top skills to return. Default: 20. Max: 50. Use 5-10 for quick recommendations, 20-50 for browsing.' }
           }, required: [] } },
+        { name: 'search_use_cases',
+          description: 'Search 1,000+ AI agent use-cases by task or goal description. Use-cases describe real-world workflows like "write a weekly report", "automate email replies", or "analyze sales data". Each use-case links to a dedicated page listing the best AI skills for that task. Use this tool when: (1) user describes a goal or workflow rather than a tool name, (2) user asks "how do I use AI for X", (3) you want to show what tasks AI can help with. Returns use-case slug, title, description, and page URL. Combine with search_skills to find specific tools for each use-case.',
+          inputSchema: { type: 'object', properties: {
+            query: { type: 'string', description: 'Task or goal in natural language. Example: "write job descriptions", "automate social media", "analyze financial data".' },
+            limit: { type: 'number', description: 'Number of use-cases to return. Default: 10. Max: 30.' }
+          }, required: ['query'] } },
       ]}
     }, { headers })
   }
@@ -371,8 +408,11 @@ export async function POST(req: NextRequest) {
         apiUrl = `${baseUrl}/api/mcp?action=get&slug=${encodeURIComponent(args.slug || '')}`
       } else if (name === 'popular_skills') {
         apiUrl = `${baseUrl}/api/mcp?action=popular&limit=${args.limit || 20}`
+      } else if (name === 'search_use_cases') {
+        const q = encodeURIComponent(args.query || '')
+        const limit = args.limit || 10
+        apiUrl = `${baseUrl}/api/mcp?action=use_cases&q=${q}&limit=${limit}`
       } else {
-        return NextResponse.json({ jsonrpc: '2.0', id, error: { code: -32601, message: `Unknown tool: ${name}` } }, { headers })
       }
 
       const res = await fetch(apiUrl)
