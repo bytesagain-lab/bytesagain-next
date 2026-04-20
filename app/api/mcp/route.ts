@@ -432,6 +432,7 @@ export async function POST(req: NextRequest) {
   }
 
   if (method === 'initialize') {
+    const sessionId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2)
     return NextResponse.json({
       jsonrpc: '2.0', id,
       result: {
@@ -439,8 +440,7 @@ export async function POST(req: NextRequest) {
         capabilities: { tools: {} },
         serverInfo: { name: 'BytesAgain', version: '1.1.0' }
       }
-    }, { headers })
-  }
+    }, { headers: { ...headers, 'Mcp-Session-Id': sessionId } })
 
 
   if (method === 'ping') {
