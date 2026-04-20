@@ -18,6 +18,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${uc.title} | BytesAgain`,
     description: uc.description,
     alternates: { canonical: `https://bytesagain.com/use-case/${slug}` },
+    openGraph: {
+      title: `${uc.title} | BytesAgain`,
+      description: uc.description,
+      url: `https://bytesagain.com/use-case/${slug}`,
+      type: 'website',
+      siteName: 'BytesAgain',
+    },
   }
 }
 

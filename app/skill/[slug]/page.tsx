@@ -22,10 +22,24 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const cutoff = rawDesc.lastIndexOf('.', 158)
     metaDesc = cutoff > 80 ? rawDesc.slice(0, cutoff + 1) : rawDesc.slice(0, 157) + '...'
   }
+  const pageUrl = `https://bytesagain.com/skill/${slug}`
   return {
     title,
     description: metaDesc,
-    alternates: { canonical: `https://bytesagain.com/skill/${slug}` },
+    alternates: { canonical: pageUrl },
+    openGraph: {
+      title,
+      description: metaDesc,
+      url: pageUrl,
+      type: 'website',
+      siteName: 'BytesAgain',
+      images: [{ url: 'https://bytesagain.com/og-image.png', width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description: metaDesc,
+    },
     ...(noindex ? { robots: { index: false, follow: false } } : {}),
   }
 }
