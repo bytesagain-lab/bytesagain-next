@@ -280,12 +280,13 @@ export async function GET(req: NextRequest) {
 // 异步写日志，不阻塞响应
 async function logMcpCall(params: {
   action: string
-  query?: string
+  query?: string | null
   role?: string
   user_agent?: string
   ip?: string
   latency_ms?: number
-  result_count?: number
+  result_count?: number | null
+  endpoint?: string
 }) {
   const sb = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -293,7 +294,7 @@ async function logMcpCall(params: {
   )
   try {
     await sb.from('api_logs').insert({
-      endpoint: 'rest',
+      endpoint: params.endpoint || 'rest',
       action: params.action,
       query: params.query || null,
       user_agent: params.user_agent || null,
@@ -342,14 +343,14 @@ export async function POST(req: NextRequest) {
             limit: { type: 'number', description: 'Number of results. Default: 10. Max: 50.' }
           }, required: [] } },
         { name: 'get_skill',
-          description: 'Fetch complete details for a single skill by its unique slug. Returns full metadata: name, description, category, tags, version, author, downloads, stars, source URL, and install instructions. Use after search_skills to get more info about a specific skill. Returns error if slug not found.',
+          description: 'Fetch complete details for a single skill by its exact slug identifier. Returns full metadata including: name, description, category, tags array, version (semver), author/owner, download count, star count, source repository URL, homepage URL, and clawhub install command. Use this tool AFTER search_skills when the user wants to inspect a specific skill in depth — do NOT call this for every result in a list, only when the user selects one. Returns a structured error with message "Skill not found" if the slug does not exist; in that case, suggest calling search_skills with a related keyword instead. Do not guess slugs — always use slugs returned from search_skills or popular_skills.',
           inputSchema: { type: 'object', properties: {
-            slug: { type: 'string', description: 'Unique skill slug from search results. Example: "chart-generator" or "email-automation".' }
+            slug: { type: 'string', description: 'Exact skill slug as returned by search_skills or popular_skills. Slugs are lowercase hyphenated strings. Example: "chart-generator", "email-automation", "python-cookbook". Do not modify or guess slugs.' }
           }, required: ['slug'] } },
         { name: 'popular_skills',
-          description: 'Get the most popular AI agent skills ranked by download count. Returns top skills with slug, name, description, category, downloads, stars. Use when user wants to discover trending skills without a specific topic. Ideal for onboarding. Default returns top 20.',
+          description: 'Get the most-downloaded AI agent skills on BytesAgain, ranked by total download count descending. Returns each skill with: slug, name, description, category, download count, star count. Use this tool when: (1) user wants to discover trending or popular skills without a specific topic, (2) user asks "what are the best AI skills", (3) during onboarding to show what is available. Do NOT use this when the user has a specific task in mind — use search_skills instead. Results are global across all categories. Combine with get_skill to fetch full details on any result.',
           inputSchema: { type: 'object', properties: {
-            limit: { type: 'number', description: 'Number of top skills to return. Default: 20. Max: 50.' }
+            limit: { type: 'number', description: 'How many top skills to return. Default: 20. Max: 50. Use 5-10 for quick recommendations, 20-50 for browsing.' }
           }, required: [] } },
       ]}
     }, { headers })
@@ -376,6 +377,21 @@ export async function POST(req: NextRequest) {
 
       const res = await fetch(apiUrl)
       const data = await res.json()
+
+      // 记录 MCP POST 调用日志
+      const ua3 = req.headers.get('user-agent') || ''
+      const ip3 = req.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
+                  req.headers.get('x-real-ip') || ''
+      const toolQuery = args.query || args.q || args.keyword || args.slug || ''
+      logMcpCall({
+        action: name,
+        query: toolQuery || null,
+        user_agent: ua3,
+        ip: ip3,
+        result_count: data?.count ?? data?.results?.length ?? null,
+        endpoint: 'mcp_post',
+      })
+
       return NextResponse.json({
         jsonrpc: '2.0', id,
         result: { content: [{ type: 'text', text: JSON.stringify(data) }] }
