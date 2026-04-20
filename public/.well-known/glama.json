@@ -1,0 +1,6 @@
+{
+  "name": "BytesAgain AI Skills Search",
+  "description": "Search 60,000+ AI agent skills via MCP. Supports 7 languages.",
+  "mcp_endpoint": "https://bytesagain.com/api/mcp",
+  "transport": "streamable-http"
+}

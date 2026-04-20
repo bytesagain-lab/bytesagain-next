@@ -441,8 +441,8 @@ export async function POST(req: NextRequest) {
   }
 
   if (method === 'notifications/initialized') {
-    // Notification (no id) — MUST return 202 Accepted with no body per MCP spec 2025-03-26
-    return new Response(null, { status: 202, headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type' } })
+    // Notification — 202 Accepted per MCP spec 2025-03-26
+    return NextResponse.json('', { status: 202, headers })
   }
 
   if (method === 'tools/list') {
