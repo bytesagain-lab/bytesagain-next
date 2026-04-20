@@ -538,6 +538,7 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({ jsonrpc: '2.0', id, error: { code: -32601, message: `Method not found: ${method}` } }, { headers })
 }
 
+}
 export async function OPTIONS() {
   return new Response(null, { status: 204, headers: {
     'Access-Control-Allow-Origin': '*',
