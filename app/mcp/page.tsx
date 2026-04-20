@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Agent API & MCP — BytesAgain Developer Docs',
-  description: 'Connect AI agents to 60,000+ AI skills via MCP streamable HTTP or REST API. 3 tools: search_skills, get_skill, popular_skills. 7 languages. Free, no auth.',
+  description: 'Connect AI agents to 60,000+ AI skills via MCP streamable HTTP or REST API. 4 tools: search_skills, get_skill, popular_skills, search_use_cases. 7 languages. Free, no auth.',
 }
 
 const CODE = {
@@ -27,6 +27,10 @@ openclaw mcp set bytesagain '{"url":"https://bytesagain.com/api/mcp","transport"
   mcpPopular: `curl -X POST https://bytesagain.com/api/mcp \\
   -H "Content-Type: application/json" \\
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"popular_skills","arguments":{"limit":10}}}'`,
+  mcpUseCases: `curl -X POST https://bytesagain.com/api/mcp \\
+  -H "Content-Type: application/json" \\
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"search_use_cases","arguments":{"query":"write weekly reports","limit":5}}}'`,
+  restUseCases: `GET https://bytesagain.com/api/mcp?action=use_cases&q=weekly+report&limit=5`,
   restSearch: `# English
 GET https://bytesagain.com/api/mcp?action=search&q=data+analysis&limit=10
 
@@ -166,7 +170,7 @@ export default function McpDocsPage() {
         </h1>
         <p style={{ color: '#888', fontSize: '1em', lineHeight: 1.7, maxWidth: 640 }}>
           Connect your AI agent to 60,000+ indexed skills via MCP streamable HTTP or REST API.
-          3 tools: <code style={{ color: '#00d4ff' }}>search_skills</code>, <code style={{ color: '#00d4ff' }}>get_skill</code>, <code style={{ color: '#00d4ff' }}>popular_skills</code>.
+          4 tools: <code style={{ color: '#00d4ff' }}>search_skills</code>, <code style={{ color: '#00d4ff' }}>get_skill</code>, <code style={{ color: '#00d4ff' }}>popular_skills</code>, <code style={{ color: '#00d4ff' }}>search_use_cases</code>.
           Supports 7 languages. Free, no auth required.
         </p>
         <div style={{ marginTop: 20, display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
@@ -232,6 +236,19 @@ export default function McpDocsPage() {
           returns="Array of top skills with: slug, name, description, category, downloads, stars, source. Sorted by download count descending."
           example={CODE.mcpPopular}
           response={`{"action":"popular","count":3,"results":[{"slug":"chart-generator","name":"Chart Generator","downloads":14200},...]}`}
+        />
+        <ToolCard
+          name="search_use_cases"
+          badge="NEW"
+          desc="Search 342 real-world AI use-cases by task or goal. Each use-case links to a curated page of the best skills for that workflow. Use when the user describes what they want to accomplish rather than naming a specific tool."
+          when="User says 'how do I use AI to write weekly reports' or 'what can AI do for my workflow'. Use BEFORE search_skills when the goal is unclear."
+          params={[
+            { name: 'query', type: 'string', required: true, desc: 'Task or goal in natural language. Example: \"write job descriptions\", \"analyze sales data\".' },
+            { name: 'limit', type: 'number', required: false, desc: 'Number of use-cases to return. Default: 10. Max: 30.' },
+          ]}
+          returns="Array of matching use-cases with: slug, title, description, url (bytesagain.com/use-case/slug). Combine with search_skills to find tools for each use-case."
+          example={CODE.mcpUseCases}
+          response={`{"action":"use_cases","count":3,"results":[{"slug":"weekly-report","title":"Write Weekly Reports","url":"https://bytesagain.com/use-case/weekly-report"},...]}`}
         />
       </Section>
 
