@@ -448,8 +448,8 @@ export async function POST(req: NextRequest) {
   }
 
   if (method === 'notifications/initialized') {
-    // Client notification — no response body required per MCP spec
-    return new NextResponse(null, { status: 204, headers })
+    // Client notification — acknowledge with empty result per MCP spec
+    return NextResponse.json({ jsonrpc: '2.0', id: null, result: {} }, { status: 200, headers })
   }
 
   if (method === 'tools/list') {
