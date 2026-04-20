@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 export const metadata: Metadata = {
-  title: 'Privacy Policy | BytesAgain',
+  title: 'Privacy Policy',
   alternates: { canonical: 'https://bytesagain.com/privacy-policy' },
 }
 export default function PrivacyPage() {

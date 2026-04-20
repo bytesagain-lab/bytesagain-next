@@ -41,11 +41,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const uc = await getUseCase(slug)
   if (!uc) return { title: 'Not Found' }
   return {
-    title: `${uc.title} | BytesAgain`,
+    title: `${uc.title}`,
     description: uc.description,
     alternates: { canonical: `https://bytesagain.com/use-case/${slug}` },
     openGraph: {
-      title: `${uc.title} | BytesAgain`,
+      title: `${uc.title}`,
       description: uc.description,
       url: `https://bytesagain.com/use-case/${slug}`,
       type: 'website',

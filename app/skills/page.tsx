@@ -12,7 +12,7 @@ const hoverStyle = `
 `
 
 export const metadata: Metadata = {
-  title: 'Browse AI Agent Skills — BytesAgain',
+  title: 'Browse AI Agent Skills',
   description: 'Browse 43,000+ curated AI agent skills from ClawHub, LobeHub, Dify and more. Filter by category, search by keyword.',
   alternates: { canonical: 'https://bytesagain.com/skills' },
 }

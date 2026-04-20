@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 export const metadata: Metadata = {
-  title: 'Terms of Service | BytesAgain',
+  title: 'Terms of Service',
   alternates: { canonical: 'https://bytesagain.com/terms' },
 }
 export default function TermsPage() {

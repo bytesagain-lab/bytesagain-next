@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 export const metadata: Metadata = {
-  title: 'Contact | BytesAgain',
+  title: 'Contact',
   alternates: { canonical: 'https://bytesagain.com/contact' },
 }
 export default function ContactPage() {

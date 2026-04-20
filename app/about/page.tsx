@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'About | BytesAgain',
+  title: 'About',
   description: 'BytesAgain curates the best AI agent skills for Claude, ChatGPT, Cursor, and every AI agent.',
   alternates: { canonical: 'https://bytesagain.com/about' },
 }

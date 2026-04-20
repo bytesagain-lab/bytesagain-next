@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { category } = await params
   const cat = decodeURIComponent(category)
   return {
-    title: `${cat} Skills | BytesAgain`,
+    title: `${cat} Skills`,
     description: `Browse the best ${cat} AI agent skills on BytesAgain.`,
     alternates: { canonical: `https://bytesagain.com/category/${category}` },
   }

@@ -4,7 +4,7 @@ import { createClient } from '@supabase/supabase-js'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Use Cases | BytesAgain',
+  title: 'Use Cases',
   description: 'Find the right AI skills for your specific use case — from building SaaS to content creation, crypto research, and more.',
   alternates: { canonical: 'https://bytesagain.com/use-case' },
   openGraph: { url: 'https://bytesagain.com/use-case', type: 'website', siteName: 'BytesAgain' },

@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Agent API & MCP — BytesAgain Developer Docs',
+  title: 'Agent API & MCP — Developer Docs',
   description: 'Connect AI agents to 60,000+ AI skills via MCP streamable HTTP or REST API. 4 tools: search_skills, get_skill, popular_skills, search_use_cases. 7 languages. Free, no auth.',
 }
 
