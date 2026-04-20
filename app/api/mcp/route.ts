@@ -71,17 +71,10 @@ export async function GET(req: NextRequest) {
     'X-Provider': 'BytesAgain (bytesagain.com)',
   }
 
-  // Health check: no params → return MCP server info (for Glama/uptime monitors)
+  // Streamable HTTP spec: GET with no query params = client wants SSE stream
+  // We don't support server→client push, return 405 per spec
   if (!searchParams.has('action') && !searchParams.has('q') && !searchParams.has('slug')) {
-    return NextResponse.json({
-      jsonrpc: '2.0',
-      result: {
-        protocolVersion: '2024-11-05',
-        capabilities: { tools: {} },
-        serverInfo: { name: 'BytesAgain', version: '1.1.0' },
-        status: 'healthy',
-      }
-    }, { headers })
+    return new Response(null, { status: 405, headers: { 'Allow': 'POST', 'Access-Control-Allow-Origin': '*' } })
   }
 
   // Rate limit check
@@ -448,8 +441,8 @@ export async function POST(req: NextRequest) {
   }
 
   if (method === 'notifications/initialized') {
-    // Client notification — acknowledge with empty result per MCP spec
-    return NextResponse.json({ jsonrpc: '2.0', id: null, result: {} }, { status: 200, headers })
+    // Notification (no id) — MUST return 202 Accepted with no body per MCP spec 2025-03-26
+    return new Response(null, { status: 202, headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type' } })
   }
 
   if (method === 'tools/list') {
