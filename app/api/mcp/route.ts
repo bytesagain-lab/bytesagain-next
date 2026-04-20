@@ -447,6 +447,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ jsonrpc: '2.0', id, result: {} }, { headers })
   }
 
+  if (method === 'notifications/initialized') {
+    // Client notification — no response body required per MCP spec
+    return new NextResponse(null, { status: 204, headers })
+  }
+
   if (method === 'tools/list') {
     return NextResponse.json({
       jsonrpc: '2.0', id,

@@ -1,11 +1,12 @@
 {
-  "_comment": "MCP whitelist config — edit here to add/remove tools or methods. Auto-loaded at runtime.",
+  "_comment": "MCP whitelist config \u2014 edit here to add/remove tools or methods. Auto-loaded at runtime.",
   "_managed_by": "mcp-manager skill (skills/mcp-manager/SKILL.md)",
   "allowed_methods": [
     "initialize",
     "tools/list",
     "tools/call",
-    "ping"
+    "ping",
+    "notifications/initialized"
   ],
   "allowed_tools": [
     {
