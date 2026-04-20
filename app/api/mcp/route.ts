@@ -442,6 +442,11 @@ export async function POST(req: NextRequest) {
     }, { headers })
   }
 
+
+  if (method === 'ping') {
+    return NextResponse.json({ jsonrpc: '2.0', id, result: {} }, { headers })
+  }
+
   if (method === 'tools/list') {
     return NextResponse.json({
       jsonrpc: '2.0', id,
