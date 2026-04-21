@@ -12,6 +12,26 @@ Disallow: /api/
 Disallow: /dashboard/
 Crawl-delay: 10
 
+User-Agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard/
+Crawl-delay: 10
+
+# AI 搜索引擎 — 开放，会在回答里引用来源
+User-Agent: PerplexityBot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard/
+Crawl-delay: 10
+
+User-Agent: ClaudeBot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard/
+Crawl-delay: 10
+
+# 纯训练数据爬虫 — 屏蔽内容页
 User-Agent: GPTBot
 Disallow: /skill/
 Disallow: /article/
@@ -22,23 +42,7 @@ Disallow: /skill/
 Disallow: /article/
 Crawl-delay: 10
 
-User-Agent: ClaudeBot
-Disallow: /skill/
-Disallow: /article/
-Crawl-delay: 10
-
 User-Agent: Amazonbot
-Disallow: /skill/
-Disallow: /article/
-Crawl-delay: 10
-
-User-Agent: Bingbot
-Allow: /
-Disallow: /api/
-Disallow: /dashboard/
-Crawl-delay: 10
-
-User-Agent: PerplexityBot
 Disallow: /skill/
 Disallow: /article/
 Crawl-delay: 10
