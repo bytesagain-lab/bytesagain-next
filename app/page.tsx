@@ -108,10 +108,9 @@ export default async function HomePage() {
 
       {/* ── POPULAR USE CASES 横向滚动 */}
       <section style={{ marginBottom: 80 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-          <h2 style={{ fontSize: '1.4em', fontWeight: 700, margin: 0, color: '#e0e0e0' }}>Popular Use Cases</h2>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 16 }}>
           <Link href="/use-case" style={{ color: '#667eea', fontSize: '.85em', fontWeight: 600, textDecoration: 'none', whiteSpace: 'nowrap' }}>
-            Browse all →
+            Browse all use cases →
           </Link>
         </div>
         <div className="uc-scroll-track">

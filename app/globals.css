@@ -68,12 +68,12 @@ body {
 .uc-scroll-card {
   background: #0a0a1a;
   border: 1px solid #1a1a3e;
-  border-radius: 12px;
-  padding: 16px 22px;
+  border-radius: 14px;
+  padding: 20px 28px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   cursor: pointer;
   transition: border-color 0.15s, transform 0.15s;
-  min-width: 160px;
+  min-width: 190px;
 }
