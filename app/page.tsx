@@ -99,11 +99,6 @@ export default async function HomePage() {
 
         {/* ── USE CASES 横向滚动 */}
         <section style={{ marginBottom: 64 }}>
-          <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 14 }}>
-            <Link href="/use-case" style={{ color: '#667eea', fontSize: '.85em', fontWeight: 600, textDecoration: 'none' }}>
-              Browse all use cases →
-            </Link>
-          </div>
           <div className="uc-scroll-track">
             {POPULAR_USE_CASES.map(uc => (
               <Link key={uc.href} href={uc.href} style={{ textDecoration: 'none', flexShrink: 0 }}>
