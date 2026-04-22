@@ -86,8 +86,8 @@ export default async function SkillsPage({
       // ilike fallback：全文搜不到时用 slug 匹配（补捉 api-generator 这类带连字符的 slug）
       if (results.length === 0) {
         const { data: ilikeData } = await supabase
-          .from('skills_list')
-          .select('slug,name,description,category,tags,downloads,stars,source,source_url,owner')
+          .from('skills')
+          .select('slug,name,description,category,tags,downloads,stars,source,source_url,owner,is_ours')
           .or(`name.ilike.%${q}%,description.ilike.%${q}%,slug.ilike.%${q}%`)
           .order('downloads', { ascending: false })
           .limit(48)
@@ -101,6 +101,13 @@ export default async function SkillsPage({
           results = results.filter((s: any) => (s.tags || []).includes(cat))
         }
       }
+      // 搜索结果：自有skill优先
+      results = results.sort((a: any, b: any) => {
+        const aOurs = a.is_ours ? 1 : 0
+        const bOurs = b.is_ours ? 1 : 0
+        if (aOurs !== bOurs) return bOurs - aOurs
+        return (b.downloads || 0) - (a.downloads || 0)
+      })
       skills = results
       total = results.length
     } catch (e) {
@@ -109,8 +116,8 @@ export default async function SkillsPage({
   } else {
     // 无搜索词：正常分页
     let query = supabase
-      .from('skills_list')
-      .select('slug,name,description,category,tags,downloads,stars,source,source_url,owner', { count: 'planned' })
+      .from('skills')
+      .select('slug,name,description,category,tags,downloads,stars,source,source_url,owner,is_ours', { count: 'planned' })
       .order('downloads', { ascending: false })
       .range(from, from + PAGE_SIZE - 1)
     if (cat !== 'all') {
