@@ -94,7 +94,12 @@ export default function IntentSearch() {
 
   const handleModeChange = (m: 'skills' | 'usecase') => {
     setMode(m)
-    if (query.trim()) doSearch(query, m)
+    if (query.trim()) {
+      // 切换 tab 时直接跳转到对应搜索页
+      window.location.href = m === 'usecase'
+        ? `/use-case?q=${encodeURIComponent(query)}`
+        : `/skills?q=${encodeURIComponent(query)}`
+    }
   }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

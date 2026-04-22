@@ -119,18 +119,11 @@ export default async function HomePage() {
         {/* ── 最新文章 */}
         {articles.length > 0 && (
           <section style={{ marginBottom: 64 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-              <h2 style={{ fontSize: '1.3em', fontWeight: 700, margin: 0, color: '#e0e0e0' }}>Latest Guides</h2>
-              <Link href="/article" style={{ color: '#667eea', fontSize: '.85em', fontWeight: 600, textDecoration: 'none' }}>
-                Browse all →
-              </Link>
-            </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 16 }}>
               {articles.map((a: any) => (
                 <Link key={a.slug} href={`/article/${a.slug}`} style={{ textDecoration: 'none' }}>
                   <div className="feature-card" style={{ background: '#0d0d1f', border: '1px solid #1e1e3f', borderRadius: 12, padding: '20px 22px', height: '100%', boxSizing: 'border-box' }}>
-                    <div style={{ fontWeight: 600, color: '#e0e0e0', fontSize: '.92em', marginBottom: 8, lineHeight: 1.4 }}>{a.title}</div>
-                    <div style={{ color: '#4b5563', fontSize: '.78em', lineHeight: 1.5 }}>{(a.meta_description || a.excerpt || '').slice(0, 80)}…</div>
+                    <div style={{ fontWeight: 600, color: '#e0e0e0', fontSize: '.92em', lineHeight: 1.4 }}>{a.title}</div>
                   </div>
                 </Link>
               ))}
