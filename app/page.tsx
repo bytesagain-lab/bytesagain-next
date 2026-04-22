@@ -34,7 +34,7 @@ const POPULAR_USE_CASES = [
   { icon: '🎬', title: 'Video Creator', href: '/use-case/video-creator' },
 ]
 
-const HOT_TAGS = ['Python Automation', 'Ecommerce Seller', 'Crypto Research', 'Video Creation', 'SEO & GEO', 'Job Hunting']
+const HOT_TAGS = ['Ecommerce Seller', 'Video Creation', 'SEO & GEO']
 
 export default async function HomePage() {
   let articles: Awaited<ReturnType<typeof getArticles>> = []
