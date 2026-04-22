@@ -3,6 +3,7 @@ import IntentSearch from './components/IntentSearch'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getArticles } from '@/lib/supabase'
+import UcScroll from './components/UcScroll'
 
 export const metadata: Metadata = {
   title: 'BytesAgain — Find Your AI Skill Stack',
@@ -103,16 +104,7 @@ export default async function HomePage() {
 
         {/* ── USE CASES 横向滚动 */}
         <section style={{ marginBottom: 64, margin: '0 -20px 64px' }}>
-          <div className="uc-scroll-track" style={{ padding: '0 20px 8px' }}>
-            {POPULAR_USE_CASES.map(uc => (
-              <Link key={uc.href} href={uc.href} style={{ textDecoration: 'none', flexShrink: 0 }}>
-                <div className="uc-scroll-card use-case-card">
-                  <span style={{ fontSize: '1.8em' }}>{uc.icon}</span>
-                  <span style={{ color: '#ccc', fontSize: '.9em', fontWeight: 600, whiteSpace: 'nowrap' }}>{uc.title}</span>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <UcScroll items={POPULAR_USE_CASES} />
         </section>
 
         {/* ── 最新文章 */}

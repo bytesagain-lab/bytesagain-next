@@ -63,7 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}>
             🎁 <strong style={{ color: '#e2e8f0' }}>Get the FREE AI Skills Starter Guide</strong>
             {' — '}
-            <a href="/subscribe" style={{ color: '#00d4ff', textDecoration: 'underline' }}>Subscribe →</a>
+            <a href="/register" style={{ color: '#00d4ff', textDecoration: 'underline' }}>Subscribe →</a>
           </div>
           <NavBar />
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
