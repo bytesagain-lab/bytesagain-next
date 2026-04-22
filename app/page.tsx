@@ -149,38 +149,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── STATS BAR ────────────────────────────────── */}
-      <section style={{
-        display: 'flex',
-        justifyContent: 'center',
-        gap: 'clamp(24px, 6vw, 80px)',
-        padding: '32px 0',
-        borderTop: '1px solid #1a1a3e',
-        borderBottom: '1px solid #1a1a3e',
-        marginBottom: 80,
-        flexWrap: 'wrap',
-      }}>
-        {[
-          { value: '60,000+', label: 'Skills Indexed', arrow: true },
-          { value: '200+', label: 'Use Case Guides', arrow: true },
-          { value: 'Yours', label: 'Find in Seconds', arrow: false },
-        ].map(s => (
-          <div key={s.label} style={{ textAlign: 'center', display: 'flex', alignItems: 'center', gap: 'clamp(12px, 3vw, 40px)' }}>
-            <div>
-              <div style={{
-                fontSize: 'clamp(1.6em, 4vw, 2.4em)',
-                fontWeight: 800,
-                background: 'linear-gradient(135deg, #667eea, #00d4ff)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                lineHeight: 1.1,
-              }}>{s.value}</div>
-              <div style={{ color: '#555', fontSize: '.85em', marginTop: 4 }}>{s.label}</div>
-            </div>
-            {s.arrow && <div style={{ color: '#333', fontSize: '1.4em', flexShrink: 0 }}>→</div>}
-          </div>
-        ))}
-      </section>
+
 
       {/* ── POPULAR USE CASES ────────────────────────── */}
       <section style={{ marginBottom: 80 }}>
