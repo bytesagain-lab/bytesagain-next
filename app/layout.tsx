@@ -55,6 +55,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={geist.className} style={{ background: '#0a0a1a', color: '#e0e0e0', margin: 0 }}>
         <LangProvider>
+          {/* 全宽订阅横幅（导航栅上方） */}
+          <div style={{
+            width: '100%', background: 'linear-gradient(90deg,#13103a,#0d0d1f,#13103a)',
+            borderBottom: '1px solid #2a2a5a', padding: '8px 20px',
+            textAlign: 'center', fontSize: '.82em', color: '#818cf8',
+          }}>
+            🎁 <strong style={{ color: '#e2e8f0' }}>Get the FREE AI Skills Starter Guide</strong>
+            {' — '}
+            <a href="/subscribe" style={{ color: '#00d4ff', textDecoration: 'underline' }}>Subscribe →</a>
+          </div>
           <NavBar />
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
             "@context": "https://schema.org",

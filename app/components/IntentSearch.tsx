@@ -59,26 +59,30 @@ export default function IntentSearch() {
   const { lang } = useLang()
   const zh = lang === 'zh'
   const [query, setQuery] = useState('')
+  const [mode, setMode] = useState<'skills' | 'usecase'>('skills')
   const [results, setResults] = useState<typeof USE_CASES>([])
   const [skillResults, setSkillResults] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
   const [searched, setSearched] = useState(false)
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const doSearch = async (q: string) => {
+  const doSearch = async (q: string, m: 'skills' | 'usecase' = mode) => {
     if (!q.trim()) { setResults([]); setSkillResults([]); setSearched(false); return }
     setSearched(true)
-    // 1. 意图匹配 use case
-    const ucMatches = matchUseCases(q)
-    setResults(ucMatches)
-    // 2. 同时搜索 skill
-    setLoading(true)
-    try {
-      const res = await fetch(`/api/search?q=${encodeURIComponent(q)}&limit=6`)
-      const data = await res.json()
-      setSkillResults(data.results || [])
-    } catch { setSkillResults([]) }
-    setLoading(false)
+    if (m === 'usecase') {
+      const ucMatches = matchUseCases(q)
+      setResults(ucMatches)
+      setSkillResults([])
+    } else {
+      setResults([])
+      setLoading(true)
+      try {
+        const res = await fetch(`/api/search?q=${encodeURIComponent(q)}&limit=6`)
+        const data = await res.json()
+        setSkillResults(data.results || [])
+      } catch { setSkillResults([]) }
+      setLoading(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,24 +92,61 @@ export default function IntentSearch() {
     timer.current = setTimeout(() => doSearch(v), 400)
   }
 
+  const handleModeChange = (m: 'skills' | 'usecase') => {
+    setMode(m)
+    if (query.trim()) doSearch(query, m)
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && query.trim()) {
+      window.location.href = mode === 'usecase'
+        ? `/use-case?q=${encodeURIComponent(query)}`
+        : `/skills?q=${encodeURIComponent(query)}`
+    }
+  }
+
   const hasResults = results.length > 0 || skillResults.length > 0
 
   return (
     <div style={{ maxWidth: 680, margin: '0 auto', padding: '0 20px' }}>
-      {/* 搜索框 */}
-      <div style={{ position: 'relative' }}>
-        <span style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', fontSize: '1.1em' }}>🔍</span>
-        <input
-          value={query}
-          onChange={handleChange}
-          placeholder={zh ? "描述你的需求，比如：帮我写周报 / learn Python…" : "Describe your goal, e.g. write a report / learn Python…"}
+      {/* 搜索框 + tab按钮 */}
+      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+        <div style={{ position: 'relative', flex: 1 }}>
+          <span style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', fontSize: '1.1em' }}>🔍</span>
+          <input
+            value={query}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            placeholder={zh ? "描述你的需求，比如：帮我写周报 / learn Python…" : "Describe your goal, e.g. write a report / learn Python…"}
+            style={{
+              width: '100%', padding: '14px 16px 14px 44px',
+              background: '#0f0f23', border: '1px solid #2a2a4e',
+              borderRadius: 12, color: '#e0e0e0', fontSize: '1em',
+              outline: 'none', boxSizing: 'border-box',
+            }}
+          />
+        </div>
+        {/* Skills / Use Case tab 按钮 */}
+        <button
+          onClick={() => handleModeChange('skills')}
           style={{
-            width: '100%', padding: '14px 16px 14px 44px',
-            background: '#0f0f23', border: '1px solid #2a2a4e',
-            borderRadius: 12, color: '#e0e0e0', fontSize: '1em',
-            outline: 'none', boxSizing: 'border-box',
+            padding: '10px 16px', borderRadius: 10, border: 'none', cursor: 'pointer',
+            fontWeight: 700, fontSize: '.82em', flexShrink: 0,
+            background: mode === 'skills' ? 'linear-gradient(135deg,#667eea,#6366f1)' : '#1a1a3e',
+            color: mode === 'skills' ? '#fff' : '#888',
+            transition: 'all .15s',
           }}
-        />
+        >⚡ Skills</button>
+        <button
+          onClick={() => handleModeChange('usecase')}
+          style={{
+            padding: '10px 16px', borderRadius: 10, border: 'none', cursor: 'pointer',
+            fontWeight: 700, fontSize: '.82em', flexShrink: 0,
+            background: mode === 'usecase' ? 'linear-gradient(135deg,#34d399,#0ea5e9)' : '#1a1a3e',
+            color: mode === 'usecase' ? '#fff' : '#888',
+            transition: 'all .15s',
+          }}
+        >🗺️ Use Case</button>
       </div>
 
       {/* 结果面板 */}
@@ -113,11 +154,9 @@ export default function IntentSearch() {
         <div style={{ marginTop: 12, background: '#0a0a1a', border: '1px solid #1a1a3e', borderRadius: 12, overflow: 'hidden' }}>
           {!hasResults && !loading && (
             <div style={{ padding: '20px', color: '#555', textAlign: 'center', fontSize: '.9em' }}>
-              No skills found for &quot;{query}&quot;
+              No results for &quot;{query}&quot;
             </div>
           )}
-
-          {/* Use Case 匹配 */}
           {results.length > 0 && (
             <div>
               <div style={{ padding: '10px 16px 6px', fontSize: '.72em', color: '#667eea', fontWeight: 700, letterSpacing: 1, textTransform: 'uppercase' }}>
@@ -135,14 +174,12 @@ export default function IntentSearch() {
               ))}
             </div>
           )}
-
-          {/* Skill 匹配 */}
           {skillResults.length > 0 && (
             <div>
               <div style={{ padding: '10px 16px 6px', fontSize: '.72em', color: '#00d4ff', fontWeight: 700, letterSpacing: 1, textTransform: 'uppercase', borderTop: results.length > 0 ? '1px solid #1a1a3e' : undefined }}>
                 ⚡ Related Skills
               </div>
-              {skillResults.slice(0, 4).map((sk: any) => (
+              {skillResults.slice(0, 5).map((sk: any) => (
                 <a key={sk.slug} href={`/skill/${sk.slug}`}
                   style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px', textDecoration: 'none', borderTop: '1px solid #111' }}>
                   <div style={{ color: '#e0e0e0', fontSize: '.88em', fontWeight: 500 }}>{sk.name || sk.slug}</div>
@@ -151,7 +188,6 @@ export default function IntentSearch() {
               ))}
             </div>
           )}
-
           {loading && (
             <div style={{ padding: '12px 16px', color: '#444', fontSize: '.85em' }}>Searching…</div>
           )}
