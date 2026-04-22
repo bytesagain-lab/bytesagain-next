@@ -55,3 +55,25 @@ body {
 .feature-card:hover {
   border-color: #6366f155 !important;
 }
+
+/* Use case horizontal scroll */
+.uc-scroll-track {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: none;
+}
+.uc-scroll-track::-webkit-scrollbar { display: none; }
+.uc-scroll-card {
+  background: #0a0a1a;
+  border: 1px solid #1a1a3e;
+  border-radius: 12px;
+  padding: 16px 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: border-color 0.15s, transform 0.15s;
+  min-width: 160px;
+}

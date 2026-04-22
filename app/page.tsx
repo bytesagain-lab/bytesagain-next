@@ -13,11 +13,9 @@ export const metadata: Metadata = {
     url: 'https://bytesagain.com',
     siteName: 'BytesAgain',
     type: 'website',
-    images: [{ url: 'https://bytesagain.com/og-image.png', width: 1200, height: 630 }],
+    images: [{ url: 'https://bytesagain.com/social-preview.png', width: 1200, height: 630 }],
   },
 }
-
-
 
 const POPULAR_USE_CASES = [
   { icon: '🚀', title: 'Build SaaS', href: '/use-case/build-saas' },
@@ -28,16 +26,13 @@ const POPULAR_USE_CASES = [
   { icon: '🔍', title: 'SEO & GEO', href: '/use-case/seo-geo' },
   { icon: '📋', title: 'Meeting Notes', href: '/use-case/meeting-notes-actions' },
   { icon: '🧠', title: 'Knowledge Base', href: '/use-case/knowledge-base-rag' },
-  { icon: '💼', title: 'Job Hunting', href: '/use-case/job-hunting' },
-  { icon: '📈', title: 'Stock Investor', href: '/use-case/stock-investor' },
 ]
 
 export default async function HomePage() {
-
   return (
     <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 20px' }}>
 
-      {/* ── 顶部订阅横幅 ──────────────────────────────── */}
+      {/* ── 顶部订阅横幅 */}
       <div style={{
         background: 'linear-gradient(90deg, #0d0d1f, #13103a)',
         borderBottom: '1px solid #1e1e3f',
@@ -52,7 +47,7 @@ export default async function HomePage() {
         <a href="#subscribe" style={{ color: '#00d4ff', textDecoration: 'underline', cursor: 'pointer' }}>Subscribe →</a>
       </div>
 
-      {/* ── HERO ─────────────────────────────────────── */}
+      {/* ── HERO */}
       <section style={{ textAlign: 'center', padding: '56px 0 40px' }}>
         <h1 style={{
           fontSize: 'clamp(2em, 5vw, 3.2em)',
@@ -74,7 +69,6 @@ export default async function HomePage() {
           Search 60,000+ AI agent skills by use case, role, or tool.
         </p>
 
-        {/* Search */}
         <div style={{ maxWidth: 560, margin: '0 auto 24px' }}>
           <IntentSearch />
         </div>
@@ -91,49 +85,16 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── 3列特色入口（Machina风格）────────────────── */}
+      {/* ── 3列特色入口 */}
       <section style={{ marginBottom: 64 }}>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: 16,
-        }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
           {[
-            {
-              icon: '⚡',
-              title: 'AI Agent Skills',
-              desc: 'Search 60,000+ skills for Claude, Cursor, OpenClaw & more',
-              href: '/skills',
-              color: '#818cf8',
-            },
-            {
-              icon: '🗺️',
-              title: 'Use Case Guides',
-              desc: '200+ curated workflows — from SaaS to crypto to content',
-              href: '/use-case',
-              color: '#34d399',
-            },
-            {
-              icon: '🔌',
-              title: 'Free MCP API',
-              desc: 'Connect your AI agent directly — no auth, no setup',
-              href: '/mcp',
-              color: '#00d4ff',
-            },
+            { icon: '⚡', title: 'AI Agent Skills', desc: 'Search 60,000+ skills for Claude, Cursor, OpenClaw & more', href: '/skills', color: '#818cf8' },
+            { icon: '🗺️', title: 'Use Case Guides', desc: '200+ curated workflows — from SaaS to crypto to content', href: '/use-case', color: '#34d399' },
+            { icon: '🔌', title: 'Free MCP API', desc: 'Connect your AI agent directly — no auth, no setup', href: '/mcp', color: '#00d4ff' },
           ].map(item => (
             <a key={item.href} href={item.href} style={{ textDecoration: 'none' }}>
-              <div style={{
-                background: '#0d0d1f',
-                border: '1px solid #1e1e3f',
-                borderRadius: 14,
-                padding: '24px 28px',
-                display: 'flex',
-                alignItems: 'flex-start',
-                gap: 16,
-                transition: 'border-color .15s',
-              }}
-                className="feature-card"
-              >
+              <div style={{ background: '#0d0d1f', border: '1px solid #1e1e3f', borderRadius: 14, padding: '24px 28px', display: 'flex', alignItems: 'flex-start', gap: 16, transition: 'border-color .15s' }} className="feature-card">
                 <span style={{ fontSize: '1.6em', lineHeight: 1, flexShrink: 0, marginTop: 2 }}>{item.icon}</span>
                 <div>
                   <div style={{ fontWeight: 700, color: item.color, fontSize: '.95em', marginBottom: 4 }}>{item.title}</div>
@@ -145,63 +106,27 @@ export default async function HomePage() {
         </div>
       </section>
 
-
-
-      {/* ── POPULAR USE CASES ────────────────────────── */}
+      {/* ── POPULAR USE CASES 横向滚动 */}
       <section style={{ marginBottom: 80 }}>
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'baseline',
-          marginBottom: 28,
-        }}>
-          <div>
-            <h2 style={{ fontSize: '1.4em', fontWeight: 700, margin: 0, color: '#e0e0e0' }}>
-              Popular Use Cases
-            </h2>
-            <p style={{ color: '#555', fontSize: '.85em', margin: '4px 0 0' }}>
-              Real workflows powered by AI agent skills
-            </p>
-          </div>
-          <Link href="/use-case" style={{
-            color: '#667eea', fontSize: '.85em', fontWeight: 600,
-            textDecoration: 'none', whiteSpace: 'nowrap',
-          }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+          <h2 style={{ fontSize: '1.4em', fontWeight: 700, margin: 0, color: '#e0e0e0' }}>Popular Use Cases</h2>
+          <Link href="/use-case" style={{ color: '#667eea', fontSize: '.85em', fontWeight: 600, textDecoration: 'none', whiteSpace: 'nowrap' }}>
             Browse all →
           </Link>
         </div>
-
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-          gap: 14,
-        }}>
+        <div className="uc-scroll-track">
           {POPULAR_USE_CASES.map(uc => (
-            <Link key={uc.href} href={uc.href} style={{ textDecoration: 'none' }}>
-              <div style={{
-                background: '#0a0a1a',
-                border: '1px solid #1a1a3e',
-                borderRadius: 12,
-                padding: '18px 20px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 12,
-                transition: 'border-color 0.15s, transform 0.15s',
-                cursor: 'pointer',
-              }}
-                className="use-case-card"
-              >
-                <span style={{ fontSize: '1.5em', flexShrink: 0 }}>{uc.icon}</span>
-                <span style={{ color: '#ccc', fontSize: '.92em', fontWeight: 600, lineHeight: 1.3 }}>
-                  {uc.title}
-                </span>
+            <Link key={uc.href} href={uc.href} style={{ textDecoration: 'none', flexShrink: 0 }}>
+              <div className="uc-scroll-card use-case-card">
+                <span style={{ fontSize: '1.6em' }}>{uc.icon}</span>
+                <span style={{ color: '#ccc', fontSize: '.88em', fontWeight: 600, lineHeight: 1.3, whiteSpace: 'nowrap' }}>{uc.title}</span>
               </div>
             </Link>
           ))}
         </div>
       </section>
 
-      {/* ── AI AGENT BANNER ──────────────────────────── */}
+      {/* ── AI AGENT BANNER */}
       <section style={{
         marginBottom: 64,
         padding: '28px 32px',
@@ -239,20 +164,10 @@ export default async function HomePage() {
           </div>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8, flexShrink: 0 }}>
-          <a href="/mcp" style={{
-            padding: '9px 20px', borderRadius: 8,
-            background: 'linear-gradient(135deg,#667eea,#00d4ff)',
-            color: '#fff', textDecoration: 'none', fontSize: '.85em', fontWeight: 700,
-            textAlign: 'center' as const,
-          }}>
+          <a href="/mcp" style={{ padding: '9px 20px', borderRadius: 8, background: 'linear-gradient(135deg,#667eea,#00d4ff)', color: '#fff', textDecoration: 'none', fontSize: '.85em', fontWeight: 700, textAlign: 'center' as const }}>
             Docs & Setup →
           </a>
-          <a href="/install" style={{
-            padding: '9px 20px', borderRadius: 8,
-            background: 'transparent', border: '1px solid #667eea44',
-            color: '#667eea', textDecoration: 'none', fontSize: '.85em', fontWeight: 600,
-            textAlign: 'center' as const,
-          }}>
+          <a href="/install" style={{ padding: '9px 20px', borderRadius: 8, background: 'transparent', border: '1px solid #667eea44', color: '#667eea', textDecoration: 'none', fontSize: '.85em', fontWeight: 600, textAlign: 'center' as const }}>
             Quick Install
           </a>
         </div>
