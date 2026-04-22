@@ -27,6 +27,10 @@ const POPULAR_USE_CASES = [
   { icon: '🔍', title: 'SEO & GEO', href: '/use-case/seo-geo' },
   { icon: '📋', title: 'Meeting Notes', href: '/use-case/meeting-notes-actions' },
   { icon: '🧠', title: 'Knowledge Base', href: '/use-case/knowledge-base-rag' },
+  { icon: '💼', title: 'Job Hunting', href: '/use-case/job-hunting' },
+  { icon: '📈', title: 'Stock Investor', href: '/use-case/stock-investor' },
+  { icon: '🛒', title: 'Ecommerce Ops', href: '/use-case/ecommerce' },
+  { icon: '🎬', title: 'Video Creator', href: '/use-case/video-creator' },
 ]
 
 const HOT_TAGS = ['Python 自动化', '拼多多运营', 'Crypto Research', '视频剪辑', 'SEO & GEO', 'Job Hunting']
@@ -98,8 +102,8 @@ export default async function HomePage() {
         </section>
 
         {/* ── USE CASES 横向滚动 */}
-        <section style={{ marginBottom: 64 }}>
-          <div className="uc-scroll-track">
+        <section style={{ marginBottom: 64, margin: '0 -20px 64px' }}>
+          <div className="uc-scroll-track" style={{ padding: '0 20px 8px' }}>
             {POPULAR_USE_CASES.map(uc => (
               <Link key={uc.href} href={uc.href} style={{ textDecoration: 'none', flexShrink: 0 }}>
                 <div className="uc-scroll-card use-case-card">
