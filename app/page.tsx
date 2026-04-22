@@ -66,8 +66,8 @@ export default async function HomePage() {
           maxWidth: 480,
           lineHeight: 1.6,
         }}>
-          Search 60,000+ AI agent skills by use case, role, or tool.<br />
-          From coding to crypto — find what works, instantly.
+          Discover the right AI agent skills for your role.<br />
+          Curated from 50,000+ sources, updated daily.
         </p>
 
         {/* Search */}
