@@ -268,7 +268,24 @@ export async function GET(req: NextRequest) {
       return { ...s, _score: score }
     }).sort((a: any, b: any) => b._score - a._score)
 
-    return NextResponse.json(scored.slice(0, 10))
+    const results = scored.slice(0, 10)
+
+    // 异步写搜索日志（不阻塞响应）
+    const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+      || req.headers.get('x-real-ip')
+      || 'unknown'
+    const ua = req.headers.get('user-agent') || ''
+    supabase.from('api_logs').insert({
+      action: 'search',
+      query: q,
+      user_agent: ua,
+      ip,
+      result_count: results.length,
+      endpoint: '/api/search',
+      cache_hit: false,
+    }).then(() => {}).catch(() => {})
+
+    return NextResponse.json(results)
   } catch {
     return NextResponse.json([])
   }
