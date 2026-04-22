@@ -34,11 +34,11 @@ const POPULAR_USE_CASES = [
   { icon: '🎬', title: 'Video Creator', href: '/use-case/video-creator' },
 ]
 
-const HOT_TAGS = ['Python 自动化', '拼多多运营', 'Crypto Research', '视频剪辑', 'SEO & GEO', 'Job Hunting']
+const HOT_TAGS = ['Python Automation', 'Ecommerce Seller', 'Crypto Research', 'Video Creation', 'SEO & GEO', 'Job Hunting']
 
 export default async function HomePage() {
   let articles: Awaited<ReturnType<typeof getArticles>> = []
-  try { articles = await getArticles(6) } catch { articles = [] }
+  try { articles = await getArticles(20) } catch { articles = [] }
 
   return (
     <>
@@ -110,19 +110,31 @@ export default async function HomePage() {
         {/* ── 最新文章 */}
         {articles.length > 0 && (
           <section style={{ marginBottom: 64 }}>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{
+              maxHeight: 320,
+              overflowY: 'auto',
+              scrollbarWidth: 'thin',
+              scrollbarColor: '#2a2a4e transparent',
+            }}>
               {articles.map((a: any, i: number) => (
                 <Link key={a.slug} href={`/article/${a.slug}`} style={{ textDecoration: 'none' }}>
                   <div style={{
-                    padding: '14px 0',
+                    padding: '13px 0',
                     borderTop: i === 0 ? '1px solid #1a1a3e' : undefined,
                     borderBottom: '1px solid #1a1a3e',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'space-between',
                     gap: 12,
                   }} className="article-row">
-                    <span style={{ color: '#e0e0e0', fontSize: '.92em', fontWeight: 500, lineHeight: 1.4 }}>{a.title}</span>
+                    {a.category && (
+                      <span style={{
+                        fontSize: '.7em', fontWeight: 700, color: '#667eea',
+                        background: '#667eea15', border: '1px solid #667eea30',
+                        borderRadius: 6, padding: '2px 8px',
+                        whiteSpace: 'nowrap', flexShrink: 0, textTransform: 'uppercase',
+                      }}>{a.category}</span>
+                    )}
+                    <span style={{ color: '#e0e0e0', fontSize: '.9em', fontWeight: 500, lineHeight: 1.4, flex: 1 }}>{a.title}</span>
                     <span style={{ color: '#667eea', fontSize: '.8em', flexShrink: 0 }}>→</span>
                   </div>
                 </Link>
