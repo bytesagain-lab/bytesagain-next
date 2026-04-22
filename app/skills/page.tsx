@@ -140,14 +140,7 @@ export default async function SkillsPage({
     <main style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 20px' }}>
       <style dangerouslySetInnerHTML={{ __html: hoverStyle }} />
 
-      {/* Hero CTA */}
-      <div style={{ textAlign: 'center', padding: '20px 0 24px', borderBottom: '1px solid #1a1a2e', marginBottom: 28 }}>
-        <h1 style={{ fontSize: 'clamp(1.2em,3vw,1.8em)', fontWeight: 800, color: '#e0e0e0', margin: 0 }}>
-          Find the Right AI Skill for Any Job
-        </h1>
-      </div>
-
-      <h2 style={{ fontSize: '1.2em', color: '#e0e0e0', marginBottom: 8 }}>
+<h2 style={{ fontSize: '1.2em', color: '#e0e0e0', marginBottom: 8 }}>
         All Skills {cat !== 'all' ? `— ${cat}` : ''}
       </h2>
       <p style={{ color: '#666', marginBottom: 24 }}>
