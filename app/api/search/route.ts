@@ -264,7 +264,7 @@ export async function GET(req: NextRequest) {
       const inst = s.installs_current || 0
       const st = s.stars || 0
       const sim = s.similarity || 0
-      const ours = s.is_ours ? 3.0 : 0  // 自有skill固定加3分
+      const ours = s.is_ours ? 15.0 : 0  // 自有skill固定加15分
       const score = sim * 10 + Math.log(dl + 1) * 0.5 + Math.log(inst + 1) * 0.8 + st * 0.3 + ours
       return { ...s, _score: score }
     }).sort((a: any, b: any) => b._score - a._score)
