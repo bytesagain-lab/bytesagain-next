@@ -130,7 +130,7 @@ export default function IntentSearch() {
             value={query}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
-            placeholder={zh ? "描述你的需求，比如：帮我写周报 / learn Python…" : "Search skills by goal, e.g. write a report, learn Python…"}
+            placeholder={zh ? "搜 skill 或使用场景，比如：帮我写周报 / automate email…" : "Search skills & use cases, e.g. write a report, automate email…"}
             style={{
               width: '100%', padding: '14px 16px 14px 44px',
               background: '#0f0f23', border: '1px solid #2a2a4e',
