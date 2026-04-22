@@ -1,6 +1,4 @@
 export const revalidate = 60
-import { getArticles } from '@/lib/supabase'
-import HomeClient from './components/HomeClient'
 import IntentSearch from './components/IntentSearch'
 import type { Metadata } from 'next'
 import Link from 'next/link'
@@ -35,8 +33,6 @@ const POPULAR_USE_CASES = [
 ]
 
 export default async function HomePage() {
-  let articles: Awaited<ReturnType<typeof getArticles>> = []
-  try { articles = await getArticles(20) } catch { articles = [] }
 
   return (
     <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 20px' }}>
@@ -203,11 +199,6 @@ export default async function HomePage() {
             </Link>
           ))}
         </div>
-      </section>
-
-      {/* ── ROLE SELECTOR + ARTICLES ─────────────────── */}
-      <section style={{ marginBottom: 80 }}>
-        <HomeClient articles={articles} searchAbove={false} />
       </section>
 
       {/* ── AI AGENT BANNER ──────────────────────────── */}
