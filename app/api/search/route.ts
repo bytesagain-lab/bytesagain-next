@@ -283,7 +283,7 @@ export async function GET(req: NextRequest) {
       result_count: results.length,
       endpoint: '/api/search',
       cache_hit: false,
-    }).then(() => {}).catch(() => {})
+    }).then(undefined, () => {})
 
     return NextResponse.json(results)
   } catch {
