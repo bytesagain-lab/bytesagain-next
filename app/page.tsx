@@ -1,4 +1,4 @@
-export const revalidate = 3600
+export const revalidate = 60
 import { getArticles } from '@/lib/supabase'
 import HomeClient from './components/HomeClient'
 import IntentSearch from './components/IntentSearch'
