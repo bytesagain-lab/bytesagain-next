@@ -67,6 +67,7 @@ body {
   -webkit-overflow-scrolling: touch;
   width: 100%;
   flex-wrap: nowrap;
+  min-width: 0;
 }
 .uc-scroll-track::-webkit-scrollbar { display: none; }
 .uc-scroll-card {
@@ -81,3 +82,5 @@ body {
   transition: border-color 0.15s, transform 0.15s;
   min-width: 190px;
 }
+
+.article-row:hover span:first-child { color: #fff !important; }

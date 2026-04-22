@@ -114,11 +114,20 @@ export default async function HomePage() {
         {/* ── 最新文章 */}
         {articles.length > 0 && (
           <section style={{ marginBottom: 64 }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 16 }}>
-              {articles.map((a: any) => (
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              {articles.map((a: any, i: number) => (
                 <Link key={a.slug} href={`/article/${a.slug}`} style={{ textDecoration: 'none' }}>
-                  <div className="feature-card" style={{ background: '#0d0d1f', border: '1px solid #1e1e3f', borderRadius: 12, padding: '20px 22px', height: '100%', boxSizing: 'border-box' }}>
-                    <div style={{ fontWeight: 600, color: '#e0e0e0', fontSize: '.92em', lineHeight: 1.4 }}>{a.title}</div>
+                  <div style={{
+                    padding: '14px 0',
+                    borderTop: i === 0 ? '1px solid #1a1a3e' : undefined,
+                    borderBottom: '1px solid #1a1a3e',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: 12,
+                  }} className="article-row">
+                    <span style={{ color: '#e0e0e0', fontSize: '.92em', fontWeight: 500, lineHeight: 1.4 }}>{a.title}</span>
+                    <span style={{ color: '#667eea', fontSize: '.8em', flexShrink: 0 }}>→</span>
                   </div>
                 </Link>
               ))}
