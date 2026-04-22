@@ -4,7 +4,7 @@ export const revalidate = 3600
 import { createClient } from '@supabase/supabase-js'
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import ForYouSection from '@/app/components/ForYouSection'
+import SkillSearchResults from '@/app/components/SkillSearchResults'
 
 // CSS-in-JS hover workaround via global style tag (Server Component safe)
 const hoverStyle = `
@@ -80,7 +80,7 @@ export default async function SkillsPage({
       // 全文搜索：不支持翻页，直接返回 top N
       const { data: ftsData } = await supabase.rpc('fts_search_skills', {
         query_text: q.replace(/-/g, ' '), // api-generator → api generator
-        match_count: 48
+        match_count: 200
       })
       let results = ftsData || []
       // ilike fallback：全文搜不到时用 slug 匹配（补捉 api-generator 这类带连字符的 slug）
@@ -189,11 +189,12 @@ export default async function SkillsPage({
         ))}
       </div>
 
-      {/* For You 个性化推荐（登录用户） */}
-      <ForYouSection />
-
-      {/* skill卡片网格 */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))', gap: 16 }}>
+            {/* skill卡片网格 */}
+      {q ? (
+        <SkillSearchResults initialSkills={skills} query={q} />
+      ) : (
+        <>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))', gap: 16 }}>
         {(skills || []).map(skill => {
           const src = skill.source || 'clawhub'
           const badge = SOURCE_BADGE[src] || SOURCE_BADGE.clawhub
@@ -243,9 +244,9 @@ export default async function SkillsPage({
             </Link>
           )
         })}
-      </div>
+          </div>
 
-      {/* 分页 */}
+          {/* 分页 */}
       {totalPages > 1 && (
         <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 40, flexWrap: 'wrap' }}>
           {page > 1 && (
@@ -266,6 +267,8 @@ export default async function SkillsPage({
             </Link>
           )}
         </div>
+      )}
+        </>
       )}
     </main>
   )
