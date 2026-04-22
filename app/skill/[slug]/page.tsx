@@ -199,10 +199,7 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
                 <span className="meta-value">⭐ {(skill as any).stars?.toLocaleString()}</span>
               </div>
             )}
-            <div className="meta-item">
-              <span className="meta-label">Source</span>
-              <span className="meta-value">{sm.label}</span>
-            </div>
+
           </div>
 
           {/* Tags */}
@@ -241,17 +238,16 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
             <a href={externalUrl} target="_blank" rel="noopener" className="btn-primary">
               {source === 'github' ? '⭐ View on GitHub' : source === 'lobehub' ? '🤖 View on LobeHub' : source === 'dify' ? '🔧 View on Dify' : '🦀 View on ClawHub'} →
             </a>
-            <a href="/" className="btn-secondary">
+            <a href="/skills" className="btn-secondary">
               🔍 Find More Skills
             </a>
           </div>
 
           {/* Disclaimer */}
           <div className="disclaimer">
-            📋 This skill is indexed from{' '}
-            <a href={externalUrl} target="_blank" rel="noopener">{sm.label}</a>.
-            {' '}BytesAgain is an independent directory — we do not host or own this content. All rights belong to the original author.
-            {' '}⚠️ Third-party content is not reviewed by BytesAgain. Proceed at your own risk.
+            📋 Indexed from <a href={externalUrl} target="_blank" rel="noopener">{sm.label}</a>.
+            {' '}BytesAgain is an independent directory and does not host or own this content. All rights belong to the original author.
+            {' '}Third-party content is not reviewed by BytesAgain — proceed at your own risk.
           </div>
         </div>
 
