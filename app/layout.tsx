@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     url: 'https://bytesagain.com',
     title: 'BytesAgain — Find Your AI Skill Stack',
     description: 'Curated AI agent skills for developers, creators, traders and more.',
-    images: [{ url: 'https://bytesagain.com/og-image-v2.png', width: 1200, height: 630 }],
+    images: [{ url: 'https://bytesagain.com/social-preview.png', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
