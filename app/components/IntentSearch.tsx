@@ -114,29 +114,29 @@ export default function IntentSearch() {
 
   return (
     <div style={{ maxWidth: 680, margin: '0 auto', padding: '0 20px' }}>
-      {/* 搜索框 + tab按钮 */}
-      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-        <div style={{ position: 'relative', flex: 1 }}>
-          <span style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', fontSize: '1.1em' }}>🔍</span>
-          <input
-            value={query}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            placeholder={zh ? "描述你的需求，比如：帮我写周报 / learn Python…" : "Describe your goal, e.g. write a report / learn Python…"}
-            style={{
-              width: '100%', padding: '14px 16px 14px 44px',
-              background: '#0f0f23', border: '1px solid #2a2a4e',
-              borderRadius: 12, color: '#e0e0e0', fontSize: '1em',
-              outline: 'none', boxSizing: 'border-box',
-            }}
-          />
-        </div>
-        {/* Skills / Use Case tab 按钮 */}
+      {/* 搜索框 占满全宽 */}
+      <div style={{ position: 'relative', marginBottom: 10 }}>
+        <span style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', fontSize: '1.1em' }}>🔍</span>
+        <input
+          value={query}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          placeholder={zh ? "描述你的需求，比如：帮我写周报 / learn Python…" : "Describe your goal, e.g. write a report / learn Python…"}
+          style={{
+            width: '100%', padding: '14px 16px 14px 44px',
+            background: '#0f0f23', border: '1px solid #2a2a4e',
+            borderRadius: 12, color: '#e0e0e0', fontSize: '1em',
+            outline: 'none', boxSizing: 'border-box',
+          }}
+        />
+      </div>
+      {/* Skills / Use Case tab 按钮 独占一行 */}
+      <div style={{ display: 'flex', gap: 8 }}>
         <button
           onClick={() => handleModeChange('skills')}
           style={{
-            padding: '10px 16px', borderRadius: 10, border: 'none', cursor: 'pointer',
-            fontWeight: 700, fontSize: '.82em', flexShrink: 0,
+            flex: 1, padding: '10px 16px', borderRadius: 10, border: 'none', cursor: 'pointer',
+            fontWeight: 700, fontSize: '.85em',
             background: mode === 'skills' ? 'linear-gradient(135deg,#667eea,#6366f1)' : '#1a1a3e',
             color: mode === 'skills' ? '#fff' : '#888',
             transition: 'all .15s',
@@ -145,13 +145,13 @@ export default function IntentSearch() {
         <button
           onClick={() => handleModeChange('usecase')}
           style={{
-            padding: '10px 16px', borderRadius: 10, border: 'none', cursor: 'pointer',
-            fontWeight: 700, fontSize: '.82em', flexShrink: 0,
+            flex: 1, padding: '10px 16px', borderRadius: 10, border: 'none', cursor: 'pointer',
+            fontWeight: 700, fontSize: '.85em',
             background: mode === 'usecase' ? 'linear-gradient(135deg,#34d399,#0ea5e9)' : '#1a1a3e',
             color: mode === 'usecase' ? '#fff' : '#888',
             transition: 'all .15s',
           }}
-        >🗺️ Use Case</button>
+        >🗺️ Use Cases</button>
       </div>
 
       {/* 结果面板 */}
