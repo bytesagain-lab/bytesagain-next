@@ -41,16 +41,31 @@ export default async function HomePage() {
   return (
     <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 20px' }}>
 
+      {/* ── 顶部订阅横幅 ──────────────────────────────── */}
+      <div style={{
+        background: 'linear-gradient(90deg, #0d0d1f, #13103a)',
+        borderBottom: '1px solid #1e1e3f',
+        padding: '10px 20px',
+        textAlign: 'center',
+        fontSize: '.82em',
+        color: '#818cf8',
+        margin: '0 -20px 0',
+      }}>
+        🎁 <strong style={{ color: '#e2e8f0' }}>Get the FREE AI Skills Starter Guide</strong>
+        {' — '}
+        <a href="#subscribe" style={{ color: '#00d4ff', textDecoration: 'underline', cursor: 'pointer' }}>Subscribe →</a>
+      </div>
+
       {/* ── HERO ─────────────────────────────────────── */}
-      <section style={{ textAlign: 'center', padding: '96px 0 64px' }}>
+      <section style={{ textAlign: 'center', padding: '56px 0 40px' }}>
         <h1 style={{
-          fontSize: 'clamp(2.4em, 6vw, 3.8em)',
+          fontSize: 'clamp(2em, 5vw, 3.2em)',
           fontWeight: 900,
-          margin: '0 0 16px',
+          margin: '0 0 12px',
           lineHeight: 1.1,
           letterSpacing: '-0.02em',
         }}>
-          Find Your<br />
+          Find Your{' '}
           <span style={{
             background: 'linear-gradient(135deg, #667eea, #00d4ff)',
             WebkitBackgroundClip: 'text',
@@ -59,20 +74,78 @@ export default async function HomePage() {
             AI Skill Stack
           </span>
         </h1>
-        <p style={{
-          color: '#666',
-          fontSize: '1.1em',
-          margin: '0 auto 40px',
-          maxWidth: 480,
-          lineHeight: 1.6,
-        }}>
-          Discover the right AI agent skills for your role.<br />
-          Curated from 50,000+ sources, updated daily.
+        <p style={{ color: '#4b5563', fontSize: '1em', margin: '0 auto 28px', maxWidth: 440, lineHeight: 1.6 }}>
+          Search 60,000+ AI agent skills by use case, role, or tool.
         </p>
 
         {/* Search */}
-        <div style={{ maxWidth: 560, margin: '0 auto' }}>
+        <div style={{ maxWidth: 560, margin: '0 auto 24px' }}>
           <IntentSearch />
+        </div>
+
+        {/* 热门场景标签 */}
+        <div style={{ display: 'flex', gap: 8, justifyContent: 'center', flexWrap: 'wrap' }}>
+          {['Python 自动化', '拼多多运营', 'Crypto Research', '视频剪辑', 'SEO & GEO', 'Job Hunting'].map(tag => (
+            <a key={tag} href={`/?q=${encodeURIComponent(tag)}`} style={{
+              fontSize: '.78em', color: '#6366f1', background: '#6366f112',
+              border: '1px solid #6366f130', borderRadius: 999,
+              padding: '4px 12px', textDecoration: 'none',
+            }}>#{tag}</a>
+          ))}
+        </div>
+      </section>
+
+      {/* ── 3列特色入口（Machina风格）────────────────── */}
+      <section style={{ marginBottom: 64 }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: 16,
+        }}>
+          {[
+            {
+              icon: '⚡',
+              title: 'AI Agent Skills',
+              desc: 'Search 60,000+ skills for Claude, Cursor, OpenClaw & more',
+              href: '/skills',
+              color: '#818cf8',
+            },
+            {
+              icon: '🗺️',
+              title: 'Use Case Guides',
+              desc: '200+ curated workflows — from SaaS to crypto to content',
+              href: '/use-case',
+              color: '#34d399',
+            },
+            {
+              icon: '🔌',
+              title: 'Free MCP API',
+              desc: 'Connect your AI agent directly — no auth, no setup',
+              href: '/mcp',
+              color: '#00d4ff',
+            },
+          ].map(item => (
+            <a key={item.href} href={item.href} style={{ textDecoration: 'none' }}>
+              <div style={{
+                background: '#0d0d1f',
+                border: '1px solid #1e1e3f',
+                borderRadius: 14,
+                padding: '24px 28px',
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: 16,
+                transition: 'border-color .15s',
+              }}
+                className="feature-card"
+              >
+                <span style={{ fontSize: '1.6em', lineHeight: 1, flexShrink: 0, marginTop: 2 }}>{item.icon}</span>
+                <div>
+                  <div style={{ fontWeight: 700, color: item.color, fontSize: '.95em', marginBottom: 4 }}>{item.title}</div>
+                  <div style={{ color: '#4b5563', fontSize: '.83em', lineHeight: 1.5 }}>{item.desc}</div>
+                </div>
+              </div>
+            </a>
+          ))}
         </div>
       </section>
 
@@ -88,8 +161,8 @@ export default async function HomePage() {
         flexWrap: 'wrap',
       }}>
         {[
-          { value: '50,000+', label: 'Skills Indexed', arrow: true },
-          { value: '500+', label: 'Ready Workflows', arrow: true },
+          { value: '60,000+', label: 'Skills Indexed', arrow: true },
+          { value: '200+', label: 'Use Case Guides', arrow: true },
           { value: 'Yours', label: 'Find in Seconds', arrow: false },
         ].map(s => (
           <div key={s.label} style={{ textAlign: 'center', display: 'flex', alignItems: 'center', gap: 'clamp(12px, 3vw, 40px)' }}>

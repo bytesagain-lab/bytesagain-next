@@ -50,3 +50,8 @@ body {
   border-color: #667eea66 !important;
   transform: translateY(-2px);
 }
+
+/* Feature entry cards */
+.feature-card:hover {
+  border-color: #6366f155 !important;
+}
