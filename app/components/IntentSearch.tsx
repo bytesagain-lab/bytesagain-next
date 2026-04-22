@@ -167,8 +167,19 @@ export default function IntentSearch() {
       {searched && (
         <div style={{ marginTop: 12, background: '#0a0a1a', border: '1px solid #1a1a3e', borderRadius: 12, overflow: 'hidden' }}>
           {!hasResults && !loading && (
-            <div style={{ padding: '20px', color: '#555', textAlign: 'center', fontSize: '.9em' }}>
-              No results for &quot;{query}&quot;
+            <div style={{ padding: '20px 20px', color: '#888', textAlign: 'center', fontSize: '.9em' }}>
+              <div style={{ marginBottom: 10 }}>No use cases found for &quot;{query}&quot;</div>
+              <a
+                href={`/skills?q=${encodeURIComponent(query)}`}
+                style={{
+                  display: 'inline-block', padding: '8px 20px',
+                  background: 'linear-gradient(135deg,#667eea,#00d4ff)',
+                  borderRadius: 8, color: '#fff', textDecoration: 'none',
+                  fontWeight: 700, fontSize: '.88em',
+                }}
+              >
+                ⚡ Search "{query}" in Skills →
+              </a>
             </div>
           )}
           {results.length > 0 && (
