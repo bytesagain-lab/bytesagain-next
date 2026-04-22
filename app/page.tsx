@@ -69,18 +69,6 @@ export default async function HomePage() {
           {/* 搜索框 + 两个tab按钮 */}
           <IntentSearch />
 
-          {/* 热门标签 — 直接跳搜索结果 */}
-          <div style={{ maxWidth: 860, margin: '0 auto', padding: '0 20px', width: '100%', boxSizing: 'border-box' }}>
-            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 12 }}>
-              {HOT_TAGS.map(tag => (
-                <a key={tag} href={`/skills?q=${encodeURIComponent(tag)}`} style={{
-                  fontSize: '.78em', color: '#6366f1', background: '#6366f112',
-                  border: '1px solid #6366f130', borderRadius: 999,
-                  padding: '4px 12px', textDecoration: 'none',
-                }}>#{tag}</a>
-              ))}
-            </div>
-          </div>
         </section>
 
         {/* ── 3列特色入口 */}
