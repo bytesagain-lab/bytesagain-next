@@ -207,7 +207,7 @@ export async function GET(req: NextRequest) {
       // 1. 全文搜索
       supabase
         .from('skills')
-        .select('slug, name, description, category, downloads, installs_current, stars, owner, source, source_url, tags')
+        .select('slug, name, description, category, downloads, installs_current, stars, owner, source, source_url, tags, is_ours')
         .textSearch('fts', searchQ.trim(), { type: 'websearch', config: 'english' })
         .order('downloads', { ascending: false })
         .limit(6),
@@ -215,7 +215,7 @@ export async function GET(req: NextRequest) {
       // 2. ilike fallback
       supabase
         .from('skills')
-        .select('slug, name, description, category, downloads, installs_current, stars, owner, source, source_url, tags')
+        .select('slug, name, description, category, downloads, installs_current, stars, owner, source, source_url, tags, is_ours')
         .or(`name.ilike.%${primaryWord}%,description.ilike.%${primaryWord}%`)
         .order('downloads', { ascending: false })
         .limit(6),
@@ -258,13 +258,14 @@ export async function GET(req: NextRequest) {
 
     const combined = [...local, ...vsearchExtra, ...chExtra]
 
-    // 加权排序：向量相似度 + 下载量 + 安装量 + 星标
+    // 加权排序：向量相似度 + 下载量 + 安装量 + 星标 + 自有skill加权
     const scored = combined.map((s: any) => {
       const dl = s.downloads || 0
       const inst = s.installs_current || 0
       const st = s.stars || 0
       const sim = s.similarity || 0
-      const score = sim * 10 + Math.log(dl + 1) * 0.5 + Math.log(inst + 1) * 0.8 + st * 0.3
+      const ours = s.is_ours ? 3.0 : 0  // 自有skill固定加3分
+      const score = sim * 10 + Math.log(dl + 1) * 0.5 + Math.log(inst + 1) * 0.8 + st * 0.3 + ours
       return { ...s, _score: score }
     }).sort((a: any, b: any) => b._score - a._score)
 

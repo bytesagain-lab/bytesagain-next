@@ -66,6 +66,7 @@ export async function GET(req: NextRequest) {
     downloads: s.downloads || 0,
     installs_current: s.installs_current || 0,
     stars: s.stars || 0,
+    is_ours: s.is_ours || false,
     score: Math.round((s.score || 0) * 100) / 100,
   })))
 }
