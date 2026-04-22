@@ -52,7 +52,7 @@ export default function FeedbackButton() {
               <textarea
                 value={message}
                 onChange={e => setMessage(e.target.value)}
-                placeholder="Missing a skill? Found a bug? Tell us..."
+                placeholder="需要什么？告诉我！"
                 rows={3}
                 style={{
                   width: '100%', boxSizing: 'border-box', padding: '10px 12px',
