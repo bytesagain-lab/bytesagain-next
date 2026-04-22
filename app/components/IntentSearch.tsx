@@ -113,7 +113,7 @@ export default function IntentSearch() {
   const hasResults = results.length > 0 || skillResults.length > 0
 
   return (
-    <div style={{ maxWidth: 680, margin: '0 auto', padding: '0 20px' }}>
+    <div style={{ maxWidth: 860, margin: '0 auto', padding: '0 20px' }}>
       <style>{`
         .search-wrap { display: flex; flex-direction: column; gap: 10px; }
         .search-tabs { display: flex; gap: 8px; }
@@ -130,7 +130,7 @@ export default function IntentSearch() {
             value={query}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
-            placeholder={zh ? "描述你的需求，比如：帮我写周报 / learn Python…" : "Describe your goal, e.g. write a report / learn Python…"}
+            placeholder={zh ? "描述你的需求，比如：帮我写周报 / learn Python…" : "Search skills by goal, e.g. write a report, learn Python…"}
             style={{
               width: '100%', padding: '14px 16px 14px 44px',
               background: '#0f0f23', border: '1px solid #2a2a4e',
