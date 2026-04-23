@@ -85,6 +85,10 @@ const nextConfig: NextConfig = {
       { source: '/ai-tools-directory', destination: '/skills', permanent: true },
       { source: '/ai-tools-directory/', destination: '/skills', permanent: true },
 
+      // OpenClaw 2026.4.22 专题落地页
+      { source: '/openclaw-2026-4-22', destination: '/collection/openclaw-update', permanent: false },
+      { source: '/openclaw-2026-4-22/', destination: '/collection/openclaw-update', permanent: false },
+
       // 兜底：老页面通配（WP permalink 结构 /year/month/...）
       { source: '/:year(\\d{4})/:month(\\d{2})/:path*', destination: '/articles', permanent: true },
     ]
