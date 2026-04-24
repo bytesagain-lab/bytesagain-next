@@ -276,15 +276,19 @@ export async function GET(req: NextRequest) {
       || req.headers.get('x-real-ip')
       || 'unknown'
     const ua = req.headers.get('user-agent') || ''
-    supabase.from('api_logs').insert({
-      action: 'search',
-      query: q,
-      user_agent: ua,
-      ip,
-      result_count: results.length,
-      endpoint: '/api/search',
-      cache_hit: false,
-    }).then(undefined, () => {})
+    // Sample search logs to protect Supabase Disk IO budget during traffic bursts.
+    const logRate = Number(process.env.SEARCH_LOG_SAMPLE_RATE || process.env.MCP_LOG_SAMPLE_RATE || '0.08')
+    if (Math.random() < (results.length === 0 ? Math.min(0.25, logRate * 3) : logRate)) {
+      supabase.from('api_logs').insert({
+        action: 'search',
+        query: q,
+        user_agent: ua,
+        ip,
+        result_count: results.length,
+        endpoint: '/api/search',
+        cache_hit: false,
+      }).then(undefined, () => {})
+    }
 
     return NextResponse.json(results)
   } catch {

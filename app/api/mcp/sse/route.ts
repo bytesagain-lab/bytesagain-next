@@ -15,12 +15,20 @@ function cacheGet(k: string) {
 function cacheSet(k: string, data: any, ttlMs = 60_000) {
   cache.set(k, { data, exp: Date.now() + ttlMs })
 }
+function shouldWriteApiLog(entry: { action?: string; result_count?: number; cache_hit?: boolean }) {
+  if (entry.cache_hit) return Math.random() < 0.01
+  const base = Number(process.env.MCP_LOG_SAMPLE_RATE || '0.05')
+  if (entry.result_count === 0) return Math.random() < Math.min(0.2, base * 3)
+  if (entry.action === 'search_skills') return Math.random() < base
+  return Math.random() < Math.min(0.03, base)
+}
 
 // ── Async logging (fire-and-forget) ───────────────────────────
 async function logCall(entry: {
   endpoint: string; action?: string; query?: string; slug?: string;
   user_agent?: string; ip?: string; latency_ms?: number; result_count?: number; cache_hit?: boolean
 }) {
+  if (!shouldWriteApiLog(entry)) return
   try {
     const db = supabase()
     await db.from('api_logs').insert(entry)

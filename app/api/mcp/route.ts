@@ -49,6 +49,29 @@ setInterval(() => {
   const now = Date.now()
   for (const [k, v] of RL_MAP) if (now > v.reset) RL_MAP.delete(k)
 }, 300_000)
+
+// Lightweight response cache + sampled logging to protect Supabase Disk IO budget.
+// Vercel/serverless instances do not share memory, but this still absorbs bursts per instance.
+const RESPONSE_CACHE = new Map<string, { data: any; exp: number }>()
+function getCached(key: string) {
+  const hit = RESPONSE_CACHE.get(key)
+  if (!hit) return null
+  if (Date.now() > hit.exp) { RESPONSE_CACHE.delete(key); return null }
+  return hit.data
+}
+function setCached(key: string, data: any, ttlMs = 300_000) {
+  if (RESPONSE_CACHE.size > 500) RESPONSE_CACHE.clear()
+  RESPONSE_CACHE.set(key, { data, exp: Date.now() + ttlMs })
+}
+function shouldWriteApiLog(params: { action?: string; endpoint?: string; result_count?: number | null }) {
+  const base = Number(process.env.MCP_LOG_SAMPLE_RATE || '0.08')
+  const endpoint = params.endpoint || 'rest'
+  const action = params.action || ''
+  if (params.result_count === 0) return Math.random() < Math.min(0.25, base * 3)
+  if (endpoint === 'mcp_post' || endpoint === 'mcp_sse') return Math.random() < Math.min(0.05, base)
+  if (action === 'search') return Math.random() < base
+  return Math.random() < Math.min(0.03, base)
+}
 // ─────────────────────────────────────────────────────────────────────────
 
 // MCP-compatible endpoint for AI agents
@@ -204,13 +227,18 @@ export async function GET(req: NextRequest) {
   try {
     if (action === 'search') {
       const t0 = Date.now()
+      const cacheKey = `get:search:${effectiveQuery || '_popular'}:${limit}`
+      const cached = getCached(cacheKey)
+      if (cached) return NextResponse.json({ ...cached, cache: 'hit' }, { headers })
       if (!effectiveQuery) {
         const { data } = await supabase
           .from('skills_list')
           .select('slug, name, description, category, tags, downloads, owner')
           .order('downloads', { ascending: false })
           .limit(limit)
-        return NextResponse.json({ action, query, results: data || [], count: data?.length || 0 }, { headers })
+        const payload = { action, query, results: data || [], count: data?.length || 0 }
+        setCached(cacheKey, payload, 300_000)
+        return NextResponse.json(payload, { headers })
       }
 
       // Hybrid search: full-text first (ts_rank), ilike fallback
@@ -254,11 +282,13 @@ export async function GET(req: NextRequest) {
       const ua = req.headers.get('user-agent') || ''
       const ip = req.headers.get('x-forwarded-for')?.split(',')[0].trim() || ''
       logMcpCall({ action, query, user_agent: ua, ip, latency_ms: Date.now() - t0, result_count: results.length })
-      return NextResponse.json({
+      const payload = {
         action, query,
         ...(effectiveQuery !== query ? { translated_query: effectiveQuery } : {}),
         results, count: results.length
-      }, { headers })
+      }
+      setCached(cacheKey, payload, 300_000)
+      return NextResponse.json(payload, { headers })
     }
 
     if (action === 'recommend') {
@@ -304,12 +334,17 @@ export async function GET(req: NextRequest) {
     }
 
     if (action === 'popular') {
+      const cacheKey = `get:popular:${limit}`
+      const cached = getCached(cacheKey)
+      if (cached) return NextResponse.json({ ...cached, cache: 'hit' }, { headers })
       const { data } = await supabase
         .from('skills_list')
         .select('slug, name, description, category, downloads, owner')
         .order('downloads', { ascending: false })
         .limit(limit)
-      return NextResponse.json({ action, results: data || [], total_in_db: data?.length }, { headers })
+      const payload = { action, results: data || [], total_in_db: data?.length }
+      setCached(cacheKey, payload, 300_000)
+      return NextResponse.json(payload, { headers })
     }
 
     if (action === 'use_cases') {
@@ -374,6 +409,7 @@ async function logMcpCall(params: {
   result_count?: number | null
   endpoint?: string
 }) {
+  if (!shouldWriteApiLog(params)) return
   const sb = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!
