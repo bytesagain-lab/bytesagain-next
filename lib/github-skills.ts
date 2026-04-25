@@ -36,11 +36,19 @@ export async function getGithubSkill(id: string): Promise<GithubSkillIndexRow | 
 }
 
 export async function getGithubSkillIds(limit = 50_000, offset = 0): Promise<string[]> {
-  const rows = await ghIndexFetch(
-    `github_skill_index?select=id&order=quality_score.desc.nullslast&order=stars.desc.nullslast&limit=${limit}&offset=${offset}`,
-    86400
-  )
-  return rows.map((r: { id?: string }) => r.id).filter(Boolean)
+  // Supabase/PostgREST caps large requests, so fetch in 1k pages.
+  const ids: string[] = []
+  const pageSize = 1000
+  for (let localOffset = 0; localOffset < limit; localOffset += pageSize) {
+    const rows = await ghIndexFetch(
+      `github_skill_index?select=id&order=quality_score.desc.nullslast&order=stars.desc.nullslast&limit=${pageSize}&offset=${offset + localOffset}`,
+      86400
+    )
+    if (!rows.length) break
+    ids.push(...rows.map((r: { id?: string }) => r.id).filter(Boolean))
+    if (rows.length < pageSize) break
+  }
+  return ids
 }
 
 export async function getRelatedGithubSkills(row: GithubSkillIndexRow, limit = 6): Promise<GithubSkillIndexRow[]> {
