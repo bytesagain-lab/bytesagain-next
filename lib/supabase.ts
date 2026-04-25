@@ -4,7 +4,7 @@ const SB_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 async function sbFetch(path: string) {
   const res = await fetch(`${SB_URL}/rest/v1/${path}`, {
     headers: { apikey: SB_KEY },
-    next: { revalidate: 300 }, // 5min cache
+    next: { revalidate: 3600 }, // 1h cache to reduce Supabase IO
   })
   if (!res.ok) return []
   return res.json()

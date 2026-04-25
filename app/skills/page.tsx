@@ -50,6 +50,30 @@ const SOURCE_BADGE: Record<string, { label: string; color: string; emoji: string
 
 const PAGE_SIZE = 48
 
+async function cachedSkillsList(cat: string, from: number) {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL!
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  const params = new URLSearchParams({
+    select: 'slug,name,description,category,tags,downloads,stars,source,source_url,owner,is_ours',
+    order: 'downloads.desc',
+    limit: String(PAGE_SIZE),
+    offset: String(from),
+  })
+  if (cat !== 'all') {
+    if (['clawhub','lobehub','dify','github','mcp','official'].includes(cat)) {
+      params.set('source', `eq.${cat}`)
+    } else {
+      params.set('tags', `ov.{${cat}}`)
+    }
+  }
+  const res = await fetch(`${url}/rest/v1/skills_list?${params.toString()}`, {
+    headers: { apikey: key, Authorization: `Bearer ${key}` },
+    next: { revalidate: 3600 },
+  })
+  if (!res.ok) return []
+  return res.json()
+}
+
 export default async function SkillsPage({
   searchParams,
 }: {
@@ -114,29 +138,10 @@ export default async function SkillsPage({
       console.error('search error', e)
     }
   } else {
-    // 无搜索词：正常分页
-    let query = supabase
-      .from('skills')
-      .select('slug,name,description,category,tags,downloads,stars,source,source_url,owner,is_ours', { count: 'planned' })
-      .order('downloads', { ascending: false })
-      .range(from, from + PAGE_SIZE - 1)
-    if (cat !== 'all') {
-      if (['clawhub','lobehub','dify','github','mcp','official'].includes(cat)) {
-        query = query.eq('source', cat)
-      } else {
-        query = query.overlaps('tags', [cat])
-      }
-    }
+    // 无搜索词：正常分页。Use cached REST fetch and avoid count(*) during crawler bursts.
     try {
-      const { data, count, error } = await query
-      if (!error) {
-        skills = data || []
-        if (cat !== 'all') {
-          total = skills.length < PAGE_SIZE ? skills.length : (count ?? skills.length)
-        } else if (count !== null && count !== undefined) {
-          total = count
-        }
-      }
+      skills = await cachedSkillsList(cat, from)
+      total = cat === 'all' ? 60202 : (skills.length < PAGE_SIZE ? from + skills.length : from + PAGE_SIZE + 1)
     } catch {
       skills = []
     }
