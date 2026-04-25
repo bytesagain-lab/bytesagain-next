@@ -4,7 +4,6 @@ import { buildSkillsSitemapXml, fetchSkillSlugs } from '@/lib/skills-sitemap'
 export const revalidate = 86400
 
 export async function GET() {
-  // Backward-compatible first shard. Sitemap index points to explicit shards.
   const slugs = await fetchSkillSlugs(0, 50_000)
   return new NextResponse(buildSkillsSitemapXml(slugs), {
     headers: {

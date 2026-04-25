@@ -9,7 +9,11 @@ export async function GET() {
     <lastmod>${today}</lastmod>
   </sitemap>
   <sitemap>
-    <loc>https://bytesagain.com/skills-sitemap.xml</loc>
+    <loc>https://bytesagain.com/skills-sitemap-0.xml</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://bytesagain.com/skills-sitemap-1.xml</loc>
     <lastmod>${today}</lastmod>
   </sitemap>
 </sitemapindex>`
