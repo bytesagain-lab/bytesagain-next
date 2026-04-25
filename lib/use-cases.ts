@@ -56,6 +56,19 @@ export const USE_CASES: UseCase[] = [
     searchLink: '/skills?q=python+data+science+jupyter+R',
   },
   {
+    slug: 'bi-dashboard-builder',
+    title: 'Build BI Dashboards & KPI Charts',
+    description: 'Turn business metrics into dashboard plans, SQL queries, chart specs, and Superset-compatible visualization JSON.',
+    icon: '📈',
+    skills: [
+      { slug: 'bytesagain-bi-dashboard-builder', name: 'BytesAgain BI Dashboard Builder', reason: 'Builds dashboard plans, SQL templates, chart specs, and Superset-compatible chart JSON' },
+      { slug: 'data-visualizer', name: 'Data Visualizer', reason: 'Creates visual charts from datasets for BI reporting and presentation' },
+      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Extracts trends and insights before turning metrics into dashboard views' },
+      { slug: 'data-analyst-pro', name: 'Data Analyst', reason: 'Helps analyze business datasets and define useful KPIs' },
+    ],
+    searchLink: '/skills?q=BI+dashboard+chart+Superset+SQL',
+  },
+  {
     slug: 'developer-workflow',
     title: 'Developer Daily Workflow',
     description: 'The skills that make your dev environment smarter — from writing code to shipping and monitoring.',
