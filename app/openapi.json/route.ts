@@ -65,6 +65,18 @@ export async function GET() {
           responses: { '200': { description: 'Related skills' } },
         },
       },
+      '/api/github-skills': {
+        get: {
+          operationId: 'searchGithubSkillIndex',
+          summary: 'Search lightweight GitHub-indexed SKILL.md metadata',
+          description: 'Experimental lightweight index for public GitHub SKILL.md files. Results are labeled as GitHub indexed and are not treated as verified ClawHub skills.',
+          parameters: [
+            { name: 'q', in: 'query', required: false, schema: { type: 'string' }, description: 'Search query. If omitted, returns top indexed rows by quality score.' },
+            { name: 'limit', in: 'query', required: false, schema: { type: 'integer', minimum: 1, maximum: 50, default: 20 } },
+          ],
+          responses: { '200': { description: 'GitHub skill index results' } },
+        },
+      },
     },
     'x-ai-agent': {
       name: 'BytesAgain',
