@@ -159,6 +159,33 @@ function expandQuery(q: string): string {
   return q
 }
 
+function prioritySlugs(q: string, expanded: string): string[] {
+  const haystack = `${q} ${expanded}`.toLowerCase()
+  if (
+    haystack.includes('ecommerce') || haystack.includes('product listing') ||
+    haystack.includes('amazon listing') || haystack.includes('shopify listing') ||
+    haystack.includes('marketplace listing') || haystack.includes('商品listing') ||
+    haystack.includes('商品列表') || haystack.includes('商品标题') ||
+    haystack.includes('商品描述') || haystack.includes('商品上架') ||
+    haystack.includes('亚马逊listing') || haystack.includes('独立站上架')
+  ) {
+    return [
+      'shopify-helper',
+      'product-desc',
+      'ecommerce-listing-optimizer-lite',
+      'product-title-optimization',
+      'product-page-seo',
+      'taobao-listing',
+      'pinduoduo-listing',
+      'shopee-one-click-listing',
+    ]
+  }
+  if (haystack.includes('superset') || haystack.includes('bi dashboard') || haystack.includes('bi图表')) {
+    return ['bytesagain-bi-dashboard-builder', 'apache-superset', 'data-visualizer', 'data-analysis', 'data-analyst-pro']
+  }
+  return []
+}
+
 // 判断是否需要 LLM 扩展
 function needsLLM(q: string, expanded: string): boolean {
   if (expanded !== q) return false // 词表已命中
@@ -227,9 +254,18 @@ export async function GET(req: NextRequest) {
 
   const words = searchQ.trim().split(/\s+/)
   const primaryWord = words.reduce((a, b) => a.length >= b.length ? a : b, words[0] || searchQ)
+  const priority = prioritySlugs(q, searchQ)
 
   try {
-    const [ftsRes, ilikeRes, chRes] = await Promise.allSettled([
+    const [priorityRes, ftsRes, ilikeRes, chRes] = await Promise.allSettled([
+      // 0. Curated intent matches for known use-case gaps
+      priority.length
+        ? supabase
+            .from('skills')
+            .select('slug, name, description, category, downloads, installs_current, stars, owner, source, source_url, tags, is_ours')
+            .in('slug', priority)
+        : Promise.resolve({ data: [] }),
+
       // 1. 全文搜索
       supabase
         .from('skills')
@@ -250,15 +286,16 @@ export async function GET(req: NextRequest) {
       Promise.resolve(null),
     ])
 
+    const priorityRows = priorityRes.status === 'fulfilled' ? (priorityRes.value.data || []) : []
     const fts = ftsRes.status === 'fulfilled' ? (ftsRes.value.data || []) : []
     const ilike = ilikeRes.status === 'fulfilled' ? (ilikeRes.value.data || []) : []
 
     const seen = new Set<string>()
     const local: any[] = []
-    for (const s of [...fts, ...ilike]) {
+    for (const s of [...priorityRows, ...fts, ...ilike]) {
       if (!seen.has(s.slug)) {
         seen.add(s.slug)
-        local.push({ ...s, _source: s.source || 'clawhub' })
+        local.push({ ...s, _source: s.source || 'clawhub', _priority: priority.includes(s.slug) })
       }
     }
 
@@ -291,7 +328,8 @@ export async function GET(req: NextRequest) {
       const st = s.stars || 0
       const sim = s.similarity || 0
       const ours = s.is_ours ? 15.0 : 0  // 自有skill固定加15分
-      const score = sim * 10 + Math.log(dl + 1) * 0.5 + Math.log(inst + 1) * 0.8 + st * 0.3 + ours
+      const curated = s._priority ? 30.0 : 0
+      const score = curated + sim * 10 + Math.log(dl + 1) * 0.5 + Math.log(inst + 1) * 0.8 + st * 0.3 + ours
       return { ...s, _score: score }
     }).sort((a: any, b: any) => b._score - a._score)
 
