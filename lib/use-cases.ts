@@ -69,6 +69,20 @@ export const USE_CASES: UseCase[] = [
     searchLink: '/skills?q=BI+dashboard+chart+Superset+SQL',
   },
   {
+    slug: 'product-listing-optimization',
+    title: 'Product Listing Optimization for E-commerce',
+    description: 'Create marketplace-ready product titles, descriptions, SEO keywords, bullets, and listing pages for Shopify, Amazon, Taobao, Pinduoduo, and Shopee.',
+    icon: '🛒',
+    skills: [
+      { slug: 'shopify-helper', name: 'Shopify Helper', reason: 'Builds Shopify stores and optimizes product pages, collections, titles, descriptions, and store SEO' },
+      { slug: 'product-desc', name: 'Product Description', reason: 'Writes SEO product descriptions, feature bullets, benefit copy, and marketplace listing text' },
+      { slug: 'ecommerce-listing-optimizer-lite', name: 'Ecommerce Listing Optimizer Lite', reason: 'Generates Amazon listing titles, bullets, and backend keywords from product information' },
+      { slug: 'product-title-optimization', name: 'Product Title Optimization', reason: 'Optimizes product titles for search visibility and click-through across ecommerce platforms' },
+      { slug: 'product-page-seo', name: 'Product Page SEO', reason: 'Improves ecommerce product pages with on-page SEO, structured data, and content strategy' },
+    ],
+    searchLink: '/skills?q=ecommerce+product+listing+optimization+Shopify+Amazon+SEO',
+  },
+  {
     slug: 'developer-workflow',
     title: 'Developer Daily Workflow',
     description: 'The skills that make your dev environment smarter — from writing code to shipping and monitoring.',
