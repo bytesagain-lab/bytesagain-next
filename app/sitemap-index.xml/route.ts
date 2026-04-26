@@ -24,6 +24,18 @@ export async function GET() {
     <loc>https://bytesagain.com/github-skills-sitemap-1.xml</loc>
     <lastmod>${today}</lastmod>
   </sitemap>
+  <sitemap>
+    <loc>https://bytesagain.com/github-skills-sitemap-2.xml</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://bytesagain.com/github-skills-sitemap-3.xml</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://bytesagain.com/github-skills-sitemap-4.xml</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
 </sitemapindex>`
   return new NextResponse(xml, {
     headers: {
