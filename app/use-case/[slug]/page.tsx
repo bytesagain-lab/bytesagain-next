@@ -1,4 +1,4 @@
-export const revalidate = 300
+export const dynamic = 'force-dynamic'
 
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
@@ -12,7 +12,7 @@ const SB_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_
 async function sbFetch(path: string) {
   const res = await fetch(`${SB_URL}/rest/v1/${path}`, {
     headers: { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}` },
-    next: { revalidate: 3600 },
+    cache: 'no-store',
   })
   if (!res.ok) return []
   return res.json()
