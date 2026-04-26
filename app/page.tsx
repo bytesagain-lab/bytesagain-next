@@ -7,11 +7,11 @@ import UcScroll from './components/UcScroll'
 
 export const metadata: Metadata = {
   title: 'BytesAgain — Find Your AI Skill Stack',
-  description: 'Search 60,000+ AI agent skills by use case, role, or tool. Free, no login needed.',
+  description: 'Search 60,000+ verified AI agent skills and 367 use-case workflows. Free, no login needed.',
   alternates: { canonical: 'https://bytesagain.com' },
   openGraph: {
     title: 'BytesAgain — Find Your AI Skill Stack',
-    description: 'Search 60,000+ AI agent skills by use case, role, or tool.',
+    description: 'Search 60,000+ verified AI agent skills and 367 use-case workflows.',
     url: 'https://bytesagain.com',
     siteName: 'BytesAgain',
     type: 'website',
@@ -30,8 +30,8 @@ const POPULAR_USE_CASES = [
   { icon: '🧠', title: 'Knowledge Base', href: '/use-case/knowledge-base-rag' },
   { icon: '💼', title: 'Job Hunting', href: '/use-case/job-hunting' },
   { icon: '📈', title: 'Stock Investor', href: '/use-case/stock-investor' },
-  { icon: '🛒', title: 'Ecommerce Ops', href: '/use-case/ecommerce' },
-  { icon: '🎬', title: 'Video Creator', href: '/use-case/video-creator' },
+  { icon: '🛒', title: 'Product Listings', href: '/use-case/product-listing-optimization' },
+  { icon: '🏬', title: 'Marketplace Listings', href: '/use-case/amazon-taobao-pinduoduo-marketplace-listings' },
 ]
 
 const HOT_TAGS = ['Ecommerce Seller', 'Video Creation', 'SEO & GEO']
@@ -63,7 +63,7 @@ export default async function HomePage() {
             </span>
           </h1>
           <p style={{ color: '#4b5563', fontSize: '1em', margin: '0 auto 28px', maxWidth: 440, lineHeight: 1.6 }}>
-            Search 60,000+ AI agent skills by use case, role, or tool.
+            Search 60,000+ verified AI agent skills by use case, role, or tool.
           </p>
 
           {/* 搜索框 + 两个tab按钮 */}
@@ -75,8 +75,8 @@ export default async function HomePage() {
         <section style={{ marginBottom: 56 }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
             {[
-              { icon: '⚡', title: 'AI Agent Skills', desc: 'Search 60,000+ skills for Claude, Cursor, OpenClaw & more', href: '/skills', color: '#818cf8' },
-              { icon: '🗺️', title: 'Use Case Guides', desc: '200+ curated workflows — from SaaS to crypto to content', href: '/use-case', color: '#34d399' },
+              { icon: '⚡', title: 'AI Agent Skills', desc: 'Search 60,000+ verified skills for Claude, Cursor, OpenClaw & more', href: '/skills', color: '#818cf8' },
+              { icon: '🗺️', title: 'Use Case Guides', desc: '367 curated workflows — from SaaS to ecommerce to content', href: '/use-case', color: '#34d399' },
               { icon: '🔌', title: 'Free MCP API', desc: 'Connect your AI agent directly — no auth, no setup', href: '/mcp', color: '#00d4ff' },
             ].map(item => (
               <a key={item.href} href={item.href} style={{ textDecoration: 'none' }}>
