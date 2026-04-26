@@ -84,7 +84,7 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
   const canInstallWithClawHub = source !== 'github'
   const testPrompt = `I just installed the ${skill.name || slug} skill. Please run a quick smoke test: explain what this skill can do, ask me for the minimum input it needs, then produce one small sample output for a realistic task.`
   const agentConfig = `1. Install the skill: ${installCmd}\n2. Restart or reload your agent session if needed.\n3. Ask your agent: \"Use the ${skill.name || slug} skill to help me with [your task].\"`
-  const manusInviteUrl = 'https://manus.im/invitation/5YFTE7EBB77Y?utm_source=bytesagain&utm_medium=skill_page&utm_campaign=agent_cta'
+  const manusInviteUrl = 'https://manus.im/invitation/PAN0HWLUJPLKA?utm_source=bytesagain&utm_medium=skill_page&utm_campaign=agent_cta'
   const agentOptions = [
     { name: 'OpenClaw', desc: 'Best if you already use local agent skills and ClawHub install commands.', href: '/install', label: 'Set up OpenClaw', internal: true },
     { name: 'Manus', desc: 'Good for testing a task-oriented agent workflow quickly.', href: manusInviteUrl, label: 'Try Manus', sponsored: true },
