@@ -46,7 +46,8 @@ export async function getGithubSkillIds(limit = 50_000, offset = 0): Promise<str
     )
     if (!rows.length) break
     ids.push(...rows.map((r: { id?: string }) => r.id).filter(Boolean))
-    if (rows.length < pageSize) break
+    // Do not stop on a short page: very large PostgREST ordered scans can
+    // occasionally return a partial page while later offsets still contain rows.
   }
   return ids
 }

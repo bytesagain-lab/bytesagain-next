@@ -24,7 +24,7 @@ export async function fetchArticleSitemapRows(offset = 0, maxUrls = 50_000): Pro
     )
     if (!page.length) break
     rows.push(...page.filter(row => row.slug))
-    if (page.length < 1000) break
+    // Continue until an empty page so large ordered scans do not stop early on a partial page.
   }
   return rows
 }
@@ -33,11 +33,11 @@ export async function fetchUseCaseSitemapRows(offset = 0, maxUrls = 50_000): Pro
   const rows: UseCaseSitemapRow[] = []
   for (let localOffset = 0; localOffset < maxUrls; localOffset += 1000) {
     const page = await sbRows<UseCaseSitemapRow>(
-      `use_cases?select=slug,created_at,updated_at,reviewed_at&order=id.asc&limit=1000&offset=${offset + localOffset}`
+      `use_cases?select=slug,created_at&order=id.asc&limit=1000&offset=${offset + localOffset}`
     )
     if (!page.length) break
     rows.push(...page.filter(row => row.slug))
-    if (page.length < 1000) break
+    // Continue until an empty page so large ordered scans do not stop early on a partial page.
   }
   return rows
 }

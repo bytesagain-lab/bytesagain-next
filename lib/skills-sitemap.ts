@@ -26,7 +26,7 @@ export async function fetchSkillSlugs(offset = 0, maxUrls = 50_000) {
     const rows = await res.json() as { slug?: string }[]
     if (!rows.length) break
     for (const row of rows) if (row.slug) slugs.push(row.slug)
-    if (rows.length < 1000) break
+    // Continue until an empty page so large ordered scans do not stop early on a partial page.
   }
 
   return slugs
