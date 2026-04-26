@@ -9,7 +9,7 @@ import UseCaseClient from './UseCaseClient'
 type Props = { params: Promise<{ slug: string }> }
 
 const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://jfpeycpiyayrpjldppzq.supabase.co'
-const SB_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+const SB_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 
 async function sbFetch(path: string) {
   const res = await fetch(`${SB_URL}/rest/v1/${path}`, {
