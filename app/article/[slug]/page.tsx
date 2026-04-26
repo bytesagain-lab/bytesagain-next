@@ -78,7 +78,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       <p style={{ color: '#666', margin: '0 0 30px', fontSize: '.9em' }}>
         By <strong style={{ color: '#ccc' }}>{article.author_name || 'BytesAgain'}</strong>
         {publishedDate && <> · Published {publishedDate}</>}
-        {updatedDate && updatedDate !== publishedDate && <> · Updated {updatedDate}</>}
+        {updatedDate && <> · Last updated {updatedDate}</>}
       </p>
       <div
         style={{ lineHeight: 1.8, fontSize: '1.05em', background: '#111133', borderRadius: 16, padding: '30px 36px', border: '1px solid #1a1a3e' }}
