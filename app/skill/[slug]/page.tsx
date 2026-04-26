@@ -84,6 +84,13 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
   const canInstallWithClawHub = source !== 'github'
   const testPrompt = `I just installed the ${skill.name || slug} skill. Please run a quick smoke test: explain what this skill can do, ask me for the minimum input it needs, then produce one small sample output for a realistic task.`
   const agentConfig = `1. Install the skill: ${installCmd}\n2. Restart or reload your agent session if needed.\n3. Ask your agent: \"Use the ${skill.name || slug} skill to help me with [your task].\"`
+  const manusInviteUrl = 'https://manus.im/invitation/5YFTE7EBB77Y?utm_source=bytesagain&utm_medium=skill_page&utm_campaign=agent_cta'
+  const agentOptions = [
+    { name: 'OpenClaw', desc: 'Best if you already use local agent skills and ClawHub install commands.', href: '/install', label: 'Set up OpenClaw', internal: true },
+    { name: 'Manus', desc: 'Good for testing a task-oriented agent workflow quickly.', href: manusInviteUrl, label: 'Try Manus', sponsored: true },
+    { name: 'Claude Code', desc: 'Use the copied prompt or SKILL.md workflow inside your coding agent session.', href: 'https://docs.anthropic.com/en/docs/claude-code', label: 'Claude Code docs' },
+    { name: 'Cursor', desc: 'Paste the smoke-test prompt into Cursor Agent for code and project workflows.', href: 'https://cursor.com', label: 'Open Cursor' },
+  ]
 
   return (
     <>
@@ -134,6 +141,13 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
         .step-card span { color: #64748b; font-size: .86em; line-height: 1.55; }
         .prompt-box { background: #050510; border: 1px solid #1e1e3f; border-radius: 12px; padding: 14px 16px; color: #c4b5fd; font-family: 'Courier New', monospace; font-size: .88em; line-height: 1.6; margin: 10px 0 14px; }
         .copy-row { display: flex; gap: 10px; flex-wrap: wrap; }
+        .agent-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(210px,1fr)); gap: 12px; margin-top: 14px; }
+        .agent-card { display: block; background: #070714; border: 1px solid #1e1e3f; border-radius: 14px; padding: 16px; text-decoration: none; transition: border-color .15s, transform .15s; }
+        .agent-card:hover { border-color: #818cf8; transform: translateY(-1px); }
+        .agent-name { color: #f8fafc; font-weight: 800; margin-bottom: 6px; display: flex; justify-content: space-between; gap: 8px; }
+        .agent-desc { color: #64748b; font-size: .84em; line-height: 1.55; margin-bottom: 12px; }
+        .agent-link { color: #a5b4fc; font-size: .82em; font-weight: 800; }
+        .sponsored-pill { color: #fbbf24; background: #fbbf2414; border: 1px solid #fbbf2444; border-radius: 999px; padding: 2px 7px; font-size: .7em; white-space: nowrap; }
         .cta-banner { background: linear-gradient(135deg, #0d0d1f, #13103a); border: 1px solid #6366f133; border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 8px; }
         .cta-title { font-weight: 700; color: #e2e8f0; margin: 0 0 4px; }
         .cta-sub { color: #4b5563; font-size: .86em; }
@@ -299,6 +313,31 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
             {canInstallWithClawHub && <button className="copy-btn" data-cmd={installCmd}>Copy install</button>}
             <button className="copy-btn" data-cmd={testPrompt}>Copy test prompt</button>
             <button className="copy-btn" data-cmd={agentConfig}>Copy agent setup</button>
+          </div>
+        </section>
+
+        <section className="next-step-card">
+          <h2 className="next-step-title">Use this skill with your agent</h2>
+          <p className="next-step-sub">
+            Most visitors already have an agent. Pick your environment, install or copy the workflow, then run the smoke-test prompt above.
+          </p>
+          <div className="agent-grid">
+            {agentOptions.map(agent => (
+              <a
+                key={agent.name}
+                className="agent-card"
+                href={agent.href}
+                target={agent.internal ? undefined : '_blank'}
+                rel={agent.internal ? undefined : agent.sponsored ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
+              >
+                <div className="agent-name">
+                  <span>{agent.name}</span>
+                  {agent.sponsored && <span className="sponsored-pill">invite</span>}
+                </div>
+                <div className="agent-desc">{agent.desc}</div>
+                <div className="agent-link">{agent.label} →</div>
+              </a>
+            ))}
           </div>
         </section>
 
