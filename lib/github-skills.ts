@@ -56,6 +56,39 @@ export async function getGithubSkillIds(limit = 50_000, offset = 0): Promise<str
   return ids
 }
 
+export async function getGithubSkillsPage({
+  q = '',
+  tag = '',
+  page = 1,
+  pageSize = 48,
+}: {
+  q?: string
+  tag?: string
+  page?: number
+  pageSize?: number
+}): Promise<{ rows: GithubSkillIndexRow[]; total: number }> {
+  const safeQ = q.replace(/[<>`;{}\[\]\\]/g, ' ').trim().slice(0, 120)
+  const safeTag = tag.replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 60)
+  const from = Math.max(0, page - 1) * pageSize
+  const to = from + pageSize - 1
+  const headers = { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}`, Prefer: 'count=exact' }
+  if (!SB_KEY) return { rows: [], total: 0 }
+
+  let path = `github_skill_index?select=id,github_owner,repo,path,name,description,github_url,skillsmp_url,stars,language,updated_at,indexed_at,quality_score,tags,verify_status,github_verified_url,skill_md_bytes&order=quality_score.desc.nullslast&order=stars.desc.nullslast&order=id.asc&limit=${pageSize}&offset=${from}`
+  if (safeQ) {
+    const enc = encodeURIComponent(safeQ)
+    path += `&or=(name.ilike.*${enc}*,description.ilike.*${enc}*,repo.ilike.*${enc}*,github_owner.ilike.*${enc}*)`
+  }
+  if (safeTag) path += `&tags=cs.{${safeTag}}`
+
+  const res = await fetch(`${SB_URL}/rest/v1/${path}`, { headers, next: { revalidate: 3600 } })
+  if (!res.ok) return { rows: [], total: 0 }
+  const rows = await res.json()
+  const contentRange = res.headers.get('content-range') || ''
+  const total = Number(contentRange.split('/')[1] || 0) || (rows.length < pageSize ? from + rows.length : to + 1)
+  return { rows, total }
+}
+
 export async function getRelatedGithubSkills(row: GithubSkillIndexRow, limit = 6): Promise<GithubSkillIndexRow[]> {
   const tags = (row.tags || []).filter(t => t && t !== 'github-indexed')
   const query = tags[0] || row.repo || row.name || ''

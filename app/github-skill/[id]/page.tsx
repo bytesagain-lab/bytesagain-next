@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import Link from 'next/link'
 import { getGithubSkill, getRelatedGithubSkills } from '@/lib/github-skills'
 
 export const revalidate = 86400
@@ -186,7 +187,7 @@ export default async function GithubSkillPage({ params }: { params: Promise<{ id
           <section className="hero">
             <div className="hero-inner">
               <div className="badges">
-                <span className="badge gold">⭐ GitHub Indexed</span>
+                <Link className="badge gold" href="/github-skills">⭐ GitHub Indexed</Link>
                 <span className={isSourceVerified ? 'badge green' : 'badge'}>{isSourceVerified ? 'Source verified' : 'Not source verified'}</span>
                 <span className="badge">Public GitHub source</span>
               </div>
@@ -196,7 +197,7 @@ export default async function GithubSkillPage({ params }: { params: Promise<{ id
               <div className="actions">
                 <a className="btn btn-primary" href={row.github_url} target="_blank" rel="noopener noreferrer">View on GitHub →</a>
                 {row.github_verified_url && <a className="btn btn-secondary" href={row.github_verified_url} target="_blank" rel="noopener noreferrer">Raw SKILL.md</a>}
-                <a className="btn btn-secondary" href={`/api/github-skills?q=${encodeURIComponent(name)}&limit=10`}>Find similar</a>
+                <a className="btn btn-secondary" href={`/github-skills?q=${encodeURIComponent(name)}`}>Find similar</a>
               </div>
             </div>
           </section>
@@ -268,7 +269,7 @@ export default async function GithubSkillPage({ params }: { params: Promise<{ id
               {tags.length > 0 && (
                 <div className="side-card">
                   <h3>Tags</h3>
-                  <div className="tag-row">{tags.slice(0, 10).map(t => <a key={t} className="tag" href={`/api/github-skills?q=${encodeURIComponent(t)}&limit=20`}>#{t}</a>)}</div>
+                  <div className="tag-row">{tags.slice(0, 10).map(t => <a key={t} className="tag" href={`/github-skills?tag=${encodeURIComponent(t)}`}>#{t}</a>)}</div>
                 </div>
               )}
 
