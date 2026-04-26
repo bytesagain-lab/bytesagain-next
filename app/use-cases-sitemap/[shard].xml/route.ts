@@ -4,8 +4,8 @@ import { SITEMAP_PAGE_SIZE } from '@/lib/sitemap-counts'
 
 export const revalidate = 86400
 
-export async function GET(_request: Request, { params }: { params: Promise<{ shard: string }> }) {
-  const { shard } = await params
+export async function GET(request: Request) {
+  const shard = new URL(request.url).pathname.match(/\/use-cases-sitemap\/(\d+)\.xml$/)?.[1] || '0'
   const shardIndex = Math.max(0, Number.parseInt(shard, 10) || 0)
   const offset = shardIndex * SITEMAP_PAGE_SIZE
   const rows = await fetchUseCaseSitemapRows(offset, SITEMAP_PAGE_SIZE)
