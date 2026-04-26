@@ -16,6 +16,10 @@ export interface GithubSkillIndexRow {
   indexed_at?: string | null
   quality_score?: number | null
   tags?: string[] | null
+  verify_status?: string | null
+  github_verified_url?: string | null
+  skill_md_bytes?: number | null
+  skill_md_excerpt?: string | null
 }
 
 async function ghIndexFetch(path: string, revalidate = 3600) {

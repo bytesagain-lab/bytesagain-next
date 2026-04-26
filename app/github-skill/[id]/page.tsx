@@ -12,13 +12,32 @@ function displayName(row: { name?: string | null; repo: string }) {
   return row.name || row.repo
 }
 
+function skillMdDescription(excerpt?: string | null) {
+  const text = cleanDescription(excerpt)
+  if (!text) return ''
+  const fm = text.match(/description:\s*(.+?)(?:\s+Use when\b|\s+---\s+#|\s+#\s|$)/i)
+  return cleanDescription(fm?.[1] || '')
+}
+
+function skillMdOverview(excerpt?: string | null) {
+  const text = cleanDescription(excerpt)
+  if (!text) return ''
+  const overview = text.match(/## Overview\s+(.+?)(?:\s+##\s+|$)/i)?.[1]
+  const body = overview || text.replace(/^---\s+.+?\s+---\s+/i, '').replace(/^#\s+[^#]+\s+/i, '')
+  return cleanDescription(body).slice(0, 1200)
+}
+
+function bestDescription(row: { description?: string | null; skill_md_excerpt?: string | null; github_owner: string; repo: string }) {
+  return skillMdDescription(row.skill_md_excerpt) || cleanDescription(row.description) || `GitHub-indexed SKILL.md from ${row.github_owner}/${row.repo}.`
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params
   const row = await getGithubSkill(id)
   if (!row) return { title: 'GitHub Skill Not Found' }
 
   const name = displayName(row)
-  const desc = cleanDescription(row.description) || `GitHub-indexed SKILL.md from ${row.github_owner}/${row.repo}.`
+  const desc = bestDescription(row)
   const metaDesc = desc.length > 160 ? desc.slice(0, 157) + '...' : desc
   const url = `https://bytesagain.com/github-skill/${row.id}`
 
@@ -45,7 +64,9 @@ export default async function GithubSkillPage({ params }: { params: Promise<{ id
 
   const related = await getRelatedGithubSkills(row, 6)
   const name = displayName(row)
-  const desc = cleanDescription(row.description) || `A public GitHub SKILL.md indexed by BytesAgain from ${row.github_owner}/${row.repo}.`
+  const desc = bestDescription(row)
+  const skillOverview = skillMdOverview(row.skill_md_excerpt)
+  const isSourceVerified = row.verify_status === 'verified'
   const tags = row.tags || []
   const updated = row.updated_at ? new Date(row.updated_at).toISOString().slice(0, 10) : null
 
@@ -63,6 +84,7 @@ export default async function GithubSkillPage({ params }: { params: Promise<{ id
         .repo { color: #94a3b8; margin: 0 0 24px; }
         .repo span { color: #a5b4fc; }
         .desc { color: #cbd5e1; line-height: 1.8; font-size: 1.05rem; margin: 0 0 26px; }
+        .verified-note { margin-top: -10px; margin-bottom: 24px; color: #86efac; font-size: .9em; }
         .meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin: 24px 0; }
         .meta-item { background: #070714; border: 1px solid #1e1e3f; border-radius: 12px; padding: 14px; }
         .meta-label { color: #64748b; font-size: .72em; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
@@ -75,6 +97,8 @@ export default async function GithubSkillPage({ params }: { params: Promise<{ id
         .section { margin-top: 28px; background: #0d0d1f; border: 1px solid #1e1e3f; border-radius: 18px; padding: 24px; }
         .section h2 { margin: 0 0 16px; font-size: 1.2rem; }
         .path { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: #67e8f9; background: #020617; border: 1px solid #1e293b; border-radius: 10px; padding: 12px; overflow-wrap: anywhere; }
+        .overview { color: #cbd5e1; line-height: 1.8; white-space: pre-wrap; }
+        .source-link { color: #93c5fd; text-decoration: none; font-weight: 700; }
         .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
         .tag { color: #a5b4fc; border: 1px solid #6366f140; background: #6366f112; padding: 4px 10px; border-radius: 999px; font-size: .78em; text-decoration: none; }
         .related { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
@@ -102,18 +126,20 @@ export default async function GithubSkillPage({ params }: { params: Promise<{ id
         <section className="hero">
           <div className="badges">
             <span className="badge gold">⭐ GitHub Indexed</span>
-            <span className="badge">Not verified by BytesAgain</span>
+            <span className="badge">{isSourceVerified ? 'Source verified' : 'Not source verified'}</span>
+            <span className="badge">Not curated by BytesAgain</span>
             {tags.slice(0, 4).map(t => <span key={t} className="badge">#{t}</span>)}
           </div>
           <h1>{name}</h1>
           <p className="repo">from <span>{row.github_owner}/{row.repo}</span></p>
           <p className="desc">{desc}</p>
+          {isSourceVerified && <div className="verified-note">Verified from the public GitHub SKILL.md source{row.skill_md_bytes ? ` · ${row.skill_md_bytes.toLocaleString()} bytes indexed` : ''}.</div>}
 
           <div className="meta">
             <div className="meta-item"><div className="meta-label">Stars</div><div className="meta-value">{(row.stars || 0).toLocaleString()}</div></div>
             <div className="meta-item"><div className="meta-label">Quality Score</div><div className="meta-value">{row.quality_score || 0}</div></div>
             <div className="meta-item"><div className="meta-label">Updated</div><div className="meta-value">{updated || 'Unknown'}</div></div>
-            <div className="meta-item"><div className="meta-label">Source</div><div className="meta-value">GitHub</div></div>
+            <div className="meta-item"><div className="meta-label">Source</div><div className="meta-value">{isSourceVerified ? 'GitHub Verified' : 'GitHub'}</div></div>
           </div>
 
           <div className="actions">
@@ -123,13 +149,21 @@ export default async function GithubSkillPage({ params }: { params: Promise<{ id
           </div>
 
           <div className="notice">
-            This page is part of BytesAgain's experimental GitHub Skill Index. It is automatically indexed from public GitHub SKILL.md metadata and is separated from curated/verified ClawHub skills.
+            This page is part of BytesAgain's experimental GitHub Skill Index. Source verification means the public GitHub SKILL.md was fetched successfully; it is still separated from curated ClawHub skills and is not a BytesAgain endorsement.
           </div>
         </section>
+
+        {skillOverview && (
+          <section className="section">
+            <h2>From SKILL.md</h2>
+            <div className="overview">{skillOverview}{cleanDescription(row.skill_md_excerpt).length > skillOverview.length ? '…' : ''}</div>
+          </section>
+        )}
 
         <section className="section">
           <h2>Indexed path</h2>
           <div className="path">{row.path}</div>
+          {row.github_verified_url && <p><a className="source-link" href={row.github_verified_url} target="_blank" rel="noopener noreferrer">View raw verified SKILL.md →</a></p>}
         </section>
 
         {tags.length > 0 && (
