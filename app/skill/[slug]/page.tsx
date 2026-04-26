@@ -81,6 +81,9 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
   const isOurs = (skill as any).is_ours === true || OUR_ACCOUNTS.includes(skill.owner || '')
 
   const installCmd = `clawhub install ${slug}`
+  const canInstallWithClawHub = source !== 'github'
+  const testPrompt = `I just installed the ${skill.name || slug} skill. Please run a quick smoke test: explain what this skill can do, ask me for the minimum input it needs, then produce one small sample output for a realistic task.`
+  const agentConfig = `1. Install the skill: ${installCmd}\n2. Restart or reload your agent session if needed.\n3. Ask your agent: \"Use the ${skill.name || slug} skill to help me with [your task].\"`
 
   return (
     <>
@@ -121,6 +124,16 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
         .disclaimer { margin-top: 20px; padding: 14px 18px; background: #070714; border: 1px solid #1a1a3a; border-radius: 10px; font-size: .78em; color: #374151; line-height: 1.7; }
         .disclaimer a { color: #6366f1; }
         .ours-badge { display: inline-flex; align-items: center; gap: 6px; font-size: .72em; font-weight: 700; color: #22d3ee; background: #22d3ee10; border: 1px solid #22d3ee30; border-radius: 999px; padding: 4px 14px; }
+        .next-step-card { background: linear-gradient(135deg, #10102a, #0d0d1f); border: 1px solid #6366f144; border-radius: 18px; padding: 24px; margin: 0 0 24px; }
+        .next-step-title { color: #f8fafc; font-size: 1.18em; font-weight: 800; margin: 0 0 8px; }
+        .next-step-sub { color: #94a3b8; line-height: 1.65; margin: 0 0 18px; }
+        .steps-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(210px,1fr)); gap: 12px; margin-bottom: 18px; }
+        .step-card { background: #070714; border: 1px solid #1e1e3f; border-radius: 14px; padding: 16px; }
+        .step-num { width: 26px; height: 26px; border-radius: 999px; display: inline-grid; place-items: center; background: #6366f122; color: #a5b4fc; font-weight: 800; margin-bottom: 10px; }
+        .step-card strong { display: block; color: #e2e8f0; margin-bottom: 6px; }
+        .step-card span { color: #64748b; font-size: .86em; line-height: 1.55; }
+        .prompt-box { background: #050510; border: 1px solid #1e1e3f; border-radius: 12px; padding: 14px 16px; color: #c4b5fd; font-family: 'Courier New', monospace; font-size: .88em; line-height: 1.6; margin: 10px 0 14px; }
+        .copy-row { display: flex; gap: 10px; flex-wrap: wrap; }
         .cta-banner { background: linear-gradient(135deg, #0d0d1f, #13103a); border: 1px solid #6366f133; border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 8px; }
         .cta-title { font-weight: 700; color: #e2e8f0; margin: 0 0 4px; }
         .cta-sub { color: #4b5563; font-size: .86em; }
@@ -212,7 +225,7 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
           )}
 
           {/* Install command */}
-          {isOurs && (
+          {canInstallWithClawHub && (
             <div className="install-box">
               <div className="install-header">
                 <div className="install-dots">
@@ -235,11 +248,16 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
 
           {/* Action buttons */}
           <div className="actions-row">
-            <a href={`/skills?q=${encodeURIComponent(skill.name || slug)}`} className="btn-primary">
-              🔍 Find Similar Skills →
-            </a>
-            <a href="/skills" className="btn-secondary">
-              Browse Skills
+            {canInstallWithClawHub && (
+              <button className="btn-primary copy-btn" data-cmd={installCmd} style={{ border: 0, cursor: 'pointer' }}>
+                Copy install command
+              </button>
+            )}
+            <button className="btn-secondary copy-btn" data-cmd={testPrompt} style={{ cursor: 'pointer' }}>
+              Copy test prompt
+            </button>
+            <a href={`/skills?q=${encodeURIComponent(skill.name || slug)}`} className="btn-secondary">
+              Find similar
             </a>
             <a href={externalUrl} target="_blank" rel="noopener" className="btn-secondary">
               Original source
@@ -253,6 +271,36 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
             {' '}We are independent and not affiliated with or endorsed by {sm.label}.
           </div>
         </div>
+
+        <section className="next-step-card">
+          <h2 className="next-step-title">What to do next</h2>
+          <p className="next-step-sub">
+            Skills are meant to be used inside your own AI agent. Install it, run a quick smoke test, then ask your agent to apply it to your real task.
+          </p>
+          <div className="steps-grid">
+            <div className="step-card">
+              <div className="step-num">1</div>
+              <strong>{canInstallWithClawHub ? 'Install into your agent' : 'Open the source'}</strong>
+              <span>{canInstallWithClawHub ? 'Copy the ClawHub install command and run it where your OpenClaw/agent environment is configured.' : 'This skill is indexed from GitHub. Review the source and copy the SKILL.md into your agent skill folder if compatible.'}</span>
+            </div>
+            <div className="step-card">
+              <div className="step-num">2</div>
+              <strong>Run a smoke test</strong>
+              <span>Use the test prompt below to confirm the skill loads and understands the workflow before relying on it.</span>
+            </div>
+            <div className="step-card">
+              <div className="step-num">3</div>
+              <strong>Use it in your own agent</strong>
+              <span>Paste your actual task into Claude Code, OpenClaw, Cursor, Manus, or another agent that supports skills.</span>
+            </div>
+          </div>
+          <div className="prompt-box">{testPrompt}</div>
+          <div className="copy-row">
+            {canInstallWithClawHub && <button className="copy-btn" data-cmd={installCmd}>Copy install</button>}
+            <button className="copy-btn" data-cmd={testPrompt}>Copy test prompt</button>
+            <button className="copy-btn" data-cmd={agentConfig}>Copy agent setup</button>
+          </div>
+        </section>
 
         {/* Related */}
         <RelatedContent category={skill.category} currentSlug={slug} name={skill.name} tags={tags} />
