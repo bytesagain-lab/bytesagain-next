@@ -170,14 +170,14 @@ function prioritySlugs(q: string, expanded: string): string[] {
     haystack.includes('亚马逊listing') || haystack.includes('独立站上架')
   ) {
     return [
-      'shopify-helper',
-      'product-desc',
+      'bytesagain-marketplace-listing-lab',
+      'bytesagain-storefront-page-kit',
+      'bytesagain-social-commerce-video-kit',
+      'bytesagain-ecommerce-seo-optimizer',
+      'bytesagain-crossborder-product-localizer',
       'ecommerce-listing-optimizer-lite',
-      'product-title-optimization',
-      'product-page-seo',
-      'taobao-listing',
-      'pinduoduo-listing',
       'shopee-one-click-listing',
+      'amazon-to-shopify-sync',
     ]
   }
   if (haystack.includes('superset') || haystack.includes('bi dashboard') || haystack.includes('bi图表')) {
