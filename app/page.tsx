@@ -30,8 +30,8 @@ const POPULAR_USE_CASES = [
   { icon: '🧠', title: 'Knowledge Base', href: '/use-case/knowledge-base-rag' },
   { icon: '💼', title: 'Job Hunting', href: '/use-case/job-hunting' },
   { icon: '📈', title: 'Stock Investor', href: '/use-case/stock-investor' },
-  { icon: '🛒', title: 'Product Listings', href: '/use-case/product-listing-optimization' },
-  { icon: '🏬', title: 'Marketplace Listings', href: '/use-case/amazon-taobao-pinduoduo-marketplace-listings' },
+  { icon: '🛒', title: 'E-commerce Seller', href: '/use-case/product-listing-optimization' },
+  { icon: '📈', title: 'BI Dashboards', href: '/use-case/bi-dashboard-builder' },
 ]
 
 const HOT_TAGS = ['Ecommerce Seller', 'Video Creation', 'SEO & GEO']

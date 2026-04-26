@@ -356,22 +356,32 @@ export async function GET(req: NextRequest) {
         const orClause = tokens.map((t: string) => `title.ilike.%${t}%`).join(',')
         const { data } = await supabase
           .from('use_cases')
-          .select('slug, title, description')
+          .select('slug, title, description, skills')
           .or(orClause)
-          .limit(ucLimit)
-        results = (data || []).map((uc: any) => ({
-          ...uc,
-          url: `https://bytesagain.com/use-case/${uc.slug}`,
-        }))
+          .limit(ucLimit * 3)
+        results = (data || [])
+          .filter((uc: any) => Array.isArray(uc.skills) && uc.skills.length >= 3)
+          .slice(0, ucLimit)
+          .map((uc: any) => ({
+            slug: uc.slug,
+            title: uc.title,
+            description: uc.description,
+            url: `https://bytesagain.com/use-case/${uc.slug}`,
+          }))
       } else {
         const { data } = await supabase
           .from('use_cases')
-          .select('slug, title, description')
-          .limit(ucLimit)
-        results = (data || []).map((uc: any) => ({
-          ...uc,
-          url: `https://bytesagain.com/use-case/${uc.slug}`,
-        }))
+          .select('slug, title, description, skills')
+          .limit(ucLimit * 3)
+        results = (data || [])
+          .filter((uc: any) => Array.isArray(uc.skills) && uc.skills.length >= 3)
+          .slice(0, ucLimit)
+          .map((uc: any) => ({
+            slug: uc.slug,
+            title: uc.title,
+            description: uc.description,
+            url: `https://bytesagain.com/use-case/${uc.slug}`,
+          }))
       }
       return NextResponse.json({ action, query, results, count: results.length,
         hint: 'Use search_skills with the use-case title to find matching AI skills.'

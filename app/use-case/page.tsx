@@ -20,7 +20,7 @@ async function getUseCases() {
     .select('slug, title, description, icon, skills')
     .order('id', { ascending: true })
     .limit(500)
-  return data || []
+  return (data || []).filter((uc: any) => Array.isArray(uc.skills) && uc.skills.length >= 3)
 }
 
 export default async function UseCasesPage() {
