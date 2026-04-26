@@ -41,7 +41,7 @@ export async function getGithubSkillIds(limit = 50_000, offset = 0): Promise<str
   const pageSize = 1000
   for (let localOffset = 0; localOffset < limit; localOffset += pageSize) {
     const rows = await ghIndexFetch(
-      `github_skill_index?select=id&order=quality_score.desc.nullslast&order=stars.desc.nullslast&limit=${pageSize}&offset=${offset + localOffset}`,
+      `github_skill_index?select=id&order=quality_score.desc.nullslast&order=stars.desc.nullslast&order=id.asc&limit=${pageSize}&offset=${offset + localOffset}`,
       86400
     )
     if (!rows.length) break

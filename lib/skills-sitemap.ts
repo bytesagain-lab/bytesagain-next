@@ -16,7 +16,7 @@ export async function fetchSkillSlugs(offset = 0, maxUrls = 50_000) {
 
   for (let localOffset = 0; localOffset < maxUrls; localOffset += 1000) {
     const res = await fetch(
-      `${SB_URL}/rest/v1/skills_list?select=slug&order=downloads.desc.nullslast&limit=1000&offset=${offset + localOffset}`,
+      `${SB_URL}/rest/v1/skills_list?select=slug&order=downloads.desc.nullslast&order=slug.asc&limit=1000&offset=${offset + localOffset}`,
       {
         headers: { apikey: SB_ANON, Authorization: `Bearer ${SB_ANON}` },
         next: { revalidate: 86400 },
