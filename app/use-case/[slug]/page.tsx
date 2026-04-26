@@ -1,35 +1,34 @@
 export const revalidate = 3600
-import { createClient } from '@supabase/supabase-js'
+export const dynamic = 'force-static'
+export const fetchCache = 'force-cache'
+
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import UseCaseClient from './UseCaseClient'
 
 type Props = { params: Promise<{ slug: string }> }
 
+const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://jfpeycpiyayrpjldppzq.supabase.co'
+const SB_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+
+async function sbFetch(path: string) {
+  const res = await fetch(`${SB_URL}/rest/v1/${path}`, {
+    headers: { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}` },
+    next: { revalidate: 3600 },
+  })
+  if (!res.ok) return []
+  return res.json()
+}
+
 async function getUseCase(slug: string) {
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  )
-  const { data } = await supabase
-    .from('use_cases')
-    .select('slug, title, description, icon, skills, search_link')
-    .eq('slug', slug)
-    .single()
-  return data
+  const safeSlug = encodeURIComponent(slug)
+  const data = await sbFetch(`use_cases?select=slug,title,description,icon,skills,search_link&slug=eq.${safeSlug}&limit=1`)
+  return data[0] || null
 }
 
 async function getRelatedUseCases(excludeSlug: string) {
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  )
-  const { data } = await supabase
-    .from('use_cases')
-    .select('slug, title, icon')
-    .neq('slug', excludeSlug)
-    .limit(6)
-  return data || []
+  const safeSlug = encodeURIComponent(excludeSlug)
+  return sbFetch(`use_cases?select=slug,title,icon&slug=neq.${safeSlug}&limit=6`)
 }
 
 export async function generateStaticParams() {

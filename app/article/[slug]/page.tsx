@@ -1,4 +1,7 @@
 export const revalidate = 86400
+export const dynamic = 'force-static'
+export const fetchCache = 'force-cache'
+
 import { getArticle, getArticles } from '@/lib/supabase'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
