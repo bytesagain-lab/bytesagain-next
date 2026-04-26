@@ -182,7 +182,7 @@ export default async function GithubSkillPage({ params }: { params: Promise<{ id
             publisher: { '@type': 'Organization', name: 'BytesAgain', url: 'https://bytesagain.com' },
           }) }} />
 
-          <div className="breadcrumb"><a href="/">BytesAgain</a> › <a href="/skills">Skills</a> › GitHub Indexed › {name}</div>
+          <div className="breadcrumb"><a href="/">BytesAgain</a> › <a href="/skills">Skills</a> › <Link href="/github-skills">GitHub Indexed</Link> › {name}</div>
 
           <section className="hero">
             <div className="hero-inner">
@@ -195,9 +195,9 @@ export default async function GithubSkillPage({ params }: { params: Promise<{ id
               <p className="repo">from <span>{row.github_owner}/{row.repo}</span></p>
               <p className="desc">{desc}</p>
               <div className="actions">
-                <a className="btn btn-primary" href={row.github_url} target="_blank" rel="noopener noreferrer">View on GitHub →</a>
-                {row.github_verified_url && <a className="btn btn-secondary" href={row.github_verified_url} target="_blank" rel="noopener noreferrer">Raw SKILL.md</a>}
-                <a className="btn btn-secondary" href={`/github-skills?q=${encodeURIComponent(name)}`}>Find similar</a>
+                <a className="btn btn-primary" href={`/github-skills?q=${encodeURIComponent(name)}`}>Find similar skills →</a>
+                <a className="btn btn-secondary" href="/github-skills">Browse GitHub indexed</a>
+                <a className="btn btn-secondary" href={row.github_url} target="_blank" rel="noopener noreferrer">Original source</a>
               </div>
             </div>
           </section>
@@ -274,7 +274,7 @@ export default async function GithubSkillPage({ params }: { params: Promise<{ id
               )}
 
               <div className="notice">
-                GitHub Indexed pages are generated from public repositories. Source verified means BytesAgain fetched the public SKILL.md successfully; it is still separate from curated ClawHub skills.
+                GitHub Indexed pages are on-site discovery summaries from public repositories. Source verified means BytesAgain fetched the public SKILL.md successfully; ownership remains with the original repository author and this is not a BytesAgain endorsement.
               </div>
             </aside>
           </div>

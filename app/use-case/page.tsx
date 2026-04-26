@@ -20,7 +20,14 @@ async function getUseCases() {
     .select('slug, title, description, icon, skills')
     .order('id', { ascending: true })
     .limit(500)
-  return (data || []).filter((uc: any) => Array.isArray(uc.skills) && uc.skills.length >= 3)
+  return (data || []).filter((uc: any) => {
+    const skills = Array.isArray(uc.skills) ? uc.skills : []
+    if (skills.length < 3) return false
+    return !skills.some((s: any) =>
+      s?.slug === 'system-data-intelligence-skill' ||
+      String(s?.name || '').includes('It is designed for scenarios')
+    )
+  })
 }
 
 export default async function UseCasesPage() {

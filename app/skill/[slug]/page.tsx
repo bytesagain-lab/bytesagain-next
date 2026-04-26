@@ -235,19 +235,22 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
 
           {/* Action buttons */}
           <div className="actions-row">
-            <a href={externalUrl} target="_blank" rel="noopener" className="btn-primary">
-              {source === 'github' ? '⭐ View on GitHub' : source === 'lobehub' ? '🤖 View on LobeHub' : source === 'dify' ? '🔧 View on Dify' : '🦀 View on ClawHub'} →
+            <a href={`/skills?q=${encodeURIComponent(skill.name || slug)}`} className="btn-primary">
+              🔍 Find Similar Skills →
             </a>
             <a href="/skills" className="btn-secondary">
-              🔍 Find More Skills
+              Browse Skills
+            </a>
+            <a href={externalUrl} target="_blank" rel="noopener" className="btn-secondary">
+              Original source
             </a>
           </div>
 
           {/* Disclaimer */}
           <div className="disclaimer">
-            📋 Indexed from <a href={externalUrl} target="_blank" rel="noopener">{sm.label}</a>.
-            {' '}BytesAgain is an independent directory and does not host or own this content. All rights belong to the original author.
-            {' '}Third-party content is not reviewed by BytesAgain — proceed at your own risk.
+            📋 Indexed summary from <a href={externalUrl} target="_blank" rel="noopener">{sm.label}</a>.
+            {' '}BytesAgain keeps discovery and comparison on-site, while source ownership remains with the listed author/platform.
+            {' '}We are independent and not affiliated with or endorsed by {sm.label}.
           </div>
         </div>
 

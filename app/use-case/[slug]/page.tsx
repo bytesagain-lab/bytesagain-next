@@ -6,6 +6,17 @@ import UseCaseClient from './UseCaseClient'
 
 type Props = { params: Promise<{ slug: string }> }
 
+type SkillItem = { slug: string; name?: string; reason?: string }
+
+type UseCaseRow = {
+  slug: string
+  title: string
+  description?: string | null
+  icon?: string | null
+  skills?: SkillItem[] | null
+  search_link?: string | null
+}
+
 const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://jfpeycpiyayrpjldppzq.supabase.co'
 const SB_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 
@@ -18,19 +29,51 @@ async function sbFetch(path: string) {
   return res.json()
 }
 
-async function getUseCase(slug: string) {
+function clean(value?: string | null) {
+  return (value || '').replace(/\s+/g, ' ').trim()
+}
+
+function safeToken(value: string) {
+  return value.toLowerCase().replace(/[^a-z0-9-]+/g, '').slice(0, 48)
+}
+
+function skillSlugs(uc: UseCaseRow) {
+  return Array.isArray(uc.skills) ? uc.skills.map(s => s.slug).filter(Boolean).slice(0, 6) : []
+}
+
+function keywordTokens(uc: UseCaseRow) {
+  const base = `${uc.title} ${uc.description || ''}`
+    .split(/\s+/)
+    .map(safeToken)
+    .filter(t => t.length > 3 && !['with', 'your', 'from', 'this', 'that', 'skills', 'skill', 'agent', 'using'].includes(t))
+    .slice(0, 4)
+  return Array.from(new Set([...base, ...skillSlugs(uc).slice(0, 3)]))
+}
+
+async function getUseCase(slug: string): Promise<UseCaseRow | null> {
   const safeSlug = encodeURIComponent(slug)
   const data = await sbFetch(`use_cases?select=slug,title,description,icon,skills,search_link&slug=eq.${safeSlug}&limit=1`)
   return data[0] || null
 }
 
-async function getRelatedUseCases(excludeSlug: string) {
-  const safeSlug = encodeURIComponent(excludeSlug)
-  return sbFetch(`use_cases?select=slug,title,icon&slug=neq.${safeSlug}&limit=6`)
+async function getRelatedUseCases(uc: UseCaseRow) {
+  const safeSlug = encodeURIComponent(uc.slug)
+  const rows = await sbFetch(`use_cases?select=slug,title,icon,skills&slug=neq.${safeSlug}&limit=24`)
+  return rows.filter((u: any) => Array.isArray(u.skills) && u.skills.length >= 3).slice(0, 6)
+}
+
+async function getRelatedArticles(uc: UseCaseRow) {
+  const tokens = keywordTokens(uc).slice(0, 5)
+  if (!tokens.length) return []
+  const orClause = tokens
+    .map(t => `title.ilike.*${encodeURIComponent(t)}*,content.ilike.*${encodeURIComponent(t)}*`)
+    .join(',')
+  const rows = await sbFetch(`posts?select=slug,title,category,published_at&post_type=eq.article&status=eq.published&or=(${orClause})&order=published_at.desc&limit=8`)
+  return rows.slice(0, 4)
 }
 
 export async function generateStaticParams() {
-  return [] // serve on-demand, new use-cases appear automatically
+  return []
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -38,12 +81,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const uc = await getUseCase(slug)
   if (!uc) return { title: 'Not Found' }
   return {
-    title: `${uc.title}`,
-    description: uc.description,
+    title: `${uc.title} — AI Skill Stack | BytesAgain`,
+    description: uc.description || `Recommended AI agent skills for ${uc.title}.`,
     alternates: { canonical: `https://bytesagain.com/use-case/${slug}` },
     openGraph: {
-      title: `${uc.title}`,
-      description: uc.description,
+      title: `${uc.title} — AI Skill Stack`,
+      description: uc.description || `Recommended AI agent skills for ${uc.title}.`,
       url: `https://bytesagain.com/use-case/${slug}`,
       type: 'website',
       siteName: 'BytesAgain',
@@ -56,63 +99,141 @@ export default async function UseCasePage({ params }: Props) {
   const uc = await getUseCase(slug)
   if (!uc) notFound()
 
-  const related = await getRelatedUseCases(slug)
-  const skills = Array.isArray(uc.skills) ? uc.skills : []
+  const skills = (Array.isArray(uc.skills) ? uc.skills : [])
+    .filter((s: any) => s?.slug)
+    .map((s: any) => ({
+      slug: s.slug,
+      name: s.name || s.slug.replace(/-/g, ' '),
+      reason: s.reason || `Useful for ${uc.title}`,
+      description: s.description,
+    }))
+  const [related, articles] = await Promise.all([getRelatedUseCases(uc), getRelatedArticles(uc)])
+  const description = clean(uc.description) || `A curated AI skill stack for ${uc.title}.`
 
   return (
-    <div style={{ maxWidth: 800, margin: '40px auto', padding: '0 20px' }}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "HowTo",
-        "name": uc.title,
-        "description": uc.description,
-        "url": `https://bytesagain.com/use-case/${slug}`,
-        "step": skills.map((s: any, i: number) => ({
-          "@type": "HowToStep",
-          "position": i + 1,
-          "name": s.name,
-          "text": s.reason,
-          "url": `https://bytesagain.com/skill/${s.slug}`,
-        })),
-        "publisher": { "@type": "Organization", "name": "BytesAgain", "url": "https://bytesagain.com" },
-      }) }} />
+    <main className="uc-shell">
+      <style>{`
+        .uc-shell { min-height: 100vh; background: radial-gradient(circle at 15% 0%, rgba(52,211,153,.16), transparent 30%), #050611; color: #e5e7eb; padding: 34px 20px 90px; }
+        .uc-page { max-width: 1120px; margin: 0 auto; }
+        .breadcrumb { font-size: .85rem; color: #64748b; margin-bottom: 22px; }
+        .breadcrumb a { color: #a5b4fc; text-decoration: none; }
+        .hero { background: linear-gradient(135deg, rgba(15,23,42,.96), rgba(13,13,31,.96)); border: 1px solid rgba(52,211,153,.22); border-radius: 28px; padding: clamp(28px,5vw,46px); margin-bottom: 22px; }
+        .badge { display: inline-flex; border: 1px solid #34d39944; background: #34d39914; color: #86efac; border-radius: 999px; padding: 6px 12px; font-weight: 900; font-size: .78rem; margin-bottom: 16px; }
+        h1 { font-size: clamp(2.1rem,6vw,4rem); line-height: 1; letter-spacing: -.055em; margin: 0 0 14px; }
+        .lede { color: #cbd5e1; line-height: 1.75; font-size: 1.08rem; max-width: 780px; }
+        .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+        .btn { display: inline-flex; padding: 12px 18px; border-radius: 13px; text-decoration: none; font-weight: 900; }
+        .btn-primary { color: white; background: linear-gradient(135deg,#34d399,#22d3ee); }
+        .btn-secondary { color: #cbd5e1; border: 1px solid #334155; background: #02061766; }
+        .layout { display: grid; grid-template-columns: minmax(0,1fr) 330px; gap: 22px; align-items: start; }
+        .card { background: rgba(13,13,31,.94); border: 1px solid #1e1e3f; border-radius: 22px; padding: 24px; margin-bottom: 16px; }
+        .card h2 { margin: 0 0 13px; font-size: 1.12rem; }
+        .muted { color: #94a3b8; line-height: 1.7; }
+        .steps { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+        .steps li { display: grid; grid-template-columns: 28px 1fr; gap: 10px; color: #cbd5e1; background: #070714; border: 1px solid #1e293b; border-radius: 14px; padding: 13px; line-height: 1.55; }
+        .num { width: 28px; height: 28px; display: inline-grid; place-items: center; border-radius: 999px; background: #34d39922; color: #86efac; font-weight: 900; }
+        .article-list, .related-grid { display: grid; gap: 10px; }
+        .article-link, .related-link { display: block; text-decoration: none; color: inherit; background: #070714; border: 1px solid #1e293b; border-radius: 14px; padding: 14px; }
+        .article-link:hover, .related-link:hover { border-color: #34d39988; }
+        .article-title, .related-title { color: #f8fafc; font-weight: 900; margin-bottom: 5px; }
+        .article-meta, .related-meta { color: #64748b; font-size: .82rem; }
+        .sidebar { position: sticky; top: 18px; }
+        .stat { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid #1e293b; color: #94a3b8; }
+        .stat strong { color: #f8fafc; }
+        .disclaimer { color: #fbbf24; background: #f59e0b10; border: 1px solid #f59e0b30; border-radius: 14px; padding: 13px; font-size: .86rem; line-height: 1.6; }
+        @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } .sidebar { position: static; } }
+      `}</style>
 
-      <p style={{ margin: '0 0 16px' }}>
-        <a href="/use-case" style={{ color: '#667eea', textDecoration: 'none', fontSize: '.85em' }}>← All Use Cases</a>
-      </p>
+      <div className="uc-page">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'HowTo',
+          name: uc.title,
+          description,
+          url: `https://bytesagain.com/use-case/${slug}`,
+          step: skills.map((s: any, i: number) => ({
+            '@type': 'HowToStep',
+            position: i + 1,
+            name: s.name,
+            text: s.reason,
+            url: `https://bytesagain.com/skill/${s.slug}`,
+          })),
+          publisher: { '@type': 'Organization', name: 'BytesAgain', url: 'https://bytesagain.com' },
+        }) }} />
 
-      <div style={{ fontSize: '3em', marginBottom: 16 }}>{uc.icon || '🤖'}</div>
-      <h1 style={{ fontSize: '2em', fontWeight: 800, margin: '0 0 12px' }}>{uc.title}</h1>
-      <p style={{ color: '#888', fontSize: '1.05em', lineHeight: 1.7, marginBottom: 40 }}>{uc.description}</p>
+        <div className="breadcrumb"><a href="/">BytesAgain</a> › <a href="/use-case">Use Cases</a> › {uc.title}</div>
 
-      <h2 style={{ fontSize: '1.1em', color: '#888', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 20 }}>
-        <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span>Recommended Skills</span>
-          <a
-            href={uc.search_link || `/skills?q=${encodeURIComponent(uc.title)}`}
-            style={{ fontSize: '.8em', color: '#667eea', textDecoration: 'none', fontWeight: 600, letterSpacing: 0, textTransform: 'none' }}
-          >
-            Browse all →
-          </a>
-        </span>
-      </h2>
+        <section className="hero">
+          <div className="badge">{uc.icon || '🗺️'} Use Case Guide</div>
+          <h1>{uc.title}</h1>
+          <p className="lede">{description}</p>
+          <div className="actions">
+            <a className="btn btn-primary" href={uc.search_link || `/skills?q=${encodeURIComponent(uc.title)}`}>Browse matching skills →</a>
+            <a className="btn btn-secondary" href="#recommended-skills">View stack</a>
+            {articles[0] && <a className="btn btn-secondary" href={`/article/${articles[0].slug}`}>Read article</a>}
+          </div>
+        </section>
 
-      <UseCaseClient uc={{ ...uc, skills, searchLink: uc.search_link }} slug={slug} />
+        <div className="layout">
+          <div>
+            <section className="card">
+              <h2>What this workflow covers</h2>
+              <p className="muted">This page groups multiple AI agent skills into one practical workflow. Use it when you care about the outcome, not just a single tool name. Start with the recommended stack below, then open the related articles for examples and implementation ideas.</p>
+            </section>
 
-      <h2 style={{ fontSize: '1.1em', color: '#888', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 16 }}>
-        Other Use Cases
-      </h2>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(220px,1fr))', gap: 10 }}>
-        {related.map((u: any) => (
-          <a key={u.slug} href={`/use-case/${u.slug}`} style={{
-            display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px',
-            background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 10,
-            textDecoration: 'none', color: '#ccc', fontSize: '.9em',
-          }}>
-            <span>{u.icon || '🤖'}</span><span>{u.title}</span>
-          </a>
-        ))}
+            <section className="card">
+              <h2>Suggested workflow</h2>
+              <ol className="steps">
+                <li><span className="num">1</span><span>Clarify the task and success criteria for <strong>{uc.title}</strong>.</span></li>
+                <li><span className="num">2</span><span>Pick 3–5 complementary skills instead of relying on one generic tool.</span></li>
+                <li><span className="num">3</span><span>Run the workflow, review output quality, and replace weak skills with better matches.</span></li>
+              </ol>
+            </section>
+
+            <section className="card" id="recommended-skills">
+              <h2>Recommended skills</h2>
+              <UseCaseClient uc={{ ...uc, description, icon: uc.icon || '🗺️', skills, searchLink: uc.search_link || undefined }} slug={slug} />
+            </section>
+
+            {articles.length > 0 && (
+              <section className="card">
+                <h2>Related articles</h2>
+                <div className="article-list">
+                  {articles.map((a: any) => (
+                    <a className="article-link" key={a.slug} href={`/article/${a.slug}`}>
+                      <div className="article-title">{a.title}</div>
+                      <div className="article-meta">{a.category || 'article'}{a.published_at ? ` · ${new Date(a.published_at).toISOString().slice(0, 10)}` : ''}</div>
+                    </a>
+                  ))}
+                </div>
+              </section>
+            )}
+          </div>
+
+          <aside className="sidebar">
+            <section className="card">
+              <h2>Quick summary</h2>
+              <div className="stat"><span>Skill stack</span><strong>{skills.length}</strong></div>
+              <div className="stat"><span>Related articles</span><strong>{articles.length}</strong></div>
+              <div className="stat"><span>Source</span><strong>BytesAgain index</strong></div>
+            </section>
+
+            <section className="card">
+              <h2>Other use cases</h2>
+              <div className="related-grid">
+                {related.map((u: any) => (
+                  <a className="related-link" key={u.slug} href={`/use-case/${u.slug}`}>
+                    <div className="related-title">{u.icon || '🤖'} {u.title}</div>
+                    <div className="related-meta">View workflow →</div>
+                  </a>
+                ))}
+              </div>
+            </section>
+
+            <div className="disclaimer">Use cases are curated workflow pages. Third-party skills remain owned by their original authors; BytesAgain provides discovery, summaries, and links.</div>
+          </aside>
+        </div>
       </div>
-    </div>
+    </main>
   )
 }
