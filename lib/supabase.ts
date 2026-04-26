@@ -33,6 +33,7 @@ export interface Article {
   author_name: string
   published_at: string
   updated_at?: string
+  reviewed_at?: string
   tags?: string[]
   post_type: string
 }
@@ -51,7 +52,7 @@ export async function getSkill(slug: string): Promise<Skill | null> {
 }
 
 export async function getArticles(limit = 20): Promise<Article[]> {
-  return sbFetch(`posts?select=id,title,slug,category,author_name,published_at&status=eq.published&order=published_at.desc&limit=${limit}`)
+  return sbFetch(`posts?select=id,title,slug,category,author_name,published_at,updated_at,reviewed_at&status=eq.published&order=published_at.desc&limit=${limit}`)
 }
 
 export async function getArticle(slug: string): Promise<Article | null> {

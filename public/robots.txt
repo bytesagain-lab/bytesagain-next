@@ -1,52 +1,66 @@
-User-Agent: *
+# BytesAgain robots.txt — AI-search friendly, API-safe
+
+# Search and AI answer engines: allow content pages, keep private/admin/API paths closed.
+User-Agent: GPTBot
+User-Agent: ChatGPT-User
+User-Agent: ClaudeBot
+User-Agent: PerplexityBot
+User-Agent: OAI-SearchBot
+User-Agent: Applebot
+User-Agent: Google-Extended
+User-Agent: DeepSeekBot
+User-Agent: cohere-ai
 Allow: /
 Disallow: /api/
+Disallow: /api/admin/
+Disallow: /dashboard/
+Disallow: /login/
+Disallow: /register/
+Disallow: /auth/
+Crawl-delay: 3
+
+# Major search crawlers: content yes, API no.
+User-Agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /api/admin/
 Disallow: /dashboard/
 Disallow: /login/
 Disallow: /register/
 Crawl-delay: 5
 
-User-Agent: Googlebot
-Allow: /
-Disallow: /api/
-Disallow: /dashboard/
-Crawl-delay: 10
-
 User-Agent: Bingbot
 Allow: /
 Disallow: /api/
+Disallow: /api/admin/
 Disallow: /dashboard/
-Crawl-delay: 10
+Disallow: /login/
+Disallow: /register/
+Crawl-delay: 5
 
-# AI 搜索引擎 — 开放，会在回答里引用来源
-User-Agent: PerplexityBot
-Allow: /
-Disallow: /api/
-Disallow: /dashboard/
-Crawl-delay: 10
-
-User-Agent: ClaudeBot
-Allow: /
-Disallow: /api/
-Disallow: /dashboard/
-Crawl-delay: 10
-
-# 纯训练数据爬虫 — 屏蔽内容页
-User-Agent: GPTBot
-Disallow: /skill/
-Disallow: /article/
-Crawl-delay: 10
-
-User-Agent: Google-Extended
-Disallow: /skill/
-Disallow: /article/
-Crawl-delay: 10
-
+# Training-only or aggressive crawlers: restrict heavy long-tail pages.
+User-Agent: CCBot
+User-Agent: Bytespider
 User-Agent: Amazonbot
-Disallow: /skill/
-Disallow: /article/
+User-Agent: Diffbot
+Disallow: /github-skill/
+Disallow: /api/
+Disallow: /dashboard/
 Crawl-delay: 10
 
+# General crawlers.
+User-Agent: *
+Allow: /
+Disallow: /api/
+Disallow: /api/admin/
+Disallow: /dashboard/
+Disallow: /login/
+Disallow: /register/
+Disallow: /auth/
+Crawl-delay: 5
+
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+schemamap: https://bytesagain.com/schemamap.xml
 Host: https://bytesagain.com
 Sitemap: https://bytesagain.com/sitemap-index.xml
 Sitemap: https://bytesagain.com/sitemap.xml

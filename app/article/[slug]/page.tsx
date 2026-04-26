@@ -37,8 +37,12 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const article = await getArticle(slug)
   if (!article) notFound()
 
-  const date = article.published_at
+  const publishedDate = article.published_at
     ? new Date(article.published_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+    : ''
+  const updatedSource = article.updated_at || article.reviewed_at || article.published_at
+  const updatedDate = updatedSource
+    ? new Date(updatedSource).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
     : ''
 
   // Detect HTML vs Markdown, convert markdown to HTML
@@ -72,7 +76,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       </p>
       <h1 style={{ fontSize: '2em', margin: '0 0 12px', color: '#e0e0e0', lineHeight: 1.3 }}>{article.title}</h1>
       <p style={{ color: '#666', margin: '0 0 30px', fontSize: '.9em' }}>
-        By <strong style={{ color: '#ccc' }}>{article.author_name || 'BytesAgain'}</strong> · {date}
+        By <strong style={{ color: '#ccc' }}>{article.author_name || 'BytesAgain'}</strong>
+        {publishedDate && <> · Published {publishedDate}</>}
+        {updatedDate && updatedDate !== publishedDate && <> · Updated {updatedDate}</>}
       </p>
       <div
         style={{ lineHeight: 1.8, fontSize: '1.05em', background: '#111133', borderRadius: 16, padding: '30px 36px', border: '1px solid #1a1a3e' }}

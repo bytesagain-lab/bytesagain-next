@@ -1,24 +1,31 @@
 import { MetadataRoute } from 'next'
-import { USE_CASES } from '@/lib/use-cases'
 
 export const revalidate = 86400
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 用 REST API + anon key（构建时安全）
-  let posts: { slug: string; published_at: string }[] = []
+  const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://jfpeycpiyayrpjldppzq.supabase.co'
+  const SB_ANON = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+  let posts: { slug: string; published_at: string; updated_at?: string; reviewed_at?: string }[] = []
+  let useCases: { slug: string; created_at?: string }[] = []
   try {
-    const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://jfpeycpiyayrpjldppzq.supabase.co'
-    const SB_ANON = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
     const res = await fetch(
-      `${SB_URL}/rest/v1/posts?select=slug,published_at&status=eq.published&order=published_at.desc&limit=500`,
+      `${SB_URL}/rest/v1/posts?select=slug,published_at,updated_at,reviewed_at&status=eq.published&order=published_at.desc&limit=500`,
       { headers: { apikey: SB_ANON, Authorization: `Bearer ${SB_ANON}` }, next: { revalidate: 86400 } }
     )
     if (res.ok) posts = await res.json()
   } catch {}
+  try {
+    const res = await fetch(
+      `${SB_URL}/rest/v1/use_cases?select=slug,created_at&order=id.asc&limit=1000`,
+      { headers: { apikey: SB_ANON, Authorization: `Bearer ${SB_ANON}` }, next: { revalidate: 86400 } }
+    )
+    if (res.ok) useCases = await res.json()
+  } catch {}
 
   const articlePages: MetadataRoute.Sitemap = posts.map(a => ({
     url: `https://bytesagain.com/article/${a.slug}`,
-    lastModified: a.published_at ? new Date(a.published_at) : new Date(),
+    lastModified: (a.updated_at || a.reviewed_at || a.published_at) ? new Date(a.updated_at || a.reviewed_at || a.published_at) : new Date(),
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }))
@@ -37,9 +44,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: 'https://bytesagain.com/install', lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
   ]
 
-  const useCasePages: MetadataRoute.Sitemap = USE_CASES.map(uc => ({
+  const useCasePages: MetadataRoute.Sitemap = useCases.map(uc => ({
     url: `https://bytesagain.com/use-case/${uc.slug}`,
-    lastModified: new Date(),
+    lastModified: uc.created_at ? new Date(uc.created_at) : new Date(),
     changeFrequency: 'weekly' as const,
     priority: 0.8,
   }))
