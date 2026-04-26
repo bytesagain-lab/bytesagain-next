@@ -24,16 +24,16 @@ export async function GET() {
   const entries = [sitemapEntry('https://bytesagain.com/sitemap.xml', today)]
 
   for (let i = 0; i < articleShards; i++) {
-    entries.push(sitemapEntry(`https://bytesagain.com/articles-sitemap/${i}.xml`, today))
+    entries.push(sitemapEntry(`https://bytesagain.com/articles-sitemap.xml?shard=${i}`, today))
   }
   for (let i = 0; i < useCaseShards; i++) {
-    entries.push(sitemapEntry(`https://bytesagain.com/use-cases-sitemap/${i}.xml`, today))
+    entries.push(sitemapEntry(`https://bytesagain.com/use-cases-sitemap.xml?shard=${i}`, today))
   }
   for (let i = 0; i < skillShards; i++) {
-    entries.push(sitemapEntry(`https://bytesagain.com/skills-sitemap/${i}.xml`, today))
+    entries.push(sitemapEntry(`https://bytesagain.com/skills-sitemap.xml?shard=${i}`, today))
   }
   for (let i = 0; i < githubShards; i++) {
-    entries.push(sitemapEntry(`https://bytesagain.com/github-skills-sitemap/${i}.xml`, today))
+    entries.push(sitemapEntry(`https://bytesagain.com/github-skills-sitemap.xml?shard=${i}`, today))
   }
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries.join('\n')}\n</sitemapindex>`
