@@ -98,7 +98,7 @@ export default function HomeLabPage() {
             <div className="cta-row">
               <Link className="btn primary" href="/work-hubs">Choose a Work Hub</Link>
               <Link className="btn secondary" href="/use-case-lab/ai-website-upgrade">View use case test</Link>
-              <Link className="btn secondary" href="/skill-lab">View skill test</Link>
+              <Link className="btn secondary" href="/capability-lab">View skill/capability test</Link>
             </div>
             <p className="micro">SEO catches demand. GEO/AIO packages each page so AI search can cite and summarize us.</p>
           </div>
