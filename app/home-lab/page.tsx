@@ -2,8 +2,8 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'BytesAgain Home Lab v3 — SEO/GEO/AIO Answer Engine',
-  description: 'A test homepage concept for BytesAgain as an SEO, GEO, and AIO answer engine for AI-agent workflows.',
+  title: 'BytesAgain Home Lab v3 — SEO/GEO Answer Engine',
+  description: 'A test homepage concept for BytesAgain as an SEO and GEO answer engine for AI-agent workflows.',
   robots: { index: false, follow: false },
 }
 
@@ -37,7 +37,6 @@ const hubs = [
 const seoLayers = [
   ['SEO', 'Rank in Google with clear search intent, internal links, schema, fast pages, and useful workflows.'],
   ['GEO', 'Become quotable by AI search with answer-first sections, concise facts, FAQs, and source-like structure.'],
-  ['AIO', 'Optimize for AI overviews by packaging each page as a complete answer: problem, workflow, tools, prompt, next action.'],
 ]
 
 const hierarchy = [
@@ -92,7 +91,7 @@ export default function HomeLabPage() {
       <div className="wrap">
         <section className="hero">
           <div>
-            <div className="eyebrow">🧪 Home v3 test · SEO/GEO/AIO answer engine</div>
+            <div className="eyebrow">🧪 Home v3 test · SEO/GEO answer engine</div>
             <h1>Find the AI agent workflow for <span className="grad">your work.</span></h1>
             <p className="lede">BytesAgain should not feel like a directory. It should feel like an answer engine: users arrive with a work problem, and we return the right Work Hub, Use Case, Skill Stack, prompt, and agent action.</p>
             <div className="cta-row">
@@ -100,7 +99,7 @@ export default function HomeLabPage() {
               <Link className="btn secondary" href="/use-case-lab/ai-website-upgrade">View use case test</Link>
               <Link className="btn secondary" href="/capability-lab">View skill/capability test</Link>
             </div>
-            <p className="micro">SEO catches demand. GEO/AIO packages each page so AI search can cite and summarize us.</p>
+            <p className="micro">SEO catches Google demand. GEO packages each page so AI search can understand, cite, and summarize us.</p>
           </div>
           <div className="answer-box">
             <div className="box-label">Example user intent</div>

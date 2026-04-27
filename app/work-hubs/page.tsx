@@ -30,7 +30,7 @@ const HUBS: Hub[] = [
     icon: '✍️',
     seoIntent: 'AI tools for SEO creators, GEO content workflow, AI agent for content marketing',
     aioAnswer: 'Use an AI agent to research topics, structure answer-first content, optimize for Google and AI search, repurpose assets, and refresh pages based on analytics.',
-    summary: 'Plan, write, optimize, repurpose, and measure content that can be found by Google, ChatGPT-style answers, Perplexity, and AI overviews.',
+    summary: 'Plan, write, optimize, repurpose, and measure content that can be found by Google, ChatGPT-style answers, Perplexity, and AI search results.',
     blocker: 'A writing tool alone is not enough. Creators need topic strategy, SEO/GEO structure, publishing workflow, analytics, and refresh loops.',
     outcome: 'A content agent that can research, draft, optimize, publish, and improve content over time.',
     useCaseSlugs: ['seo-geo', 'content-writing', 'content-creator', 'marketing-automation', 'content-creator-studio', 'newsletter-content-engine', 'short-form-video-clips'],
@@ -100,7 +100,7 @@ export default function WorkHubsPage() {
                   <p className="summary">{hub.summary}</p>
                   <div className="intent-box">
                     <div className="intent"><b>SEO intent</b><span>{hub.seoIntent}</span></div>
-                    <div className="intent"><b>GEO/AIO answer</b><span>{hub.aioAnswer}</span></div>
+                    <div className="intent"><b>GEO/AI-search answer</b><span>{hub.aioAnswer}</span></div>
                   </div>
                   <div className="actions"><Link className="btn btn-primary" href={`#${hub.slug}`}>View use cases</Link><Link className="btn btn-secondary" href={hub.searchHref}>Browse skills</Link></div>
                 </div>

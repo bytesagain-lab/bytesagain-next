@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Skill Lab — GEO Content Optimizer as an AI Agent Cell | BytesAgain',
-  description: 'A test skill page showing how a single AI agent skill should connect to Work Hubs, Use Cases, SEO/GEO/AIO intent, and agent actions.',
+  description: 'A test skill page showing how a single AI agent skill should connect to Work Hubs, Use Cases, SEO/GEO intent, and agent actions.',
   robots: { index: false, follow: false },
 }
 
@@ -15,7 +15,7 @@ const useCases = [
 
 const outputs = [
   'Answer-first page outline',
-  'GEO/AIO summary block',
+  'GEO summary block',
   'FAQ and schema suggestions',
   'Internal link recommendations',
   'Agent-ready rewrite prompt',
@@ -29,7 +29,7 @@ export default function SkillLabPage() {
     <div className="wrap">
       <div className="breadcrumb"><Link href="/home-lab">Home Lab</Link> › <Link href="/work-hubs">Work Hubs</Link> › Skill Lab</div>
       <section className="hero">
-        <div className="badge-row"><span className="badge">Skill test · cell layer</span><span className="badge">SEO/GEO/AIO</span><span className="badge">Agent action ready</span></div>
+        <div className="badge-row"><span className="badge">Skill test · cell layer</span><span className="badge">SEO/GEO</span><span className="badge">Agent action ready</span></div>
         <h1>GEO Content Optimizer is a cell, not the whole answer.</h1>
         <p className="lede">A skill page should explain one capability clearly, then connect it upward to Work Hubs and Use Cases. This lets long-tail SEO traffic convert into workflows instead of stopping at a dead-end detail page.</p>
         <div className="btn-row"><Link className="btn primary" href="/skill/clawhub-geo-content-optimizer">Open real skill</Link><Link className="btn secondary" href="/use-case-lab/ai-website-upgrade">See parent use case</Link></div>

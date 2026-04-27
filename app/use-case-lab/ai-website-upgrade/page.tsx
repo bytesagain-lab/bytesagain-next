@@ -2,8 +2,8 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Use Case Lab — SEO/GEO/AIO Website Upgrade Workflow',
-  description: 'A BytesAgain test use case page for upgrading an AI-built website with SEO, GEO, AIO, UX, analytics, and verification skills.',
+  title: 'Use Case Lab — SEO/GEO Website Upgrade Workflow',
+  description: 'A BytesAgain test use case page for upgrading an AI-built website with SEO, GEO, UX, analytics, and verification skills.',
   robots: { index: false, follow: false },
 }
 
@@ -19,7 +19,7 @@ const workflow = [
   ['Diagnose intent', 'Decide what the page should rank for, what AI answer it should satisfy, and which Work Hub it belongs to.'],
   ['Rewrite as an answer', 'Lead with the user problem, short answer, who it is for, blocker, workflow, tools, and next action.'],
   ['Build the skill stack', 'Select 3-5 skills with distinct roles and proof signals; avoid keyword-only recommendations.'],
-  ['Add GEO/AIO blocks', 'Create quotable summaries, FAQs, comparison snippets, schema, and MCP-readable workflow output.'],
+  ['Add GEO blocks', 'Create quotable summaries, FAQs, comparison snippets, schema, and MCP-readable workflow output.'],
   ['Verify and refresh', 'Use browser + analytics checks to confirm speed, links, visibility, and next iteration.'],
 ]
 
@@ -30,14 +30,14 @@ export default function Page() {
     `}</style>
     <section className="wrap">
       <Link href="/home-lab" className="back">← Home lab</Link>
-      <div className="hero"><span className="badge">Use Case test · SEO/GEO/AIO workflow</span><h1>Upgrade an AI-built website so it can win search and AI answers.</h1><p className="sub">This page is the “组织” layer: a concrete workflow that belongs to a Work Hub, selects a tested skill stack, and gives both humans and agents the next action.</p><div className="callout"><b>Core blocker:</b> The website exists, but traffic is weak because the page is not structured as a useful search answer, an AI-citable answer, or an agent-executable workflow.</div></div>
+      <div className="hero"><span className="badge">Use Case test · SEO/GEO workflow</span><h1>Upgrade an AI-built website so it can win search and AI answers.</h1><p className="sub">This page is the “组织” layer: a concrete workflow that belongs to a Work Hub, selects a tested skill stack, and gives both humans and agents the next action.</p><div className="callout"><b>Core blocker:</b> The website exists, but traffic is weak because the page is not structured as a useful search answer, an AI-citable answer, or an agent-executable workflow.</div></div>
 
-      <section className="grid"><div className="panel"><h2>Search intent this page should catch</h2><div className="answer"><div><b>SEO query</b>How to improve an AI-built website SEO</div><div><b>GEO/AIO query</b>How to make my website appear in AI search answers</div></div></div><div className="panel"><h2>Where this page sits</h2><div className="answer"><div><b>Work Hub</b>Content & SEO Creators</div><div><b>Conversion</b>Save stack, copy prompt, open MCP workflow</div></div></div></section>
+      <section className="grid"><div className="panel"><h2>Search intent this page should catch</h2><div className="answer"><div><b>SEO query</b>How to improve an AI-built website SEO</div><div><b>GEO query</b>How to make my website appear in AI search answers</div></div></div><div className="panel"><h2>Where this page sits</h2><div className="answer"><div><b>Work Hub</b>Content & SEO Creators</div><div><b>Conversion</b>Save stack, copy prompt, open MCP workflow</div></div></div></section>
 
       <section className="grid"><div className="panel"><h2>Skill selection standard</h2>{['Task fit: solves one workflow step, not just keyword match.','Proof signal: downloads/source quality/BytesAgain validation.','Composable role: each skill has a different job.','Agent usability: clear output an agent can use.','Verification: every recommendation has a smoke-test target.'].map((x,i)=><p className="rule" key={x}><b>{i+1}</b><span>{x}</span></p>)}</div><div className="panel"><h2>Recommended workflow</h2>{workflow.map(([title,desc],i)=><p className="step" key={title}><b>Step {i+1}: {title}</b><br />{desc}</p>)}</div></section>
 
       <section className="panel"><h2>Tested skill stack candidate</h2><div className="skill-grid">{skills.map(s=><Link key={s.slug} href={`/skill/${s.slug}`} className="skill-card"><strong>{s.name}</strong><span>{s.role} · {s.downloads.toLocaleString()} downloads</span><p>{s.reason}</p><small>Smoke test: {s.test}</small></Link>)}</div></section>
-      <section className="panel"><h2>Prompt to give your agent</h2><pre className="pre">{`You are my SEO/GEO/AIO website upgrade agent. Audit my website as a search answer and an AI-citable answer. Identify the Work Hub and use case, recommend a 3-5 skill stack with reasons, rewrite the page structure, add FAQ/schema suggestions, then verify links, speed, and conversion path.`}</pre><Link href="/api/mcp?action=workflow&q=upgrade%20AI%20website%20SEO%20GEO%20AIO" className="btn">Open MCP workflow JSON</Link></section>
+      <section className="panel"><h2>Prompt to give your agent</h2><pre className="pre">{`You are my SEO/GEO website upgrade agent. Audit my website as a Google-search answer and an AI-search answer. Identify the Work Hub and use case, recommend a 3-5 skill stack with reasons, rewrite the page structure, add FAQ/schema suggestions, then verify links, speed, and conversion path.`}</pre><Link href="/api/mcp?action=workflow&q=upgrade%20AI%20website%20SEO%20GEO" className="btn">Open MCP workflow JSON</Link></section>
     </section>
   </main>
 }
