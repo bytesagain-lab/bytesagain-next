@@ -74,8 +74,82 @@ function shouldWriteApiLog(params: { action?: string; endpoint?: string; result_
 }
 // ─────────────────────────────────────────────────────────────────────────
 
+type WorkflowSkill = {
+  slug: string
+  name: string
+  role: string
+  selection_reason: string
+  validation: string
+}
+
+type WorkflowTemplate = {
+  slug: string
+  title: string
+  intent_keywords: string[]
+  who_is_this_for: string
+  user_problem: string
+  common_blockers: string[]
+  selection_standard: string[]
+  recommended_workflow: string[]
+  skill_stack: WorkflowSkill[]
+  prompt_for_agent: string
+  upgrade_path: string[]
+}
+
+const WORKFLOW_LIBRARY: WorkflowTemplate[] = [
+  {
+    slug: 'ai-website-upgrade',
+    title: 'Upgrade an AI-built website',
+    intent_keywords: ['website', 'seo', 'geo', 'traffic', 'frontend', 'design', 'ai website', 'site upgrade'],
+    who_is_this_for: 'Founders and builders who shipped a website with AI, then hit quality, traffic, conversion, or maintainability limits.',
+    user_problem: 'The site exists, but the user needs a better answer than generic AI advice: diagnose the blocker, choose proven skills, and run an upgrade workflow.',
+    common_blockers: ['Weak homepage positioning', 'SEO/GEO pages not answer-shaped', 'No traffic/source diagnosis', 'No browser verification loop', 'No repeatable upgrade plan'],
+    selection_standard: ['Task-fit beats keyword match', 'Each skill must own a distinct workflow stage', 'Prefer public proof signals like downloads/source clarity', 'Every recommendation needs a smoke-test target', 'The stack must be usable by an agent via page, install command, or MCP'],
+    recommended_workflow: ['Diagnose traffic, UX, SEO/GEO, crawler, and conversion blockers', 'Redesign the page around user question → answer → workflow → next action', 'Apply SEO/GEO content structure and crawler metadata', 'Verify with browser automation and analytics checks', 'Schedule a weekly skill-stack upgrade review'],
+    skill_stack: [
+      { slug: 'clawhub-superdesign', name: 'SuperDesign', role: 'UX redesign', selection_reason: 'Strong frontend/design proof signal for turning rough AI pages into polished interfaces.', validation: 'Check whether it can produce page hierarchy, hero structure, sections, and visual polish guidance.' },
+      { slug: 'clawhub-seo', name: 'SEO', role: 'Search audit', selection_reason: 'Directly maps to site audit, content gaps, competitor analysis, and SEO fixes.', validation: 'Check title/meta/canonical/content structure and prioritized fixes.' },
+      { slug: 'clawhub-geo-content-optimizer', name: 'GEO Content Optimizer', role: 'AI-search visibility', selection_reason: 'Specific to GEO/AI-search packaging rather than generic SEO.', validation: 'Check answer-friendly structure, FAQ, schema, and citation-ready blocks.' },
+      { slug: 'clawhub-ga4-analytics', name: 'GA4 Analytics', role: 'Traffic diagnosis', selection_reason: 'Needed when the actual blocker is traffic decline or source/session behavior.', validation: 'Check whether it can turn GA4-style metrics into prioritized actions.' },
+      { slug: 'clawhub-playwright-mcp', name: 'Playwright MCP', role: 'Verification', selection_reason: 'Browser-level verification closes the loop after changes.', validation: 'Open pages, verify status, key links, UI states, and screenshots.' },
+    ],
+    prompt_for_agent: 'Diagnose why my AI-built website is underperforming. Check UX, SEO, GEO, speed, crawler access, and conversion path. Recommend a tested skill stack, explain why each skill is needed, then produce a prioritized 7-day upgrade plan.',
+    upgrade_path: ['Replace weak or duplicate skills after testing', 'Add source-specific analytics once traffic grows', 'Turn repeated fixes into a reusable internal workflow', 'Subscribe to weekly skill-stack changes for this use case'],
+  },
+  {
+    slug: 'ecommerce-agent-upgrade',
+    title: 'Upgrade an e-commerce agent from content helper to sales workflow',
+    intent_keywords: ['ecommerce', 'shopify', 'product listing', 'listing', 'store', 'product copy', 'localization', 'commerce'],
+    who_is_this_for: 'Small sellers and e-commerce operators who want an agent that can research products, generate listings, create media briefs, and connect to store operations.',
+    user_problem: 'A generic AI can write product copy, but it does not know which skills to combine, what to verify, or how to keep the workflow upgraded.',
+    common_blockers: ['Copy is not tied to store fields', 'No product research before listing', 'No media asset workflow', 'Localization is inconsistent', 'No QA before publishing'],
+    selection_standard: ['Must map to a real commerce stage', 'Use one skill per workflow responsibility', 'Prefer source-clear or strategically owned skills', 'Output must be observable and testable', 'Keep a replacement path as better commerce skills appear'],
+    recommended_workflow: ['Clarify store goal: launch, cleanup, localization, or campaign', 'Pick stack by stage: research → copy → media → store/API → verification', 'Generate listing package with title, bullets, SEO copy, variants, and image brief', 'Verify channel/store requirements', 'Set weekly loop for trend refresh and weak-listing replacement'],
+    skill_stack: [
+      { slug: 'shopify-helper', name: 'Shopify Helper', role: 'Store operations', selection_reason: 'BytesAgain-owned asset that directly maps to Shopify/product workflow.', validation: 'Produce product/store action checklist and safe execution steps.' },
+      { slug: 'clawhub-shopify-admin-api', name: 'Shopify Admin API', role: 'Shopify integration', selection_reason: 'Higher proof signal for Shopify API tasks and admin automation.', validation: 'Explain safe product update and inventory workflow.' },
+      { slug: 'clawhub-product-description-generator', name: 'Product Description Generator', role: 'Listing copy', selection_reason: 'Specific to product copy; good fit for listing generation and optimization.', validation: 'Generate title, bullet points, SEO description, and variants.' },
+      { slug: 'clawhub-ecommerce-image-asset-generator', name: 'Ecommerce Image Asset Generator', role: 'Product media', selection_reason: 'Complements listing copy with image/asset production.', validation: 'Create image brief, asset checklist, and channel variants.' },
+      { slug: 'clawhub-ecommerce-product-picker', name: 'Cross-Border Ecommerce Product Picker', role: 'Product research', selection_reason: 'Useful before listing: product selection and cross-border market fit.', validation: 'Evaluate product opportunities and localization risks.' },
+    ],
+    prompt_for_agent: 'Build a skill stack for product research, listing copy, localization, product media, Shopify/store operations, and QA. Explain why each skill is selected, what output it should produce, and how to verify the workflow before publishing.',
+    upgrade_path: ['Track new commerce skills weekly', 'Replace generic writers with channel-specific tools', 'Add store analytics once conversion data exists', 'Create reusable prompt packs for winning listings'],
+  },
+]
+
+function findWorkflow(rawQuery: string): WorkflowTemplate {
+  const q = rawQuery.toLowerCase()
+  let best = WORKFLOW_LIBRARY[0]
+  let bestScore = -1
+  for (const wf of WORKFLOW_LIBRARY) {
+    const score = wf.intent_keywords.reduce((sum, kw) => sum + (q.includes(kw) ? kw.length : 0), 0)
+    if (score > bestScore) { best = wf; bestScore = score }
+  }
+  return best
+}
+
 // MCP-compatible endpoint for AI agents
-// Supports: search, recommend, get, popular
+// Supports: search, recommend, get, popular, use_cases, workflow
 export async function GET(req: NextRequest) {
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -347,6 +421,23 @@ export async function GET(req: NextRequest) {
       return NextResponse.json(payload, { headers })
     }
 
+    if (action === 'workflow') {
+      const t0 = Date.now()
+      const wf = findWorkflow(effectiveQuery || query)
+      const ua = req.headers.get('user-agent') || ''
+      const ip = req.headers.get('x-forwarded-for')?.split(',')[0].trim() || ''
+      logMcpCall({ action, query, user_agent: ua, ip, latency_ms: Date.now() - t0, result_count: wf.skill_stack.length })
+      return NextResponse.json({
+        action,
+        query,
+        workflow: {
+          ...wf,
+          url: `https://bytesagain.com/use-case-lab/${wf.slug}`,
+          mcp_hint: 'Use this as an agent-ready workflow plan. Call get_skill for a selected slug only when detailed skill metadata is needed.',
+        },
+      }, { headers })
+    }
+
     if (action === 'use_cases') {
       const ucLimit = Math.min(limit, 30)
       let results: any[] = []
@@ -398,12 +489,14 @@ export async function GET(req: NextRequest) {
         recommend: '?action=recommend&role=<developer|creator|trader|marketer|student|ecommerce>&limit=10',
         get: '?action=get&slug=<slug>',
         popular: '?action=popular&limit=20',
+        use_cases: '?action=use_cases&q=<task>&limit=10',
+        workflow: '?action=workflow&q=<task>',
       },
       mcp_sse: 'https://bytesagain.com/api/mcp/sse',
       homepage: 'https://bytesagain.com',
       llms_txt: 'https://bytesagain.com/llms.txt',
     }, { headers })
-  } catch (e) {
+  } catch {
     return NextResponse.json({ error: 'Internal error' }, { status: 500, headers })
   }
 }
@@ -509,6 +602,11 @@ export async function POST(req: NextRequest) {
             query: { type: 'string', description: 'Task or goal in natural language. Example: "write job descriptions", "automate social media", "analyze financial data".' },
             limit: { type: 'number', description: 'Number of use-cases to return. Default: 10. Max: 30.' }
           }, required: ['query'] } },
+        { name: 'get_workflow',
+          description: 'Return a complete agent-ready workflow for a user goal, including who it is for, common blockers, skill selection standards, recommended steps, tested skill-stack candidates, prompt for the user agent, and upgrade path. Use this when the user asks how to solve a problem or what skill stack their agent should use. Prefer this over raw search when the user arrives with a business/task problem.',
+          inputSchema: { type: 'object', properties: {
+            query: { type: 'string', description: 'User goal or blocker. Example: "upgrade AI website SEO", "ecommerce product listing agent", "improve my agent workflow".' }
+          }, required: ['query'] } },
       ]}
     }, { headers })
   }
@@ -537,6 +635,9 @@ export async function POST(req: NextRequest) {
         const q = encodeURIComponent(sanitize(args.query || ''))
         const limit = Math.min(parseInt(args.limit) || 10, 30)
         apiUrl = `${baseUrl}/api/mcp?action=use_cases&q=${q}&limit=${limit}`
+      } else if (name === 'get_workflow') {
+        const q = encodeURIComponent(sanitize(args.query || args.q || ''))
+        apiUrl = `${baseUrl}/api/mcp?action=workflow&q=${q}`
       } else {
       }
 

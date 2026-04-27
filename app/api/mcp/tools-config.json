@@ -32,6 +32,12 @@
       "rest_action": "use_cases",
       "description": "Search 342 real-world AI use-cases by task or goal",
       "status": "active"
+    },
+    {
+      "name": "get_workflow",
+      "rest_action": "workflow",
+      "description": "Return a complete AI agent workflow with tested skill-stack candidates and upgrade path",
+      "status": "active"
     }
   ],
   "rate_limit": {
