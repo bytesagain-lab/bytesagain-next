@@ -8,7 +8,7 @@ const supabase = createBrowserClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
 
-function UseCaseSaveButton({ slug }: { slug: string }) {
+export function UseCaseSaveButton({ slug }: { slug: string }) {
   const [saved, setSaved] = useState(false)
   const [loading, setLoading] = useState(true)
   const [userId, setUserId] = useState<string | null>(null)
@@ -183,11 +183,6 @@ export default function UseCaseClient({ uc, slug }: { uc: UseCase; slug: string 
   return (
     <>
       <style>{`@keyframes fadeIn { from { opacity:0; transform:translateY(-4px) } to { opacity:1; transform:none } }`}</style>
-
-      {/* 收藏按钮 */}
-      <div style={{ marginBottom: 24 }}>
-        <UseCaseSaveButton slug={slug} />
-      </div>
 
       {/* skill 列表 */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>

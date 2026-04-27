@@ -2,7 +2,7 @@ export const dynamic = 'force-dynamic'
 
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import UseCaseClient from './UseCaseClient'
+import UseCaseClient, { UseCaseSaveButton } from './UseCaseClient'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -118,7 +118,8 @@ export default async function UseCasePage({ params }: Props) {
         .breadcrumb { font-size: .85rem; color: #64748b; margin-bottom: 22px; }
         .breadcrumb a { color: #a5b4fc; text-decoration: none; }
         .hero { background: linear-gradient(135deg, rgba(15,23,42,.96), rgba(13,13,31,.96)); border: 1px solid rgba(52,211,153,.22); border-radius: 28px; padding: clamp(28px,5vw,46px); margin-bottom: 22px; }
-        .badge { display: inline-flex; border: 1px solid #34d39944; background: #34d39914; color: #86efac; border-radius: 999px; padding: 6px 12px; font-weight: 900; font-size: .78rem; margin-bottom: 16px; }
+        .hero-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+        .badge { display: inline-flex; border: 1px solid #34d39944; background: #34d39914; color: #86efac; border-radius: 999px; padding: 6px 12px; font-weight: 900; font-size: .78rem; }
         h1 { font-size: clamp(2.1rem,6vw,4rem); line-height: 1; letter-spacing: -.055em; margin: 0 0 14px; }
         .lede { color: #cbd5e1; line-height: 1.75; font-size: 1.08rem; max-width: 780px; }
         .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
@@ -164,7 +165,10 @@ export default async function UseCasePage({ params }: Props) {
         <div className="breadcrumb"><a href="/">BytesAgain</a> › <a href="/use-case">Use Cases</a> › {uc.title}</div>
 
         <section className="hero">
-          <div className="badge">{uc.icon || '🗺️'} Use Case Guide</div>
+          <div className="hero-top">
+            <div className="badge">{uc.icon || '🗺️'} Use Case Guide</div>
+            <UseCaseSaveButton slug={slug} />
+          </div>
           <h1>{uc.title}</h1>
           <p className="lede">{description}</p>
           <div className="actions">

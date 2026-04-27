@@ -102,6 +102,7 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
         .skill-card { background: #0d0d1f; border: 1px solid #1e1e3f; border-radius: 20px; padding: 36px; margin-bottom: 24px; }
         .skill-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
         .skill-badges { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .skill-top-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; }
         .badge { display: inline-flex; align-items: center; gap: 5px; font-size: .75em; font-weight: 600; padding: 4px 12px; border-radius: 999px; border: 1px solid transparent; }
         .skill-title { font-size: 2em; font-weight: 800; color: #f1f5f9; margin: 0 0 8px; line-height: 1.2; }
         .skill-owner { font-size: .88em; color: #4b5563; margin: 0 0 20px; }
@@ -190,9 +191,12 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
                 </span>
               )}
             </div>
-            {isOurs && (
-              <span className="ours-badge">✦ BytesAgain</span>
-            )}
+            <div className="skill-top-actions">
+              {isOurs && (
+                <span className="ours-badge">✦ BytesAgain</span>
+              )}
+              <SkillActions slug={slug} />
+            </div>
           </div>
 
           {/* Title */}
