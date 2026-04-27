@@ -111,6 +111,14 @@ export default function IntentSearch() {
   }
 
   const hasResults = results.length > 0 || skillResults.length > 0
+  const defaultHubs = [
+    { icon: '🔎', title: zh ? 'SEO / GEO 增长' : 'SEO / GEO Growth', desc: zh ? 'AI 做的网站没流量？从这里开始升级。' : 'AI-built site not getting traffic? Start here.', href: '/work-hubs#content-seo-creators' },
+    { icon: '🛒', title: zh ? '电商 Listing' : 'E-commerce Listings', desc: zh ? '产品上架、标题、描述、独立站优化。' : 'Product listings, titles, descriptions, and store optimization.', href: '/work-hubs#ecommerce-sellers' },
+    { icon: '🛠️', title: zh ? '开发 / 自动化' : 'Developer Automation', desc: zh ? '让 agent 会开发、测试、部署和自动化。' : 'Upgrade agents for coding, testing, deployment, and automation.', href: '/work-hubs#developer-automation-builders' },
+  ]
+  const defaultQueries = zh
+    ? ['网站没流量怎么办', '优化商品 listing', '帮我做 SEO', '自动化工作流']
+    : ['website has no traffic', 'optimize product listing', 'SEO agent workflow', 'automate my workflow']
 
   return (
     <div style={{ maxWidth: 860, margin: '0 auto', padding: '0 20px' }}>
@@ -162,6 +170,36 @@ export default function IntentSearch() {
           >🗺️ Use Cases</button>
         </div>
       </div>
+
+      {/* 空状态：用户还没输入时，也要给明确入口，不能留白 */}
+      {!searched && (
+        <div style={{ marginTop: 14, background: 'linear-gradient(180deg,#0a0a1a,#080817)', border: '1px solid #1a1a3e', borderRadius: 16, overflow: 'hidden', textAlign: 'left' }}>
+          <div style={{ padding: '16px 18px 10px' }}>
+            <div style={{ color: '#e5e7eb', fontWeight: 800, fontSize: '.95em', marginBottom: 5 }}>
+              {zh ? '不知道搜什么？从你的 AI 哪里不满意开始。' : 'Not sure what to search? Start from what your AI failed to do.'}
+            </div>
+            <div style={{ color: '#64748b', fontSize: '.84em', lineHeight: 1.55 }}>
+              {zh ? 'BytesAgain 会把问题拆成 Work Hub → Use Case → Skill，推荐正确 skill 并告诉你怎么安装使用。' : 'BytesAgain turns a problem into a Work Hub → Use Case → Skill path, then shows the right skills and how to use them.'}
+            </div>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 10, padding: '0 14px 14px' }}>
+            {defaultHubs.map(hub => (
+              <a key={hub.title} href={hub.href} style={{ display: 'block', textDecoration: 'none', color: 'inherit', padding: 14, borderRadius: 13, background: '#101027', border: '1px solid #20204a' }}>
+                <div style={{ fontSize: '1.3em', marginBottom: 8 }}>{hub.icon}</div>
+                <div style={{ color: '#f1f5f9', fontWeight: 800, fontSize: '.9em', marginBottom: 5 }}>{hub.title}</div>
+                <div style={{ color: '#64748b', fontSize: '.78em', lineHeight: 1.45 }}>{hub.desc}</div>
+              </a>
+            ))}
+          </div>
+          <div style={{ padding: '0 14px 16px', display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            {defaultQueries.map(q => (
+              <button key={q} onClick={() => { setQuery(q); doSearch(q) }} style={{ padding: '7px 10px', borderRadius: 999, border: '1px solid #2a2a4e', background: '#0f0f23', color: '#a5b4fc', cursor: 'pointer', fontSize: '.78em', fontWeight: 700 }}>
+                {q}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* 结果面板 */}
       {searched && (
