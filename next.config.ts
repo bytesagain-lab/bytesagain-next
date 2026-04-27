@@ -3,9 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   async redirects() {
     return [
-      // sitemap变体全部指向正确路径
-      { source: '/sitemap_index.xml', destination: '/sitemap-index.xml', permanent: true },
-      { source: '/wp-sitemap.xml', destination: '/sitemap.xml', permanent: true },
+      // sitemap variants are served by App Router routes so strict crawlers get direct 200 responses.
       // 旧WP路径兜底
       { source: '/wp-login.php', destination: '/login', permanent: true },
       { source: '/wp-admin', destination: '/login', permanent: true },
