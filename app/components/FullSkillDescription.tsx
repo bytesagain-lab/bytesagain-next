@@ -7,9 +7,9 @@ interface Props {
   owner: string
 }
 
-function renderMarkdown(text: string): string {
-  let html = text
-    // Code blocks first (before inline code)
+function renderMarkdown(md: string): string {
+  let html = md
+    // Code blocks
     .replace(/```(\w*)\n([\s\S]*?)```/g,
       '<pre style="background:#0a0a1c;border:1px solid #1e1e3f;border-radius:6px;padding:10px 12px;overflow-x:auto;font-size:.88em;margin:8px 0"><code style="color:#a5f3fc;background:none;padding:0;font-size:1em">$2</code></pre>')
     // Horizontal rules
@@ -23,11 +23,10 @@ function renderMarkdown(text: string): string {
     // Inline code
     .replace(/`([^`]+)`/g, '<code style="background:#0d0d1e;color:#a5f3fc;padding:1px 5px;border-radius:3px;font-size:.88em">$1</code>')
     // Links
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener" style="color:#6366f1">$1</a>')
-    // Unordered lists
-    .replace(/^- /gm, '• ')
-    // Paragraphs (blank lines)
-    .replace(/\n\n/g, '</p><p style="margin:8px 0">')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, t, u) =>
+      `<a href="${u}" target="_blank" rel="noopener" style="color:#6366f1">${t}</a>`)
+    // Paragraphs
+    .replace(/\n{2,}/g, '</p><p style="margin:8px 0">')
 
   return `<p style="margin:8px 0">${html}</p>`
 }
@@ -43,11 +42,35 @@ export default function FullSkillDescription({ slug, owner }: Props) {
     fetchedRef.current = true
     setLoading(true)
 
+    // Try API first (fastest for our skills)
     fetch(`/api/skill-desc?slug=${encodeURIComponent(slug)}&source=clawhub&full=1`)
       .then(r => r.json())
       .then(data => {
-        if (data.full_description && data.full_description.length > 200) {
+        if (data.full_description && data.full_description.length > 300) {
           setFullDesc(data.full_description)
+          setLoading(false)
+          return null
+        }
+        // Fallback: Jina Reader from ClawHub
+        return fetch(
+          `https://r.jina.ai/https://clawhub.ai/${owner}/${slug}`,
+          { headers: { 'Accept': 'text/markdown', 'x-return-format': 'markdown' } }
+        )
+      })
+      .then(r => {
+        if (!r) return
+        return r.ok ? r.text() : null
+      })
+      .then(text => {
+        if (!text) { setLoading(false); return }
+        // Extract markdown body
+        const mcIdx = text.indexOf('Markdown Content:')
+        const content = mcIdx > 0 ? text.slice(mcIdx + 18) : text
+        // Remove trailing security scan if present
+        const scanIdx = content.indexOf('## Security Scan')
+        const body = scanIdx > 0 ? content.slice(0, scanIdx) : content
+        if (body.trim().length > 200) {
+          setFullDesc(body.trim())
         }
         setLoading(false)
       })
@@ -75,7 +98,7 @@ export default function FullSkillDescription({ slug, owner }: Props) {
         <div style={{
           marginTop: 8,
           background: '#050510', border: '1px solid #1e1e3f', borderRadius: 10,
-          fontSize: '.85em', lineHeight: 1.65,
+          color: '#94a3b8', fontSize: '.85em', lineHeight: 1.65,
           maxHeight: 500, overflowY: 'auto',
           padding: '14px 16px',
         }}
