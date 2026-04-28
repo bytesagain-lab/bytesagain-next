@@ -67,7 +67,7 @@ export async function GET(req: NextRequest) {
   if (owner && sourceUrl) {
     try {
       const pageUrl = `https://clawhub.ai/${owner}/${slug}`
-      const jinaRes = await fetch(`https://r.jina.ai/http://${pageUrl}`, {
+      const jinaRes = await fetch(`https://r.jina.ai/${pageUrl}`, {
         next: { revalidate: 3600 },
         headers: { 'x-return-format': 'markdown', 'Accept': 'text/markdown' },
       })
