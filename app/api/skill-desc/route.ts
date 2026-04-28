@@ -2,107 +2,72 @@ export const dynamic = 'force-dynamic'
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://jfpeycpiyayrpjldppzq.supabase.co'
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://jfpeycpiyayrpjldppzq.supabase.co'
+const SB_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
 
-interface ClawSkill {
-  slug: string
-  owner: string
-  description: string
-}
-
-/** Try to find the GitHub repo for a clawhub skill */
-function clawhubGithubRepos(owner: string, skillName: string): string[] {
-  // Common patterns for ClawHub skill repos on GitHub
-  const possibilities = [
-    `${owner}/${skillName}`,
-    `${owner}/skills/${skillName}`,
-    `clawhub/${owner}-${skillName}`,
-    `${owner}/claude-code-skills`,
-    `${owner}/ai-skills/${skillName}`,
-    `${owner}/agent-skills/${skillName}`,
-  ]
-  return possibilities.map(p => `https://api.github.com/repos/${p}/contents/SKILL.md`)
+function supabase() {
+  return createClient(SB_URL, SB_KEY)
 }
 
 export async function GET(req: NextRequest) {
   const slug = req.nextUrl.searchParams.get('slug') || ''
   const source = req.nextUrl.searchParams.get('source') || 'clawhub'
-
   if (!slug) return NextResponse.json({ summary: null, full_description: null })
 
-  // 1) Try our own skills-repo on GitHub first (bytesagain/ai-skills)
+  // Look up skill in our DB
+  const dbSlug = source === 'clawhub' ? `clawhub-${slug}` : slug
+  const { data: skill } = await supabase()
+    .from('skills')
+    .select('owner,source_url,description')
+    .eq('slug', dbSlug)
+    .single()
+
+  const dbDesc = (skill as any)?.description || ''
+  const owner = (skill as any)?.owner || ''
+  const sourceUrl = (skill as any)?.source_url || ''
+
+  // Try GitHub for full SKILL.md
+  const candidates: string[] = []
+
   if (source === 'bytesagain' || source === 'official') {
+    candidates.push(`bytesagain/ai-skills/contents/${slug}/SKILL.md`)
+  }
+
+  if (source === 'clawhub' && owner) {
+    // Most ClawHub authors use {owner}/{slug} or {owner}/ai-skills on GitHub
+    candidates.push(`${owner}/ai-skills/contents/${slug}/SKILL.md`)
+    candidates.push(`${owner}/ai-skills/contents/skills/${slug}/SKILL.md`)
+    candidates.push(`${owner}/gentle-agent-skills/contents/${slug}/SKILL.md`)
+    candidates.push(`${owner}/contents/SKILL.md`)
+  }
+  // also try extracting from source_url
+  if (sourceUrl) {
+    const m = sourceUrl.match(/clawhub\.ai\/([^/]+)\/([^/]+)/)
+    if (m) {
+      candidates.push(`${m[1]}/contents/SKILL.md`)
+    }
+  }
+
+  for (const repoPath of candidates) {
     try {
-      const ghRes = await fetch(
-        `https://api.github.com/repos/bytesagain/ai-skills/contents/${slug}/SKILL.md`,
-        { next: { revalidate: 3600 } }
-      )
-      if (ghRes.ok) {
-        const ghData = await ghRes.json()
-        const buf = Buffer.from(ghData.content, 'base64')
-        const fullMd = buf.toString('utf-8')
-        // Extract YAML frontmatter description
-        const descMatch = fullMd.match(/description:\s*"([^"]+)"/)
-        const summary = descMatch ? descMatch[1] : ''
-        return NextResponse.json({ summary, full_description: fullMd }, {
-          headers: { 'Cache-Control': 'public, max-age=86400' }
-        })
-      }
+      const url = `https://api.github.com/repos/${repoPath}`
+      const res = await fetch(url, {
+        headers: { 'Accept': 'application/vnd.github.v3.raw', 'User-Agent': 'bytesagain-next/1.0' },
+        next: { revalidate: 3600 },
+      })
+      if (res.ok) {
+        const fullMd = await res.text()
+        if (fullMd && fullMd.length > 100) {
+          const descMatch = fullMd.match(/description:\s*"([^"]+)"/)
+          const summary = descMatch ? descMatch[1] : dbDesc
+          return NextResponse.json({ summary, full_description: fullMd }, {
+            headers: { 'Cache-Control': 'public, max-age=86400' },
+          })
+        }
+      } else if (res.status === 403) break
     } catch {}
   }
 
-  // 2) For clawhub skills, find owner + try GitHub
-  if (supabaseKey) {
-    const supabase = createClient(supabaseUrl, supabaseKey)
-    let owner = ''
-    let name = slug  // raw slug (without clawhub- prefix)
-
-    // Look up the skill in our DB for owner info
-    const { data } = await supabase
-      .from('skills')
-      .select('owner,description')
-      .eq('slug', `clawhub-${slug}`)
-      .single()
-
-    const dbDesc = (data as ClawSkill | null)?.description || ''
-    owner = (data as ClawSkill | null)?.owner || ''
-
-    // Try owner/name on GitHub
-    if (owner && name) {
-      const repos = [
-        `${owner}/${name}`,
-        `${owner}/ai-skills`,
-        `${owner}/claude-code-skills`,
-        `${owner}/agent-skills`,
-      ]
-      for (const repo of repos) {
-        try {
-          const path = repo.endsWith(name) ? 'SKILL.md' : `${name}/SKILL.md`
-          const ghRes = await fetch(
-            `https://api.github.com/repos/${repo}/contents/${path}`,
-            { next: { revalidate: 3600 } }
-          )
-          if (ghRes.ok) {
-            const ghData = await ghRes.json()
-            const buf = Buffer.from(ghData.content, 'base64')
-            const fullMd = buf.toString('utf-8')
-            const descMatch = fullMd.match(/description:\s*"([^"]+)"/)
-            const summary = descMatch ? descMatch[1] : dbDesc
-            return NextResponse.json({ summary, full_description: fullMd }, {
-              headers: { 'Cache-Control': 'public, max-age=86400' }
-            })
-          }
-        } catch {}
-      }
-    }
-
-    // Fallback: return short description from DB
-    return NextResponse.json({
-      summary: dbDesc,
-      full_description: null,
-    }, { headers: { 'Cache-Control': 'public, max-age=3600' } })
-  }
-
-  return NextResponse.json({ summary: null, full_description: null })
+  // Fallback
+  return NextResponse.json({ summary: dbDesc, full_description: null })
 }
