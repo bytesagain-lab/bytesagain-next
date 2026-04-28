@@ -27,5 +27,10 @@
         }
       ]
     }
-  ]
+  ],
+  "env": {
+    "NEXT_PUBLIC_SUPABASE_URL": "https://jfpeycpiyayrpjldppzq.supabase.co",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmcGV5Y3BpeWF5cnBqbGRwcHpxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyMzgxMTIsImV4cCI6MjA4OTgxNDExMn0.KnRmNBKeUPmJQz3m46uNx5kvBf_ZXBVWSUTXOLjW4Ps",
+    "SUPABASE_SERVICE_ROLE_KEY": "sbp_05f85e90abd5f8ab19f1d7134146262a03fe6e5f78d6"
+  }
 }

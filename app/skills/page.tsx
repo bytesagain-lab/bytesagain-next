@@ -1,4 +1,5 @@
-export const revalidate = 3600
+// Dynamic rendering: fetch fresh data on each request (not pre-rendered at build time)
+export const revalidate = 0
 
 
 import { createClient } from '@supabase/supabase-js'
@@ -36,39 +37,82 @@ const CATEGORIES = [
   // 效率
   'automation','communication','productivity',
   // 来源
-  'clawhub','lobehub','dify','mcp',
+  'clawhub','bytesagain','lobehub','dify','mcp',
 ]
 
 const SOURCE_BADGE: Record<string, { label: string; color: string; emoji: string }> = {
-  clawhub:  { label: 'ClawHub',  color: '#667eea', emoji: '🦀' },
-  github:   { label: 'GitHub',   color: '#444',    emoji: '⭐' },
-  lobehub:  { label: 'LobeHub',  color: '#7c3aed', emoji: '🤖' },
-  dify:     { label: 'Dify',     color: '#f59e0b', emoji: '🔧' },
-  mcp:      { label: 'MCP',      color: '#00c853', emoji: '🔌' },
-  official: { label: 'Official', color: '#10b981', emoji: '✅' },
+  clawhub:    { label: 'ClawHub',    color: '#667eea', emoji: '🦀' },
+  github:     { label: 'GitHub',     color: '#444',    emoji: '⭐' },
+  bytesagain: { label: 'BytesAgain', color: '#00d4ff', emoji: '✦' },
+  lobehub:    { label: 'LobeHub',    color: '#7c3aed', emoji: '🤖' },
+  dify:       { label: 'Dify',       color: '#f59e0b', emoji: '🔧' },
+  mcp:        { label: 'MCP',        color: '#00c853', emoji: '🔌' },
+  official:   { label: 'Official',   color: '#10b981', emoji: '✅' },
 }
 
 const PAGE_SIZE = 48
 
+// Round-robin sources for cat=all: shuffle so each page shows a mix of sources
+const ROUNDROBIN_SOURCES = ['clawhub', 'github', 'bytesagain', 'lobehub', 'dify', 'mcp', 'official']
+const ROUNDROBIN_PER_PAGE = Math.ceil(PAGE_SIZE / ROUNDROBIN_SOURCES.length) + 2 // ~9 per source, 7 sources
+
+// Fallback env: hardcoded as Vercel env vars sometimes missing during build
+const _SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://jfpeycpiyayrpjldppzq.supabase.co'
+const _SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmcGV5Y3BpeWF5cnBqbGRwcHpxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyMzgxMTIsImV4cCI6MjA4OTgxNDExMn0.KnRmNBKeUPmJQz3m46uNx5kvBf_ZXBVWSUTXOLjW4Ps'
+
 async function cachedSkillsList(cat: string, from: number) {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL!
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  const url = _SUPABASE_URL
+  const key = _SUPABASE_KEY
+  
+  if (cat === 'all') {
+    // For 'all', round-robin fetch: get top skills from each source, then interleave
+    const pagePromises = ROUNDROBIN_SOURCES.map(src => {
+      const params = new URLSearchParams({
+        select: 'slug,name,description,category,tags,downloads,stars,source,source_url,owner',
+        order: 'downloads.desc',
+        limit: String(ROUNDROBIN_PER_PAGE),
+        offset: String(Math.floor(from / ROUNDROBIN_SOURCES.length)),
+        source: `eq.${src}`,
+      })
+      return fetch(`${url}/rest/v1/skills_list?${params.toString()}`, {
+        headers: { apikey: key, Authorization: `Bearer ${key}` },
+        cache: 'no-store',
+      }).then(r => r.ok ? r.json() : [])
+    })
+    const results = await Promise.allSettled(pagePromises)
+    const bySource: Record<string, any[]> = {}
+    results.forEach((res, i) => {
+      if (res.status === 'fulfilled') bySource[ROUNDROBIN_SOURCES[i]] = res.value
+      else bySource[ROUNDROBIN_SOURCES[i]] = []
+    })
+    // Interleave: take one from each source round-robin
+    const interleaved: any[] = []
+    let maxLen = Math.max(...Object.values(bySource).map(a => a.length))
+    for (let i = 0; i < maxLen; i++) {
+      for (const src of ROUNDROBIN_SOURCES) {
+        if (i < bySource[src].length) {
+          interleaved.push(bySource[src][i])
+        }
+      }
+    }
+    return interleaved.slice(0, PAGE_SIZE)
+  }
+  
+  // Specific category or source
   const params = new URLSearchParams({
-    select: 'slug,name,description,category,tags,downloads,stars,source,source_url,owner,is_ours',
+    select: 'slug,name,description,category,tags,downloads,stars,source,source_url,owner',
     order: 'downloads.desc',
     limit: String(PAGE_SIZE),
     offset: String(from),
   })
-  if (cat !== 'all') {
-    if (['clawhub','lobehub','dify','github','mcp','official'].includes(cat)) {
-      params.set('source', `eq.${cat}`)
-    } else {
-      params.set('tags', `ov.{${cat}}`)
-    }
+  if (['clawhub','lobehub','dify','github','mcp','official','bytesagain'].includes(cat)) {
+    params.set('source', `eq.${cat}`)
+  } else {
+    params.set('tags', `ov.{${cat}}`)
   }
   const res = await fetch(`${url}/rest/v1/skills_list?${params.toString()}`, {
     headers: { apikey: key, Authorization: `Bearer ${key}` },
-    next: { revalidate: 3600 },
+    cache: 'no-store',
   })
   if (!res.ok) return []
   return res.json()
@@ -80,8 +124,8 @@ export default async function SkillsPage({
   searchParams: Promise<{ cat?: string; page?: string; q?: string }>
 }) {
   const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    _SUPABASE_URL,
+    _SUPABASE_KEY
   )
   const sp = await searchParams
   const cat  = sp.cat  || 'all'
@@ -119,7 +163,7 @@ export default async function SkillsPage({
       }
       // 分类过滤
       if (cat !== 'all') {
-        if (['clawhub','lobehub','dify','github','mcp','official'].includes(cat)) {
+        if (['clawhub','lobehub','dify','github','mcp','official','bytesagain'].includes(cat)) {
           results = results.filter((s: any) => s.source === cat)
         } else {
           results = results.filter((s: any) => (s.tags || []).includes(cat))
@@ -141,8 +185,10 @@ export default async function SkillsPage({
     // 无搜索词：正常分页。Use cached REST fetch and avoid count(*) during crawler bursts.
     try {
       skills = await cachedSkillsList(cat, from)
+      console.log('[skills page] cachedSkillsList returned', skills.length, 'skills for cat=', cat, 'from=', from)
       total = cat === 'all' ? 60202 : (skills.length < PAGE_SIZE ? from + skills.length : from + PAGE_SIZE + 1)
-    } catch {
+    } catch (e) {
+      console.error('[skills page] cachedSkillsList error:', e instanceof Error ? e.message : String(e))
       skills = []
     }
   }
