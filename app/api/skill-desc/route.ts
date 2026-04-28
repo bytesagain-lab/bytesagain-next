@@ -2,8 +2,18 @@ export const dynamic = 'force-dynamic'
 import { NextRequest, NextResponse } from 'next/server'
 
 const SB_URL = 'https://jfpeycpiyayrpjldppzq.supabase.co'
-// Service role key (JWT) — for server-side data access
-const SB_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmcGV5Y3BpeWF5cnBqbGRwcHpxIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDIzODExMiwiZXhwIjoyMDg5ODE0MTEyfQ.lD7IcVeN47mUlrP43DFhY8-BAzn_gJAqfOBBBjteA0I'
+const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmcGV5Y3BpeWF5cnBqbGRwcHpxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyMzgxMTIsImV4cCI6MjA4OTgxNDExMn0.KnRmNBKeUPmJQz3m46uNx5kvBf_ZXBVWSUTXOLjW4Ps'
+
+async function tryFetch(url: string): Promise<string | null> {
+  try {
+    const res = await fetch(url, { next: { revalidate: 3600 } })
+    if (res.ok) {
+      const text = await res.text()
+      if (text && text.length > 100) return text
+    }
+  } catch {}
+  return null
+}
 
 export async function GET(req: NextRequest) {
   const slug = req.nextUrl.searchParams.get('slug') || ''
@@ -12,22 +22,40 @@ export async function GET(req: NextRequest) {
 
   const dbSlug = source === 'clawhub' ? `clawhub-${slug}` : slug
 
-  // Query Supabase REST API with service role key
+  // Query skills_list MV (public RLS, anon key works)
   let owner = ''
   let dbDesc = ''
+  const headers = { 'apikey': ANON_KEY, 'Authorization': `Bearer ${ANON_KEY}` }
   try {
     const res = await fetch(
-      `${SB_URL}/rest/v1/skills?select=owner,description&slug=eq.${encodeURIComponent(dbSlug)}&limit=1`,
-      { headers: { 'apikey': SB_SERVICE_KEY, 'Authorization': `Bearer ${SB_SERVICE_KEY}` } }
+      `${SB_URL}/rest/v1/skills_list?select=owner,description&slug=eq.${encodeURIComponent(dbSlug)}&limit=1`,
+      { headers }
     )
     if (res.ok) {
       const rows = await res.json()
       if (rows?.length > 0) {
-        owner = rows[0].owner || ''
-        dbDesc = rows[0].description || ''
+        owner = rows[0]?.owner || ''
+        dbDesc = rows[0]?.description || ''
       }
     }
   } catch {}
+
+  // Fallback: if no owner from MV (MV might not have owner column), try skills table
+  if (!owner) {
+    try {
+      const res2 = await fetch(
+        `${SB_URL}/rest/v1/skills?select=owner,description&slug=eq.${encodeURIComponent(dbSlug)}&limit=1`,
+        { headers }
+      )
+      if (res2.ok) {
+        const rows2 = await res2.json()
+        if (rows2?.length > 0) {
+          owner = rows2[0]?.owner || ''
+          dbDesc = rows2[0]?.description || ''
+        }
+      }
+    } catch {}
+  }
 
   // Try GitHub raw sources
   let fullMd: string | null = null
@@ -42,7 +70,7 @@ export async function GET(req: NextRequest) {
     }
   }
 
-  // 2) bytesagain/ai-skills — our own
+  // 2) bytesagain/ai-skills
   if (!fullMd) {
     for (const branch of ['main', 'master']) {
       fullMd = await tryFetch(
@@ -55,15 +83,4 @@ export async function GET(req: NextRequest) {
   const descMatch = fullMd?.match(/description:\s*"([^"]+)"/)
   const summary = descMatch ? descMatch[1] : dbDesc
   return NextResponse.json({ summary, full_description: fullMd })
-}
-
-async function tryFetch(url: string): Promise<string | null> {
-  try {
-    const res = await fetch(url, { next: { revalidate: 3600 } })
-    if (res.ok) {
-      const text = await res.text()
-      if (text && text.length > 100) return text
-    }
-  } catch {}
-  return null
 }
