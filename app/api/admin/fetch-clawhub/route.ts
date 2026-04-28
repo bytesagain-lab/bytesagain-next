@@ -27,7 +27,7 @@ function itemToRow(item: any) {
   const displayName = sanitize(item.displayName || slug).slice(0, 200)
 
   return {
-    slug: slug.toLowerCase()  // source 字段区分来源，不需要前缀,
+    slug: slug.toLowerCase(),  // source 字段区分来源，不需要前缀
     name: displayName,
     description: summary,
     category,
