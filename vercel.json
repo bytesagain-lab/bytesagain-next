@@ -10,15 +10,6 @@
       ]
     },
     {
-      "source": "/use-case/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, s-maxage=86400, stale-while-revalidate=604800"
-        }
-      ]
-    },
-    {
       "source": "/article/(.*)",
       "headers": [
         {
@@ -31,6 +22,6 @@
   "env": {
     "NEXT_PUBLIC_SUPABASE_URL": "https://jfpeycpiyayrpjldppzq.supabase.co",
     "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmcGV5Y3BpeWF5cnBqbGRwcHpxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyMzgxMTIsImV4cCI6MjA4OTgxNDExMn0.KnRmNBKeUPmJQz3m46uNx5kvBf_ZXBVWSUTXOLjW4Ps",
-    "SUPABASE_SERVICE_ROLE_KEY": "sbp_05f85e90abd5f8ab19f1d7134146262a03fe6e5f78d6"
+    "SUPABASE_SERVICE_ROLE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmcGV5Y3BpeWF5cnBqbGRwcHpxIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDIzODExMiwiZXhwIjoyMDg5ODE0MTEyfQ.lD7IcVeN47mUlrP43DFhY8-BAzn_gJAqfOBBBjteA0I"
   }
 }
