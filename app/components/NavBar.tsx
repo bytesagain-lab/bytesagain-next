@@ -50,6 +50,7 @@ export default function NavBar() {
 
         {/* Desktop nav */}
         <nav style={{ display: 'flex', gap: 16, alignItems: 'center' }} className="desktop-nav">
+          <a href="/search" style={{ color: '#a5b4fc', textDecoration: 'none', fontSize: '.85em', display: 'flex', alignItems: 'center', gap: 4 }}>🔍 <span style={{ color: '#64748b' }}>Search</span></a>
           <a href="/articles" style={navLinkStyle}>{t.nav_articles}</a>
           <a href="/skills" style={navLinkStyle}>{t.nav_skills}</a>
           <a href="/work-hubs" style={navLinkStyle}>Hubs</a>
