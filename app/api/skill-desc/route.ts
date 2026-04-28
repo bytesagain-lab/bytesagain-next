@@ -11,7 +11,13 @@ function supabase() {
 
 async function fetchGitHubRaw(owner: string, repo: string, path: string): Promise<string | null> {
   // Use raw.githubusercontent.com — no rate limits for public files
-  const url = `https://raw.githubusercontent.com/${owner}/${repo}/main/${path}`
+  // Try main first, then master
+  let url = `https://raw.githubusercontent.com/${owner}/${repo}/main/${path}`
+  let res = await fetch(url, { next: { revalidate: 3600 } })
+  if (!res.ok) {
+    url = `https://raw.githubusercontent.com/${owner}/${repo}/master/${path}`
+    res = await fetch(url, { next: { revalidate: 3600 } })
+  }
   try {
     const res = await fetch(url, { next: { revalidate: 3600 } })
     if (res.ok) {
