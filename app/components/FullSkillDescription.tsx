@@ -1,32 +1,39 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 interface Props {
   slug: string
-  source: string
+  owner: string
 }
 
-export default function FullSkillDescription({ slug, source }: Props) {
+export default function FullSkillDescription({ slug, owner }: Props) {
   const [fullDesc, setFullDesc] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [expanded, setExpanded] = useState(false)
+  const fetchedRef = useRef(false)
 
   useEffect(() => {
-    if (!expanded || fullDesc !== null || loading) return
-    if (source !== 'clawhub') return
+    if (!expanded || fetchedRef.current || !owner) return
+    fetchedRef.current = true
     setLoading(true)
-    // ClawHub SKILL.md endpoint (via our proxy to avoid CORS)
-    fetch(`/api/skill-desc?slug=${encodeURIComponent(slug)}`)
-      .then(r => r.ok ? r.json() : {})
-      .then((d: any) => {
-        setFullDesc(d.full_description || d.summary || null)
+
+    // Fetch full SKILL.md from ClawHub via Jina Reader (client-side)
+    fetch(
+      `https://r.jina.ai/https://clawhub.ai/${owner}/${slug}`,
+      { headers: { 'Accept': 'text/markdown', 'x-return-format': 'markdown' } }
+    )
+      .then(r => r.ok ? r.text() : Promise.reject(r.status))
+      .then(text => {
+        const bodyMatch = text.match(/\n---\n([\s\S]*)/)
+        const content = bodyMatch ? bodyMatch[1].trim() : text
+        setFullDesc(content || null)
         setLoading(false)
       })
       .catch(() => setLoading(false))
-  }, [expanded, slug, source, fullDesc, loading])
+  }, [expanded, slug, owner])
 
-  if (source !== 'clawhub') return null
+  if (!owner) return null
 
   return (
     <div style={{ marginBottom: 14 }}>
@@ -48,16 +55,21 @@ export default function FullSkillDescription({ slug, source }: Props) {
           marginTop: 8, padding: '12px 14px',
           background: '#050510', border: '1px solid #1e1e3f', borderRadius: 10,
           color: '#94a3b8', fontSize: '.85em', lineHeight: 1.65,
-          maxHeight: 320, overflowY: 'auto',
+          maxHeight: 400, overflowY: 'auto',
         }}>
-          {fullDesc.split('\n').map((line, i) => (
-            <p key={i} style={{ margin: '0 0 6px' }}>{line || <br />}</p>
-          ))}
+          <pre style={{
+            fontFamily: 'inherit', whiteSpace: 'pre-wrap', wordBreak: 'break-word',
+            margin: 0, lineHeight: 1.65,
+          }}>{fullDesc}</pre>
         </div>
       )}
       {expanded && !loading && !fullDesc && (
         <div style={{ color: '#4b5563', fontSize: '.82em', padding: '8px 0' }}>
-          Full description not available. <a href={`https://clawhub.ai/${slug}`} target="_blank" rel="noopener" style={{ color: '#6366f1' }}>View on ClawHub →</a>
+          Full description not available.{' '}
+          <a href={`https://clawhub.ai/${owner}/${slug}`} target="_blank" rel="noopener"
+             style={{ color: '#6366f1' }}>
+            View on ClawHub →
+          </a>
         </div>
       )}
     </div>

@@ -251,7 +251,7 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
           </div>
 
           {/* Full description (expanded from ClawHub) */}
-          <FullSkillDescription slug={installSlug} source={source} />
+          <FullSkillDescription slug={installSlug} owner={skill.owner || ''} />
 
           {/* Quick-install row — compact inline */}
           <div className="actions-row" style={{ marginBottom: 14, gap: 8 }}>
