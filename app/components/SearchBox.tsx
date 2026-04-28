@@ -56,6 +56,7 @@ export default function SearchBox() {
           type="text"
           value={query}
           onChange={e => setQuery(e.target.value)}
+          onKeyDown={(e) => { if (e.key === 'Enter' && query.trim()) window.location.href = `/search?q=${encodeURIComponent(query.trim())}` }}
           placeholder={t.search_placeholder}
           style={{
             width: '100%',
