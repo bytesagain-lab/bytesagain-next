@@ -9,12 +9,24 @@ function supabase() {
   return createClient(SB_URL, SB_KEY)
 }
 
+async function fetchGitHubRaw(owner: string, repo: string, path: string): Promise<string | null> {
+  // Use raw.githubusercontent.com — no rate limits for public files
+  const url = `https://raw.githubusercontent.com/${owner}/${repo}/main/${path}`
+  try {
+    const res = await fetch(url, { next: { revalidate: 3600 } })
+    if (res.ok) {
+      const text = await res.text()
+      if (text && text.length > 100) return text
+    }
+  } catch {}
+  return null
+}
+
 export async function GET(req: NextRequest) {
   const slug = req.nextUrl.searchParams.get('slug') || ''
   const source = req.nextUrl.searchParams.get('source') || 'clawhub'
   if (!slug) return NextResponse.json({ summary: null, full_description: null })
 
-  // Look up skill in our DB
   const dbSlug = source === 'clawhub' ? `clawhub-${slug}` : slug
   const { data: skill } = await supabase()
     .from('skills')
@@ -26,48 +38,45 @@ export async function GET(req: NextRequest) {
   const owner = (skill as any)?.owner || ''
   const sourceUrl = (skill as any)?.source_url || ''
 
-  // Try GitHub for full SKILL.md
-  const candidates: string[] = []
+  // Try raw.githubusercontent.com for SKILL.md
+  const attempts: { owner: string; repo: string; path: string }[] = []
 
   if (source === 'bytesagain' || source === 'official') {
-    candidates.push(`bytesagain/ai-skills/contents/${slug}/SKILL.md`)
+    attempts.push({ owner: 'bytesagain', repo: 'ai-skills', path: `${slug}/SKILL.md` })
   }
 
   if (source === 'clawhub' && owner) {
-    // Most ClawHub authors use {owner}/{slug} or {owner}/ai-skills on GitHub
-    candidates.push(`${owner}/ai-skills/contents/${slug}/SKILL.md`)
-    candidates.push(`${owner}/ai-skills/contents/skills/${slug}/SKILL.md`)
-    candidates.push(`${owner}/gentle-agent-skills/contents/${slug}/SKILL.md`)
-    candidates.push(`${owner}/contents/SKILL.md`)
+    // Try common patterns
+    attempts.push({ owner, repo: slug, path: 'SKILL.md' })
+    attempts.push({ owner, repo: `ai-skills`, path: `skills/${slug}/SKILL.md` })
+    attempts.push({ owner, repo: `ai-skills`, path: `${slug}/SKILL.md` })
+    attempts.push({ owner, repo: `gentle-agent-skills`, path: `${slug}/SKILL.md` })
+    attempts.push({ owner, repo: `claude-code-skills`, path: `${slug}/SKILL.md` })
+    attempts.push({ owner, repo: `ai-scripts`, path: `${slug}/SKILL.md` })
+    attempts.push({ owner, repo: `skills`, path: `${slug}/SKILL.md` })
   }
-  // also try extracting from source_url
+
+  // Also try from source_url patterns
   if (sourceUrl) {
     const m = sourceUrl.match(/clawhub\.ai\/([^/]+)\/([^/]+)/)
     if (m) {
-      candidates.push(`${m[1]}/contents/SKILL.md`)
+      const sOwner = m[1], sSlug = m[2]
+      if (sOwner !== owner) {
+        attempts.push({ owner: sOwner, repo: sSlug, path: 'SKILL.md' })
+      }
     }
   }
 
-  for (const repoPath of candidates) {
-    try {
-      const url = `https://api.github.com/repos/${repoPath}`
-      const res = await fetch(url, {
-        headers: { 'Accept': 'application/vnd.github.v3.raw', 'User-Agent': 'bytesagain-next/1.0' },
-        next: { revalidate: 3600 },
+  for (const a of attempts) {
+    const fullMd = await fetchGitHubRaw(a.owner, a.repo, a.path)
+    if (fullMd) {
+      const descMatch = fullMd.match(/description:\s*"([^"]+)"/)
+      const summary = descMatch ? descMatch[1] : dbDesc
+      return NextResponse.json({ summary, full_description: fullMd }, {
+        headers: { 'Cache-Control': 'public, max-age=86400' },
       })
-      if (res.ok) {
-        const fullMd = await res.text()
-        if (fullMd && fullMd.length > 100) {
-          const descMatch = fullMd.match(/description:\s*"([^"]+)"/)
-          const summary = descMatch ? descMatch[1] : dbDesc
-          return NextResponse.json({ summary, full_description: fullMd }, {
-            headers: { 'Cache-Control': 'public, max-age=86400' },
-          })
-        }
-      } else if (res.status === 403) break
-    } catch {}
+    }
   }
 
-  // Fallback
   return NextResponse.json({ summary: dbDesc, full_description: null })
 }
