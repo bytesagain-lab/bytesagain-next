@@ -110,20 +110,20 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
         .breadcrumb { font-size: .82em; color: #4b5563; margin-bottom: 28px; }
         .breadcrumb a { color: #818cf8; text-decoration: none; }
         .breadcrumb a:hover { text-decoration: underline; }
-        .skill-card { background: #0d0d1f; border: 1px solid #1e1e3f; border-radius: 20px; padding: 36px; margin-bottom: 24px; }
+        .skill-card { background: #0d0d1f; border: 1px solid #1e1e3f; border-radius: 20px; padding: 28px; margin-bottom: 24px; }
         .skill-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
         .skill-badges { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         .skill-top-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; }
         .badge { display: inline-flex; align-items: center; gap: 5px; font-size: .75em; font-weight: 600; padding: 4px 12px; border-radius: 999px; border: 1px solid transparent; }
-        .skill-title { font-size: 2em; font-weight: 800; color: #f1f5f9; margin: 0 0 8px; line-height: 1.2; }
-        .skill-owner { font-size: .88em; color: #4b5563; margin: 0 0 20px; }
+        .skill-title { font-size: 1.6em; font-weight: 800; color: #f1f5f9; margin: 0 0 4px; line-height: 1.2; }
+        .skill-owner { font-size: .82em; color: #4b5563; margin: 0 0 14px; }
         .skill-owner span { color: #818cf8; }
-        .skill-desc { font-size: 1em; color: #94a3b8; line-height: 1.8; margin: 0 0 24px; }
-        .skill-meta { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid #1e1e3f; }
+        .skill-desc { font-size: .92em; color: #94a3b8; line-height: 1.65; margin: 0 0 16px; }
+        .skill-meta { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid #1e1e3f; }
         .meta-item { display: flex; flex-direction: column; gap: 2px; }
         .meta-label { font-size: .7em; color: #374151; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
         .meta-value { font-size: .92em; color: #94a3b8; font-weight: 600; }
-        .tags-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+        .tags-row { display: flex; gap: 6px; flex-wrap: wrap; }
         .tag { font-size: .75em; color: #6366f1; background: #6366f115; border: 1px solid #6366f130; border-radius: 6px; padding: 3px 10px; text-decoration: none; }
         .tag:hover { background: #6366f125; }
         .install-box { background: #070714; border: 1px solid #1e1e3f; border-radius: 12px; overflow: hidden; margin-bottom: 24px; }
@@ -143,7 +143,7 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
         .disclaimer { margin-top: 20px; padding: 14px 18px; background: #070714; border: 1px solid #1a1a3a; border-radius: 10px; font-size: .78em; color: #374151; line-height: 1.7; }
         .disclaimer a { color: #6366f1; }
         .ours-badge { display: inline-flex; align-items: center; gap: 6px; font-size: .72em; font-weight: 700; color: #22d3ee; background: #22d3ee10; border: 1px solid #22d3ee30; border-radius: 999px; padding: 4px 14px; }
-        .next-step-card { background: linear-gradient(135deg, #10102a, #0d0d1f); border: 1px solid #6366f144; border-radius: 18px; padding: 24px; margin: 0 0 24px; }
+        .next-step-card { background: linear-gradient(135deg, #10102a, #0d0d1f); border: 1px solid #6366f144; border-radius: 16px; padding: 20px; margin: 0 0 20px; }
         .next-step-title { color: #f8fafc; font-size: 1.18em; font-weight: 800; margin: 0 0 8px; }
         .next-step-sub { color: #94a3b8; line-height: 1.65; margin: 0 0 18px; }
         .steps-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(210px,1fr)); gap: 12px; margin-bottom: 18px; }
@@ -164,7 +164,7 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
         .cta-title { font-weight: 700; color: #e2e8f0; margin: 0 0 4px; }
         .cta-sub { color: #4b5563; font-size: .86em; }
         @media (max-width: 600px) {
-          .skill-card { padding: 22px; }
+          .skill-card { padding: 20px; }
           .skill-title { font-size: 1.5em; }
           .cta-banner { flex-direction: column; align-items: flex-start; }
         }
@@ -190,38 +190,33 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
 
         {/* Main card */}
         <div className="skill-card">
-          {/* Header badges */}
+          {/* Header: badge + actions in one row */}
           <div className="skill-header">
             <div className="skill-badges">
               <span className="badge" style={{ color: sm.color, background: sm.bg, borderColor: sm.color + '44' }}>
                 {sm.emoji} {sm.label}
               </span>
-              {skill.category && (
-                <span className="badge" style={{ color: '#94a3b8', background: '#94a3b810', borderColor: '#94a3b820' }}>
-                  {skill.category}
-                </span>
-              )}
-            </div>
-            <div className="skill-top-actions">
               {isOurs && (
                 <span className="ours-badge">✦ BytesAgain</span>
               )}
+            </div>
+            <div className="skill-top-actions">
               <SkillActions slug={slug} />
             </div>
           </div>
 
-          {/* Title */}
+          {/* Title + owner inline */}
           <h1 className="skill-title">{skill.name || slug}</h1>
           {skill.owner && (
             <p className="skill-owner">by <span>@{skill.owner}</span></p>
           )}
 
-          {/* Description */}
+          {/* Description — condensed */}
           <p className="skill-desc">
             {skill.description || `${skill.name || slug} is an AI agent skill. Install it to supercharge your AI workflow.`}
           </p>
 
-          {/* Meta row */}
+          {/* Meta row + tags combined */}
           <div className="skill-meta">
             {skill.version && (
               <div className="meta-item">
@@ -241,17 +236,14 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
                 <span className="meta-value">⭐ {(skill as any).stars?.toLocaleString()}</span>
               </div>
             )}
-
+            {tags.length > 0 && (
+              <div className="meta-item" style={{ flexDirection: 'row', gap: 6, alignItems: 'center' }}>
+                {tags.slice(0, 5).map(t => (
+                  <a key={t} href={`/?q=${encodeURIComponent(t)}`} className="tag">#{t}</a>
+                ))}
+              </div>
+            )}
           </div>
-
-          {/* Tags */}
-          {tags.length > 0 && (
-            <div className="tags-row">
-              {tags.slice(0, 8).map(t => (
-                <a key={t} href={`/?q=${encodeURIComponent(t)}`} className="tag">#{t}</a>
-              ))}
-            </div>
-          )}
 
           {/* Install command */}
           {canInstallWithClawHub && (
@@ -275,8 +267,8 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
             </div>
           )}
 
-          {/* Action buttons */}
-          <div className="actions-row">
+          {/* Action buttons + disclaimer row */}
+          <div className="actions-row" style={{ marginBottom: 12 }}>
             <button className="btn-secondary copy-btn" data-cmd={testPrompt} style={{ cursor: 'pointer' }}>
               Copy test prompt
             </button>
@@ -288,11 +280,9 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
             </a>
           </div>
 
-          {/* Disclaimer */}
-          <div className="disclaimer">
-            📋 Indexed summary from <a href={externalUrl} target="_blank" rel="noopener">{sm.label}</a>.
-            {' '}BytesAgain keeps discovery and comparison on-site, while source ownership remains with the listed author/platform.
-            {' '}We are independent and not affiliated with or endorsed by {sm.label}.
+          <div className="disclaimer" style={{ margin: 0 }}>
+            📋 <a href={externalUrl} target="_blank" rel="noopener">{sm.label}</a> indexed summary.{' '}
+            BytesAgain keeps discovery on-site. Source ownership remains with the author/platform. Not affiliated.
           </div>
         </div>
 
@@ -300,36 +290,6 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
         <div className="two-col">
           {/* --- LEFT: Main content --- */}
           <div className="two-col-main">
-            <section className="next-step-card">
-              <h2 className="next-step-title">What to do next</h2>
-              <p className="next-step-sub">
-                Skills are meant to be used inside your own AI agent. Install it, run a quick smoke test, then ask your agent to apply it to your real task.
-              </p>
-              <div className="steps-grid">
-                <div className="step-card">
-                  <div className="step-num">1</div>
-                  <strong>{canInstallWithClawHub ? 'Install into your agent' : 'Open the source'}</strong>
-                  <span>{canInstallWithClawHub ? 'Copy the ClawHub install command and run it where your OpenClaw/agent environment is configured.' : 'This skill is indexed from GitHub. Review the source and copy the SKILL.md into your agent skill folder if compatible.'}</span>
-                </div>
-                <div className="step-card">
-                  <div className="step-num">2</div>
-                  <strong>Run a smoke test</strong>
-                  <span>Use the test prompt below to confirm the skill loads and understands the workflow before relying on it.</span>
-                </div>
-                <div className="step-card">
-                  <div className="step-num">3</div>
-                  <strong>Use it in your own agent</strong>
-                  <span>Paste your actual task into Manus, OpenClaw, Claude Code, Cursor, or another agent that supports skills.</span>
-                </div>
-              </div>
-              <div className="prompt-box">{testPrompt}</div>
-              <div className="copy-row">
-                {canInstallWithClawHub && <button className="copy-btn" data-cmd={installCmd}>Copy install</button>}
-                <button className="copy-btn" data-cmd={testPrompt}>Copy test prompt</button>
-                <button className="copy-btn" data-cmd={agentConfig}>Copy agent setup</button>
-              </div>
-            </section>
-
             <section className="next-step-card">
               <h2 className="next-step-title">Use this skill with your agent</h2>
               <p className="next-step-sub">
@@ -363,6 +323,36 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
                 <a href="/" className="btn-primary" style={{ fontSize: '.88em', padding: '10px 22px' }}>
                   Search Skills →
                 </a>
+              </div>
+            </section>
+
+            <section className="next-step-card">
+              <h2 className="next-step-title">What to do next</h2>
+              <p className="next-step-sub">
+                Skills are meant to be used inside your own AI agent. Install it, run a quick smoke test, then ask your agent to apply it to your real task.
+              </p>
+              <div className="steps-grid">
+                <div className="step-card">
+                  <div className="step-num">1</div>
+                  <strong>{canInstallWithClawHub ? 'Install into your agent' : 'Open the source'}</strong>
+                  <span>{canInstallWithClawHub ? 'Copy the ClawHub install command and run it where your OpenClaw/agent environment is configured.' : 'This skill is indexed from GitHub. Review the source and copy the SKILL.md into your agent skill folder if compatible.'}</span>
+                </div>
+                <div className="step-card">
+                  <div className="step-num">2</div>
+                  <strong>Run a smoke test</strong>
+                  <span>Use the test prompt below to confirm the skill loads and understands the workflow before relying on it.</span>
+                </div>
+                <div className="step-card">
+                  <div className="step-num">3</div>
+                  <strong>Use it in your own agent</strong>
+                  <span>Paste your actual task into Manus, OpenClaw, Claude Code, Cursor, or another agent that supports skills.</span>
+                </div>
+              </div>
+              <div className="prompt-box">{testPrompt}</div>
+              <div className="copy-row">
+                {canInstallWithClawHub && <button className="copy-btn" data-cmd={installCmd}>Copy install</button>}
+                <button className="copy-btn" data-cmd={testPrompt}>Copy test prompt</button>
+                <button className="copy-btn" data-cmd={agentConfig}>Copy agent setup</button>
               </div>
             </section>
           </div>
