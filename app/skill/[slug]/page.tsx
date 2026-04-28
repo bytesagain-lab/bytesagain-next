@@ -253,18 +253,8 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
           {/* Full description (expanded from ClawHub) */}
           <FullSkillDescription slug={installSlug} owner={skill.owner || ''} />
 
-          {/* Quick-install row — compact inline */}
+          {/* Action buttons */}
           <div className="actions-row" style={{ marginBottom: 14, gap: 8 }}>
-            {canInstallWithClawHub && (
-              <span className="quick-install" style={{
-                display: 'inline-flex', alignItems: 'center', gap: 8,
-                background: '#070714', border: '1px solid #1e1e3f', borderRadius: 8,
-                padding: '6px 12px', fontSize: '.82em', flexWrap: 'wrap',
-              }}>
-                <code style={{ color: '#a5f3fc', fontFamily: 'monospace' }}>$ {installCmd}</code>
-                <button className="copy-btn" data-cmd={installCmd} style={{ fontSize: '.75em' }}>Copy</button>
-              </span>
-            )}
             <button className="copy-btn" data-cmd={testPrompt} style={{
               background: '#6366f115', color: '#6366f1', border: '1px solid #6366f130',
               borderRadius: 8, padding: '6px 12px', fontSize: '.82em', cursor: 'pointer', whiteSpace: 'nowrap'
