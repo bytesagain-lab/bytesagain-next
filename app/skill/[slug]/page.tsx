@@ -84,6 +84,7 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
   // clawhub-self-improving-agent → self-improving-agent (real ClawHub slug)
   // bytesagain-xxx stays as-is (our own brand slug, original on ClawHub)
   const installSlug = slug.replace(/^clawhub-/, '')
+  const installCmd = `clawhub install ${installSlug}`
   const canInstallWithClawHub = source !== 'github'
   const testPrompt = `I just installed the ${skill.name || slug} skill. Please run a quick smoke test: explain what this skill can do, ask me for the minimum input it needs, then produce one small sample output for a realistic task.`
   const agentConfig = `1. Install the skill: ${installCmd}\n2. Restart or reload your agent session if needed.\n3. Ask your agent: \"Use the ${skill.name || slug} skill to help me with [your task].\"`
