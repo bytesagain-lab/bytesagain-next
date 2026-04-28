@@ -86,16 +86,27 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
   const agentConfig = `1. Install the skill: ${installCmd}\n2. Restart or reload your agent session if needed.\n3. Ask your agent: \"Use the ${skill.name || slug} skill to help me with [your task].\"`
   const manusInviteUrl = 'https://manus.im/invitation/PAN0HWLUJPLKA?utm_source=bytesagain&utm_medium=skill_page&utm_campaign=agent_cta'
   const agentOptions = [
-    { name: 'OpenClaw', desc: 'Best if you already use local agent skills and ClawHub install commands.', href: '/install', label: 'Set up OpenClaw', internal: true },
-    { name: 'Manus', desc: 'Good for testing a task-oriented agent workflow quickly.', href: manusInviteUrl, label: 'Try Manus', sponsored: true },
-    { name: 'Claude Code', desc: 'Use the copied prompt or SKILL.md workflow inside your coding agent session.', href: 'https://docs.anthropic.com/en/docs/claude-code', label: 'Claude Code docs' },
-    { name: 'Cursor', desc: 'Paste the smoke-test prompt into Cursor Agent for code and project workflows.', href: 'https://cursor.com', label: 'Open Cursor' },
+    { name: 'Manus', desc: 'Task-oriented agent. Great for testing AI skills end-to-end.', href: manusInviteUrl, label: 'Try Manus', sponsored: true },
+    { name: 'OpenClaw', desc: 'Local-first agent. Install skills via ClawHub CLI.', href: '/install', label: 'Set up OpenClaw', internal: true },
+    { name: 'Claude Code', desc: 'Anthropic\'s coding agent. Paste the prompt or SKILL.md into your session.', href: 'https://code.claude.com/docs', label: 'Claude Code docs' },
+    { name: 'Cursor', desc: 'AI-powered IDE. Use the smoke-test prompt in Cursor Agent.', href: 'https://cursor.com', label: 'Open Cursor' },
+    { name: 'Continue.dev', desc: 'Open-source AI code assistant. Add SKILL.md as a custom tool.', href: 'https://docs.continue.dev/customize/tools', label: 'Continue docs' },
+    { name: 'Windsurf', desc: 'Agentic IDE by Codeium. Paste the prompt into Cascade.', href: 'https://codeium.com/windsurf', label: 'Try Windsurf' },
+    { name: 'Cline', desc: 'VS Code extension for autonomous coding with MCP tools.', href: 'https://github.com/cline/cline', label: 'Cline on GitHub' },
+    { name: 'Copilot Workspace', desc: 'GitHub\'s AI dev environment. Suitable for code-generation skills.', href: 'https://github.com/features/copilot', label: 'Copilot Workspace' },
   ]
 
   return (
     <>
       <style>{`
-        .skill-page { max-width: 820px; margin: 0 auto; padding: 32px 20px 80px; }
+        .skill-page { max-width: 1100px; margin: 0 auto; padding: 32px 20px 80px; }
+        .two-col { display: flex; gap: 32px; align-items: flex-start; }
+        .two-col-main { flex: 1; min-width: 0; }
+        .two-col-side { width: 300px; flex-shrink: 0; }
+        @media (max-width: 860px) {
+          .two-col { flex-direction: column; }
+          .two-col-side { width: 100%; }
+        }
         .breadcrumb { font-size: .82em; color: #4b5563; margin-bottom: 28px; }
         .breadcrumb a { color: #818cf8; text-decoration: none; }
         .breadcrumb a:hover { text-decoration: underline; }
@@ -266,11 +277,6 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
 
           {/* Action buttons */}
           <div className="actions-row">
-            {canInstallWithClawHub && (
-              <button className="btn-primary copy-btn" data-cmd={installCmd} style={{ border: 0, cursor: 'pointer' }}>
-                Copy install command
-              </button>
-            )}
             <button className="btn-secondary copy-btn" data-cmd={testPrompt} style={{ cursor: 'pointer' }}>
               Copy test prompt
             </button>
@@ -290,73 +296,81 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
           </div>
         </div>
 
-        <section className="next-step-card">
-          <h2 className="next-step-title">What to do next</h2>
-          <p className="next-step-sub">
-            Skills are meant to be used inside your own AI agent. Install it, run a quick smoke test, then ask your agent to apply it to your real task.
-          </p>
-          <div className="steps-grid">
-            <div className="step-card">
-              <div className="step-num">1</div>
-              <strong>{canInstallWithClawHub ? 'Install into your agent' : 'Open the source'}</strong>
-              <span>{canInstallWithClawHub ? 'Copy the ClawHub install command and run it where your OpenClaw/agent environment is configured.' : 'This skill is indexed from GitHub. Review the source and copy the SKILL.md into your agent skill folder if compatible.'}</span>
-            </div>
-            <div className="step-card">
-              <div className="step-num">2</div>
-              <strong>Run a smoke test</strong>
-              <span>Use the test prompt below to confirm the skill loads and understands the workflow before relying on it.</span>
-            </div>
-            <div className="step-card">
-              <div className="step-num">3</div>
-              <strong>Use it in your own agent</strong>
-              <span>Paste your actual task into Claude Code, OpenClaw, Cursor, Manus, or another agent that supports skills.</span>
-            </div>
-          </div>
-          <div className="prompt-box">{testPrompt}</div>
-          <div className="copy-row">
-            {canInstallWithClawHub && <button className="copy-btn" data-cmd={installCmd}>Copy install</button>}
-            <button className="copy-btn" data-cmd={testPrompt}>Copy test prompt</button>
-            <button className="copy-btn" data-cmd={agentConfig}>Copy agent setup</button>
-          </div>
-        </section>
-
-        <section className="next-step-card">
-          <h2 className="next-step-title">Use this skill with your agent</h2>
-          <p className="next-step-sub">
-            Most visitors already have an agent. Pick your environment, install or copy the workflow, then run the smoke-test prompt above.
-          </p>
-          <div className="agent-grid">
-            {agentOptions.map(agent => (
-              <a
-                key={agent.name}
-                className="agent-card"
-                href={agent.href}
-                target={agent.internal ? undefined : '_blank'}
-                rel={agent.internal ? undefined : agent.sponsored ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
-              >
-                <div className="agent-name">
-                  <span>{agent.name}</span>
-                  {agent.sponsored && <span className="sponsored-pill">invite</span>}
+        {/* TWO-COLUMN LAYOUT: main content (left) + sidebar (right) */}
+        <div className="two-col">
+          {/* --- LEFT: Main content --- */}
+          <div className="two-col-main">
+            <section className="next-step-card">
+              <h2 className="next-step-title">What to do next</h2>
+              <p className="next-step-sub">
+                Skills are meant to be used inside your own AI agent. Install it, run a quick smoke test, then ask your agent to apply it to your real task.
+              </p>
+              <div className="steps-grid">
+                <div className="step-card">
+                  <div className="step-num">1</div>
+                  <strong>{canInstallWithClawHub ? 'Install into your agent' : 'Open the source'}</strong>
+                  <span>{canInstallWithClawHub ? 'Copy the ClawHub install command and run it where your OpenClaw/agent environment is configured.' : 'This skill is indexed from GitHub. Review the source and copy the SKILL.md into your agent skill folder if compatible.'}</span>
                 </div>
-                <div className="agent-desc">{agent.desc}</div>
-                <div className="agent-link">{agent.label} →</div>
-              </a>
-            ))}
-          </div>
-        </section>
+                <div className="step-card">
+                  <div className="step-num">2</div>
+                  <strong>Run a smoke test</strong>
+                  <span>Use the test prompt below to confirm the skill loads and understands the workflow before relying on it.</span>
+                </div>
+                <div className="step-card">
+                  <div className="step-num">3</div>
+                  <strong>Use it in your own agent</strong>
+                  <span>Paste your actual task into Manus, OpenClaw, Claude Code, Cursor, or another agent that supports skills.</span>
+                </div>
+              </div>
+              <div className="prompt-box">{testPrompt}</div>
+              <div className="copy-row">
+                {canInstallWithClawHub && <button className="copy-btn" data-cmd={installCmd}>Copy install</button>}
+                <button className="copy-btn" data-cmd={testPrompt}>Copy test prompt</button>
+                <button className="copy-btn" data-cmd={agentConfig}>Copy agent setup</button>
+              </div>
+            </section>
 
-        {/* Related */}
-        <RelatedContent category={skill.category} currentSlug={slug} name={skill.name} tags={tags} />
+            <section className="next-step-card">
+              <h2 className="next-step-title">Use this skill with your agent</h2>
+              <p className="next-step-sub">
+                Most visitors already have an agent. Pick your environment, install or copy the workflow, then run the smoke-test prompt above.
+              </p>
+              <div className="agent-grid">
+                {agentOptions.map(agent => (
+                  <a
+                    key={agent.name}
+                    className="agent-card"
+                    href={agent.href}
+                    target={agent.internal ? undefined : '_blank'}
+                    rel={agent.internal ? undefined : agent.sponsored ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
+                  >
+                    <div className="agent-name">
+                      <span>{agent.name}</span>
+                      {agent.sponsored && <span className="sponsored-pill">invite</span>}
+                    </div>
+                    <div className="agent-desc">{agent.desc}</div>
+                    <div className="agent-link">{agent.label} →</div>
+                  </a>
+                ))}
+              </div>
 
-        {/* CTA banner */}
-        <div className="cta-banner">
-          <div>
-            <p className="cta-title">🔍 Can&apos;t find the right skill?</p>
-            <p className="cta-sub">Search 60,000+ AI agent skills — free, no login needed.</p>
+              {/* CTA banner inside main content */}
+              <div className="cta-banner" style={{ marginTop: 24 }}>
+                <div>
+                  <p className="cta-title">🔍 Can&apos;t find the right skill?</p>
+                  <p className="cta-sub">Search 60,000+ AI agent skills — free, no login needed.</p>
+                </div>
+                <a href="/" className="btn-primary" style={{ fontSize: '.88em', padding: '10px 22px' }}>
+                  Search Skills →
+                </a>
+              </div>
+            </section>
           </div>
-          <a href="/" className="btn-primary" style={{ fontSize: '.88em', padding: '10px 22px' }}>
-            Search Skills →
-          </a>
+
+          {/* --- RIGHT: Sidebar --- */}
+          <div className="two-col-side">
+            <RelatedContent category={skill.category} currentSlug={slug} name={skill.name} tags={tags} />
+          </div>
         </div>
       </div>
 
