@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import RelatedContent from '@/app/components/RelatedContent'
 import SkillActions from '@/app/components/SkillActions'
+import FullSkillDescription from '@/app/components/FullSkillDescription'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
@@ -249,44 +250,33 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
             )}
           </div>
 
-          {/* Install command */}
-          {canInstallWithClawHub && (
-            <div className="install-box">
-              <div className="install-header">
-                <div className="install-dots">
-                  <div className="dot" style={{ background: '#ff5f57' }} />
-                  <div className="dot" style={{ background: '#febc2e' }} />
-                  <div className="dot" style={{ background: '#28c840' }} />
-                </div>
-                <span className="install-label">TERMINAL</span>
-                <span style={{ width: 52 }} />
-              </div>
-              <div className="install-body">
-                <code className="install-cmd">$ {installCmd}</code>
-                <button className="copy-btn" onClick={undefined}
-                  data-cmd={installCmd}>
-                  Copy
-                </button>
-              </div>
-            </div>
-          )}
+          {/* Full description (expanded from ClawHub) */}
+          <FullSkillDescription slug={installSlug} source={source} />
 
-          {/* Action buttons + disclaimer row */}
-          <div className="actions-row" style={{ marginBottom: 12 }}>
-            <button className="btn-secondary copy-btn" data-cmd={testPrompt} style={{ cursor: 'pointer' }}>
+          {/* Quick-install row — compact inline */}
+          <div className="actions-row" style={{ marginBottom: 14, gap: 8 }}>
+            {canInstallWithClawHub && (
+              <span className="quick-install" style={{
+                display: 'inline-flex', alignItems: 'center', gap: 8,
+                background: '#070714', border: '1px solid #1e1e3f', borderRadius: 8,
+                padding: '6px 12px', fontSize: '.82em', flexWrap: 'wrap',
+              }}>
+                <code style={{ color: '#a5f3fc', fontFamily: 'monospace' }}>$ {installCmd}</code>
+                <button className="copy-btn" data-cmd={installCmd} style={{ fontSize: '.75em' }}>Copy</button>
+              </span>
+            )}
+            <button className="copy-btn" data-cmd={testPrompt} style={{
+              background: '#6366f115', color: '#6366f1', border: '1px solid #6366f130',
+              borderRadius: 8, padding: '6px 12px', fontSize: '.82em', cursor: 'pointer', whiteSpace: 'nowrap'
+            }}>
               Copy test prompt
             </button>
-            <a href={`/skills?q=${encodeURIComponent(skill.name || slug)}`} className="btn-secondary">
-              Find similar
+            <a href={externalUrl} target="_blank" rel="noopener" className="btn-secondary" style={{
+              padding: '6px 12px', fontSize: '.82em', borderRadius: 8, background: 'transparent',
+              border: '1px solid #1e1e3f', color: '#6b7280', textDecoration: 'none', whiteSpace: 'nowrap'
+            }}>
+              Source
             </a>
-            <a href={externalUrl} target="_blank" rel="noopener" className="btn-secondary">
-              Original source
-            </a>
-          </div>
-
-          <div className="disclaimer" style={{ margin: 0 }}>
-            📋 <a href={externalUrl} target="_blank" rel="noopener">{sm.label}</a> indexed summary.{' '}
-            BytesAgain keeps discovery on-site. Source ownership remains with the author/platform. Not affiliated.
           </div>
         </div>
 
