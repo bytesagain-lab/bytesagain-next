@@ -3,7 +3,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
 const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://jfpeycpiyayrpjldppzq.supabase.co'
-const SB_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+// Vercel doesn't get .env.local, so fallback to hardcoded key
+const SB_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || 'sbp_05f85e90abd5f8ab19f1d7134146262a03fe6e5f78d6'
 
 function supabase() {
   return createClient(SB_URL, SB_KEY)
