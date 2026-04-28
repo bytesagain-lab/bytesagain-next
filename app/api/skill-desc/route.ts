@@ -9,25 +9,6 @@ function supabase() {
   return createClient(SB_URL, SB_KEY)
 }
 
-async function fetchGitHubRaw(owner: string, repo: string, path: string): Promise<string | null> {
-  // Use raw.githubusercontent.com — no rate limits for public files
-  // Try main first, then master
-  let url = `https://raw.githubusercontent.com/${owner}/${repo}/main/${path}`
-  let res = await fetch(url, { next: { revalidate: 3600 } })
-  if (!res.ok) {
-    url = `https://raw.githubusercontent.com/${owner}/${repo}/master/${path}`
-    res = await fetch(url, { next: { revalidate: 3600 } })
-  }
-  try {
-    const res = await fetch(url, { next: { revalidate: 3600 } })
-    if (res.ok) {
-      const text = await res.text()
-      if (text && text.length > 100) return text
-    }
-  } catch {}
-  return null
-}
-
 export async function GET(req: NextRequest) {
   const slug = req.nextUrl.searchParams.get('slug') || ''
   const source = req.nextUrl.searchParams.get('source') || 'clawhub'
@@ -44,45 +25,68 @@ export async function GET(req: NextRequest) {
   const owner = (skill as any)?.owner || ''
   const sourceUrl = (skill as any)?.source_url || ''
 
-  // Try raw.githubusercontent.com for SKILL.md
-  const attempts: { owner: string; repo: string; path: string }[] = []
+  // Strategy 1: GitHub raw — fast, no rate limit for public repos
+  // Only works when owner name matches GitHub username exactly
+  const ghAttempts: { owner: string; repo: string; path: string }[] = []
 
   if (source === 'bytesagain' || source === 'official') {
-    attempts.push({ owner: 'bytesagain', repo: 'ai-skills', path: `${slug}/SKILL.md` })
+    ghAttempts.push({ owner: 'bytesagain', repo: 'ai-skills', path: `${slug}/SKILL.md` })
   }
 
   if (source === 'clawhub' && owner) {
-    // Try common patterns
-    attempts.push({ owner, repo: slug, path: 'SKILL.md' })
-    attempts.push({ owner, repo: `ai-skills`, path: `skills/${slug}/SKILL.md` })
-    attempts.push({ owner, repo: `ai-skills`, path: `${slug}/SKILL.md` })
-    attempts.push({ owner, repo: `gentle-agent-skills`, path: `${slug}/SKILL.md` })
-    attempts.push({ owner, repo: `claude-code-skills`, path: `${slug}/SKILL.md` })
-    attempts.push({ owner, repo: `ai-scripts`, path: `${slug}/SKILL.md` })
-    attempts.push({ owner, repo: `skills`, path: `${slug}/SKILL.md` })
+    ghAttempts.push(
+      { owner, repo: slug, path: 'SKILL.md' },
+      { owner, repo: `ai-skills`, path: `skills/${slug}/SKILL.md` },
+      { owner, repo: `ai-skills`, path: `${slug}/SKILL.md` },
+    )
   }
 
-  // Also try from source_url patterns
-  if (sourceUrl) {
-    const m = sourceUrl.match(/clawhub\.ai\/([^/]+)\/([^/]+)/)
-    if (m) {
-      const sOwner = m[1], sSlug = m[2]
-      if (sOwner !== owner) {
-        attempts.push({ owner: sOwner, repo: sSlug, path: 'SKILL.md' })
-      }
+  // Try main first, then master
+  for (const { owner: o, repo: r, path: p } of ghAttempts) {
+    for (const branch of ['main', 'master']) {
+      try {
+        const res = await fetch(`https://raw.githubusercontent.com/${o}/${r}/${branch}/${p}`, {
+          next: { revalidate: 3600 },
+        })
+        if (res.ok) {
+          const fullMd = await res.text()
+          if (fullMd && fullMd.length > 100) {
+            const descMatch = fullMd.match(/description:\s*"([^"]+)"/)
+            const summary = descMatch ? descMatch[1] : dbDesc
+            return NextResponse.json({ summary, full_description: fullMd }, {
+              headers: { 'Cache-Control': 'public, max-age=86400' },
+            })
+          }
+        }
+      } catch {}
     }
   }
 
-  for (const a of attempts) {
-    const fullMd = await fetchGitHubRaw(a.owner, a.repo, a.path)
-    if (fullMd) {
-      const descMatch = fullMd.match(/description:\s*"([^"]+)"/)
-      const summary = descMatch ? descMatch[1] : dbDesc
-      return NextResponse.json({ summary, full_description: fullMd }, {
-        headers: { 'Cache-Control': 'public, max-age=86400' },
+  // Strategy 2: Jina Reader — fetch SKILL.md from ClawHub page
+  // Most reliable for third-party skills
+  if (owner && sourceUrl) {
+    try {
+      const pageUrl = `https://clawhub.ai/${owner}/${slug}`
+      const jinaRes = await fetch(`https://r.jina.ai/http://${pageUrl}`, {
+        next: { revalidate: 3600 },
+        headers: { 'x-return-format': 'markdown', 'Accept': 'text/markdown' },
       })
-    }
+      if (jinaRes.ok) {
+        const text = await jinaRes.text()
+        // Strip Jina headers (Title: / URL Source: / Markdown Content: lines)
+        const bodyMatch = text.match(/\n---\n([\s\S]*)/)
+        const content = bodyMatch ? bodyMatch[1].trim() : text
+        if (content && content.length > 300) {
+          const descMatch = content.match(/description:\s*"([^"]+)"/)
+          const summary = descMatch ? descMatch[1] : dbDesc
+          return NextResponse.json({ summary, full_description: content }, {
+            headers: { 'Cache-Control': 'public, max-age=3600' },
+          })
+        }
+      }
+    } catch {}
   }
 
+  // Fallback
   return NextResponse.json({ summary: dbDesc, full_description: null })
 }
