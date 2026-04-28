@@ -5,10 +5,10 @@ export const metadata: Metadata = { title: 'Use Case Lab — E-commerce Agent Up
 
 const skills = [
   { slug: 'shopify-helper', name: 'Shopify Helper', downloads: 1661, role: 'Store operations', reason: 'BytesAgain-owned asset; directly maps to Shopify storefront/product workflow.', tested: 'Smoke target: produce product/store action checklist and safe execution steps.' },
-  { slug: 'clawhub-shopify-admin-api', name: 'Shopify Admin API', downloads: 4753, role: 'Shopify integration', reason: 'Higher proof signal for Shopify API tasks and admin automation.', tested: 'Smoke target: explain API-safe product update and inventory workflow.' },
-  { slug: 'clawhub-product-description-generator', name: 'Product Description Generator', downloads: 1740, role: 'Listing copy', reason: 'Specific to product copy; good fit for listing generation and optimization.', tested: 'Smoke target: generate title, bullet points, SEO description, and variants.' },
-  { slug: 'clawhub-ecommerce-image-asset-generator', name: 'Ecommerce Image Asset Generator', downloads: 784, role: 'Product media', reason: 'Complements listing copy with image/asset production.', tested: 'Smoke target: create image brief, asset checklist, and channel variants.' },
-  { slug: 'clawhub-ecommerce-product-picker', name: 'Cross-Border Ecommerce Product Picker', downloads: 704, role: 'Product research', reason: 'Useful before listing: product selection and cross-border market fit.', tested: 'Smoke target: evaluate product opportunities and localization risks.' },
+  { slug: 'shopify-admin-api', name: 'Shopify Admin API', downloads: 4753, role: 'Shopify integration', reason: 'Higher proof signal for Shopify API tasks and admin automation.', tested: 'Smoke target: explain API-safe product update and inventory workflow.' },
+  { slug: 'product-description-generator', name: 'Product Description Generator', downloads: 1740, role: 'Listing copy', reason: 'Specific to product copy; good fit for listing generation and optimization.', tested: 'Smoke target: generate title, bullet points, SEO description, and variants.' },
+  { slug: 'ecommerce-image-asset-generator', name: 'Ecommerce Image Asset Generator', downloads: 784, role: 'Product media', reason: 'Complements listing copy with image/asset production.', tested: 'Smoke target: create image brief, asset checklist, and channel variants.' },
+  { slug: 'ecommerce-product-picker', name: 'Cross-Border Ecommerce Product Picker', downloads: 704, role: 'Product research', reason: 'Useful before listing: product selection and cross-border market fit.', tested: 'Smoke target: evaluate product opportunities and localization risks.' },
 ]
 
 const workflow = [

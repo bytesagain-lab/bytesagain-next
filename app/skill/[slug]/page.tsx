@@ -38,9 +38,15 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
   const { slug } = await params
   let skill = await getSkill(slug)
 
+  // Fallback: strip clawhub- prefix for backward-compat after DB cleanup
+  if (!skill && slug.startsWith('clawhub-')) {
+    skill = await getSkill(slug.slice('clawhub-'.length))
+  }
+
   if (!skill) {
     try {
-      const res = await fetch(`https://clawhub.ai/api/v1/skills/${slug}`, { next: { revalidate: 3600 } })
+      const apiSlug = slug.startsWith('clawhub-') ? slug.slice('clawhub-'.length) : slug
+      const res = await fetch(`https://clawhub.ai/api/v1/skills/${apiSlug}`, { next: { revalidate: 3600 } })
       if (res.ok) {
         const d = await res.json()
         const s = d.skill || {}
@@ -81,10 +87,8 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
   const OUR_ACCOUNTS = ['ckchzh', 'xueyetianya', 'bytesagain3', 'bytesagain-lab', 'loutai0307-prog', 'bytesagain1']
   const isOurs = (skill as any).is_ours === true || OUR_ACCOUNTS.includes(skill.owner || '')
 
-  // Strip clawhub- prefix from slug for install command
-  // clawhub-self-improving-agent → self-improving-agent (real ClawHub slug)
-  // bytesagain-xxx stays as-is (our own brand slug, original on ClawHub)
-  const installSlug = slug.replace(/^clawhub-/, '')
+  // slug 已经是 clean 格式，直接用于 install
+  const installSlug = slug
   const installCmd = `clawhub install ${installSlug}`
   const canInstallWithClawHub = source !== 'github'
   const testPrompt = `I just installed the ${skill.name || slug} skill. Please run a quick smoke test: explain what this skill can do, ask me for the minimum input it needs, then produce one small sample output for a realistic task.`

@@ -8,11 +8,11 @@ export const metadata: Metadata = {
 }
 
 const skills = [
-  { slug: 'clawhub-seo', name: 'SEO', downloads: 10665, role: 'Google visibility', reason: 'Audits title, meta, internal links, content gaps, keyword intent, and crawlability.', test: 'Check title/meta/canonical/H1/internal links and output prioritized fixes.' },
-  { slug: 'clawhub-geo-content-optimizer', name: 'GEO Content Optimizer', downloads: 2080, role: 'AI-search visibility', reason: 'Packages content so AI search engines can quote, summarize, and cite it.', test: 'Create answer-first blocks, FAQs, source-like summaries, and structured snippets.' },
-  { slug: 'clawhub-superdesign', name: 'SuperDesign', downloads: 29879, role: 'UX trust and conversion', reason: 'Turns rough AI-generated pages into credible, modern landing pages.', test: 'Inspect page hierarchy and produce improved sections, visual rhythm, and CTA structure.' },
-  { slug: 'clawhub-ga4-analytics', name: 'GA4 Analytics', downloads: 5932, role: 'Traffic diagnosis', reason: 'Validates whether traffic, sources, engagement, and landing pages are actually improving.', test: 'Read GA4-style metrics and recommend the next SEO/GEO experiments.' },
-  { slug: 'clawhub-playwright-mcp', name: 'Playwright MCP', downloads: 34130, role: 'Browser verification', reason: 'Closes the loop by opening pages, checking links, UI, status codes, and screenshots.', test: 'Verify page loads, CTA links, visible text, mobile layout, and key SEO elements.' },
+  { slug: 'seo', name: 'SEO', downloads: 10665, role: 'Google visibility', reason: 'Audits title, meta, internal links, content gaps, keyword intent, and crawlability.', test: 'Check title/meta/canonical/H1/internal links and output prioritized fixes.' },
+  { slug: 'geo-content-optimizer', name: 'GEO Content Optimizer', downloads: 2080, role: 'AI-search visibility', reason: 'Packages content so AI search engines can quote, summarize, and cite it.', test: 'Create answer-first blocks, FAQs, source-like summaries, and structured snippets.' },
+  { slug: 'superdesign', name: 'SuperDesign', downloads: 29879, role: 'UX trust and conversion', reason: 'Turns rough AI-generated pages into credible, modern landing pages.', test: 'Inspect page hierarchy and produce improved sections, visual rhythm, and CTA structure.' },
+  { slug: 'ga4-analytics', name: 'GA4 Analytics', downloads: 5932, role: 'Traffic diagnosis', reason: 'Validates whether traffic, sources, engagement, and landing pages are actually improving.', test: 'Read GA4-style metrics and recommend the next SEO/GEO experiments.' },
+  { slug: 'playwright-mcp', name: 'Playwright MCP', downloads: 34130, role: 'Browser verification', reason: 'Closes the loop by opening pages, checking links, UI, status codes, and screenshots.', test: 'Verify page loads, CTA links, visible text, mobile layout, and key SEO elements.' },
 ]
 
 const workflow = [

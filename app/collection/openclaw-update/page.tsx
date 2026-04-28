@@ -13,25 +13,25 @@ const SKILL_PACKS = [
     skills: [
       { name: 'Grok MCP', slug: 'mcp-grok-mcp' },
       { name: 'Vision', slug: 'vision' },
-      { name: 'Fish Audio', slug: 'clawhub-acedatacloud-fish-audio' },
+      { name: 'Fish Audio', slug: 'acedatacloud-fish-audio' },
     ],
   },
   {
     title: '🎤 Voice & Audio Pack',
     desc: 'Voice note processing, speech tools, and audio workflows',
     skills: [
-      { name: 'mmEasyVoice', slug: 'clawhub-mm-easy-voice' },
-      { name: 'Azure AI VoiceLive', slug: 'clawhub-azure-ai-voicelive-py' },
-      { name: 'QwenSpeak', slug: 'clawhub-qwenspeak' },
+      { name: 'mmEasyVoice', slug: 'mm-easy-voice' },
+      { name: 'Azure AI VoiceLive', slug: 'azure-ai-voicelive-py' },
+      { name: 'QwenSpeak', slug: 'qwenspeak' },
     ],
   },
   {
     title: '🧰 Local TUI Skills',
     desc: 'Offline-capable CLI agents for terminal-heavy workflows',
     skills: [
-      { name: 'tmux Terminal', slug: 'clawhub-imbeasting-tmux-terminal' },
+      { name: 'tmux Terminal', slug: 'imbeasting-tmux-terminal' },
       { name: 'Shell', slug: 'shell' },
-      { name: 'Agent Browser', slug: 'clawhub-agent-browser-clawdbot' },
+      { name: 'Agent Browser', slug: 'agent-browser-clawdbot' },
     ],
   },
 ]

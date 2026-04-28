@@ -154,7 +154,7 @@ export const USE_CASES: UseCase[] = [
     description: 'AI skills for YouTubers, bloggers, and social media creators who want to produce more content with less effort.',
     icon: '🎬',
     skills: [
-      { slug: 'clawhub-content-strategy', name: 'Content Strategy', reason: 'Top-rated content skill with 6579 downloads' }, { slug: 'shopify-toolkit', name: 'shopify toolkit', reason: 'Top-rated toolkit skill with 499 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated toolkit skill with 426 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated toolkit skill with 371 downloads' }, { slug: 'discord-toolkit', name: 'discord toolkit', reason: 'Top-rated toolkit skill with 340 downloads' }
+      { slug: 'content-strategy', name: 'Content Strategy', reason: 'Top-rated content skill with 6579 downloads' }, { slug: 'shopify-toolkit', name: 'shopify toolkit', reason: 'Top-rated toolkit skill with 499 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated toolkit skill with 426 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated toolkit skill with 371 downloads' }, { slug: 'discord-toolkit', name: 'discord toolkit', reason: 'Top-rated toolkit skill with 340 downloads' }
     ],
   },
   {
@@ -574,7 +574,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Generate SEO-optimized blog posts, newsletters, and social media captions in seconds.',
     icon: '✍️',
     skills: [
-      { slug: 'coze-studio', name: 'Coze Studio', reason: 'Top-rated studio skill with 277 downloads' }, { slug: 'azuredatastudio', name: 'azuredatastudio', reason: 'Top-rated studio skill with 264 downloads' }, { slug: 'clawhub-content-strategy', name: 'Content Strategy', reason: 'Top-rated content skill with 6579 downloads' }
+      { slug: 'coze-studio', name: 'Coze Studio', reason: 'Top-rated studio skill with 277 downloads' }, { slug: 'azuredatastudio', name: 'azuredatastudio', reason: 'Top-rated studio skill with 264 downloads' }, { slug: 'content-strategy', name: 'Content Strategy', reason: 'Top-rated content skill with 6579 downloads' }
     ],
     searchLink: '/skills?q=blog+social+newsletter',
   },
@@ -2938,7 +2938,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Create contracts and forms using AI templates.',
     icon: '💼',
     skills: [
-      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios t', reason: 'It is designed for scenarios t' }, { slug: 'bookmark-keeper', name: 'bookmark keeper', reason: 'bookmark keeper' }, { slug: 'clawhub-generate-drama', name: 'generate-drama', reason: 'Top-rated generate skill with 156 downloads' }, { slug: 'zapier-recipe', name: 'Automation Recipe', reason: 'Automation Recipe' }
+      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios t', reason: 'It is designed for scenarios t' }, { slug: 'bookmark-keeper', name: 'bookmark keeper', reason: 'bookmark keeper' }, { slug: 'generate-drama', name: 'generate-drama', reason: 'Top-rated generate skill with 156 downloads' }, { slug: 'zapier-recipe', name: 'Automation Recipe', reason: 'Automation Recipe' }
     ],
   },
   {
@@ -2979,7 +2979,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Write professional LinkedIn posts that build thought leadership, generate engagement, and grow your network.',
     icon: '💼',
     skills: [
-      { slug: 'linkedin-post', name: 'linkedin post', reason: 'Top-rated linkedin skill with 382 downloads' }, { slug: 'clawhub-stackunderflow', name: 'StackUnderflow Search and Post', reason: 'Top-rated post skill with 1841 downloads' }, { slug: 'clawhub-postthatlater', name: 'PostThatLater', reason: 'Top-rated post skill with 215 downloads' }
+      { slug: 'linkedin-post', name: 'linkedin post', reason: 'Top-rated linkedin skill with 382 downloads' }, { slug: 'stackunderflow', name: 'StackUnderflow Search and Post', reason: 'Top-rated post skill with 1841 downloads' }, { slug: 'postthatlater', name: 'PostThatLater', reason: 'Top-rated post skill with 215 downloads' }
     ],
   },
   {
@@ -2988,7 +2988,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Tailor your resume to specific job descriptions, pass ATS filters, and highlight your most relevant achievements.',
     icon: '📄',
     skills: [
-      { slug: 'clawhub-resume-master', name: 'Resume Master', reason: 'Top-rated resume skill with 127 downloads' }, { slug: 'clawhub-seo-optimizer-cn', name: 'SEO Optimizer 违禁词检查', reason: 'Top-rated optimizer skill with 458 downloads' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Organizes job search tasks' }
+      { slug: 'resume-master', name: 'Resume Master', reason: 'Top-rated resume skill with 127 downloads' }, { slug: 'seo-optimizer-cn', name: 'SEO Optimizer 违禁词检查', reason: 'Top-rated optimizer skill with 458 downloads' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Organizes job search tasks' }
     ],
   },
   {
@@ -3006,7 +3006,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Get automated code reviews that catch bugs, suggest improvements, and enforce best practices across your codebase.',
     icon: '🔍',
     skills: [
-      { slug: 'code-generator', name: 'Code Generator', reason: 'Generates and reviews code' }, { slug: 'clawhub-ai-code-assistant', name: 'Ai Code Assistant', reason: 'Top-rated code skill with 758 downloads' }, { slug: 'sql-generator', name: 'Clawhub Sql Assistant', reason: 'Reviews database queries' }
+      { slug: 'code-generator', name: 'Code Generator', reason: 'Generates and reviews code' }, { slug: 'ai-code-assistant', name: 'Ai Code Assistant', reason: 'Top-rated code skill with 758 downloads' }, { slug: 'sql-generator', name: 'Clawhub Sql Assistant', reason: 'Reviews database queries' }
     ],
   },
   {
@@ -3049,7 +3049,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Design end-to-end email campaigns from subject lines to sequences that nurture leads and drive conversions.',
     icon: '📧',
     skills: [
-      { slug: 'email-template', name: 'Clawhub Email Drip', reason: 'Automates email sequences' }, { slug: 'clawhub-unione', name: 'UniOne Email API', reason: 'Top-rated email skill with 1384 downloads' }, { slug: 'leads', name: 'Clawhub Lead Gen', reason: 'Identifies target audience segments' }
+      { slug: 'email-template', name: 'Clawhub Email Drip', reason: 'Automates email sequences' }, { slug: 'unione', name: 'UniOne Email API', reason: 'Top-rated email skill with 1384 downloads' }, { slug: 'leads', name: 'Clawhub Lead Gen', reason: 'Identifies target audience segments' }
     ],
   },
   {
@@ -3058,7 +3058,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Deep-dive into crypto project whitepapers — extract tokenomics, team credibility, tech stack, and red flags.',
     icon: '📑',
     skills: [
-      { slug: 'clawhub-asrai-x402', name: 'Asrai Crypto Analysis (x402)', reason: 'Top-rated crypto skill with 614 downloads' }, { slug: 'crypto-tracker-cn', name: 'crypto-tracker-cn', reason: 'Top-rated crypto skill with 543 downloads' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Structures whitepaper insights' }
+      { slug: 'asrai-x402', name: 'Asrai Crypto Analysis (x402)', reason: 'Top-rated crypto skill with 614 downloads' }, { slug: 'crypto-tracker-cn', name: 'crypto-tracker-cn', reason: 'Top-rated crypto skill with 543 downloads' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Structures whitepaper insights' }
     ],
   },
   {
@@ -3110,7 +3110,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Write SEO-optimized product descriptions that highlight benefits, build desire, and convert browsers to buyers.',
     icon: '🛍️',
     skills: [
-      { slug: 'product-desc', name: 'product desc', reason: 'Top-rated product skill with 402 downloads' }, { slug: 'clawhub-skill-dropship-product-pipeline', name: 'Dropship Product Pipeline', reason: 'Top-rated product skill with 305 downloads' }, { slug: 'clawhub-amazon-product-research-skill', name: 'Amazon Product Research', reason: 'Top-rated product skill with 201 downloads' }
+      { slug: 'product-desc', name: 'product desc', reason: 'Top-rated product skill with 402 downloads' }, { slug: 'skill-dropship-product-pipeline', name: 'Dropship Product Pipeline', reason: 'Top-rated product skill with 305 downloads' }, { slug: 'amazon-product-research-skill', name: 'Amazon Product Research', reason: 'Top-rated product skill with 201 downloads' }
     ],
   },
   {
@@ -3146,7 +3146,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Find relevant influencers, craft personalized pitches, and manage outreach campaigns to amplify your brand.',
     icon: '🤝',
     skills: [
-      { slug: 'leads', name: 'Clawhub Lead Gen', reason: 'Influencer prospect research' }, { slug: 'email-template', name: 'Clawhub Email Drip', reason: 'Automated outreach sequences' }, { slug: 'clawhub-influencer-plan', name: 'Influencer-Plan', reason: 'Top-rated influencer skill with 145 downloads' }
+      { slug: 'leads', name: 'Clawhub Lead Gen', reason: 'Influencer prospect research' }, { slug: 'email-template', name: 'Clawhub Email Drip', reason: 'Automated outreach sequences' }, { slug: 'influencer-plan', name: 'Influencer-Plan', reason: 'Top-rated influencer skill with 145 downloads' }
     ],
   },
   {
@@ -3155,7 +3155,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Generate multiple ad copy variations for A/B testing across Facebook, Google, and TikTok campaigns.',
     icon: '🎯',
     skills: [
-      { slug: 'clawhub-content-ideas-generator', name: 'Content Ideas Generator', reason: 'Top-rated generator skill with 2941 downloads' }, { slug: 'code-generator', name: 'code generator', reason: 'Top-rated generator skill with 1683 downloads' }, { slug: 'api-generator', name: 'api generator', reason: 'Top-rated generator skill with 1081 downloads' }
+      { slug: 'content-ideas-generator', name: 'Content Ideas Generator', reason: 'Top-rated generator skill with 2941 downloads' }, { slug: 'code-generator', name: 'code generator', reason: 'Top-rated generator skill with 1683 downloads' }, { slug: 'api-generator', name: 'api generator', reason: 'Top-rated generator skill with 1081 downloads' }
     ],
   },
   {
@@ -3187,7 +3187,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Extract key findings, methodology, and conclusions from academic papers in minutes instead of hours.',
     icon: '🔬',
     skills: [
-      { slug: 'clawhub-deep-research-pro', name: 'Deep Research Pro', reason: 'Top-rated research skill with 25135 downloads' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Research data synthesis' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Top-rated research skill with 1200 downloads' }
+      { slug: 'deep-research-pro', name: 'Deep Research Pro', reason: 'Top-rated research skill with 25135 downloads' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Research data synthesis' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Top-rated research skill with 1200 downloads' }
     ],
   },
   {
@@ -3196,7 +3196,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Research funding opportunities, draft compelling grant proposals, and format applications to meet submission requirements.',
     icon: '🏆',
     skills: [
-      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Top-rated writing skill with 1200 downloads' }, { slug: 'clawhub-ai-code-assistant', name: 'Ai Code Assistant', reason: 'Top-rated assistant skill with 758 downloads' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Grant deadline management' }
+      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Top-rated writing skill with 1200 downloads' }, { slug: 'ai-code-assistant', name: 'Ai Code Assistant', reason: 'Top-rated assistant skill with 758 downloads' }, { slug: 'task-planner', name: 'Task Planner', reason: 'Grant deadline management' }
     ],
   },
   {
@@ -3214,7 +3214,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Organize tax documents, identify deductions, and prepare summaries to make tax filing faster and stress-free.',
     icon: '🧾',
     skills: [
-      { slug: 'court-prep', name: 'court prep', reason: 'Top-rated prep skill with 371 downloads' }, { slug: 'clawhub-ai-code-assistant', name: 'Ai Code Assistant', reason: 'Top-rated assistant skill with 758 downloads' }, { slug: 'legal-advisor', name: 'Legal Document Analyzer', reason: 'Tax document review' }
+      { slug: 'court-prep', name: 'court prep', reason: 'Top-rated prep skill with 371 downloads' }, { slug: 'ai-code-assistant', name: 'Ai Code Assistant', reason: 'Top-rated assistant skill with 758 downloads' }, { slug: 'legal-advisor', name: 'Legal Document Analyzer', reason: 'Tax document review' }
     ],
   },
 
@@ -3242,7 +3242,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Streamline legal workflows using AI-powered tools.',
     icon: '💼',
     skills: [
-      { slug: 'clawhub-tavily', name: 'Tavily AI Search', reason: 'Tavily AI Search' }, { slug: 'legal-advisor', name: 'legal advisor', reason: 'Top-rated legal skill with 1126 downloads' }, { slug: 'clawhub-deep-research-pro', name: 'Deep Research Pro', reason: 'Deep Research Pro' }, { slug: 'precedent', name: 'Precedent — Legal Precedent Reference', reason: 'Top-rated legal skill with 100 downloads' }
+      { slug: 'tavily', name: 'Tavily AI Search', reason: 'Tavily AI Search' }, { slug: 'legal-advisor', name: 'legal advisor', reason: 'Top-rated legal skill with 1126 downloads' }, { slug: 'deep-research-pro', name: 'Deep Research Pro', reason: 'Deep Research Pro' }, { slug: 'precedent', name: 'Precedent — Legal Precedent Reference', reason: 'Top-rated legal skill with 100 downloads' }
     ],
   },
   {
@@ -3251,7 +3251,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Leverage AI SEO tools to boost startup visibility.',
     icon: '💼',
     skills: [
-      { slug: 'clawhub-seo-optimizer-cn', name: 'SEO Optimizer 违禁词检查', reason: 'Top-rated optimize skill with 458 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
+      { slug: 'seo-optimizer-cn', name: 'SEO Optimizer 违禁词检查', reason: 'Top-rated optimize skill with 458 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
     ],
   },
   {
@@ -3260,7 +3260,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Use AI to manage and grow freelance marketing efforts.',
     icon: '💼',
     skills: [
-      { slug: 'clawhub-marketing-copy-knowledge', name: 'Marketing Copy Knowledge', reason: 'Top-rated marketing skill with 1290 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
+      { slug: 'marketing-copy-knowledge', name: 'Marketing Copy Knowledge', reason: 'Top-rated marketing skill with 1290 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
     ],
   },
 
@@ -3269,35 +3269,35 @@ export const USE_CASES: UseCase[] = [
     title: 'Automate content creation for writers',
     description: 'Streamline writing tasks with AI-powered tools.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-youtube-watcher', name: 'YouTube Watcher', reason: 'YouTube Watcher' }, { slug: 'clawhub-imap-smtp-email', name: 'imap-smtp-email', reason: 'imap-smtp-email' }, { slug: 'clawhub-liang-tavily-search', name: 'Tavily Search', reason: 'Tavily Search' }, { slug: 'clawhub-xiaohongshu-mcp', name: 'Xiaohongshu (小红书) Automation', reason: 'Xiaohongshu (小红书) Automation' }],
+    skills: [{ slug: 'youtube-watcher', name: 'YouTube Watcher', reason: 'YouTube Watcher' }, { slug: 'imap-smtp-email', name: 'imap-smtp-email', reason: 'imap-smtp-email' }, { slug: 'liang-tavily-search', name: 'Tavily Search', reason: 'Tavily Search' }, { slug: 'xiaohongshu-mcp', name: 'Xiaohongshu (小红书) Automation', reason: 'Xiaohongshu (小红书) Automation' }],
   },
   {
     slug: 'video-production-ai',
     title: 'Generate professional videos quickly',
     description: 'Create high-quality video content with AI tools.',
     icon: '✍️',
-    skills: [{ slug: 'clawhub-ffmpeg-video-editor', name: 'ffmpeg-video-editor', reason: 'ffmpeg-video-editor' }, { slug: 'clawhub-image-edit', name: 'Image Editing', reason: 'Image Editing' }, { slug: 'clawhub-image-generation', name: 'AI Image Generation', reason: 'AI Image Generation' }, { slug: 'clawhub-ai-video-gen', name: 'Ai Video Gen', reason: 'Ai Video Gen' }],
+    skills: [{ slug: 'ffmpeg-video-editor', name: 'ffmpeg-video-editor', reason: 'ffmpeg-video-editor' }, { slug: 'image-edit', name: 'Image Editing', reason: 'Image Editing' }, { slug: 'image-generation', name: 'AI Image Generation', reason: 'AI Image Generation' }, { slug: 'ai-video-gen', name: 'Ai Video Gen', reason: 'Ai Video Gen' }],
   },
   {
     slug: 'legal-doc-automation',
     title: 'Automate legal document drafting',
     description: 'Generate legal documents faster with AI.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-tavily', name: 'Tavily AI Search', reason: 'Tavily AI Search' }, { slug: 'clawhub-web-search', name: 'Web Search', reason: 'Web Search' }, { slug: 'clawhub-web-search-exa', name: 'Web Search by Exa', reason: 'Web Search by Exa' }, { slug: 'clawhub-deep-research-pro', name: 'Deep Research Pro', reason: 'Deep Research Pro' }],
+    skills: [{ slug: 'tavily', name: 'Tavily AI Search', reason: 'Tavily AI Search' }, { slug: 'web-search', name: 'Web Search', reason: 'Web Search' }, { slug: 'web-search-exa', name: 'Web Search by Exa', reason: 'Web Search by Exa' }, { slug: 'deep-research-pro', name: 'Deep Research Pro', reason: 'Deep Research Pro' }],
   },
   {
     slug: 'freelancer-marketing-tool',
     title: 'Boost freelance marketing efforts',
     description: 'Use AI to enhance client acquisition and branding.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-mailchimp', name: 'Mailchimp', reason: 'Mailchimp' }, { slug: 'clawhub-marketing-skills', name: 'Marketing Skills', reason: 'Marketing Skills' }, { slug: 'clawhub-frontend-design-ultimate', name: 'Frontend Design Ultimate', reason: 'Frontend Design Ultimate' }, { slug: 'clawhub-marketing-strategy-pmm', name: 'Marketing Strategy Pmm', reason: 'Marketing Strategy Pmm' }],
+    skills: [{ slug: 'mailchimp', name: 'Mailchimp', reason: 'Mailchimp' }, { slug: 'marketing-skills', name: 'Marketing Skills', reason: 'Marketing Skills' }, { slug: 'frontend-design-ultimate', name: 'Frontend Design Ultimate', reason: 'Frontend Design Ultimate' }, { slug: 'marketing-strategy-pmm', name: 'Marketing Strategy Pmm', reason: 'Marketing Strategy Pmm' }],
   },
   {
     slug: 'video-editing-assistant',
     title: 'Enhance video editing with AI',
     description: 'Simplify the editing process using smart tools.',
     icon: '✍️',
-    skills: [{ slug: 'clawhub-ffmpeg-video-editor', name: 'ffmpeg-video-editor', reason: 'ffmpeg-video-editor' }, { slug: 'clawhub-image-edit', name: 'Image Editing', reason: 'Image Editing' }, { slug: 'clawhub-image-generation', name: 'AI Image Generation', reason: 'AI Image Generation' }, { slug: 'clawhub-ai-video-gen', name: 'Ai Video Gen', reason: 'Ai Video Gen' }],
+    skills: [{ slug: 'ffmpeg-video-editor', name: 'ffmpeg-video-editor', reason: 'ffmpeg-video-editor' }, { slug: 'image-edit', name: 'Image Editing', reason: 'Image Editing' }, { slug: 'image-generation', name: 'AI Image Generation', reason: 'AI Image Generation' }, { slug: 'ai-video-gen', name: 'Ai Video Gen', reason: 'Ai Video Gen' }],
   },
 
   {
@@ -3305,35 +3305,35 @@ export const USE_CASES: UseCase[] = [
     title: 'Automate video production workflows',
     description: 'Streamline video creation with AI-driven automation.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-humanizer', name: 'Humanizer', reason: 'Humanizer' }, { slug: 'clawhub-image-cog', name: 'Image Cog', reason: 'Image Cog' }, { slug: 'clawhub-ffmpeg-video-editor', name: 'ffmpeg-video-editor', reason: 'ffmpeg-video-editor' }, { slug: 'clawhub-best-image-generation', name: 'Best Image Generation', reason: 'Best Image Generation' }],
+    skills: [{ slug: 'humanizer', name: 'Humanizer', reason: 'Humanizer' }, { slug: 'image-cog', name: 'Image Cog', reason: 'Image Cog' }, { slug: 'ffmpeg-video-editor', name: 'ffmpeg-video-editor', reason: 'ffmpeg-video-editor' }, { slug: 'best-image-generation', name: 'Best Image Generation', reason: 'Best Image Generation' }],
   },
   {
     slug: 'podcast-audio-enhancer',
     title: 'Enhance podcast audio quality',
     description: 'Improve clarity and professionalism of audio tracks.',
     icon: '✍️',
-    skills: [{ slug: 'clawhub-markdown-converter', name: 'Markdown Converter', reason: 'Markdown Converter' }, { slug: 'clawhub-pdf-extract', name: 'Pdf Extract', reason: 'Pdf Extract' }, { slug: 'clawhub-pdf-text-extractor', name: 'PDF Text Extractor', reason: 'PDF Text Extractor' }, { slug: 'clawhub-adaptive-reasoning', name: 'Adaptive Reasoning', reason: 'Adaptive Reasoning' }],
+    skills: [{ slug: 'markdown-converter', name: 'Markdown Converter', reason: 'Markdown Converter' }, { slug: 'pdf-extract', name: 'Pdf Extract', reason: 'Pdf Extract' }, { slug: 'pdf-text-extractor', name: 'PDF Text Extractor', reason: 'PDF Text Extractor' }, { slug: 'adaptive-reasoning', name: 'Adaptive Reasoning', reason: 'Adaptive Reasoning' }],
   },
   {
     slug: 'legal-doc-automator',
     title: 'Automate legal document drafting',
     description: 'Generate and review legal documents quickly.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-tavily', name: 'Tavily AI Search', reason: 'Tavily AI Search' }, { slug: 'clawhub-web-search-exa', name: 'Web Search by Exa', reason: 'Web Search by Exa' }, { slug: 'clawhub-web-search', name: 'Web Search', reason: 'Web Search' }, { slug: 'clawhub-deep-research-pro', name: 'Deep Research Pro', reason: 'Deep Research Pro' }],
+    skills: [{ slug: 'tavily', name: 'Tavily AI Search', reason: 'Tavily AI Search' }, { slug: 'web-search-exa', name: 'Web Search by Exa', reason: 'Web Search by Exa' }, { slug: 'web-search', name: 'Web Search', reason: 'Web Search' }, { slug: 'deep-research-pro', name: 'Deep Research Pro', reason: 'Deep Research Pro' }],
   },
   {
     slug: 'content-clip-editor',
     title: 'Edit video clips efficiently',
     description: 'Quickly trim, arrange, and enhance video clips.',
     icon: '✍️',
-    skills: [{ slug: 'clawhub-humanizer', name: 'Humanizer', reason: 'Humanizer' }, { slug: 'clawhub-image-cog', name: 'Image Cog', reason: 'Image Cog' }, { slug: 'clawhub-ffmpeg-video-editor', name: 'ffmpeg-video-editor', reason: 'ffmpeg-video-editor' }, { slug: 'clawhub-best-image-generation', name: 'Best Image Generation', reason: 'Best Image Generation' }],
+    skills: [{ slug: 'humanizer', name: 'Humanizer', reason: 'Humanizer' }, { slug: 'image-cog', name: 'Image Cog', reason: 'Image Cog' }, { slug: 'ffmpeg-video-editor', name: 'ffmpeg-video-editor', reason: 'ffmpeg-video-editor' }, { slug: 'best-image-generation', name: 'Best Image Generation', reason: 'Best Image Generation' }],
   },
   {
     slug: 'podcast-transcription-tool',
     title: 'Transcribe podcast episodes',
     description: 'Convert audio to text for easy reference.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-voice-wake-say', name: 'Voice Wake Say', reason: 'Voice Wake Say' }, { slug: 'clawhub-speech-recognition', name: 'speech-recognition', reason: 'speech-recognition' }, { slug: 'clawhub-tradingview-quantitative-skills', name: 'Tradingview Quantitative', reason: 'Tradingview Quantitative' }, { slug: 'clawhub-clawdbot-skill-voice-wake-say', name: 'Voice Wake Say TTS Responses (', reason: 'Voice Wake Say TTS Responses (' }],
+    skills: [{ slug: 'voice-wake-say', name: 'Voice Wake Say', reason: 'Voice Wake Say' }, { slug: 'speech-recognition', name: 'speech-recognition', reason: 'speech-recognition' }, { slug: 'tradingview-quantitative-skills', name: 'Tradingview Quantitative', reason: 'Tradingview Quantitative' }, { slug: 'clawdbot-skill-voice-wake-say', name: 'Voice Wake Say TTS Responses (', reason: 'Voice Wake Say TTS Responses (' }],
   },
 
   {
@@ -3341,35 +3341,35 @@ export const USE_CASES: UseCase[] = [
     title: 'Automate code reviews with AI',
     description: 'Speed up development with intelligent code analysis.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-elite-longterm-memory', name: 'Elite Longterm Memory', reason: 'Elite Longterm Memory' }, { slug: 'clawhub-code', name: 'Code', reason: 'Code' }, { slug: 'clawhub-opencode-controller', name: 'Opencode-controller', reason: 'Opencode-controller' }, { slug: 'clawhub-cognitive-memory', name: 'Cognitive Memory', reason: 'Cognitive Memory' }],
+    skills: [{ slug: 'elite-longterm-memory', name: 'Elite Longterm Memory', reason: 'Elite Longterm Memory' }, { slug: 'code', name: 'Code', reason: 'Code' }, { slug: 'opencode-controller', name: 'Opencode-controller', reason: 'Opencode-controller' }, { slug: 'cognitive-memory', name: 'Cognitive Memory', reason: 'Cognitive Memory' }],
   },
   {
     slug: 'data-visualization-ai',
     title: 'Generate data visualizations quickly',
     description: 'Turn complex data into clear charts and graphs.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-stock-analysis', name: 'Stock Analysis', reason: 'Stock Analysis' }, { slug: 'clawhub-markdown-converter', name: 'Markdown Converter', reason: 'Markdown Converter' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }, { slug: 'clawhub-data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }],
+    skills: [{ slug: 'stock-analysis', name: 'Stock Analysis', reason: 'Stock Analysis' }, { slug: 'markdown-converter', name: 'Markdown Converter', reason: 'Markdown Converter' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }],
   },
   {
     slug: 'legal-document-summarizer',
     title: 'Summarize legal documents fast',
     description: 'Extract key points from contracts and agreements.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-tavily', name: 'Tavily AI Search', reason: 'Tavily AI Search' }, { slug: 'clawhub-web-search', name: 'Web Search', reason: 'Web Search' }, { slug: 'clawhub-web-search-exa', name: 'Web Search by Exa', reason: 'Web Search by Exa' }, { slug: 'clawhub-deep-research-pro', name: 'Deep Research Pro', reason: 'Deep Research Pro' }],
+    skills: [{ slug: 'tavily', name: 'Tavily AI Search', reason: 'Tavily AI Search' }, { slug: 'web-search', name: 'Web Search', reason: 'Web Search' }, { slug: 'web-search-exa', name: 'Web Search by Exa', reason: 'Web Search by Exa' }, { slug: 'deep-research-pro', name: 'Deep Research Pro', reason: 'Deep Research Pro' }],
   },
   {
     slug: 'devops-incident-analyzer',
     title: 'Analyze devops incidents automatically',
     description: 'Identify root causes of system failures quickly.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-sysadmin-toolbox', name: 'Sysadmin Toolbox', reason: 'Sysadmin Toolbox' }, { slug: 'clawhub-devops', name: 'DevOps', reason: 'DevOps' }, { slug: 'clawhub-gitflow', name: 'GitFlow', reason: 'GitFlow' }, { slug: 'clawhub-openclaw-master-skills', name: 'OpenClaw Master Skills', reason: 'OpenClaw Master Skills' }],
+    skills: [{ slug: 'sysadmin-toolbox', name: 'Sysadmin Toolbox', reason: 'Sysadmin Toolbox' }, { slug: 'devops', name: 'DevOps', reason: 'DevOps' }, { slug: 'gitflow', name: 'GitFlow', reason: 'GitFlow' }, { slug: 'openclaw-master-skills', name: 'OpenClaw Master Skills', reason: 'OpenClaw Master Skills' }],
   },
   {
     slug: 'task-automation-ai',
     title: 'Automate repetitive tasks',
     description: 'Save time with AI-driven task automation.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-agent-browser-clawdbot', name: 'Agent Browser', reason: 'Agent Browser' }, { slug: 'clawhub-automation-workflows', name: 'Automation Workflows', reason: 'Automation Workflows' }, { slug: 'clawhub-desktop-control', name: 'Desktop Control', reason: 'Desktop Control' }, { slug: 'clawhub-browser-automation', name: 'Browser Automation', reason: 'Browser Automation' }],
+    skills: [{ slug: 'agent-browser-clawdbot', name: 'Agent Browser', reason: 'Agent Browser' }, { slug: 'automation-workflows', name: 'Automation Workflows', reason: 'Automation Workflows' }, { slug: 'desktop-control', name: 'Desktop Control', reason: 'Desktop Control' }, { slug: 'browser-automation', name: 'Browser Automation', reason: 'Browser Automation' }],
   },
 
   {
@@ -3377,35 +3377,35 @@ export const USE_CASES: UseCase[] = [
     title: 'Optimize DevOps workflows with AI',
     description: 'Automate and enhance DevOps processes with intelligent insights.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-sysadmin-toolbox', name: 'Sysadmin Toolbox', reason: 'Sysadmin Toolbox' }, { slug: 'clawhub-devops', name: 'DevOps', reason: 'DevOps' }, { slug: 'clawhub-gitflow', name: 'GitFlow', reason: 'GitFlow' }, { slug: 'clawhub-openclaw-master-skills', name: 'OpenClaw Master Skills', reason: 'OpenClaw Master Skills' }],
+    skills: [{ slug: 'sysadmin-toolbox', name: 'Sysadmin Toolbox', reason: 'Sysadmin Toolbox' }, { slug: 'devops', name: 'DevOps', reason: 'DevOps' }, { slug: 'gitflow', name: 'GitFlow', reason: 'GitFlow' }, { slug: 'openclaw-master-skills', name: 'OpenClaw Master Skills', reason: 'OpenClaw Master Skills' }],
   },
   {
     slug: 'legal-ai-analyst',
     title: 'Analyze legal documents with AI',
     description: 'Extract key information from legal texts quickly and accurately.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-stock-analysis', name: 'Stock Analysis', reason: 'Stock Analysis' }, { slug: 'clawhub-markdown-converter', name: 'Markdown Converter', reason: 'Markdown Converter' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }, { slug: 'clawhub-data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }],
+    skills: [{ slug: 'stock-analysis', name: 'Stock Analysis', reason: 'Stock Analysis' }, { slug: 'markdown-converter', name: 'Markdown Converter', reason: 'Markdown Converter' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }],
   },
   {
     slug: 'productivity-ai-coach',
     title: 'Boost productivity with AI guidance',
     description: 'Receive personalized productivity tips and task management help.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-stock-analysis', name: 'Stock Analysis', reason: 'Stock Analysis' }, { slug: 'clawhub-xiaohongshu-mcp', name: 'Xiaohongshu (小红书) Automation', reason: 'Xiaohongshu (小红书) Automation' }, { slug: 'clawhub-docker-essentials', name: 'Docker Essentials', reason: 'Docker Essentials' }, { slug: 'clawhub-productivity', name: 'Productivity', reason: 'Productivity' }],
+    skills: [{ slug: 'stock-analysis', name: 'Stock Analysis', reason: 'Stock Analysis' }, { slug: 'xiaohongshu-mcp', name: 'Xiaohongshu (小红书) Automation', reason: 'Xiaohongshu (小红书) Automation' }, { slug: 'docker-essentials', name: 'Docker Essentials', reason: 'Docker Essentials' }, { slug: 'productivity', name: 'Productivity', reason: 'Productivity' }],
   },
   {
     slug: 'devops-salary-analyzer',
     title: 'Compare DevOps engineer salaries',
     description: 'Get insights into salary trends for DevOps professionals.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-stock-analysis', name: 'Stock Analysis', reason: 'Stock Analysis' }, { slug: 'clawhub-markdown-converter', name: 'Markdown Converter', reason: 'Markdown Converter' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }, { slug: 'clawhub-data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }],
+    skills: [{ slug: 'stock-analysis', name: 'Stock Analysis', reason: 'Stock Analysis' }, { slug: 'markdown-converter', name: 'Markdown Converter', reason: 'Markdown Converter' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }],
   },
   {
     slug: 'automation-ai-helper',
     title: 'Automate repetitive tasks with AI',
     description: 'Streamline workflows by automating routine operations.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-agent-browser-clawdbot', name: 'Agent Browser', reason: 'Agent Browser' }, { slug: 'clawhub-automation-workflows', name: 'Automation Workflows', reason: 'Automation Workflows' }, { slug: 'clawhub-desktop-control', name: 'Desktop Control', reason: 'Desktop Control' }, { slug: 'clawhub-browser-automation', name: 'Browser Automation', reason: 'Browser Automation' }],
+    skills: [{ slug: 'agent-browser-clawdbot', name: 'Agent Browser', reason: 'Agent Browser' }, { slug: 'automation-workflows', name: 'Automation Workflows', reason: 'Automation Workflows' }, { slug: 'desktop-control', name: 'Desktop Control', reason: 'Desktop Control' }, { slug: 'browser-automation', name: 'Browser Automation', reason: 'Browser Automation' }],
   },
   {
     slug: 'write-shopify-product-descriptions',
@@ -3469,28 +3469,28 @@ export const USE_CASES: UseCase[] = [
     title: 'Create smarter study plans with AI',
     description: 'Generate personalized study schedules and track progress.',
     icon: '📚',
-    skills: [{ slug: 'clawhub-self-improving-agent', name: 'self-improving-agent', reason: 'self-improving-agent' }, { slug: 'clawhub-skill-vetter', name: 'Skill Vetter', reason: 'Skill Vetter' }, { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Proactive Agent' }, { slug: 'clawhub-humanizer', name: 'Humanizer', reason: 'Humanizer' }],
+    skills: [{ slug: 'self-improving-agent', name: 'self-improving-agent', reason: 'self-improving-agent' }, { slug: 'skill-vetter', name: 'Skill Vetter', reason: 'Skill Vetter' }, { slug: 'proactive-agent', name: 'Proactive Agent', reason: 'Proactive Agent' }, { slug: 'humanizer', name: 'Humanizer', reason: 'Humanizer' }],
   },
   {
     slug: 'note-summarizer',
     title: 'Summarize class notes in seconds',
     description: 'Automate note-taking and highlight key concepts.',
     icon: '📚',
-    skills: [{ slug: 'clawhub-self-improving-agent', name: 'self-improving-agent', reason: 'self-improving-agent' }, { slug: 'clawhub-skill-vetter', name: 'Skill Vetter', reason: 'Skill Vetter' }, { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Proactive Agent' }, { slug: 'clawhub-humanizer', name: 'Humanizer', reason: 'Humanizer' }],
+    skills: [{ slug: 'self-improving-agent', name: 'self-improving-agent', reason: 'self-improving-agent' }, { slug: 'skill-vetter', name: 'Skill Vetter', reason: 'Skill Vetter' }, { slug: 'proactive-agent', name: 'Proactive Agent', reason: 'Proactive Agent' }, { slug: 'humanizer', name: 'Humanizer', reason: 'Humanizer' }],
   },
   {
     slug: 'feedback-analyzer',
     title: 'Analyze student feedback automatically',
     description: 'Identify trends and improve teaching strategies.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-self-improving-agent', name: 'self-improving-agent', reason: 'self-improving-agent' }, { slug: 'clawhub-skill-vetter', name: 'Skill Vetter', reason: 'Skill Vetter' }, { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Proactive Agent' }, { slug: 'clawhub-humanizer', name: 'Humanizer', reason: 'Humanizer' }],
+    skills: [{ slug: 'self-improving-agent', name: 'self-improving-agent', reason: 'self-improving-agent' }, { slug: 'skill-vetter', name: 'Skill Vetter', reason: 'Skill Vetter' }, { slug: 'proactive-agent', name: 'Proactive Agent', reason: 'Proactive Agent' }, { slug: 'humanizer', name: 'Humanizer', reason: 'Humanizer' }],
   },
   {
     slug: 'legal-doc-scraper',
     title: 'Extract key info from legal documents',
     description: 'Quickly find relevant clauses and details.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-self-improving-agent', name: 'self-improving-agent', reason: 'self-improving-agent' }, { slug: 'clawhub-skill-vetter', name: 'Skill Vetter', reason: 'Skill Vetter' }, { slug: 'clawhub-proactive-agent', name: 'Proactive Agent', reason: 'Proactive Agent' }, { slug: 'clawhub-humanizer', name: 'Humanizer', reason: 'Humanizer' }],
+    skills: [{ slug: 'self-improving-agent', name: 'self-improving-agent', reason: 'self-improving-agent' }, { slug: 'skill-vetter', name: 'Skill Vetter', reason: 'Skill Vetter' }, { slug: 'proactive-agent', name: 'Proactive Agent', reason: 'Proactive Agent' }, { slug: 'humanizer', name: 'Humanizer', reason: 'Humanizer' }],
   },
 
   {
@@ -3498,34 +3498,34 @@ export const USE_CASES: UseCase[] = [
     title: 'Organize student notes with AI',
     description: 'Automatically organize and summarize student notes for better study sessions.',
     icon: '📚',
-    skills: [{ slug: 'clawhub-guicountrol', name: 'Linux GUI  Control', reason: 'Linux GUI  Control' }, { slug: 'clawhub-binance-pro', name: 'Binance Pro', reason: 'Binance Pro' }, { slug: 'clawhub-openclaw-agent-browser', name: 'Agent Browser', reason: 'Agent Browser' }, { slug: 'clawhub-arc-security', name: 'Arc Security - Agent Trust Pro', reason: 'Arc Security - Agent Trust Pro' }],
+    skills: [{ slug: 'guicountrol', name: 'Linux GUI  Control', reason: 'Linux GUI  Control' }, { slug: 'binance-pro', name: 'Binance Pro', reason: 'Binance Pro' }, { slug: 'openclaw-agent-browser', name: 'Agent Browser', reason: 'Agent Browser' }, { slug: 'arc-security', name: 'Arc Security - Agent Trust Pro', reason: 'Arc Security - Agent Trust Pro' }],
   },
   {
     slug: 'research-paper-helper',
     title: 'Generate research paper outlines',
     description: 'Create structured outlines for research papers using AI.',
     icon: '✍️',
-    skills: [{ slug: 'clawhub-academic-deep-research', name: 'Academic Deep Research', reason: 'Academic Deep Research' }, { slug: 'clawhub-research-paper-writer', name: 'Research Paper Writer', reason: 'Research Paper Writer' }, { slug: 'clawhub-academic-writing', name: 'academic-writing', reason: 'academic-writing' }, { slug: 'clawhub-arxiv', name: 'arXiv Research Assistant', reason: 'arXiv Research Assistant' }],
+    skills: [{ slug: 'academic-deep-research', name: 'Academic Deep Research', reason: 'Academic Deep Research' }, { slug: 'research-paper-writer', name: 'Research Paper Writer', reason: 'Research Paper Writer' }, { slug: 'academic-writing', name: 'academic-writing', reason: 'academic-writing' }, { slug: 'arxiv', name: 'arXiv Research Assistant', reason: 'arXiv Research Assistant' }],
   },
   {
     slug: 'writer-feedback-tool',
     title: 'Get AI feedback on writing',
     description: 'Receive real-time feedback to improve writing quality and clarity.',
     icon: '✍️',
-    skills: [{ slug: 'clawhub-code-review', name: 'Code Review', reason: 'Code Review' }, { slug: 'clawhub-interview-simulator', name: 'Interview Simulator', reason: 'Interview Simulator' }, { slug: 'clawhub-android-adb', name: 'ADB Connection', reason: 'ADB Connection' }, { slug: 'clawhub-receiving-code-review', name: 'Receiving Code Review', reason: 'Receiving Code Review' }],
+    skills: [{ slug: 'code-review', name: 'Code Review', reason: 'Code Review' }, { slug: 'interview-simulator', name: 'Interview Simulator', reason: 'Interview Simulator' }, { slug: 'android-adb', name: 'ADB Connection', reason: 'ADB Connection' }, { slug: 'receiving-code-review', name: 'Receiving Code Review', reason: 'Receiving Code Review' }],
   },
   {
     slug: 'legal-doc-summarizer',
     title: 'Summarize legal documents quickly',
     description: 'Use AI to extract key points from complex legal texts.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-stock-analysis', name: 'Stock Analysis', reason: 'Stock Analysis' }, { slug: 'clawhub-markdown-converter', name: 'Markdown Converter', reason: 'Markdown Converter' }, { slug: 'clawhub-data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }],
+    skills: [{ slug: 'stock-analysis', name: 'Stock Analysis', reason: 'Stock Analysis' }, { slug: 'markdown-converter', name: 'Markdown Converter', reason: 'Markdown Converter' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }],
   },
   {
     slug: 'email-writing-assistant',
     title: 'Write professional emails faster',
     description: 'Generate clear and professional email drafts in seconds.',
     icon: '💼',
-    skills: [{ slug: 'clawhub-humanizer', name: 'Humanizer', reason: 'Humanizer' }, { slug: 'clawhub-ai-humanizer', name: 'Humanizer', reason: 'Humanizer' }, { slug: 'clawhub-marketing-mode', name: 'Marketing Mode', reason: 'Marketing Mode' }, { slug: 'clawhub-remotion-video-toolkit', name: 'Remotion Video Toolkit', reason: 'Remotion Video Toolkit' }],
+    skills: [{ slug: 'humanizer', name: 'Humanizer', reason: 'Humanizer' }, { slug: 'ai-humanizer', name: 'Humanizer', reason: 'Humanizer' }, { slug: 'marketing-mode', name: 'Marketing Mode', reason: 'Marketing Mode' }, { slug: 'remotion-video-toolkit', name: 'Remotion Video Toolkit', reason: 'Remotion Video Toolkit' }],
   },
 ]

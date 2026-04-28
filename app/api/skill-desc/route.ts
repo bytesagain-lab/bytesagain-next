@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
   const source = req.nextUrl.searchParams.get('source') || 'clawhub'
   if (!slug) return NextResponse.json({ summary: null, full_description: null })
 
-  const dbSlug = source === 'clawhub' ? `clawhub-${slug}` : slug
+  const dbSlug = slug  // slug 不再有前缀，source 字段区分来源
 
   // Query skills_list MV (public RLS, anon key works)
   let owner = ''
