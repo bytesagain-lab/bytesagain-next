@@ -1,6 +1,6 @@
 export const dynamic = 'force-dynamic'
 
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import type { Metadata } from 'next'
 import UseCaseClient, { UseCaseSaveButton } from './UseCaseClient'
 
@@ -97,7 +97,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function UseCasePage({ params }: Props) {
   const { slug } = await params
   const uc = await getUseCase(slug)
-  if (!uc) notFound()
+  if (!uc) redirect('/use-case')
 
   const skills = (Array.isArray(uc.skills) ? uc.skills : [])
     .filter((s: any) => s?.slug)

@@ -1,4 +1,16 @@
 {
+  "redirects": [
+    {
+      "source": "/search",
+      "destination": "/search",
+      "permanent": true
+    },
+    {
+      "source": "/api(.*)",
+      "destination": "/api$1",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/skill/(.*)",
