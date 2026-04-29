@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A1628"/>
+      <stop offset="100%" stop-color="#132240"/>
+    </linearGradient>
+    <linearGradient id="accent1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#56C2FF"/>
+      <stop offset="100%" stop-color="#3A8FD4"/>
+    </linearGradient>
+    <linearGradient id="accent2" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#56C2FF" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#56C2FF" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="ghostGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#56C2FF" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#56C2FF" stop-opacity="0.02"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+
+  <!-- Diagonal grid lines -->
+  <g opacity="0.06" stroke="#56C2FF" stroke-width="0.5">
+    <line x1="0" y1="0" x2="200" y2="300"/>
+    <line x1="0" y1="50" x2="300" y2="630"/>
+    <line x1="0" y1="150" x2="500" y2="630"/>
+    <line x1="0" y1="300" x2="800" y2="630"/>
+    <line x1="0" y1="500" x2="1000" y2="630"/>
+    <line x1="0" y1="600" x2="1200" y2="630"/>
+  </g>
+
+  <!-- Geometric accent blocks -->
+  <rect x="850" y="120" width="280" height="4" fill="#56C2FF" opacity="0.6" rx="2"/>
+  <rect x="820" y="140" width="200" height="2" fill="#56C2FF" opacity="0.3" rx="1"/>
+  <rect x="800" y="160" width="150" height="1" fill="#56C2FF" opacity="0.2" rx="0.5"/>
+
+  <!-- Right abstract shapes cluster -->
+  <g opacity="0.08">
+    <circle cx="950" cy="300" r="180" fill="url(#ghostGrad)"/>
+    <circle cx="1000" cy="250" r="120" fill="url(#ghostGrad)"/>
+    <rect x="880" y="380" width="260" height="100" fill="url(#ghostGrad)" rx="4" transform="rotate(-8, 880, 380)"/>
+  </g>
+
+  <!-- Code snippet visual (abstract) -->
+  <g opacity="0.08" font-family="monospace" font-size="13" fill="#56C2FF">
+    <text x="820" y="240">const audit = (skills) => {</text>
+    <text x="840" y="262">  return skills.map(s => ({</text>
+    <text x="860" y="284">    score: analyze(s.source),</text>
+    <text x="860" y="306">    gems: findHidden(s.downloads)</text>
+    <text x="840" y="328">  }))</text>
+    <text x="820" y="350">}</text>
+  </g>
+
+  <!-- Large accent slash -->
+  <polygon points="600,0 660,0 360,630 300,630" fill="#56C2FF" opacity="0.04"/>
+
+  <!-- Badge -->
+  <rect x="80" y="80" width="120" height="28" rx="4" fill="none" stroke="#56C2FF" stroke-width="1" opacity="0.5"/>
+  <text x="140" y="99" font-family="system-ui, sans-serif" font-size="11" fill="#56C2FF" opacity="0.7" text-anchor="middle" letter-spacing="1.5">AUDIT REPORT</text>
+
+  <!-- Title -->
+  <text x="80" y="200" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="700" fill="#FFFFFF" letter-spacing="-1">
+    <tspan x="80" dy="0">We Audited Every</tspan>
+    <tspan x="80" dy="58">GA4 Skill on ClawHub</tspan>
+  </text>
+
+  <!-- Subtitle -->
+  <text x="80" y="320" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="400" fill="#8BA9CC" letter-spacing="0">
+    <tspan x="80" dy="0">What the Source Code Revealed — </tspan>
+    <tspan fill="#56C2FF">6,304 downloads isn't the full story.</tspan>
+  </text>
+
+  <!-- Metadata row -->
+  <g transform="translate(80, 400)">
+    <circle cx="0" cy="0" r="3" fill="#56C2FF" opacity="0.8"/>
+    <text x="14" y="5" font-family="monospace" font-size="13" fill="#56C2FF" opacity="0.9">6-dimension audit</text>
+    <circle cx="170" cy="0" r="3" fill="#56C2FF" opacity="0.5"/>
+    <text x="184" y="5" font-family="monospace" font-size="13" fill="#56C2FF" opacity="0.6">23 skills</text>
+    <circle cx="300" cy="0" r="3" fill="#56C2FF" opacity="0.5"/>
+    <text x="314" y="5" font-family="monospace" font-size="13" fill="#56C2FF" opacity="0.6">6 with real code</text>
+    <circle cx="460" cy="0" r="3" fill="#56C2FF" opacity="0.5"/>
+    <text x="474" y="5" font-family="monospace" font-size="13" fill="#56C2FF" opacity="0.6">2 are clones</text>
+  </g>
+
+  <!-- Bottom bar -->
+  <rect x="80" y="550" width="1040" height="1" fill="#56C2FF" opacity="0.15"/>
+  <text x="80" y="580" font-family="system-ui, sans-serif" font-size="13" fill="#486A8A" letter-spacing="0.5">BYTESA</text>
+  <text x="130" y="580" font-family="system-ui, sans-serif" font-size="13" fill="#56C2FF" letter-spacing="0.5">GAIN</text>
+  <text x="1140" y="580" font-family="system-ui, sans-serif" font-size="12" fill="#486A8A" text-anchor="end">competitive-analysis</text>
+
+</svg>
