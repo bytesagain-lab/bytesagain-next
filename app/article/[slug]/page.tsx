@@ -1,6 +1,5 @@
-export const revalidate = 60
-export const dynamic = 'force-static'
-export const fetchCache = 'force-cache'
+export const revalidate = 3600
+export const dynamic = 'force-dynamic'
 
 import { getArticle, getArticles } from '@/lib/supabase'
 import { notFound } from 'next/navigation'
