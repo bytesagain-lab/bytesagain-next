@@ -1,5 +1,11 @@
 {
-  "redirects": [],
+  "redirects": [
+    {
+      "source": "/skills/(.*)",
+      "destination": "/skill/$1",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/skill/(.*)",
