@@ -48,6 +48,8 @@ export async function getSkills(limit = 50, category?: string): Promise<Skill[]>
 export async function getSkill(slug: string): Promise<Skill | null> {
   const data = await sbFetch(`skills?slug=eq.${slug}&select=*&limit=1`)
   if (!data[0]) return null
+  // Skip banned skills entirely
+  if (data[0].source === 'banned') return null
   return { ...data[0], title: data[0].name }
 }
 

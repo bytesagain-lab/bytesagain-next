@@ -66,6 +66,9 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
 
   if (!skill) notFound()
 
+  // Banned skills: show 404
+  if ((skill as any).source === 'banned') notFound()
+
   const source = (skill as any).source || 'clawhub'
   const sourceUrl = (skill as any).source_url || ''
   const tags: string[] = (skill as any).tags || []

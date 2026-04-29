@@ -263,6 +263,7 @@ export async function GET(req: NextRequest) {
         ? supabase
             .from('skills')
             .select('slug, name, description, category, downloads, installs_current, stars, owner, source, source_url, tags, is_ours')
+            .neq('source', 'banned')
             .in('slug', priority)
         : Promise.resolve({ data: [] }),
 
@@ -270,6 +271,7 @@ export async function GET(req: NextRequest) {
       supabase
         .from('skills')
         .select('slug, name, description, category, downloads, installs_current, stars, owner, source, source_url, tags, is_ours')
+        .neq('source', 'banned')
         .textSearch('fts', searchQ.trim(), { type: 'websearch', config: 'english' })
         .order('downloads', { ascending: false })
         .limit(6),
@@ -278,6 +280,7 @@ export async function GET(req: NextRequest) {
       supabase
         .from('skills')
         .select('slug, name, description, category, downloads, installs_current, stars, owner, source, source_url, tags, is_ours')
+        .neq('source', 'banned')
         .or(`name.ilike.%${primaryWord}%,description.ilike.%${primaryWord}%`)
         .order('downloads', { ascending: false })
         .limit(6),
