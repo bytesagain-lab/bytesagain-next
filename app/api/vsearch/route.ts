@@ -55,8 +55,9 @@ async function searchSkills(embedding: number[]) {
   }))
 }
 
-async function searchGithubSkills(query: string) {
-  const res = await fetch(`${SB_URL}/rest/v1/rpc/search_github_skill_index`, {
+async function searchGithubSkills(embedding: number[]) {
+  // 优先用向量搜索，如果没embedding则fallback到FTS
+  const res = await fetch(`${SB_URL}/rest/v1/rpc/match_github_skills`, {
     method: 'POST',
     headers: {
       apikey: SB_KEY,
@@ -64,8 +65,9 @@ async function searchGithubSkills(query: string) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      query_text: query,
-      match_count: 10,
+      query_embedding: embedding,
+      match_count: 8,
+      match_threshold: 0.3,
     }),
   })
   if (!res.ok) return []
@@ -75,12 +77,12 @@ async function searchGithubSkills(query: string) {
     description: s.description,
     tags: s.tags || ['github-indexed'],
     source: 'github',
-    similarity: Math.round((s.rank || 0.5) * 100) / 100,
+    similarity: Math.round((s.similarity || 0) * 100) / 100,
     downloads: 0,
     installs_current: 0,
     stars: s.stars || 0,
     is_ours: false,
-    score: Math.round((s.quality_score || 0) * 100) / 100,
+    score: Math.round((s.score || 0) * 100) / 100,
     github_owner: s.github_owner,
     github_repo: s.repo,
     github_url: s.github_url,
@@ -99,7 +101,7 @@ export async function GET(req: NextRequest) {
   // Parallel: vector search (ClawHub) + FTS (GitHub index)
   const [clawhubResults, githubResults] = await Promise.all([
     embedding ? searchSkills(embedding) : Promise.resolve([]),
-    searchGithubSkills(q),
+    embedding ? searchGithubSkills(embedding) : Promise.resolve([]),
   ])
 
   // Merge: ClawHub first (verified), then GitHub
