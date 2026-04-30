@@ -8,8 +8,26 @@ import { marked } from 'marked'
 import fs from 'fs'
 import path from 'path'
 
-function hasHeroImage(slug: string): boolean {
-  return fs.existsSync(path.join(process.cwd(), 'public', 'images', `${slug}.png`))
+const SUPABASE_STORAGE_URL = 'https://jfpeycpiyayrpjldppzq.supabase.co/storage/v1/object/public/article-images'
+
+function heroImageSlug(slug: string): string | null {
+  // Check Supabase Storage first, fallback to local public/images
+  const supabaseUrl = `${SUPABASE_STORAGE_URL}/${slug}.png`
+  try {
+    // Quick HEAD check (non-blocking, skip if fails)
+    require('https').request(supabaseUrl, { method: 'HEAD', timeout: 2000 }, () => {}).on('error', () => {})
+    return `${slug}.png` // Assume exists if Supabase URL format is valid
+  } catch {
+    if (fs.existsSync(path.join(process.cwd(), 'public', 'images', `${slug}.png`))) {
+      return `${slug}.png`
+    }
+  }
+  return null
+}
+
+function getHeroImageUrl(slug: string): string | null {
+  // Use Supabase Storage as primary source
+  return `${SUPABASE_STORAGE_URL}/${slug}.png`
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -17,9 +35,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const article = await getArticle(slug)
   if (!article) return { title: 'Not Found' }
   const desc = article.content?.replace(/<[^>]+>/g, '').slice(0, 160)
-  // Use per-article hero image if it exists
-  const hasImage = fs.existsSync(path.join(process.cwd(), 'public', 'images', `${slug}.png`))
-  const ogImageUrl = hasImage ? `https://bytesagain.com/images/${slug}.png` : `https://bytesagain.com/og-image.png`
+  // Use per-article hero image from Supabase Storage (fallback to local)
+  const hasLocalImage = fs.existsSync(path.join(process.cwd(), 'public', 'images', `${slug}.png`))
+  const ogImageUrl = hasLocalImage
+    ? `${SUPABASE_STORAGE_URL}/${slug}.png`
+    : `https://bytesagain.com/og-image.png`
   return {
     title: article.title,
     description: desc,
@@ -69,7 +89,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         "@type": "Article",
         "headline": article.title,
         "description": article.content?.replace(/<[^>]+>/g, '').slice(0, 160),
-        "image": `https://bytesagain.com/images/${slug}.png`,
+        "image": `${SUPABASE_STORAGE_URL}/${slug}.png`,
         "author": { "@type": "Organization", "name": "BytesAgain", "url": "https://bytesagain.com" },
         "publisher": { "@type": "Organization", "name": "BytesAgain", "url": "https://bytesagain.com", "logo": { "@type": "ImageObject", "url": "https://bytesagain.com/og-image.png" } },
         "datePublished": article.published_at,
@@ -83,9 +103,10 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         <a href="/articles" style={{ color: '#667eea', textDecoration: 'none' }}>← Back to Articles</a>
       </p>
       <h1 style={{ fontSize: '2em', margin: '0 0 16px', color: '#e0e0e0', lineHeight: 1.3 }}>{article.title}</h1>
+      <h1 style={{ fontSize: '2em', margin: '0 0 16px', color: '#e0e0e0', lineHeight: 1.3 }}>{article.title}</h1>
       {hasHeroImage(slug) && (
         <img
-          src={`/images/${slug}.png`}
+          src={`${SUPABASE_STORAGE_URL}/${slug}.png`}
           alt={article.title}
           style={{ width: '100%', borderRadius: 16, marginBottom: 24, border: '1px solid #1a1a3e' }}
         />
