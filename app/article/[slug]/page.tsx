@@ -103,8 +103,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         <a href="/articles" style={{ color: '#667eea', textDecoration: 'none' }}>← Back to Articles</a>
       </p>
       <h1 style={{ fontSize: '2em', margin: '0 0 16px', color: '#e0e0e0', lineHeight: 1.3 }}>{article.title}</h1>
-      <h1 style={{ fontSize: '2em', margin: '0 0 16px', color: '#e0e0e0', lineHeight: 1.3 }}>{article.title}</h1>
-      {hasHeroImage(slug) && (
+      {heroImageSlug(slug) && (
         <img
           src={`${SUPABASE_STORAGE_URL}/${slug}.png`}
           alt={article.title}
