@@ -11,6 +11,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const article = await getArticle(slug)
   if (!article) return { title: 'Not Found' }
   const desc = article.content?.replace(/<[^>]+>/g, '').slice(0, 160)
+  // Check for per-article hero image
+  const heroImage = `/images/${slug}.png`
+  const ogImageUrl = `https://bytesagain.com${heroImage}`
   return {
     title: article.title,
     description: desc,
@@ -21,11 +24,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       url: `https://bytesagain.com/article/${slug}`,
       publishedTime: article.published_at,
       authors: [article.author_name || 'BytesAgain'],
+      images: [{ url: ogImageUrl, width: 1792, height: 1024, alt: article.title }],
     },
     twitter: {
       card: 'summary_large_image',
       title: article.title,
       description: desc,
+      images: [ogImageUrl],
     },
     alternates: { canonical: `https://bytesagain.com/article/${slug}` },
   }
@@ -58,7 +63,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         "@type": "Article",
         "headline": article.title,
         "description": article.content?.replace(/<[^>]+>/g, '').slice(0, 160),
-        "image": "https://bytesagain.com/og-image.png",
+        "image": `https://bytesagain.com/images/${slug}.png`,
         "author": { "@type": "Organization", "name": "BytesAgain", "url": "https://bytesagain.com" },
         "publisher": { "@type": "Organization", "name": "BytesAgain", "url": "https://bytesagain.com", "logo": { "@type": "ImageObject", "url": "https://bytesagain.com/og-image.png" } },
         "datePublished": article.published_at,
@@ -71,6 +76,12 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       <p style={{ color: '#667eea', fontSize: '.85em', margin: '0 0 16px' }}>
         <a href="/articles" style={{ color: '#667eea', textDecoration: 'none' }}>← Back to Articles</a>
       </p>
+          {/* Hero image if exists */}
+      <img
+        src={`/images/${slug}.png`}
+        alt={article.title}
+        style={{ width: '100%', borderRadius: 16, marginBottom: 24, border: '1px solid #1a1a3e' }}
+      />
       <h1 style={{ fontSize: '2em', margin: '0 0 12px', color: '#e0e0e0', lineHeight: 1.3 }}>{article.title}</h1>
       <p style={{ color: '#666', margin: '0 0 30px', fontSize: '.9em' }}>
         By <strong style={{ color: '#ccc' }}>{article.author_name || 'BytesAgain'}</strong>
