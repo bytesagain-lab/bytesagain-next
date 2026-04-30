@@ -82,6 +82,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       <p style={{ color: '#667eea', fontSize: '.85em', margin: '0 0 16px' }}>
         <a href="/articles" style={{ color: '#667eea', textDecoration: 'none' }}>← Back to Articles</a>
       </p>
+      <h1 style={{ fontSize: '2em', margin: '0 0 16px', color: '#e0e0e0', lineHeight: 1.3 }}>{article.title}</h1>
       {hasHeroImage(slug) && (
         <img
           src={`/images/${slug}.png`}
@@ -89,7 +90,6 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           style={{ width: '100%', borderRadius: 16, marginBottom: 24, border: '1px solid #1a1a3e' }}
         />
       )}
-      <h1 style={{ fontSize: '2em', margin: '0 0 12px', color: '#e0e0e0', lineHeight: 1.3 }}>{article.title}</h1>
       <p style={{ color: '#666', margin: '0 0 30px', fontSize: '.9em' }}>
         By <strong style={{ color: '#ccc' }}>{article.author_name || 'BytesAgain'}</strong>
         {displayDate && <> · {displayDateLabel} {displayDate}</>}
