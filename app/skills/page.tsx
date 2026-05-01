@@ -59,6 +59,7 @@ const ROUNDROBIN_PER_PAGE = Math.ceil(PAGE_SIZE / ROUNDROBIN_SOURCES.length) + 2
 // Fallback env: hardcoded as Vercel env vars sometimes missing during build
 const _SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://jfpeycpiyayrpjldppzq.supabase.co'
 const _SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmcGV5Y3BpeWF5cnBqbGRwcHpxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyMzgxMTIsImV4cCI6MjA4OTgxNDExMn0.KnRmNBKeUPmJQz3m46uNx5kvBf_ZXBVWSUTXOLjW4Ps'
+const _SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
 
 async function cachedSkillsList(cat: string, from: number) {
   const url = _SUPABASE_URL
@@ -152,9 +153,10 @@ export default async function SkillsPage({
       })
       let results = ftsData || []
 
-      // GitHub skill index search (parallel)
+      // GitHub skill index search (parallel) - requires service_role key
       try {
-        const { data: ghData } = await supabase.rpc('search_github_skill_index', {
+        const supabaseGh = createClient(_SUPABASE_URL, _SUPABASE_SERVICE_KEY)
+        const { data: ghData } = await supabaseGh.rpc('search_github_skill_index', {
           query_text: q.replace(/-/g, ' '),
           match_count: 20,
         })
