@@ -40,7 +40,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
 async function searchSkills(query: string) {
   if (!query.trim()) return []
   try {
-    const url = `${INTERNAL_API}/api/search?q=${encodeURIComponent(query.trim())}`
+    const url = `${INTERNAL_API}/api/vsearch?q=${encodeURIComponent(query.trim())}`
     const res = await fetch(url, {
       cache: 'no-store',
     })
