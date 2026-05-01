@@ -155,7 +155,7 @@ export default async function SkillsPage({
 
       // GitHub skill index search - use REST ILIKE for reliability
       try {
-        const ghUrl = `${_SUPABASE_URL}/rest/v1/github_skill_index?select=id,github_owner,repo,name,description,github_url,language,stars&or=(name.ilike.*${encodeURIComponent(q)}*,description.ilike.*${encodeURIComponent(q)}*)&order=stars.desc&limit=10`
+        const ghUrl = `${_SUPABASE_URL}/rest/v1/github_skill_index?select=id,github_owner,repo,name,description,github_url,language,stars&or=(name.ilike.*${encodeURIComponent(q)}*,description.ilike.*${encodeURIComponent(q)}*)&github_owner=neq.openclaw&order=stars.desc&limit=10`
         const ghRes = await fetch(ghUrl, {
           headers: { apikey: _SUPABASE_SERVICE_KEY, Authorization: `Bearer ${_SUPABASE_SERVICE_KEY}` },
         })

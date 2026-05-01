@@ -61,7 +61,7 @@ export default function SkillSearchResults({ initialSkills, query }: {
                     {skill.name || skill.slug}
                   </span>
                   {isGithub ? (
-                    <span style={{ fontSize: '.68em', color: '#f59e0b', background: '#f59e0b18', border: '1px solid #f59e0b33', borderRadius: 20, padding: '1px 7px', fontWeight: 600, marginLeft: 8, flexShrink: 0 }}>
+                    <span style={{ fontSize: '.68em', color: '#64748b', background: '#64748b15', border: '1px solid #64748b33', borderRadius: 20, padding: '1px 7px', fontWeight: 600, marginLeft: 0, flexShrink: 0, alignSelf: 'flex-start' }}>
                       ⭐ GitHub
                     </span>
                   ) : (isOurs && (
