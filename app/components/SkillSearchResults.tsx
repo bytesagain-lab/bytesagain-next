@@ -60,11 +60,15 @@ export default function SkillSearchResults({ initialSkills, query }: {
                   <span style={{ fontWeight: 700, color: '#e0e0e0', fontSize: '.95em', lineHeight: 1.3, flex: 1 }}>
                     {skill.name || skill.slug}
                   </span>
-                  {isOurs && (
+                  {isGithub ? (
+                    <span style={{ fontSize: '.68em', color: '#f59e0b', background: '#f59e0b18', border: '1px solid #f59e0b33', borderRadius: 20, padding: '1px 7px', fontWeight: 600, marginLeft: 8, flexShrink: 0 }}>
+                      ⭐ GitHub
+                    </span>
+                  ) : (isOurs && (
                     <span style={{ fontSize: '.68em', color: '#00d4ff', background: '#00d4ff18', border: '1px solid #00d4ff33', borderRadius: 20, padding: '1px 7px', fontWeight: 600, marginLeft: 8, flexShrink: 0 }}>
                       ours
                     </span>
-                  )}
+                  ))}
                 </div>
                 <div style={{ color: '#555', fontSize: '.82em', lineHeight: 1.5, marginBottom: 10 }}>
                   {(skill.description || '').slice(0, 100)}…
@@ -80,6 +84,11 @@ export default function SkillSearchResults({ initialSkills, query }: {
                       {Number(skill.downloads) >= 1000
                         ? `${(Number(skill.downloads) / 1000).toFixed(1)}k`
                         : skill.downloads} dl
+                    </span>
+                  )}
+                  {isGithub && (skill.stars ?? 0) > 0 && (
+                    <span style={{ fontSize: '.72em', color: '#f59e0b', marginLeft: 'auto' }}>
+                      ⭐ {(skill.stars >= 1000 ? `${(skill.stars/1000).toFixed(1)}k` : skill.stars)}
                     </span>
                   )}
                 </div>
