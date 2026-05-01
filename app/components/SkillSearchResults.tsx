@@ -60,23 +60,24 @@ export default function SkillSearchResults({ initialSkills, query }: {
                   <span style={{ fontWeight: 700, color: '#e0e0e0', fontSize: '.95em', lineHeight: 1.3, flex: 1 }}>
                     {skill.name || skill.slug}
                   </span>
-                  {isGithub ? (
-                    <span style={{ fontSize: '.68em', color: '#64748b', background: '#64748b15', border: '1px solid #64748b33', borderRadius: 20, padding: '1px 7px', fontWeight: 600, marginLeft: 0, flexShrink: 0, alignSelf: 'flex-start' }}>
-                      ⭐ GitHub
-                    </span>
-                  ) : (isOurs && (
+                  {isOurs && (
                     <span style={{ fontSize: '.68em', color: '#00d4ff', background: '#00d4ff18', border: '1px solid #00d4ff33', borderRadius: 20, padding: '1px 7px', fontWeight: 600, marginLeft: 8, flexShrink: 0 }}>
                       ours
                     </span>
-                  ))}
+                  )}
                 </div>
                 <div style={{ color: '#555', fontSize: '.82em', lineHeight: 1.5, marginBottom: 10 }}>
                   {(skill.description || '').slice(0, 100)}…
                 </div>
                 <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                  {skill.category && (
+                  {skill.category && !isGithub && (
                     <span style={{ fontSize: '.72em', color: '#667eea', background: '#667eea15', borderRadius: 20, padding: '2px 8px', fontWeight: 600 }}>
                       {skill.category}
+                    </span>
+                  )}
+                  {isGithub && (
+                    <span style={{ fontSize: '.72em', color: '#64748b', background: '#64748b15', borderRadius: 20, padding: '2px 8px', fontWeight: 600 }}>
+                      GitHub
                     </span>
                   )}
                   {(skill.downloads ?? 0) > 0 && (
@@ -87,8 +88,8 @@ export default function SkillSearchResults({ initialSkills, query }: {
                     </span>
                   )}
                   {isGithub && (skill.stars ?? 0) > 0 && (
-                    <span style={{ fontSize: '.72em', color: '#f59e0b', marginLeft: 'auto' }}>
-                      ⭐ {(skill.stars >= 1000 ? `${(skill.stars/1000).toFixed(1)}k` : skill.stars)}
+                    <span style={{ fontSize: '.72em', color: '#555', marginLeft: 'auto' }}>
+                      {(skill.stars >= 1000 ? `${(skill.stars/1000).toFixed(1)}k` : skill.stars)} dl
                     </span>
                   )}
                 </div>
