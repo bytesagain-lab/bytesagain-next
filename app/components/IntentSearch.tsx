@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { USE_CASES } from '@/lib/use-cases'
 import { useLang } from '@/app/components/LangContext'
 
@@ -61,7 +61,29 @@ export default function IntentSearch() {
   const [query, setQuery] = useState('')
   const [mode, setMode] = useState<'skills' | 'usecase'>('skills')
   const [results, setResults] = useState<typeof USE_CASES>([])
-  const [skillResults, setSkillResults] = useState<any[]>([])
+  const [dailyUseCases, setDailyUseCases] = useState<any[]>([])
+  const [dailySkills, setDailySkills] = useState<any[]>([])
+
+  // Fetch daily recommendations on mount
+  useEffect(() => {
+    const fetchRecommendations = async () => {
+      try {
+        const SB_URL = 'https://jfpeycpiyayrpjldppzq.supabase.co'
+        const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmcGV5Y3BpeWF5cnBqbGRwcHpxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyMzgxMTIsImV4cCI6MjA4OTgxNDExMn0.KnRmNBKeUPmJQz3m46uNx5kvBf_ZXBVWSUTXOLjW4Ps'
+        // Fetch latest use cases with evaluation
+        const ucRes = await fetch(`${SB_URL}/rest/v1/use_cases?select=slug,title,description,icon,skills,evaluation&skills=not.is.null&order=created_at.desc&limit=2`, {
+          headers: { apikey: SB_KEY },
+        })
+        if (ucRes.ok) setDailyUseCases(await ucRes.json())
+        // Fetch top skills (high downloads, is_ours)
+        const skRes = await fetch(`${SB_URL}/rest/v1/skills?select=slug,name,description,downloads,category&is_ours=eq.true&order=downloads.desc&limit=2`, {
+          headers: { apikey: SB_KEY },
+        })
+        if (skRes.ok) setDailySkills(await skRes.json())
+      } catch {}
+    }
+    fetchRecommendations()
+  }, [])
   const [loading, setLoading] = useState(false)
   const [searched, setSearched] = useState(false)
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -111,11 +133,6 @@ export default function IntentSearch() {
   }
 
   const hasResults = results.length > 0 || skillResults.length > 0
-  const defaultHubs = [
-    { icon: '🔎', title: zh ? 'SEO / GEO 增长' : 'SEO / GEO Growth', desc: zh ? 'AI 做的网站没流量？从这里开始升级。' : 'AI-built site not getting traffic? Start here.', href: '/work-hubs#content-seo-creators' },
-    { icon: '🛒', title: zh ? '电商 Listing' : 'E-commerce Listings', desc: zh ? '产品上架、标题、描述、独立站优化。' : 'Product listings, titles, descriptions, and store optimization.', href: '/work-hubs#ecommerce-sellers' },
-    { icon: '🛠️', title: zh ? '开发 / 自动化' : 'Developer Automation', desc: zh ? '让 agent 会开发、测试、部署和自动化。' : 'Upgrade agents for coding, testing, deployment, and automation.', href: '/work-hubs#developer-automation-builders' },
-  ]
   const defaultQueries = zh
     ? ['网站没流量怎么办', '优化商品 listing', '帮我做 SEO', '自动化工作流']
     : ['website has no traffic', 'optimize product listing', 'SEO agent workflow', 'automate my workflow']
@@ -183,11 +200,24 @@ export default function IntentSearch() {
             </div>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 10, padding: '0 14px 14px' }}>
-            {defaultHubs.map(hub => (
-              <a key={hub.title} href={hub.href} style={{ display: 'block', textDecoration: 'none', color: 'inherit', padding: 14, borderRadius: 13, background: '#101027', border: '1px solid #20204a' }}>
-                <div style={{ fontSize: '1.3em', marginBottom: 8 }}>{hub.icon}</div>
-                <div style={{ color: '#f1f5f9', fontWeight: 800, fontSize: '.9em', marginBottom: 5 }}>{hub.title}</div>
-                <div style={{ color: '#64748b', fontSize: '.78em', lineHeight: 1.45 }}>{hub.desc}</div>
+            {/* 今日推荐 Use Case */}
+            {dailyUseCases.length > 0 && dailyUseCases.map(uc => (
+              <a key={uc.slug} href={`/use-case/${uc.slug}`} style={{ display: 'block', textDecoration: 'none', color: 'inherit', padding: 14, borderRadius: 13, background: 'linear-gradient(180deg, #0d2d1a, #101027)', border: '1px solid #34d39944' }}>
+                <div style={{ fontSize: '1.3em', marginBottom: 4 }}>{uc.icon || '📊'}</div>
+                <div style={{ fontSize: '.68em', color: '#34d399', fontWeight: 700, marginBottom: 4, textTransform: 'uppercase' }}>🔥 推荐 Use Case</div>
+                <div style={{ color: '#f1f5f9', fontWeight: 800, fontSize: '.9em', marginBottom: 5 }}>{uc.title}</div>
+                <div style={{ color: '#64748b', fontSize: '.78em', lineHeight: 1.45 }}>{uc.description?.slice(0, 70)}…</div>
+                {uc.evaluation && <div style={{ fontSize: '.68em', color: '#86efac', marginTop: 6 }}>✅ 已评测 · {uc.evaluation.total_skills}个skill</div>}
+              </a>
+            ))}
+            {/* 今日推荐 Skill */}
+            {dailySkills.length > 0 && dailySkills.map(sk => (
+              <a key={sk.slug} href={`/skill/${sk.slug}`} style={{ display: 'block', textDecoration: 'none', color: 'inherit', padding: 14, borderRadius: 13, background: 'linear-gradient(180deg, #1a1a3e, #101027)', border: '1px solid #667eea44' }}>
+                <div style={{ fontSize: '1.3em', marginBottom: 4 }}>⚡</div>
+                <div style={{ fontSize: '.68em', color: '#667eea', fontWeight: 700, marginBottom: 4, textTransform: 'uppercase' }}>⭐ 推荐 Skill</div>
+                <div style={{ color: '#f1f5f9', fontWeight: 800, fontSize: '.9em', marginBottom: 5 }}>{sk.name}</div>
+                <div style={{ color: '#64748b', fontSize: '.78em', lineHeight: 1.45 }}>{sk.description?.slice(0, 70)}…</div>
+                {sk.downloads > 0 && <div style={{ fontSize: '.68em', color: '#555', marginTop: 6 }}>{sk.downloads >= 1000 ? `${(sk.downloads/1000).toFixed(1)}k dl` : `${sk.downloads} dl`}</div>}
               </a>
             ))}
           </div>
