@@ -71,13 +71,13 @@ export default function IntentSearch() {
       try {
         const SB_URL = 'https://jfpeycpiyayrpjldppzq.supabase.co'
         const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmcGV5Y3BpeWF5cnBqbGRwcHpxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyMzgxMTIsImV4cCI6MjA4OTgxNDExMn0.KnRmNBKeUPmJQz3m46uNx5kvBf_ZXBVWSUTXOLjW4Ps'
-        // Fetch latest use cases with evaluation
-        const ucRes = await fetch(`${SB_URL}/rest/v1/use_cases?select=slug,title,description,icon,skills,evaluation&skills=not.is.null&order=created_at.desc&limit=2`, {
+        // Fetch top evaluated use cases
+        const ucRes = await fetch(`${SB_URL}/rest/v1/use_cases?select=slug,title,description,icon,skills,evaluation&evaluation=not.is.null&order=created_at.desc&limit=2`, {
           headers: { apikey: SB_KEY },
         })
         if (ucRes.ok) setDailyUseCases(await ucRes.json())
-        // Fetch top skills (high downloads, is_ours)
-        const skRes = await fetch(`${SB_URL}/rest/v1/skills?select=slug,name,description,downloads,category&is_ours=eq.true&order=downloads.desc&limit=2`, {
+        // Fetch top skills (high downloads, our own, exclude generic/toolkit skills)
+        const skRes = await fetch(`${SB_URL}/rest/v1/skills?select=slug,name,description,downloads,category&is_ours=eq.true&slug=neq.shell&order=downloads.desc&limit=2`, {
           headers: { apikey: SB_KEY },
         })
         if (skRes.ok) setDailySkills(await skRes.json())
