@@ -292,7 +292,6 @@ export async function GET(req: NextRequest) {
       supabase
         .rpc('search_github_skill_index', { query_text: searchQ.trim(), match_count: 6 }),
     ])
-    ]))
 
     const priorityRows = priorityRes.status === 'fulfilled' ? (priorityRes.value.data || []) : []
     const fts = ftsRes.status === 'fulfilled' ? (ftsRes.value.data || []) : []
