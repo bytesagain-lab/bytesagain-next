@@ -151,6 +151,30 @@ export default async function SkillsPage({
         match_count: 200
       })
       let results = ftsData || []
+
+      // GitHub skill index search (parallel)
+      try {
+        const { data: ghData } = await supabase.rpc('search_github_skill_index', {
+          query_text: q.replace(/-/g, ' '),
+          match_count: 20,
+        })
+        if (ghData && ghData.length > 0) {
+          const ghResults = ghData.map((g: any) => ({
+            slug: `gh:${g.id}`,
+            name: g.name,
+            description: g.description,
+            github_url: g.github_url,
+            github_owner: g.github_owner,
+            github_repo: g.repo,
+            stars: g.stars || 0,
+            language: g.language,
+            downloads: 0,
+            source: 'github',
+            _source: 'github',
+          }))
+          results = [...results, ...ghResults]
+        }
+      } catch { /* GitHub search optional */ }
       // ilike fallback：全文搜不到时用 slug 匹配（补捉 api-generator 这类带连字符的 slug）
       if (results.length === 0) {
         const { data: ilikeData } = await supabase
@@ -252,7 +276,7 @@ export default async function SkillsPage({
           const OUR_ACCOUNTS = ['ckchzh', 'xueyetianya', 'bytesagain3', 'bytesagain-lab', 'loutai0307-prog', 'bytesagain1']
           const isOurs = OUR_ACCOUNTS.includes(skill.owner || '')
           return (
-            <Link key={skill.slug} href={`/skill/${skill.slug}`} style={{ textDecoration: 'none' }}>
+            <Link key={skill.slug} href={skill._source === 'github' ? (skill.github_url || '#') : `/skill/${skill.slug}`} target={skill._source === 'github' ? '_blank' : undefined} rel={skill._source === 'github' ? 'noopener' : undefined} style={{ textDecoration: 'none' }}>
               <div className="skill-card" style={{
                 background: '#0f0f23',
                 border: isOurs ? '1px solid #00d4ff44' : '1px solid #1a1a3e',
@@ -279,8 +303,11 @@ export default async function SkillsPage({
                         : skill.downloads} dl
                     </span>
                   )}
-                  {(skill.stars ?? 0) > 0 && (
+                  {(skill.stars ?? 0) > 0 && skill._source !== 'github' && (
                     <span style={{ fontSize: '.75em', color: '#555' }}>⭐ {skill.stars}</span>
+                  )}
+                  {skill._source === 'github' && (skill.stars ?? 0) > 0 && (
+                    <span style={{ fontSize: '.75em', color: '#00d4ff' }}>⭐ {(skill.stars >= 1000 ? `${(skill.stars/1000).toFixed(1)}k` : skill.stars)}</span>
                   )}
                 </div>
                 <div style={{ fontWeight: 700, color: '#e0e0e0', marginBottom: 6, fontSize: '.95em',
