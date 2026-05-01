@@ -326,7 +326,7 @@ export default async function SkillsPage({
                     <span style={{ fontSize: '.75em', color: '#555' }}>⭐ {skill.stars}</span>
                   )}
                   {skill._source === 'github' && (skill.stars ?? 0) > 0 && (
-                    <span style={{ fontSize: '.75em', color: '#00d4ff' }}>⭐ {(skill.stars >= 1000 ? `${(skill.stars/1000).toFixed(1)}k` : skill.stars)}</span>
+                    <span style={{ fontSize: '.75em', color: '#555' }}>⭐ {(skill.stars >= 1000 ? `${(skill.stars/1000).toFixed(1)}k` : skill.stars)}</span>
                   )}
                 </div>
                 <div style={{ fontWeight: 700, color: '#e0e0e0', marginBottom: 6, fontSize: '.95em',

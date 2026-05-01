@@ -89,7 +89,7 @@ export default function SkillSearchResults({ initialSkills, query }: {
                   )}
                   {isGithub && (skill.stars ?? 0) > 0 && (
                     <span style={{ fontSize: '.72em', color: '#555', marginLeft: 'auto' }}>
-                      {(skill.stars >= 1000 ? `${(skill.stars/1000).toFixed(1)}k` : skill.stars)} dl
+                      ⭐ {(skill.stars >= 1000 ? `${(skill.stars/1000).toFixed(1)}k` : skill.stars)}
                     </span>
                   )}
                 </div>
