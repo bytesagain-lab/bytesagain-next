@@ -257,7 +257,7 @@ export async function GET(req: NextRequest) {
   const priority = prioritySlugs(q, searchQ)
 
   try {
-    const [priorityRes, ftsRes, ilikeRes, chRes] = await Promise.allSettled([
+    const [priorityRes, ftsRes, ilikeRes, chRes, ghRes] = await Promise.allSettled([
       // 0. Curated intent matches for known use-case gaps
       priority.length
         ? supabase
@@ -287,11 +287,20 @@ export async function GET(req: NextRequest) {
 
       // 3. ClawHub disabled
       Promise.resolve(null),
-    ])
+
+      // 4. GitHub skill index FTS
+      supabase
+        .from('github_skill_index')
+        .select('id, github_owner, repo, name, description, github_url, language, stars, quality_score, tags')
+        .textSearch('fts', searchQ.trim(), { type: 'websearch', config: 'english' })
+        .order('stars', { ascending: false })
+        .limit(6),
+    ]))
 
     const priorityRows = priorityRes.status === 'fulfilled' ? (priorityRes.value.data || []) : []
     const fts = ftsRes.status === 'fulfilled' ? (ftsRes.value.data || []) : []
     const ilike = ilikeRes.status === 'fulfilled' ? (ilikeRes.value.data || []) : []
+    const ghFts = ghRes.status === 'fulfilled' ? (ghRes.value.data || []) : []
 
     const seen = new Set<string>()
     const local: any[] = []
@@ -322,7 +331,25 @@ export async function GET(req: NextRequest) {
       } catch { /* ignore */ }
     }
 
-    const combined = [...local, ...vsearchExtra, ...chExtra]
+    // Map GitHub results to unified format
+    const githubResults: any[] = ghFts.map((g: any) => ({
+      slug: `gh:${g.id}`,
+      name: g.name,
+      description: g.description,
+      github_url: g.github_url,
+      github_owner: g.github_owner,
+      github_repo: g.repo,
+      stars: g.stars || 0,
+      quality_score: g.quality_score || 0,
+      language: g.language,
+      downloads: 0,
+      installs_current: 0,
+      source: 'github',
+      _source: 'github',
+      _fts_rank: true,
+    }))
+
+    const combined = [...local, ...githubResults, ...vsearchExtra, ...chExtra]
 
     // 加权排序：向量相似度 + 下载量 + 安装量 + 星标 + 自有skill加权
     const scored = combined.map((s: any) => {
@@ -330,9 +357,11 @@ export async function GET(req: NextRequest) {
       const inst = s.installs_current || 0
       const st = s.stars || 0
       const sim = s.similarity || 0
-      const ours = s.is_ours ? 15.0 : 0  // 自有skill固定加15分
+      const isGithub = s._source === 'github'
+      const ours = s.is_ours ? 15.0 : 0
       const curated = s._priority ? 30.0 : 0
-      const score = curated + sim * 10 + Math.log(dl + 1) * 0.5 + Math.log(inst + 1) * 0.8 + st * 0.3 + ours
+      const ghBonus = isGithub ? (Math.log(st + 1) * 0.5 + (s.quality_score || 0) * 0.2) : 0
+      const score = curated + sim * 10 + Math.log(dl + 1) * 0.5 + Math.log(inst + 1) * 0.8 + st * 0.3 + ours + ghBonus
       return { ...s, _score: score }
     }).sort((a: any, b: any) => b._score - a._score)
 

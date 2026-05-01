@@ -41,9 +41,13 @@ export default function SkillSearchResults({ initialSkills, query }: {
         marginBottom: 32,
       }}>
         {skills.map((skill: any) => {
+          const isGithub = skill._source === 'github' || skill.source === 'github'
           const isOurs = skill.is_ours
+          const skillLink = isGithub 
+            ? (skill.github_url || `https://github.com/${skill.github_owner}/${skill.github_repo}`)
+            : `/skill/${skill.slug}`
           return (
-            <Link key={skill.slug} href={`/skill/${skill.slug}`} style={{ textDecoration: 'none' }}>
+            <a key={skill.slug} href={skillLink} target={isGithub ? '_blank' : undefined} rel={isGithub ? 'noopener noreferrer' : undefined} style={{ textDecoration: 'none' }}>
               <div className="skill-card" style={{
                 background: '#0d0d1f',
                 border: isOurs ? '1px solid #00d4ff44' : '1px solid #1a1a3e',
@@ -80,7 +84,7 @@ export default function SkillSearchResults({ initialSkills, query }: {
                   )}
                 </div>
               </div>
-            </Link>
+            </a>
           )
         })}
       </div>
