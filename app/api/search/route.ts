@@ -288,13 +288,10 @@ export async function GET(req: NextRequest) {
       // 3. ClawHub disabled
       Promise.resolve(null),
 
-      // 4. GitHub skill index FTS
+      // 4. GitHub skill index via RPC
       supabase
-        .from('github_skill_index')
-        .select('id, github_owner, repo, name, description, github_url, language, stars, quality_score, tags')
-        .textSearch('fts', searchQ.trim(), { type: 'websearch', config: 'english' })
-        .order('stars', { ascending: false })
-        .limit(6),
+        .rpc('search_github_skill_index', { query_text: searchQ.trim(), match_count: 6 }),
+    ])
     ]))
 
     const priorityRows = priorityRes.status === 'fulfilled' ? (priorityRes.value.data || []) : []
