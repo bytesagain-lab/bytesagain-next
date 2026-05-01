@@ -195,13 +195,30 @@ export default async function SkillsPage({
           results = results.filter((s: any) => (s.tags || []).includes(cat))
         }
       }
-      // 搜索结果：自有skill优先
-      results = results.sort((a: any, b: any) => {
+      // 搜索结果：自有skill优先，然后ClawHub和GitHub穿插
+      const ghResults = results.filter((s: any) => s._source === 'github')
+      const chResults = results.filter((s: any) => s._source !== 'github')
+      // Sort ClawHub: is_ours first, then by downloads
+      chResults.sort((a: any, b: any) => {
         const aOurs = a.is_ours ? 1 : 0
         const bOurs = b.is_ours ? 1 : 0
         if (aOurs !== bOurs) return bOurs - aOurs
         return (b.downloads || 0) - (a.downloads || 0)
       })
+      // Sort GitHub by stars
+      ghResults.sort((a: any, b: any) => (b.stars || 0) - (a.stars || 0))
+      // Interleave: ClawHub, GitHub, ClawHub, GitHub...
+      const interleaved: any[] = []
+      const maxLen = Math.max(chResults.length, ghResults.length)
+      for (let i = 0; i < maxLen && interleaved.length < 200; i++) {
+        if (i * 3 < chResults.length) interleaved.push(chResults[i * 3])
+        if (i < ghResults.length) interleaved.push(ghResults[i])
+      }
+      // Fill remaining ClawHub results
+      for (const s of chResults) {
+        if (!interleaved.includes(s)) interleaved.push(s)
+      }
+      results = interleaved
       skills = results
       total = results.length
     } catch (e) {
