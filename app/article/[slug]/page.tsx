@@ -35,11 +35,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const article = await getArticle(slug)
   if (!article) return { title: 'Not Found' }
   const desc = article.content?.replace(/<[^>]+>/g, '').slice(0, 160)
-  // Use per-article hero image from Supabase Storage (fallback to local)
-  const hasLocalImage = fs.existsSync(path.join(process.cwd(), 'public', 'images', `${slug}.png`))
-  const ogImageUrl = hasLocalImage
-    ? `${SUPABASE_STORAGE_URL}/${slug}.png`
-    : `https://bytesagain.com/og-image.png`
+  // Use Supabase Storage article-images bucket for og:image (primary)
+  const ogImageUrl = `${SUPABASE_STORAGE_URL}/${slug}.png`
   return {
     title: article.title,
     description: desc,
