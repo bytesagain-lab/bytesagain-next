@@ -71,8 +71,8 @@ export default function IntentSearch() {
       try {
         const SB_URL = 'https://jfpeycpiyayrpjldppzq.supabase.co'
         const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmcGV5Y3BpeWF5cnBqbGRwcHpxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyMzgxMTIsImV4cCI6MjA4OTgxNDExMn0.KnRmNBKeUPmJQz3m46uNx5kvBf_ZXBVWSUTXOLjW4Ps'
-        // Fetch top evaluated use cases
-        const ucRes = await fetch(`${SB_URL}/rest/v1/use_cases?select=slug,title,description,icon,skills,evaluation&evaluation=not.is.null&order=created_at.desc&limit=2`, {
+        // Fetch latest use cases
+        const ucRes = await fetch(`${SB_URL}/rest/v1/use_cases?select=slug,title,description,icon,skills&order=created_at.desc&limit=2`, {
           headers: { apikey: SB_KEY },
         })
         if (ucRes.ok) setDailyUseCases(await ucRes.json())
@@ -214,8 +214,7 @@ export default function IntentSearch() {
             {/* 今日推荐 Skill */}
             {dailySkills.length > 0 && dailySkills.map(sk => (
               <a key={sk.slug} href={`/skill/${sk.slug}`} style={{ display: 'block', textDecoration: 'none', color: 'inherit', padding: 14, borderRadius: 13, background: 'linear-gradient(180deg, #1a1a3e, #101027)', border: '1px solid #667eea44' }}>
-                <div style={{ fontSize: '1.3em', marginBottom: 4 }}>⚡</div>
-                <div style={{ fontSize: '.68em', color: '#667eea', fontWeight: 700, marginBottom: 4, textTransform: 'uppercase' }}>⭐ 推荐 Skill</div>
+                  <div style={{ fontSize: '.68em', color: '#667eea', fontWeight: 700, marginBottom: 4, textTransform: 'uppercase' }}>⭐ 推荐 Skill</div>
                 <div style={{ color: '#f1f5f9', fontWeight: 800, fontSize: '.9em', marginBottom: 5 }}>{sk.name}</div>
                 <div style={{ color: '#64748b', fontSize: '.78em', lineHeight: 1.45 }}>{sk.description?.slice(0, 70)}…</div>
                 {sk.downloads > 0 && <div style={{ fontSize: '.68em', color: '#555', marginTop: 6 }}>{sk.downloads >= 1000 ? `${(sk.downloads/1000).toFixed(1)}k dl` : `${sk.downloads} dl`}</div>}
