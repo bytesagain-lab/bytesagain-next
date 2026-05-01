@@ -63,6 +63,7 @@ export default function IntentSearch() {
   const [results, setResults] = useState<typeof USE_CASES>([])
   const [dailyUseCases, setDailyUseCases] = useState<any[]>([])
   const [dailySkills, setDailySkills] = useState<any[]>([])
+  const [skillResults, setSkillResults] = useState<any[]>([])
 
   // Fetch daily recommendations on mount
   useEffect(() => {
