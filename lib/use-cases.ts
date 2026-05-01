@@ -3528,4 +3528,18 @@ export const USE_CASES: UseCase[] = [
     icon: '💼',
     skills: [{ slug: 'humanizer', name: 'Humanizer', reason: 'Humanizer' }, { slug: 'ai-humanizer', name: 'Humanizer', reason: 'Humanizer' }, { slug: 'marketing-mode', name: 'Marketing Mode', reason: 'Marketing Mode' }, { slug: 'remotion-video-toolkit', name: 'Remotion Video Toolkit', reason: 'Remotion Video Toolkit' }],
   },
+  {
+    slug: 'ga4-skills-source-code-audit',
+    title: 'Compare GA4 Analytics Skills',
+    description: 'We audited 23 GA4 skills on ClawHub by reading source code. See the top 5 ranked by code quality — not downloads. The hidden gem scored 88/100 with only 119 downloads.',
+    icon: '📊',
+    skills: [
+      { slug: 'ga4-analytics', name: 'GA4 Analytics', reason: '89/100. Only skill with GA4+Search Console+Indexing. 6,304 downloads.' },
+      { slug: 'google-analytics-ga4', name: 'Google Analytics GA4', reason: '88/100. Hidden gem! Realtime+historical+metadata. 119 downloads.' },
+      { slug: 'native-google-analytics', name: 'Native Google Analytics', reason: '72/100. Zero dependencies, pure REST API calls. 18 stars.' },
+      { slug: 'ga4', name: 'GA4', reason: '66/100. Solid OAuth flow, but no realtime or GSC.' },
+      { slug: 'ga4-data-api', name: 'GA4 Data API', reason: '58/100. Good install script, weakest query capabilities.' },
+    ],
+    searchLink: '/skills?q=ga4+google+analytics',
+  },
 ]
