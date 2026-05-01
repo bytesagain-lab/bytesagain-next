@@ -72,12 +72,12 @@ export default function IntentSearch() {
         const SB_URL = 'https://jfpeycpiyayrpjldppzq.supabase.co'
         const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmcGV5Y3BpeWF5cnBqbGRwcHpxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyMzgxMTIsImV4cCI6MjA4OTgxNDExMn0.KnRmNBKeUPmJQz3m46uNx5kvBf_ZXBVWSUTXOLjW4Ps'
         // Fetch latest use cases
-        const ucRes = await fetch(`${SB_URL}/rest/v1/use_cases?select=slug,title,description,icon,skills&order=created_at.desc&limit=2`, {
+        const ucRes = await fetch(`${SB_URL}/rest/v1/use_cases?select=slug,title,description,icon,skills&order=created_at.desc&limit=1`, {
           headers: { apikey: SB_KEY },
         })
         if (ucRes.ok) setDailyUseCases(await ucRes.json())
         // Fetch top skills (high downloads, our own, exclude generic/toolkit skills)
-        const skRes = await fetch(`${SB_URL}/rest/v1/skills?select=slug,name,description,downloads,category&is_ours=eq.true&slug=neq.shell&order=downloads.desc&limit=2`, {
+        const skRes = await fetch(`${SB_URL}/rest/v1/skills?select=slug,name,description,downloads,category&is_ours=eq.true&slug=neq.shell&order=downloads.desc&limit=1`, {
           headers: { apikey: SB_KEY },
         })
         if (skRes.ok) setDailySkills(await skRes.json())
@@ -204,7 +204,6 @@ export default function IntentSearch() {
             {/* 今日推荐 Use Case */}
             {dailyUseCases.length > 0 && dailyUseCases.map(uc => (
               <a key={uc.slug} href={`/use-case/${uc.slug}`} style={{ display: 'block', textDecoration: 'none', color: 'inherit', padding: 14, borderRadius: 13, background: 'linear-gradient(180deg, #0d2d1a, #101027)', border: '1px solid #34d39944' }}>
-                <div style={{ fontSize: '1.3em', marginBottom: 4 }}>{uc.icon || '📊'}</div>
                 <div style={{ fontSize: '.68em', color: '#34d399', fontWeight: 700, marginBottom: 4, textTransform: 'uppercase' }}>🔥 推荐 Use Case</div>
                 <div style={{ color: '#f1f5f9', fontWeight: 800, fontSize: '.9em', marginBottom: 5 }}>{uc.title}</div>
                 <div style={{ color: '#64748b', fontSize: '.78em', lineHeight: 1.45 }}>{uc.description?.slice(0, 70)}…</div>
