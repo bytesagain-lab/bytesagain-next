@@ -18,6 +18,26 @@ type UseCaseRow = {
 }
 
 const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://jfpeycpiyayrpjldppzq.supabase.co'
+const SB_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+const STORAGE_URL = 'https://jfpeycpiyayrpjldppzq.supabase.co/storage/v1/object/public/article-images'
+
+async function fetchArticle(slug: string) {
+  if (!SB_KEY) return null
+  const res = await fetch(`${SB_URL}/rest/v1/posts?slug=eq.${encodeURIComponent(slug)}&select=title,slug,content&limit=1`, {
+    headers: { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}` },
+    cache: 'no-store',
+  })
+  if (!res.ok) return null
+  const data = await res.json()
+  return data[0] || null
+}
+
+// Extract article slug from search_link (/article/xxx or /xxx)
+function getArticleSlug(uc: UseCaseRow): string | null {
+  const link = uc.search_link || ''
+  const m = link.match(/\/article\/([a-z0-9-]+)/)
+  return m ? m[1] : null
+}
 const SB_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 
 async function sbFetch(path: string) {
@@ -110,6 +130,10 @@ export default async function UseCasePage({ params }: Props) {
   const [related, articles] = await Promise.all([getRelatedUseCases(uc), getRelatedArticles(uc)])
   const description = clean(uc.description) || `A curated AI skill stack for ${uc.title}.`
 
+  // Fetch evaluation article if linked
+  const articleSlug = getArticleSlug(uc)
+  const evaluationArticle = articleSlug ? await fetchArticle(articleSlug) : null
+
   return (
     <main className="uc-shell">
       <style>{`
@@ -180,10 +204,34 @@ export default async function UseCasePage({ params }: Props) {
 
         <div className="layout">
           <div>
-            <section className="card">
-              <h2>What this workflow covers</h2>
-              <p className="muted">This page groups multiple AI agent skills into one practical workflow. Use it when you care about the outcome, not just a single tool name. Start with the recommended stack below, then open the related articles for examples and implementation ideas.</p>
-            </section>
+            {evaluationArticle ? (
+              <section className="card">
+                <h2>📊 Evaluation Report</h2>
+                {articleSlug && (
+                  <img
+                    src={`${STORAGE_URL}/${articleSlug}.png`}
+                    alt={evaluationArticle.title}
+                    style={{ width: '100%', borderRadius: 12, marginBottom: 16, border: '1px solid #1a1a3e' }}
+                  />
+                )}
+                <div
+                  className="eval-content"
+                  dangerouslySetInnerHTML={{ __html: evaluationArticle.content
+                    .replace(/<h2/g, '<h3')
+                    .replace(/<\/h2>/g, '<\/h3>') }}
+                />
+                <div style={{ marginTop: 16, textAlign: 'center' }}>
+                  <a href={`/article/${articleSlug}`} className="btn btn-primary" style={{ display: 'inline-flex' }}>
+                    Read full analysis →
+                  </a>
+                </div>
+              </section>
+            ) : (
+              <section className="card">
+                <h2>What this workflow covers</h2>
+                <p className="muted">This page groups multiple AI agent skills into one practical workflow. Use it when you care about the outcome, not just a single tool name. Start with the recommended stack below, then open the related articles for examples and implementation ideas.</p>
+              </section>
+            )}
 
             <section className="card">
               <h2>Suggested workflow</h2>
