@@ -153,13 +153,13 @@ export default async function SkillsPage({
       })
       let results = ftsData || []
 
-      // GitHub skill index search (parallel) - requires service_role key
+      // GitHub skill index search - use REST ILIKE for reliability
       try {
-        const supabaseGh = createClient(_SUPABASE_URL, _SUPABASE_SERVICE_KEY)
-        const { data: ghData } = await supabaseGh.rpc('search_github_skill_index', {
-          query_text: q.replace(/-/g, ' '),
-          match_count: 20,
+        const ghUrl = `${_SUPABASE_URL}/rest/v1/github_skill_index?select=id,github_owner,repo,name,description,github_url,language,stars&or=(name.ilike.*${encodeURIComponent(q)}*,description.ilike.*${encodeURIComponent(q)}*)&order=stars.desc&limit=10`
+        const ghRes = await fetch(ghUrl, {
+          headers: { apikey: _SUPABASE_SERVICE_KEY, Authorization: `Bearer ${_SUPABASE_SERVICE_KEY}` },
         })
+        const ghData = ghRes.ok ? await ghRes.json() : []
         if (ghData && ghData.length > 0) {
           const ghResults = ghData.map((g: any) => ({
             slug: `gh:${g.id}`,
