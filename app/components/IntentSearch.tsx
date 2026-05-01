@@ -135,8 +135,8 @@ export default function IntentSearch() {
 
   const hasResults = results.length > 0 || skillResults.length > 0
   const defaultQueries = zh
-    ? ['网站没流量怎么办', '优化商品 listing', '帮我做 SEO', '自动化工作流']
-    : ['website has no traffic', 'optimize product listing', 'SEO agent workflow', 'automate my workflow']
+    ? ['帮我写周报', '自动化工作流', '股票分析', 'SAAS 创业']
+    : ['write a report', 'automate my workflow', 'stock market analysis', 'build a SaaS']
 
   return (
     <div style={{ maxWidth: 860, margin: '0 auto', padding: '0 20px' }}>
@@ -194,10 +194,10 @@ export default function IntentSearch() {
         <div style={{ marginTop: 14, background: 'linear-gradient(180deg,#0a0a1a,#080817)', border: '1px solid #1a1a3e', borderRadius: 16, overflow: 'hidden', textAlign: 'left' }}>
           <div style={{ padding: '16px 18px 10px' }}>
             <div style={{ color: '#e5e7eb', fontWeight: 800, fontSize: '.95em', marginBottom: 5 }}>
-              {zh ? '不知道搜什么？从你的 AI 哪里不满意开始。' : 'Not sure what to search? Start from what your AI failed to do.'}
+              {zh ? '不知道怎么搜？看看今日推荐和热门搜索。' : 'Not sure where to start? Browse our daily picks below.'}
             </div>
             <div style={{ color: '#64748b', fontSize: '.84em', lineHeight: 1.55 }}>
-              {zh ? 'BytesAgain 会把问题拆成 Work Hub → Use Case → Skill，推荐正确 skill 并告诉你怎么安装使用。' : 'BytesAgain turns a problem into a Work Hub → Use Case → Skill path, then shows the right skills and how to use them.'}
+              {zh ? '每日精选评测过的 Use Case 和高质量 Skill，帮你快速找到靠谱的 AI 工具。' : 'Curated use cases with source code audits, plus high-quality skills picked by our team.'}
             </div>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 10, padding: '0 14px 14px' }}>
