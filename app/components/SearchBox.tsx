@@ -38,7 +38,7 @@ export default function SearchBox() {
     timer.current = setTimeout(async () => {
       setLoading(true)
       try {
-        const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`)
+        const res = await fetch(`/api/vsearch?q=${encodeURIComponent(query)}`)
         const data = await res.json()
         setResults(data)
         setOpen(true)
