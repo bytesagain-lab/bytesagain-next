@@ -59,7 +59,7 @@ const ROUNDROBIN_PER_PAGE = Math.ceil(PAGE_SIZE / ROUNDROBIN_SOURCES.length) + 2
 // Fallback env: hardcoded as Vercel env vars sometimes missing during build
 const _SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://jfpeycpiyayrpjldppzq.supabase.co'
 const _SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmcGV5Y3BpeWF5cnBqbGRwcHpxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyMzgxMTIsImV4cCI6MjA4OTgxNDExMn0.KnRmNBKeUPmJQz3m46uNx5kvBf_ZXBVWSUTXOLjW4Ps'
-const _SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+const _SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmcGV5Y3BpeWF5cnBqbGRwcHpxIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDIzODExMiwiZXhwIjoyMDg5ODE0MTEyfQ.lD7IcVeN47mUlrP43DFhY8-BAzn_gJAqfOBBBjteA0I'
 
 async function cachedSkillsList(cat: string, from: number) {
   const url = _SUPABASE_URL
