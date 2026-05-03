@@ -56,7 +56,17 @@ export async function POST(req: NextRequest) {
 
   if (!email) return NextResponse.json({ ok: true }) // ignore events without email
 
-  if (type === 'subscription.active' || type === 'checkout.completed' || type === 'subscription.renewed') {
+  if (type === 'checkout.completed') {
+    // One-time product purchase — log and notify
+    const productName = data?.product?.name || 'Unknown'
+    const amount = data?.total_amount
+      ? `${(data.total_amount / 100).toFixed(2)} ${data?.currency || 'USD'}`
+      : 'N/A'
+    console.log(`[creem-webhook] 💰 Product sale: ${productName} — ${amount} — ${email}`)
+    // Fulfillment: no subscription needed, just log for now
+  }
+
+  if (type === 'subscription.active' || type === 'subscription.renewed') {
     // User paid — upgrade to Pro
     const expiresAt = data?.subscription?.current_period_end
       ? new Date(data.subscription.current_period_end * 1000).toISOString()

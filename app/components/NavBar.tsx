@@ -53,6 +53,7 @@ export default function NavBar() {
           <a href="/search" style={{ color: '#a5b4fc', textDecoration: 'none', fontSize: '.85em', display: 'flex', alignItems: 'center', gap: 4 }}>🔍 <span style={{ color: '#64748b' }}>Search</span></a>
           <a href="/articles" style={navLinkStyle}>{t.nav_articles}</a>
           <a href="/skills" style={navLinkStyle}>{t.nav_skills}</a>
+          <a href="/store" style={{ color: '#34d399', textDecoration: 'none', fontSize: '.9em', fontWeight: 600 }}>🛒 Store</a>
           <a href="/work-hubs" style={navLinkStyle}>Hubs</a>
           <a href="/use-case" style={navLinkStyle}>{t.nav_cases}</a>
           {!loading && (
@@ -91,6 +92,7 @@ export default function NavBar() {
         <div className="mobile-nav" style={{ background: '#0d0d20', borderTop: '1px solid #1a1a2e', padding: '12px 20px', display: 'flex', flexDirection: 'column', gap: 14 }}>
           <a href="/articles" style={navLinkStyle} onClick={() => setMenuOpen(false)}>{t.nav_articles}</a>
           <a href="/skills" style={navLinkStyle} onClick={() => setMenuOpen(false)}>{t.nav_skills}</a>
+          <a href="/store" style={{ color: '#34d399', textDecoration: 'none', fontSize: '.9em', fontWeight: 600 }} onClick={() => setMenuOpen(false)}>🛒 Store</a>
           <a href="/work-hubs" style={navLinkStyle} onClick={() => setMenuOpen(false)}>Hubs</a>
           <a href="/use-case" style={navLinkStyle} onClick={() => setMenuOpen(false)}>{t.nav_cases}</a>
           {!loading && (
