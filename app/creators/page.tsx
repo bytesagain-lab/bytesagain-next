@@ -1,6 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { createBrowserClient } from '@supabase/ssr'
+import type { User } from '@supabase/supabase-js'
 import { useLang } from '../components/LangContext'
 
 const FIELDS = [
@@ -15,6 +17,12 @@ const FIELDS = [
 
 export default function CreatorRegisterPage() {
   const { lang } = useLang()
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
+  const [user, setUser] = useState<User | null>(null)
+  const [authLoading, setAuthLoading] = useState(true)
   const zh = lang === 'zh'
 
   const t = {
@@ -41,7 +49,16 @@ export default function CreatorRegisterPage() {
     doneTitle: zh ? '登记成功！' : 'Registration Submitted!',
     doneText: zh ? '我们会在 1-2 个工作日内核实你的 GitHub 账号，通过后你的 Skill 会在 BytesAgain Creator 集市展示。' : 'We will verify your GitHub account within 1-2 business days. Once approved, your skills will appear on the BytesAgain Creator Marketplace.',
     backHome: zh ? '← 返回首页' : '← Back to Home',
+    loginPrompt: zh ? '请先登录后再登记' : 'Sign in to register',
+    loginBtn: zh ? '去登录 →' : 'Sign In →',
   }
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      setUser(data.user ?? null)
+      setAuthLoading(false)
+    })
+  }, [])
 
   const [form, setForm] = useState<Record<string,string>>({})
   const [submitted, setSubmitted] = useState(false)
@@ -141,6 +158,20 @@ export default function CreatorRegisterPage() {
         <form onSubmit={handleSubmit} className="register-form" style={{
           background: '#0d0d20', border: '1px solid #1a1a3e', borderRadius: 18, padding: 36,
         }}>
+          {authLoading ? (
+            <div style={{ textAlign: 'center', padding: 40, color: '#555' }}>{zh ? '加载中…' : 'Loading…'}</div>
+          ) : !user ? (
+            <div style={{ textAlign: 'center', padding: '20px 0' }}>
+              <div style={{ fontSize: '2em', marginBottom: 12 }}>🔐</div>
+              <p style={{ color: '#94a3b8', fontSize: '.9em', marginBottom: 16 }}>{t.loginPrompt}</p>
+              <a href="/login" style={{
+                display: 'inline-block', padding: '10px 28px', borderRadius: 8,
+                background: 'linear-gradient(135deg,#667eea,#00d4ff)',
+                color: '#fff', fontWeight: 700, fontSize: '.9em', textDecoration: 'none',
+              }}>{t.loginBtn}</a>
+            </div>
+          ) : (
+          <>
           {FIELDS.map(f => (
             <div key={f.key} style={{ marginBottom: 20 }}>
               <label style={{ display: 'block', marginBottom: 6, fontSize: '.88em', fontWeight: 600, color: '#ccc' }}>
@@ -176,6 +207,8 @@ export default function CreatorRegisterPage() {
           }}>
             {saving ? t.submitting : t.submit}
           </button>
+          </>
+          )}
         </form>
       </div>
     </main>

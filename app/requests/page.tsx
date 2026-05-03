@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { createBrowserClient } from '@supabase/ssr'
+import type { User } from '@supabase/supabase-js'
 import { useLang } from '../components/LangContext'
 
 interface Request {
@@ -18,7 +20,13 @@ const PLATFORMS = ['OpenClaw', 'Claude Desktop', 'Cursor', 'Codex CLI', 'Copilot
 
 export default function RequestsPage() {
   const { lang } = useLang()
-  const t = (useLang() as any).t // not available directly, use inline helper
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
+
+  const [user, setUser] = useState<User | null>(null)
+  const [authLoading, setAuthLoading] = useState(true)
 
   const [requests, setRequests] = useState<Request[]>([])
   const [loading, setLoading] = useState(true)
@@ -57,9 +65,15 @@ export default function RequestsPage() {
     scenePrefix: zh ? '💡 场景：' : '💡 Use case:',
     errShort: zh ? '需求描述太短（最少 10 个字）' : 'Description too short (min 10 chars)',
     loading: zh ? '加载中…' : 'Loading…',
+    loginPrompt: zh ? '请先登录后再发布需求' : 'Sign in to post a request',
+    loginBtn: zh ? '去登录 →' : 'Sign In →',
   }
 
   useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      setUser(data.user ?? null)
+      setAuthLoading(false)
+    })
     fetch('/api/requests').then(r => r.json()).then(data => {
       setRequests(data || [])
       setLoading(false)
@@ -119,6 +133,19 @@ export default function RequestsPage() {
             <h2 style={{ margin: '0 0 20px', fontSize: '1.05em', fontWeight: 700, color: '#ccc' }}>
               {text.publish}
             </h2>
+            {authLoading ? (
+              <div style={{ textAlign: 'center', padding: 40, color: '#555' }}>{text.loading}</div>
+            ) : !user ? (
+              <div style={{ textAlign: 'center', padding: '20px 0' }}>
+                <div style={{ fontSize: '2em', marginBottom: 12 }}>🔐</div>
+                <p style={{ color: '#94a3b8', fontSize: '.9em', marginBottom: 16 }}>{text.loginPrompt}</p>
+                <a href="/login" style={{
+                  display: 'inline-block', padding: '10px 28px', borderRadius: 8,
+                  background: 'linear-gradient(135deg,#667eea,#00d4ff)',
+                  color: '#fff', fontWeight: 700, fontSize: '.9em', textDecoration: 'none',
+                }}>{text.loginBtn}</a>
+              </div>
+            ) : (
             <form onSubmit={handleSubmit}>
               <Field label={text.labelTitle} hint={text.hintTitle}>
                 <input type="text" value={form.title} onChange={e => set('title', e.target.value)}
@@ -161,6 +188,7 @@ export default function RequestsPage() {
                 {submitting ? text.submitting : text.submit}
               </button>
             </form>
+            )}
           </div>
 
           <div>
