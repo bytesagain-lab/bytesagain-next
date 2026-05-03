@@ -18,7 +18,6 @@ type UseCaseRow = {
 }
 
 const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://jfpeycpiyayrpjldppzq.supabase.co'
-const SB_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
 const STORAGE_URL = 'https://jfpeycpiyayrpjldppzq.supabase.co/storage/v1/object/public/article-images'
 
 async function fetchArticle(slug: string) {
