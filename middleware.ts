@@ -21,11 +21,16 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  await supabase.auth.getUser()
+  const { data: { user } } = await supabase.auth.getUser()
+
+  // Admin 路由需要额外检查邮箱白名单
+  if (request.nextUrl.pathname.startsWith('/admin') && user?.email !== 'ckchzh@gmail.com') {
+    return NextResponse.redirect(new URL('/login', request.url))
+  }
+
   return supabaseResponse
 }
 
 export const config = {
-  // 只匹配 dashboard，其余所有页面跳过 middleware
-  matcher: ['/dashboard/:path*'],
+  matcher: ['/dashboard/:path*', '/admin/:path*'],
 }
