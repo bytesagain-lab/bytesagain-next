@@ -174,6 +174,12 @@ export default function DashboardPage() {
       {/* 我的需求 */}
       <MyRequestsSection user={user} lang={lang} />
 
+      {/* 创作者登记状态 */}
+      <CreatorSection user={user} lang={lang} />
+
+      {/* API Token */}
+      <ApiTokenSection user={user} lang={lang} />
+
       {/* 账号信息 */}
       <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: 28, marginBottom: 20 }}>
         <h2 style={{ margin: '0 0 20px', fontSize: '1.05em', color: '#888', textTransform: 'uppercase', letterSpacing: 1 }}>
@@ -244,6 +250,108 @@ function MyRequestsSection({ user, lang }: { user: User | null; lang: string }) 
             </button>
           </div>
         ))
+      )}
+    </div>
+  )
+}
+
+function CreatorSection({ user, lang }: { user: User | null; lang: string }) {
+  const [reg, setReg] = useState<any>(null)
+  const [loaded, setLoaded] = useState(false)
+  const zh = lang === 'zh'
+
+  useEffect(() => {
+    if (!user) return
+    fetch('/api/creators/check').then(r => r.json()).then(d => {
+      setReg(d?.data || null); setLoaded(true)
+    }).catch(() => setLoaded(true))
+  }, [user])
+
+  if (!loaded) return null
+
+  const statusLabel = (s: string) => {
+    if (s === 'pending') return zh ? '审核中' : 'Pending'
+    if (s === 'approved') return zh ? '已通过' : 'Approved'
+    return s || '—'
+  }
+
+  return (
+    <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: 28, marginBottom: 20 }}>
+      <h2 style={{ margin: '0 0 16px', fontSize: '1.05em', color: '#888', textTransform: 'uppercase', letterSpacing: 1 }}>
+        🎨 {zh ? '创作者登记' : 'Creator Registration'}
+      </h2>
+      {!reg ? (
+        <p style={{ color: '#444', fontSize: '.9em' }}>
+          {zh ? '还没有登记为创作者。' : 'Not registered as a creator.'}
+          {' '}<Link href="/creators" style={{ color: '#667eea' }}>{zh ? '去登记 →' : 'Register →'}</Link>
+        </p>
+      ) : (
+        <div>
+          <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap', marginBottom: 12 }}>
+            <span style={{ fontSize: '.85em', color: '#666' }}>{zh ? '状态' : 'Status'}: <strong style={{ color: reg.status === 'approved' ? '#34d399' : '#f59e0b' }}>{statusLabel(reg.status)}</strong></span>
+            <span style={{ fontSize: '.85em', color: '#666' }}>GitHub: <strong style={{ color: '#ccc' }}>{reg.github}</strong></span>
+          </div>
+          {reg.skills && <p style={{ fontSize: '.82em', color: '#555' }}>{zh ? 'Skills' : 'Skills'}: {reg.skills}</p>}
+          {reg.pricing && <p style={{ fontSize: '.82em', color: '#555', marginTop: 4 }}>{zh ? '定价' : 'Pricing'}: {reg.pricing}</p>}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function ApiTokenSection({ user, lang }: { user: User | null; lang: string }) {
+  const [token, setToken] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [copied, setCopied] = useState(false)
+  const [loaded, setLoaded] = useState(false)
+  const supabase = createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
+
+  useEffect(() => {
+    if (!user) return
+    supabase.from('profiles').select('api_key').eq('user_id', user.id).single().then(({ data }) => {
+      setToken(data?.api_key || null); setLoaded(true)
+    })
+  }, [user])
+
+  const generate = async () => {
+    setLoading(true)
+    const newToken = 'ba_' + crypto.randomUUID().replace(/-/g, '')
+    await supabase.from('profiles').upsert({ user_id: user!.id, api_key: newToken }, { onConflict: 'user_id' })
+    setToken(newToken)
+    setLoading(false)
+  }
+
+  const handleCopy = () => {
+    if (!token) return
+    navigator.clipboard.writeText(token)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
+  if (!loaded) return null
+  const zh = lang === 'zh'
+
+  return (
+    <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: 28, marginBottom: 20 }}>
+      <h2 style={{ margin: '0 0 16px', fontSize: '1.05em', color: '#888', textTransform: 'uppercase', letterSpacing: 1 }}>
+        🔑 API Token
+      </h2>
+      {token ? (
+        <>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+            <code style={{ flex: 1, padding: '10px 14px', borderRadius: 8, background: '#0a0a18', border: '1px solid #1a1a2e', color: '#34d399', fontSize: '.8em', wordBreak: 'break-all', userSelect: 'all' }}>{token}</code>
+            <button onClick={handleCopy} style={{ padding: '8px 16px', borderRadius: 8, border: 'none', cursor: 'pointer', background: copied ? '#34d399' : '#667eea', color: '#fff', fontWeight: 700, fontSize: '.8em', whiteSpace: 'nowrap' }}>{copied ? 'Copied!' : zh ? '复制' : 'Copy'}</button>
+          </div>
+          <div style={{ display: 'flex', gap: 8, fontSize: '.75em', color: '#555', marginTop: 8 }}>
+            <button onClick={generate} disabled={loading} style={{ background: 'none', border: '1px solid #333', borderRadius: 6, color: '#888', padding: '4px 10px', cursor: 'pointer', fontSize: '.8em' }}>{loading ? '...' : zh ? '重新生成' : 'Regen'}</button>
+            <span>{zh ? '⚠️ 重新生成后旧 Token 立即失效' : '⚠️ Regenerating invalidates old key'}</span>
+          </div>
+        </>
+      ) : (
+        <div>
+          <p style={{ color: '#444', fontSize: '.9em', marginBottom: 12 }}>{zh ? '生成 API Token 以程序化访问你的数据。' : 'Generate API Token for programmatic access.'}</p>
+          <button onClick={generate} disabled={loading} style={{ padding: '10px 22px', borderRadius: 8, border: 'none', cursor: 'pointer', background: '#667eea', color: '#fff', fontWeight: 700, fontSize: '.88em' }}>{loading ? '...' : zh ? '生成 Token' : 'Generate'}</button>
+        </div>
       )}
     </div>
   )

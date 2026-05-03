@@ -1,0 +1,2 @@
+-- 跑这个
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS api_key text;
