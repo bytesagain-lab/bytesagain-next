@@ -10,7 +10,7 @@ export async function GET() {
   )
   const { data } = await sb
     .from('skill_requests')
-    .select('id, title, request, platform, budget, allow_contact, user_id, created_at')
+    .select('id, title, request, platform, budget, allow_contact, show_contact, image_url, view_count, nickname, user_id, created_at')
     .order('created_at', { ascending: false })
     .limit(50)
   return NextResponse.json(data || [])
@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const body = await req.json()
-  const { title, request, platform, budget, contact, allow_contact } = body
+  const { title, request, platform, budget, contact, allow_contact, show_contact, image_url, nickname } = body
   if (!request || request.trim().length < 10)
     return NextResponse.json({ error: 'Request too short' }, { status: 400 })
   if (request.length > 800)
@@ -46,6 +46,9 @@ export async function POST(req: NextRequest) {
     budget: budget?.trim() || null,
     contact: contact?.trim() || null,
     allow_contact: allow_contact === true,
+    show_contact: show_contact === true,
+    image_url: image_url?.trim() || null,
+    nickname: nickname?.trim() || null,
   })
   if (error) return NextResponse.json({ error: 'Failed' }, { status: 500 })
   return NextResponse.json({ ok: true })
@@ -77,6 +80,9 @@ export async function PATCH(req: NextRequest) {
       budget: body.budget?.trim() || null,
       contact: body.contact?.trim() || null,
       allow_contact: body.allow_contact,
+      show_contact: body.show_contact,
+      image_url: body.image_url?.trim() || null,
+      nickname: body.nickname?.trim() || null,
     })
     .eq('id', id)
     .eq('user_id', user.id)

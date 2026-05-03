@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { createBrowserClient } from '@supabase/ssr'
 import type { User } from '@supabase/supabase-js'
 import { useLang } from '../components/LangContext'
@@ -12,6 +13,10 @@ interface Request {
   platform: string | null
   budget: string | null
   allow_contact: boolean
+  show_contact: boolean
+  image_url: string | null
+  view_count: number
+  nickname: string | null
   user_id: string
   created_at: string
   contact?: string | null
@@ -21,6 +26,7 @@ const PLATFORMS = ['OpenClaw', 'Claude Desktop', 'Cursor', 'Codex CLI', 'Copilot
 
 export default function RequestsPage() {
   const { lang } = useLang()
+  const router = useRouter()
   const zh = lang === 'zh'
   const supabase = createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -34,7 +40,7 @@ export default function RequestsPage() {
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
   const [editId, setEditId] = useState<number | null>(null)
-  const [form, setForm] = useState({ title: '', request: '', platform: '', budget: '', contact: '', allow_contact: false })
+  const [form, setForm] = useState({ title: '', request: '', platform: '', budget: '', contact: '', allow_contact: false, show_contact: false, image_url: '', nickname: '' })
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
   const [tab, setTab] = useState<'wall' | 'mine'>('wall')
@@ -64,14 +70,14 @@ export default function RequestsPage() {
 
   const openNew = () => {
     setEditId(null)
-    setForm({ title: '', request: '', platform: '', budget: '', contact: '', allow_contact: false })
+    setForm({ title: '', request: '', platform: '', budget: '', contact: '', allow_contact: false, show_contact: false, image_url: '', nickname: '' })
     setError('')
     setShowForm(true)
   }
 
   const openEdit = (r: Request) => {
     setEditId(r.id)
-    setForm({ title: r.title || '', request: r.request, platform: r.platform || '', budget: r.budget || '', contact: r.contact || '', allow_contact: r.allow_contact })
+    setForm({ title: r.title || '', request: r.request, platform: r.platform || '', budget: r.budget || '', contact: r.contact || '', allow_contact: r.allow_contact, show_contact: r.show_contact, image_url: r.image_url || '', nickname: r.nickname || '' })
     setError('')
     setShowForm(true)
   }
@@ -170,10 +176,14 @@ export default function RequestsPage() {
           ) : (
             <div className="card-grid">
               {requests.map(r => (
-                <div key={r.id} style={{
+                <div key={r.id} onClick={() => router.push(`/requests/${r.id}`)} style={{
                   background: '#0d0d20', border: '1px solid #1a1a3e', borderRadius: 14, padding: 20,
-                  display: 'flex', flexDirection: 'column',
-                }}>
+                  display: 'flex', flexDirection: 'column', cursor: 'pointer',
+                  transition: 'border-color .15s',
+                }}
+                  onMouseEnter={e => (e.currentTarget.style.borderColor = '#667eea44')}
+                  onMouseLeave={e => (e.currentTarget.style.borderColor = '#1a1a3e')}
+                >
                   {r.title && (
                     <div style={{ fontWeight: 700, fontSize: '1em', color: '#e0e0e0', marginBottom: 8 }}>
                       {r.title}
@@ -182,13 +192,15 @@ export default function RequestsPage() {
                   <div style={{ fontSize: '.9em', color: '#cbd5e1', lineHeight: 1.7, flex: 1, marginBottom: 12 }}>
                     {r.request}
                   </div>
+                  {r.image_url && <img src={r.image_url} alt="" style={{ width: '100%', borderRadius: 8, marginBottom: 10, maxHeight: 160, objectFit: 'cover', border: '1px solid #1a1a3e' }} />}
                   <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 10 }}>
                     {r.platform && <Tag label={r.platform} color="#667eea" />}
                     {r.budget && <Tag label={r.budget} color="#f59e0b" />}
                     {r.allow_contact && <Tag label={t('Open to contact', '可联系')} color="#34d399" />}
                   </div>
-                  <div style={{ fontSize: '.75em', color: '#444' }}>
-                    {new Date(r.created_at).toLocaleDateString(zh ? 'zh-CN' : 'en-US', { month: 'short', day: 'numeric' })}
+                  <div style={{ fontSize: '.75em', color: '#444', display: 'flex', justifyContent: 'space-between' }}>
+                    <span>{r.nickname || t('Anonymous', '匿名')} · {new Date(r.created_at).toLocaleDateString(zh ? 'zh-CN' : 'en-US', { month: 'short', day: 'numeric' })}</span>
+                    <span>👁 {r.view_count || 0}</span>
                   </div>
                 </div>
               ))}
@@ -209,10 +221,14 @@ export default function RequestsPage() {
           ) : (
             <div className="card-grid">
               {myRequests.map(r => (
-                <div key={r.id} style={{
+                <div key={r.id} onClick={() => router.push(`/requests/${r.id}`)} style={{
                   background: '#0d0d20', border: '1px solid #1a1a3e', borderRadius: 14, padding: 20,
-                  display: 'flex', flexDirection: 'column',
-                }}>
+                  display: 'flex', flexDirection: 'column', cursor: 'pointer',
+                  transition: 'border-color .15s',
+                }}
+                  onMouseEnter={e => (e.currentTarget.style.borderColor = '#667eea44')}
+                  onMouseLeave={e => (e.currentTarget.style.borderColor = '#1a1a3e')}
+                >
                   {r.title && (
                     <div style={{ fontWeight: 700, fontSize: '1em', color: '#e0e0e0', marginBottom: 8 }}>{r.title}</div>
                   )}
@@ -222,6 +238,7 @@ export default function RequestsPage() {
                     {r.budget && <Tag label={r.budget} color="#f59e0b" />}
                     {r.allow_contact && <Tag label={t('Open to contact', '可联系')} color="#34d399" />}
                     {r.contact && <span style={{ fontSize: '.75em', color: '#667eea' }}>📬 {r.contact}</span>}
+                    <span style={{ fontSize: '.75em', color: '#555' }}>👁 {r.view_count || 0}</span>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span style={{ fontSize: '.75em', color: '#444' }}>
@@ -277,13 +294,21 @@ export default function RequestsPage() {
                 <input type="text" value={form.contact} onChange={e => setForm(p => ({ ...p, contact: e.target.value }))}
                   placeholder={t('TG / Email (private)', 'TG / 邮箱（不公开）')} className="req-input" style={inputStyle} />
               </F>
-              <div style={{ marginBottom: 20 }}>
-                <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: '.9em', color: '#ccc' }}>
-                  <input type="checkbox" checked={form.allow_contact} onChange={e => setForm(p => ({ ...p, allow_contact: e.target.checked }))}
-                    style={{ width: 18, height: 18, accentColor: '#667eea' }} />
-                  {t('Allow BytesAgain to contact me if needed', '允许必要时联系我')}
-                </label>
-              </div>
+              <F label={t('Image URL', '图片链接')}>
+                <input type="text" value={form.image_url} onChange={e => setForm(p => ({ ...p, image_url: e.target.value }))}
+                  placeholder={t('Paste image URL (optional)', '粘贴图片链接（选填）')} className="req-input" style={inputStyle} />
+                {form.image_url && (
+                  <img src={form.image_url} alt="preview" style={{ marginTop: 8, maxWidth: '100%', maxHeight: 120, borderRadius: 8, border: '1px solid #1a1a3e' }} />
+                )}
+              </F>
+              <F label={t('Display Nickname', '显示昵称')}>
+                <input type="text" value={form.nickname} onChange={e => setForm(p => ({ ...p, nickname: e.target.value }))}
+                  placeholder={t('How others see you', '别人看到的称呼')} className="req-input" style={inputStyle} />
+              </F>
+              <CheckBox checked={form.show_contact} onChange={v => setForm(p => ({ ...p, show_contact: v }))}
+                label={t('Show my contact info publicly', '公开显示我的联系方式')} />
+              <CheckBox checked={form.allow_contact} onChange={v => setForm(p => ({ ...p, allow_contact: v }))}
+                label={t('Allow BytesAgain to contact me if needed', '允许必要时联系我')} />
 
               {error && <div style={{ color: '#f87171', fontSize: '.85em', marginBottom: 14, padding: '10px', background: '#3a1a1a10', borderRadius: 8 }}>⚠️ {error}</div>}
 
@@ -311,6 +336,18 @@ function F({ label, children }: { label: string; children: React.ReactNode }) {
     <div style={{ marginBottom: 16 }}>
       <label style={{ display: 'block', marginBottom: 4, fontSize: '.82em', fontWeight: 600, color: '#ccc' }}>{label}</label>
       {children}
+    </div>
+  )
+}
+
+function CheckBox({ checked, onChange, label }: { checked: boolean; onChange: (v: boolean) => void; label: string }) {
+  return (
+    <div style={{ marginBottom: 16 }}>
+      <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: '.88em', color: '#ccc' }}>
+        <input type="checkbox" checked={checked} onChange={e => onChange(e.target.checked)}
+          style={{ width: 18, height: 18, accentColor: '#667eea' }} />
+        {label}
+      </label>
     </div>
   )
 }
