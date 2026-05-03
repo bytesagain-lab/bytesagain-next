@@ -79,7 +79,7 @@ export default function RequestDetailPage() {
           <div>
             {/* Main card */}
             <div style={{ background: '#0d0d20', border: '1px solid #1a1a3e', borderRadius: 18, padding: 28, marginBottom: 20 }}>
-              {data.title && <h1 style={{ fontSize: '1.4em', fontWeight: 800, marginBottom: 12 }}>{data.title}</h1>}
+              {data.title && <h1 style={{ fontSize: '1.4em', fontWeight: 800, marginBottom: 12 }}>{data.title} <RequestDetailFav requestId={data.id} /></h1>}
               <div style={{ fontSize: '1em', color: '#cbd5e1', lineHeight: 1.8, marginBottom: 16, whiteSpace: 'pre-wrap' }}>
                 {data.request}
               </div>
@@ -159,4 +159,32 @@ function Tag({ label, color }: { label: string; color: string }) {
 }
 function Stat({ label, value }: { label: string; value: string }) {
   return <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: '#666' }}>{label}</span><span style={{ color: '#ccc', fontWeight: 600 }}>{value}</span></div>
+}
+
+function RequestDetailFav({ requestId }: { requestId: number }) {
+  const [saved, setSaved] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const supabase = createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      if (!data.user) { setLoading(false); return }
+      supabase.from('skill_favorites').select('id').eq('user_id', data.user.id).eq('skill_slug', `request:${requestId}`).single().then(({ data: fav }) => {
+        setSaved(!!fav); setLoading(false)
+      })
+    }).catch(() => setLoading(false))
+  }, [requestId])
+  const toggle = async (e: React.MouseEvent) => {
+    e.stopPropagation()
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) { window.location.href = '/login'; return }
+    if (saved) {
+      await supabase.from('skill_favorites').delete().eq('user_id', user.id).eq('skill_slug', `request:${requestId}`)
+      setSaved(false)
+    } else {
+      await supabase.from('skill_favorites').insert({ user_id: user.id, skill_slug: `request:${requestId}` })
+      setSaved(true)
+    }
+  }
+  if (loading) return null
+  return <span onClick={toggle} style={{ cursor: 'pointer', fontSize: '.7em', marginLeft: 8, verticalAlign: 'middle' }}>{saved ? '❤️' : '🤍'}</span>
 }

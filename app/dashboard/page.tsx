@@ -41,8 +41,9 @@ export default function DashboardPage() {
       // 处理收藏：区分 skill 和 use-case
       if (favRes.data && favRes.data.length > 0) {
         const allSlugs: string[] = favRes.data.map((f: any) => f.skill_slug)
-        const skillSlugs = allSlugs.filter(s => !s.startsWith('usecase:'))
+        const skillSlugs = allSlugs.filter(s => !s.startsWith('usecase:') && !s.startsWith('request:'))
         const usecaseSlugs = allSlugs.filter(s => s.startsWith('usecase:'))
+        const requestSlugs = allSlugs.filter(s => s.startsWith('request:'))
 
         const results: any[] = []
 
@@ -60,6 +61,18 @@ export default function DashboardPage() {
           const ucSlug = uc.replace('usecase:', '')
           const ucName = ucSlug.replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase())
           results.push({ slug: ucSlug, name: ucName, description: 'Use Case', _type: 'usecase' })
+        }
+
+        // 处理 request 收藏
+        if (requestSlugs.length > 0) {
+          const ids = requestSlugs.map(s => parseInt(s.replace('request:', ''))).filter(n => !isNaN(n))
+          if (ids.length > 0) {
+            const { data: reqData } = await supabase
+              .from('skill_requests')
+              .select('id, title, request')
+              .in('id', ids)
+            if (reqData) results.push(...reqData.map((r: any) => ({ slug: `request:${r.id}`, name: r.title || r.request?.slice(0, 50), description: r.request?.slice(0, 100), _type: 'request' })))
+          }
         }
 
         setFavorites(results)
@@ -98,12 +111,15 @@ export default function DashboardPage() {
   const joinedAt = user?.created_at ? new Date(user.created_at).toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : ''
   const provider = user?.app_metadata?.provider || 'email'
 
-  const SkillRow = ({ s, onRemove }: { s: any; onRemove?: () => void }) => (
+  const SkillRow = ({ s, onRemove }: { s: any; onRemove?: () => void }) => {
+    const href = s._type === 'usecase' ? `/use-case/${s.slug}` : s._type === 'request' ? `/requests/${s.slug.replace('request:', '')}` : `/skill/${s.slug}`
+    return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       padding: '12px 0', borderBottom: '1px solid #1a1a2e' }}>
-      <Link href={s._type === 'usecase' ? `/use-case/${s.slug}` : `/skill/${s.slug}`} style={{ textDecoration: 'none', flex: 1 }}>
+      <Link href={href} style={{ textDecoration: 'none', flex: 1 }}>
         <div style={{ fontWeight: 600, color: '#e0e0e0', fontSize: '.92em' }}>
           {s._type === 'usecase' && <span style={{ fontSize: '.75em', color: '#667eea', marginRight: 6 }}>USE CASE</span>}
+          {s._type === 'request' && <span style={{ fontSize: '.75em', color: '#f59e0b', marginRight: 6 }}>REQUEST</span>}
           {s.name || s.slug}
         </div>
         <div style={{ color: '#555', fontSize: '.78em', marginTop: 2,
@@ -119,6 +135,7 @@ export default function DashboardPage() {
       )}
     </div>
   )
+  }
 
   return (
     <div style={{ maxWidth: 700, margin: '60px auto', padding: '0 20px' }}>

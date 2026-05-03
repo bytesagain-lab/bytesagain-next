@@ -166,7 +166,7 @@ export default function RequestsPage() {
                 </div>
                 <div style={{ fontSize: '.75em', color: '#444', display: 'flex', justifyContent: 'space-between' }}>
                   <span>{r.nickname || t('Anonymous', '匿名')} · {new Date(r.created_at).toLocaleDateString(zh ? 'zh-CN' : 'en-US', { month: 'short', day: 'numeric' })}</span>
-                  <span>👁 {r.view_count || 0}</span>
+                  <span>👁 {r.view_count || 0} <RequestFavoriteBtn requestId={r.id} /></span>
                 </div>
               </div>
             ))}
@@ -268,6 +268,42 @@ function Tag({ label, color }: { label: string; color: string }) {
   return (
     <span style={{ display: 'inline-block', padding: '2px 8px', borderRadius: 999, fontSize: '.7em', fontWeight: 700, background: `${color}18`, color, border: `1px solid ${color}33` }}>
       {label}
+    </span>
+  )
+}
+
+function RequestFavoriteBtn({ requestId }: { requestId: number }) {
+  const [saved, setSaved] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const supabase = createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      if (!data.user) { setLoading(false); return }
+      supabase.from('skill_favorites').select('id').eq('user_id', data.user.id).eq('skill_slug', `request:${requestId}`).single().then(({ data: fav }) => {
+        setSaved(!!fav); setLoading(false)
+      })
+    }).catch(() => setLoading(false))
+  }, [requestId])
+
+  const toggle = async (e: React.MouseEvent) => {
+    e.stopPropagation()
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) { window.location.href = '/login'; return }
+    
+    if (saved) {
+      await supabase.from('skill_favorites').delete().eq('user_id', user.id).eq('skill_slug', `request:${requestId}`)
+      setSaved(false)
+    } else {
+      await supabase.from('skill_favorites').insert({ user_id: user.id, skill_slug: `request:${requestId}` })
+      setSaved(true)
+    }
+  }
+
+  if (loading) return null
+  return (
+    <span onClick={toggle} style={{ cursor: 'pointer', fontSize: '1em', marginLeft: 6, userSelect: 'none' }} title={saved ? 'Unsave' : 'Save'}>
+      {saved ? '❤️' : '🤍'}
     </span>
   )
 }
