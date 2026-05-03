@@ -8,7 +8,7 @@ export async function GET() {
   )
   const { data, error } = await sb
     .from('skill_requests')
-    .select('id, request, contact, created_at')
+    .select('id, title, request, use_case, platform, budget, contact, created_at')
     .order('created_at', { ascending: false })
     .limit(50)
   if (error) return NextResponse.json([], { status: 500 })
@@ -17,12 +17,13 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   const body = await req.json()
-  const { request, contact } = body
-  if (!request || request.trim().length < 5) {
-    return NextResponse.json({ error: 'Request too short' }, { status: 400 })
+  const { title, request, use_case, platform, budget, contact } = body
+
+  if (!request || request.trim().length < 10) {
+    return NextResponse.json({ error: '需求描述太短，至少10个字' }, { status: 400 })
   }
-  if (request.length > 500) {
-    return NextResponse.json({ error: 'Request too long' }, { status: 400 })
+  if (request.length > 800) {
+    return NextResponse.json({ error: '需求太长，请控制在800字以内' }, { status: 400 })
   }
 
   const sb = createClient(
@@ -30,7 +31,11 @@ export async function POST(req: NextRequest) {
     process.env.SUPABASE_SERVICE_ROLE_KEY!
   )
   const { error } = await sb.from('skill_requests').insert({
+    title: title?.trim() || null,
     request: request.trim(),
+    use_case: use_case?.trim() || null,
+    platform: platform?.trim() || null,
+    budget: budget?.trim() || null,
     contact: contact?.trim() || null,
   })
   if (error) {

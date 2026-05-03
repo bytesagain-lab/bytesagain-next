@@ -1,11 +1,19 @@
--- 在 Supabase SQL Editor 执行: https://supabase.com/dashboard/project/jfpeycpiyayrpjldppzq/sql/new
-CREATE TABLE IF NOT EXISTS public.skill_requests (
-  id bigint primary key generated always as identity,
-  request text not null,
-  contact text,
-  created_at timestamptz default now()
-);
+-- 追加新字段（如果表已存在，跑这个）：
+ALTER TABLE public.skill_requests 
+  ADD COLUMN IF NOT EXISTS title text,
+  ADD COLUMN IF NOT EXISTS use_case text,
+  ADD COLUMN IF NOT EXISTS platform text,
+  ADD COLUMN IF NOT EXISTS budget text;
 
-ALTER TABLE public.skill_requests ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "anon_select" ON public.skill_requests FOR SELECT USING (true);
-CREATE POLICY "anon_insert" ON public.skill_requests FOR INSERT WITH CHECK (true);
+-- 或者删了重建（会清空已有数据）：
+-- DROP TABLE IF EXISTS public.skill_requests;
+-- CREATE TABLE public.skill_requests (
+--   id bigint primary key generated always as identity,
+--   title text,
+--   request text not null,
+--   use_case text,
+--   platform text,
+--   budget text,
+--   contact text,
+--   created_at timestamptz default now()
+-- );
