@@ -49,9 +49,10 @@ export default function RequestsPage() {
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
-      setUser(data.user ?? null)
+      const u = data.user ?? null
+      setUser(u)
       setAuthLoading(false)
-      if (data.user) loadMyRequests()
+      if (u) loadMyRequests(u.id)
     })
     loadRequests()
   }, [])
@@ -60,11 +61,8 @@ export default function RequestsPage() {
     fetch('/api/requests').then(r => r.json()).then(d => { setRequests(d || []); setLoading(false) }).catch(() => setLoading(false))
   }
 
-  const loadMyRequests = async () => {
-    const { data: { user: u } } = await supabase.auth.getUser()
-    if (!u) return
-    const sb2 = createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
-    const { data } = await sb2.from('skill_requests').select('*').eq('user_id', u.id).order('created_at', { ascending: false })
+  const loadMyRequests = async (uid: string) => {
+    const { data } = await supabase.from('skill_requests').select('*').eq('user_id', uid).order('created_at', { ascending: false })
     setMyRequests((data || []) as Request[])
   }
 
@@ -85,7 +83,7 @@ export default function RequestsPage() {
   const handleDelete = async (id: number) => {
     if (!confirm(zh ? '确定删除？' : 'Delete this request?')) return
     await fetch(`/api/requests?id=${id}`, { method: 'DELETE' })
-    loadRequests(); loadMyRequests()
+    loadRequests(); if (user) loadMyRequests(user.id)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -99,7 +97,7 @@ export default function RequestsPage() {
       const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
       if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || 'Failed')
       setShowForm(false)
-      loadRequests(); loadMyRequests()
+      loadRequests(); if (user) loadMyRequests(user.id)
     } catch (err: any) {
       setError(err.message)
     } finally { setSubmitting(false) }
