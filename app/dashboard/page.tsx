@@ -171,6 +171,9 @@ export default function DashboardPage() {
         </div>
       )}
 
+      {/* 我的需求 */}
+      <MyRequestsSection user={user} lang={lang} />
+
       {/* 账号信息 */}
       <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: 28, marginBottom: 20 }}>
         <h2 style={{ margin: '0 0 20px', fontSize: '1.05em', color: '#888', textTransform: 'uppercase', letterSpacing: 1 }}>
@@ -195,6 +198,53 @@ export default function DashboardPage() {
       }}>
         {lang === 'zh' ? '退出登录' : 'Sign Out'}
       </button>
+    </div>
+  )
+}
+
+function MyRequestsSection({ user, lang }: { user: User | null; lang: string }) {
+  const [requests, setRequests] = useState<any[]>([])
+  const [loaded, setLoaded] = useState(false)
+  const supabase = createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
+
+  useEffect(() => {
+    if (!user) return
+    supabase.from('skill_requests').select('id, title, request, view_count, created_at').eq('user_id', user.id).order('created_at', { ascending: false }).then(({ data }) => {
+      setRequests(data || []); setLoaded(true)
+    })
+  }, [user])
+
+  const handleDelete = async (id: number) => {
+    if (!confirm(lang === 'zh' ? '确定删除？' : 'Delete this request?')) return
+    await fetch(`/api/requests?id=${id}`, { method: 'DELETE' })
+    setRequests(prev => prev.filter(r => r.id !== id))
+  }
+
+  if (!loaded) return null
+
+  return (
+    <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: 28, marginBottom: 20 }}>
+      <h2 style={{ margin: '0 0 16px', fontSize: '1.05em', color: '#888', textTransform: 'uppercase', letterSpacing: 1 }}>
+        📋 {lang === 'zh' ? '我的需求' : 'My Requests'}
+      </h2>
+      {requests.length === 0 ? (
+        <p style={{ color: '#444', fontSize: '.9em' }}>
+          {lang === 'zh' ? '还没有发布需求。' : 'No requests posted yet.'}
+          {' '}<Link href="/requests" style={{ color: '#667eea' }}>{lang === 'zh' ? '去需求墙 →' : 'Browse wall →'}</Link>
+        </p>
+      ) : (
+        requests.map(r => (
+          <div key={r.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 0', borderBottom: '1px solid #1a1a2e' }}>
+            <Link href={`/requests/${r.id}`} style={{ textDecoration: 'none', flex: 1 }}>
+              <div style={{ fontWeight: 600, color: '#e0e0e0', fontSize: '.92em' }}>{r.title || r.request?.slice(0, 60)}</div>
+              <div style={{ color: '#555', fontSize: '.75em', marginTop: 2 }}>👁 {r.view_count || 0} · {new Date(r.created_at).toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-US', { month: 'short', day: 'numeric' })}</div>
+            </Link>
+            <button onClick={() => handleDelete(r.id)} style={{ background: 'none', border: '1px solid #3a1a1a', color: '#f87171', borderRadius: 6, padding: '4px 10px', fontSize: '.75em', cursor: 'pointer', flexShrink: 0, marginLeft: 12 }}>
+              {lang === 'zh' ? '删除' : 'Del'}
+            </button>
+          </div>
+        ))
+      )}
     </div>
   )
 }

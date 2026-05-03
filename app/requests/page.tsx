@@ -36,34 +36,25 @@ export default function RequestsPage() {
   const [user, setUser] = useState<User | null>(null)
   const [authLoading, setAuthLoading] = useState(true)
   const [requests, setRequests] = useState<Request[]>([])
-  const [myRequests, setMyRequests] = useState<Request[]>([])
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
   const [editId, setEditId] = useState<number | null>(null)
   const [form, setForm] = useState({ title: '', request: '', platform: '', budget: '', contact: '', allow_contact: false, show_contact: false, image_url: '', nickname: '' })
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
-  const [tab, setTab] = useState<'wall' | 'mine'>('wall')
 
   const t = (en: string, zhStr: string) => zh ? zhStr : en
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
-      const u = data.user ?? null
-      setUser(u)
+      setUser(data.user ?? null)
       setAuthLoading(false)
-      if (u) loadMyRequests(u.id)
     })
     loadRequests()
   }, [])
 
   const loadRequests = () => {
     fetch('/api/requests').then(r => r.json()).then(d => { setRequests(d || []); setLoading(false) }).catch(() => setLoading(false))
-  }
-
-  const loadMyRequests = async (uid: string) => {
-    const { data } = await supabase.from('skill_requests').select('*').eq('user_id', uid).order('created_at', { ascending: false })
-    setMyRequests((data || []) as Request[])
   }
 
   const openNew = () => {
@@ -80,12 +71,6 @@ export default function RequestsPage() {
     setShowForm(true)
   }
 
-  const handleDelete = async (id: number) => {
-    if (!confirm(zh ? '确定删除？' : 'Delete this request?')) return
-    await fetch(`/api/requests?id=${id}`, { method: 'DELETE' })
-    loadRequests(); if (user) loadMyRequests(user.id)
-  }
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (form.request.trim().length < 10) return setError(t('Min 10 chars', '最少 10 个字'))
@@ -97,7 +82,7 @@ export default function RequestsPage() {
       const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
       if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || 'Failed')
       setShowForm(false)
-      loadRequests(); if (user) loadMyRequests(user.id)
+      loadRequests()
     } catch (err: any) {
       setError(err.message)
     } finally { setSubmitting(false) }
@@ -146,117 +131,46 @@ export default function RequestsPage() {
           </div>
         </div>
 
-        {/* Tabs */}
-        <div style={{ display: 'flex', gap: 8, marginBottom: 28 }}>
-          <button onClick={() => setTab('wall')} style={{
-            padding: '8px 20px', borderRadius: 8, border: 'none', cursor: 'pointer',
-            fontWeight: 600, fontSize: '.88em',
-            background: tab === 'wall' ? '#667eea' : '#0d0d20', color: tab === 'wall' ? '#fff' : '#888',
-          }}>📋 {t('All Requests', '所有需求')}</button>
-          {user && (
-            <button onClick={() => setTab('mine')} style={{
-              padding: '8px 20px', borderRadius: 8, border: 'none', cursor: 'pointer',
-              fontWeight: 600, fontSize: '.88em',
-              background: tab === 'mine' ? '#667eea' : '#0d0d20', color: tab === 'mine' ? '#fff' : '#888',
-            }}>👤 {t('My Requests', '我的需求')} ({myRequests.length})</button>
-          )}
-        </div>
-
         {/* Content */}
         {loading ? (
           <div style={{ textAlign: 'center', padding: 60, color: '#555' }}>{t('Loading…', '加载中…')}</div>
-        ) : tab === 'wall' ? (
-          requests.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: 60, background: '#0d0d20', border: '1px solid #1a1a3e', borderRadius: 18 }}>
-              <div style={{ fontSize: '2.5em', marginBottom: 12 }}>📭</div>
-              <p style={{ color: '#555' }}>{t('No requests yet.', '还没有需求。')}</p>
-            </div>
-          ) : (
-            <div className="card-grid">
-              {requests.map(r => (
-                <div key={r.id} onClick={() => router.push(`/requests/${r.id}`)} style={{
-                  background: '#0d0d20', border: '1px solid #1a1a3e', borderRadius: 14, padding: 20,
-                  display: 'flex', flexDirection: 'column', cursor: 'pointer',
-                  transition: 'border-color .15s',
-                }}
-                  onMouseEnter={e => (e.currentTarget.style.borderColor = '#667eea44')}
-                  onMouseLeave={e => (e.currentTarget.style.borderColor = '#1a1a3e')}
-                >
-                  {r.title && (
-                    <div style={{ fontWeight: 700, fontSize: '1em', color: '#e0e0e0', marginBottom: 8 }}>
-                      {r.title}
-                    </div>
-                  )}
-                  <div style={{ fontSize: '.9em', color: '#cbd5e1', lineHeight: 1.7, flex: 1, marginBottom: 12 }}>
-                    {r.request}
-                  </div>
-                  {r.image_url && <img src={r.image_url} alt="" style={{ width: '100%', borderRadius: 8, marginBottom: 10, maxHeight: 160, objectFit: 'cover', border: '1px solid #1a1a3e' }} />}
-                  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 10 }}>
-                    {r.platform && <Tag label={r.platform} color="#667eea" />}
-                    {r.budget && <Tag label={r.budget} color="#f59e0b" />}
-                    {r.allow_contact && <Tag label={t('Open to contact', '可联系')} color="#34d399" />}
-                  </div>
-                  <div style={{ fontSize: '.75em', color: '#444', display: 'flex', justifyContent: 'space-between' }}>
-                    <span>{r.nickname || t('Anonymous', '匿名')} · {new Date(r.created_at).toLocaleDateString(zh ? 'zh-CN' : 'en-US', { month: 'short', day: 'numeric' })}</span>
-                    <span>👁 {r.view_count || 0}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )
+        ) : requests.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: 60, background: '#0d0d20', border: '1px solid #1a1a3e', borderRadius: 18 }}>
+            <div style={{ fontSize: '2.5em', marginBottom: 12 }}>📭</div>
+            <p style={{ color: '#555' }}>{t('No requests yet.', '还没有需求。')}</p>
+          </div>
         ) : (
-          /* My Requests */
-          myRequests.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: 60, background: '#0d0d20', border: '1px solid #1a1a3e', borderRadius: 18 }}>
-              <div style={{ fontSize: '2.5em', marginBottom: 12 }}>📭</div>
-              <p style={{ color: '#555', marginBottom: 16 }}>{t('You have not posted any requests.', '你还没有发布需求。')}</p>
-              <button onClick={openNew} style={{
-                padding: '10px 22px', borderRadius: 8, border: 'none',
-                background: 'linear-gradient(135deg,#667eea,#00d4ff)', color: '#fff',
-                fontWeight: 700, cursor: 'pointer',
-              }}>+ {t('Post Request', '发布需求')}</button>
-            </div>
-          ) : (
-            <div className="card-grid">
-              {myRequests.map(r => (
-                <div key={r.id} onClick={() => router.push(`/requests/${r.id}`)} style={{
-                  background: '#0d0d20', border: '1px solid #1a1a3e', borderRadius: 14, padding: 20,
-                  display: 'flex', flexDirection: 'column', cursor: 'pointer',
-                  transition: 'border-color .15s',
-                }}
-                  onMouseEnter={e => (e.currentTarget.style.borderColor = '#667eea44')}
-                  onMouseLeave={e => (e.currentTarget.style.borderColor = '#1a1a3e')}
-                >
-                  {r.title && (
-                    <div style={{ fontWeight: 700, fontSize: '1em', color: '#e0e0e0', marginBottom: 8 }}>{r.title}</div>
-                  )}
-                  <div style={{ fontSize: '.9em', color: '#cbd5e1', lineHeight: 1.7, flex: 1, marginBottom: 12 }}>{r.request}</div>
-                  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 10 }}>
-                    {r.platform && <Tag label={r.platform} color="#667eea" />}
-                    {r.budget && <Tag label={r.budget} color="#f59e0b" />}
-                    {r.allow_contact && <Tag label={t('Open to contact', '可联系')} color="#34d399" />}
-                    {r.contact && <span style={{ fontSize: '.75em', color: '#667eea' }}>📬 {r.contact}</span>}
-                    <span style={{ fontSize: '.75em', color: '#555' }}>👁 {r.view_count || 0}</span>
+          <div className="card-grid">
+            {requests.map(r => (
+              <div key={r.id} onClick={() => router.push(`/requests/${r.id}`)} style={{
+                background: '#0d0d20', border: '1px solid #1a1a3e', borderRadius: 14, padding: 20,
+                display: 'flex', flexDirection: 'column', cursor: 'pointer',
+                transition: 'border-color .15s',
+              }}
+                onMouseEnter={e => (e.currentTarget.style.borderColor = '#667eea44')}
+                onMouseLeave={e => (e.currentTarget.style.borderColor = '#1a1a3e')}
+              >
+                {r.title && (
+                  <div style={{ fontWeight: 700, fontSize: '1em', color: '#e0e0e0', marginBottom: 8 }}>
+                    {r.title}
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '.75em', color: '#444' }}>
-                      {new Date(r.created_at).toLocaleDateString(zh ? 'zh-CN' : 'en-US', { month: 'short', day: 'numeric' })}
-                    </span>
-                    <div style={{ display: 'flex', gap: 8 }}>
-                      <button onClick={() => openEdit(r)} style={{
-                        background: 'none', border: '1px solid #333', color: '#888', borderRadius: 6,
-                        padding: '4px 10px', fontSize: '.78em', cursor: 'pointer',
-                      }}>{t('Edit', '编辑')}</button>
-                      <button onClick={() => handleDelete(r.id)} style={{
-                        background: 'none', border: '1px solid #3a1a1a', color: '#f87171', borderRadius: 6,
-                        padding: '4px 10px', fontSize: '.78em', cursor: 'pointer',
-                      }}>{t('Delete', '删除')}</button>
-                    </div>
-                  </div>
+                )}
+                <div style={{ fontSize: '.9em', color: '#cbd5e1', lineHeight: 1.7, flex: 1, marginBottom: 12 }}>
+                  {r.request}
                 </div>
-              ))}
-            </div>
-          )
+                {r.image_url && <img src={r.image_url} alt="" style={{ width: '100%', borderRadius: 8, marginBottom: 10, maxHeight: 160, objectFit: 'cover', border: '1px solid #1a1a3e' }} />}
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 10 }}>
+                  {r.platform && <Tag label={r.platform} color="#667eea" />}
+                  {r.budget && <Tag label={r.budget} color="#f59e0b" />}
+                  {r.allow_contact && <Tag label={t('Open to contact', '可联系')} color="#34d399" />}
+                </div>
+                <div style={{ fontSize: '.75em', color: '#444', display: 'flex', justifyContent: 'space-between' }}>
+                  <span>{r.nickname || t('Anonymous', '匿名')} · {new Date(r.created_at).toLocaleDateString(zh ? 'zh-CN' : 'en-US', { month: 'short', day: 'numeric' })}</span>
+                  <span>👁 {r.view_count || 0}</span>
+                </div>
+              </div>
+            ))}
+          </div>
         )}
       </div>
 
