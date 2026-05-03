@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: 'standalone',
   async redirects() {
     return [
       // sitemap variants are served by App Router routes so strict crawlers get direct 200 responses.
