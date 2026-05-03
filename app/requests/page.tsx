@@ -9,17 +9,19 @@ interface Request {
   id: number
   title: string | null
   request: string
-  use_case: string | null
   platform: string | null
   budget: string | null
-  contact: string | null
+  allow_contact: boolean
+  user_id: string
   created_at: string
+  contact?: string | null
 }
 
 const PLATFORMS = ['OpenClaw', 'Claude Desktop', 'Cursor', 'Codex CLI', 'Copilot', 'Gemini CLI', 'Other']
 
 export default function RequestsPage() {
   const { lang } = useLang()
+  const zh = lang === 'zh'
   const supabase = createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
@@ -27,81 +29,74 @@ export default function RequestsPage() {
 
   const [user, setUser] = useState<User | null>(null)
   const [authLoading, setAuthLoading] = useState(true)
-
   const [requests, setRequests] = useState<Request[]>([])
+  const [myRequests, setMyRequests] = useState<Request[]>([])
   const [loading, setLoading] = useState(true)
-  const [form, setForm] = useState({ title: '', request: '', use_case: '', platform: '', budget: '', contact: '' })
+  const [showForm, setShowForm] = useState(false)
+  const [editId, setEditId] = useState<number | null>(null)
+  const [form, setForm] = useState({ title: '', request: '', platform: '', budget: '', contact: '', allow_contact: false })
   const [submitting, setSubmitting] = useState(false)
-  const [done, setDone] = useState(false)
   const [error, setError] = useState('')
+  const [tab, setTab] = useState<'wall' | 'mine'>('wall')
 
-  const zh = lang === 'zh'
-
-  const text = {
-    title: zh ? 'Skill 需求墙' : 'Skill Request Wall',
-    sub: zh ? '写下你需要的 AI Skill。描述得越具体，创作者越容易匹配。' : 'Post what AI skill you need. The more specific, the easier for Creators to match.',
-    publish: zh ? '发布需求' : 'Post a Request',
-    labelTitle: zh ? '一句话标题' : 'One-line Title',
-    hintTitle: zh ? '如：需要股票技术分析 skill' : 'e.g. Need a stock analysis skill',
-    phTitle: zh ? '简短概括你的需求' : 'Summarize your need in one line',
-    labelDesc: zh ? '详细描述 *' : 'Detailed Description *',
-    hintDesc: zh ? '最少 10 个字，越具体越好' : 'Min 10 chars. Be specific.',
-    phDesc: zh ? '需要什么功能？解决什么问题？\n\n例如：我需要一个分析 A 股技术指标的 skill，能看 K 线形态、MACD、RSI，最好还能自动标注买卖信号。' : 'What features? What problem?\n\ne.g. I need a skill for A-share technical analysis — candlestick, MACD, RSI, with auto buy/sell signals.',
-    labelScene: zh ? '使用场景' : 'Use Case',
-    hintScene: zh ? '这个 skill 用在什么工作流里？' : 'What workflow will this skill fit into?',
-    phScene: zh ? '如：每天收盘后分析 + 生成交易计划' : 'e.g. Post-market analysis + trade plan generation',
-    labelPlat: zh ? 'Agent 平台' : 'Agent Platform',
-    labelBudget: zh ? '预算' : 'Budget',
-    hintBudget: zh ? '让创作者知道你的预期价格' : 'Give Creators a price expectation',
-    phBudget: zh ? '如：$50, 议价, 免费最好' : 'e.g. $50, negotiable, free preferred',
-    labelContact: zh ? '联系方式（选填）' : 'Contact (optional)',
-    phContact: zh ? 'TG / Email（创作者会通过这个联系你）' : 'TG / Email (Creators will reach you here)',
-    anyPlat: zh ? '不限' : 'Any platform',
-    submit: zh ? '发布需求 →' : 'Publish Request →',
-    submitting: zh ? '发布中…' : 'Publishing…',
-    doneMsg: zh ? '需求已发布！' : 'Request published!',
-    empty: zh ? '还没有需求。成为第一个发布的！' : 'No requests yet. Be the first!',
-    noContact: zh ? '未留联系方式' : 'No contact left',
-    scenePrefix: zh ? '💡 场景：' : '💡 Use case:',
-    errShort: zh ? '需求描述太短（最少 10 个字）' : 'Description too short (min 10 chars)',
-    loading: zh ? '加载中…' : 'Loading…',
-    loginPrompt: zh ? '请先登录后再发布需求' : 'Sign in to post a request',
-    loginBtn: zh ? '去登录 →' : 'Sign In →',
-  }
+  const t = (en: string, zhStr: string) => zh ? zhStr : en
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
       setUser(data.user ?? null)
       setAuthLoading(false)
+      if (data.user) loadMyRequests()
     })
-    fetch('/api/requests').then(r => r.json()).then(data => {
-      setRequests(data || [])
-      setLoading(false)
-    }).catch(() => setLoading(false))
+    loadRequests()
   }, [])
 
-  const set = (k: string, v: string) => { setForm(p => ({ ...p, [k]: v })); setDone(false); setError('') }
+  const loadRequests = () => {
+    fetch('/api/requests').then(r => r.json()).then(d => { setRequests(d || []); setLoading(false) }).catch(() => setLoading(false))
+  }
+
+  const loadMyRequests = async () => {
+    const { data: { user: u } } = await supabase.auth.getUser()
+    if (!u) return
+    const sb2 = createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
+    const { data } = await sb2.from('skill_requests').select('*').eq('user_id', u.id).order('created_at', { ascending: false })
+    setMyRequests((data || []) as Request[])
+  }
+
+  const openNew = () => {
+    setEditId(null)
+    setForm({ title: '', request: '', platform: '', budget: '', contact: '', allow_contact: false })
+    setError('')
+    setShowForm(true)
+  }
+
+  const openEdit = (r: Request) => {
+    setEditId(r.id)
+    setForm({ title: r.title || '', request: r.request, platform: r.platform || '', budget: r.budget || '', contact: r.contact || '', allow_contact: r.allow_contact })
+    setError('')
+    setShowForm(true)
+  }
+
+  const handleDelete = async (id: number) => {
+    if (!confirm(zh ? '确定删除？' : 'Delete this request?')) return
+    await fetch(`/api/requests?id=${id}`, { method: 'DELETE' })
+    loadRequests(); loadMyRequests()
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (form.request.trim().length < 10) return setError(text.errShort)
+    if (form.request.trim().length < 10) return setError(t('Min 10 chars', '最少 10 个字'))
     setSubmitting(true); setError('')
     try {
-      const res = await fetch('/api/requests', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      })
+      const url = '/api/requests'
+      const method = editId ? 'PATCH' : 'POST'
+      const body = editId ? { id: editId, ...form } : form
+      const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
       if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || 'Failed')
-      setDone(true)
-      setForm({ title: '', request: '', use_case: '', platform: '', budget: '', contact: '' })
-      const r2 = await fetch('/api/requests').then(r => r.json())
-      setRequests(r2 || [])
+      setShowForm(false)
+      loadRequests(); loadMyRequests()
     } catch (err: any) {
       setError(err.message)
-    } finally {
-      setSubmitting(false)
-    }
+    } finally { setSubmitting(false) }
   }
 
   const inputStyle: React.CSSProperties = {
@@ -114,155 +109,208 @@ export default function RequestsPage() {
     <main style={{ minHeight: '100vh', background: '#050611', color: '#e5e7eb', padding: '60px 20px 80px' }}>
       <style>{`
         .req-input:focus, .req-textarea:focus, .req-select:focus { border-color: #667eea; }
-        @media (min-width: 768px) {
-          .req-layout { display: grid; grid-template-columns: 380px 1fr; gap: 32px; align-items: start; }
-        }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+        @media (max-width: 640px) { .card-grid { grid-template-columns: 1fr; } }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .modal-box { background: #0d0d20; border: 1px solid #1a1a3e; border-radius: 18px; padding: 32px; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; }
       `}</style>
 
-      <div style={{ maxWidth: 1000, margin: '0 auto' }}>
-        <div style={{ marginBottom: 40 }}>
-          <h1 style={{ fontSize: '2em', fontWeight: 800, marginBottom: 8 }}>📋 {text.title}</h1>
-          <p style={{ color: '#94a3b8', lineHeight: 1.7 }}>{text.sub}</p>
-        </div>
-
-        <div className="req-layout">
-          <div style={{
-            background: '#0d0d20', border: '1px solid #1a1a3e', borderRadius: 18, padding: 28,
-            position: 'sticky', top: 20,
-          }}>
-            <h2 style={{ margin: '0 0 20px', fontSize: '1.05em', fontWeight: 700, color: '#ccc' }}>
-              {text.publish}
-            </h2>
-            {authLoading ? (
-              <div style={{ textAlign: 'center', padding: 40, color: '#555' }}>{text.loading}</div>
-            ) : !user ? (
-              <div style={{ textAlign: 'center', padding: '20px 0' }}>
-                <div style={{ fontSize: '2em', marginBottom: 12 }}>🔐</div>
-                <p style={{ color: '#94a3b8', fontSize: '.9em', marginBottom: 16 }}>{text.loginPrompt}</p>
-                <a href="/login" style={{
-                  display: 'inline-block', padding: '10px 28px', borderRadius: 8,
-                  background: 'linear-gradient(135deg,#667eea,#00d4ff)',
-                  color: '#fff', fontWeight: 700, fontSize: '.9em', textDecoration: 'none',
-                }}>{text.loginBtn}</a>
-              </div>
-            ) : (
-            <form onSubmit={handleSubmit}>
-              <Field label={text.labelTitle} hint={text.hintTitle}>
-                <input type="text" value={form.title} onChange={e => set('title', e.target.value)}
-                  placeholder={text.phTitle} className="req-input" style={inputStyle} />
-              </Field>
-              <Field label={text.labelDesc} hint={text.hintDesc}>
-                <textarea value={form.request} onChange={e => set('request', e.target.value)} required
-                  placeholder={text.phDesc} className="req-textarea"
-                  style={{ ...inputStyle, minHeight: 100, resize: 'vertical' }} />
-              </Field>
-              <Field label={text.labelScene} hint={text.hintScene}>
-                <input type="text" value={form.use_case} onChange={e => set('use_case', e.target.value)}
-                  placeholder={text.phScene} className="req-input" style={inputStyle} />
-              </Field>
-              <Field label={text.labelPlat}>
-                <select value={form.platform} onChange={e => set('platform', e.target.value)}
-                  className="req-select" style={inputStyle}>
-                  <option value="">{text.anyPlat}</option>
-                  {PLATFORMS.map(p => <option key={p} value={p}>{p}</option>)}
-                </select>
-              </Field>
-              <Field label={text.labelBudget} hint={text.hintBudget}>
-                <input type="text" value={form.budget} onChange={e => set('budget', e.target.value)}
-                  placeholder={text.phBudget} className="req-input" style={inputStyle} />
-              </Field>
-              <Field label={text.labelContact}>
-                <input type="text" value={form.contact} onChange={e => set('contact', e.target.value)}
-                  placeholder={text.phContact} className="req-input" style={inputStyle} />
-              </Field>
-
-              {done && <OkBox>{text.doneMsg}</OkBox>}
-              {error && <ErrBox>{error}</ErrBox>}
-
-              <button type="submit" disabled={submitting} style={{
-                width: '100%', padding: '12px 0', borderRadius: 10, border: 'none',
-                background: submitting ? '#333' : 'linear-gradient(135deg,#667eea,#00d4ff)',
-                color: '#fff', fontWeight: 700, fontSize: '.95em',
-                cursor: submitting ? 'not-allowed' : 'pointer',
+      <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+        {/* Header */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 16, marginBottom: 32 }}>
+          <div>
+            <h1 style={{ fontSize: '2em', fontWeight: 800, marginBottom: 8 }}>📋 {t('Skill Request Wall', 'Skill 需求墙')}</h1>
+            <p style={{ color: '#94a3b8', lineHeight: 1.6 }}>
+              {t('What AI skill do people need? Browse requests from the community.', '大家都在找什么 AI Skill？浏览社区需求。')}
+            </p>
+          </div>
+          <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+            {user && (
+              <button onClick={openNew} style={{
+                padding: '10px 22px', borderRadius: 10, border: 'none',
+                background: 'linear-gradient(135deg,#667eea,#00d4ff)', color: '#fff',
+                fontWeight: 700, fontSize: '.9em', cursor: 'pointer',
               }}>
-                {submitting ? text.submitting : text.submit}
+                + {t('Post Request', '发布需求')}
               </button>
-            </form>
+            )}
+            {!authLoading && !user && (
+              <a href="/login" style={{ color: '#667eea', fontSize: '.9em', textDecoration: 'none' }}>
+                {t('Sign in to post →', '登录后发布 →')}
+              </a>
             )}
           </div>
+        </div>
 
-          <div>
-            {loading ? (
-              <div style={{ textAlign: 'center', padding: 60, color: '#555' }}>{text.loading}</div>
-            ) : requests.length === 0 ? (
-              <div style={{ textAlign: 'center', padding: 60, background: '#0d0d20', border: '1px solid #1a1a3e', borderRadius: 18 }}>
-                <div style={{ fontSize: '2.5em', marginBottom: 12 }}>📭</div>
-                <p style={{ color: '#555' }}>{text.empty}</p>
-              </div>
-            ) : (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                {requests.map(r => (
-                  <div key={r.id} style={{
-                    background: '#0d0d20', border: '1px solid #1a1a3e', borderRadius: 14, padding: 20,
-                  }}>
-                    {r.title && (
-                      <div style={{ fontWeight: 700, fontSize: '1em', color: '#e0e0e0', marginBottom: 6 }}>
-                        {r.title}
-                      </div>
-                    )}
-                    <div style={{ fontSize: '.92em', color: '#cbd5e1', lineHeight: 1.7, marginBottom: r.use_case || r.platform ? 8 : 10 }}>
-                      {r.request}
+        {/* Tabs */}
+        <div style={{ display: 'flex', gap: 8, marginBottom: 28 }}>
+          <button onClick={() => setTab('wall')} style={{
+            padding: '8px 20px', borderRadius: 8, border: 'none', cursor: 'pointer',
+            fontWeight: 600, fontSize: '.88em',
+            background: tab === 'wall' ? '#667eea' : '#0d0d20', color: tab === 'wall' ? '#fff' : '#888',
+          }}>📋 {t('All Requests', '所有需求')}</button>
+          {user && (
+            <button onClick={() => setTab('mine')} style={{
+              padding: '8px 20px', borderRadius: 8, border: 'none', cursor: 'pointer',
+              fontWeight: 600, fontSize: '.88em',
+              background: tab === 'mine' ? '#667eea' : '#0d0d20', color: tab === 'mine' ? '#fff' : '#888',
+            }}>👤 {t('My Requests', '我的需求')} ({myRequests.length})</button>
+          )}
+        </div>
+
+        {/* Content */}
+        {loading ? (
+          <div style={{ textAlign: 'center', padding: 60, color: '#555' }}>{t('Loading…', '加载中…')}</div>
+        ) : tab === 'wall' ? (
+          requests.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: 60, background: '#0d0d20', border: '1px solid #1a1a3e', borderRadius: 18 }}>
+              <div style={{ fontSize: '2.5em', marginBottom: 12 }}>📭</div>
+              <p style={{ color: '#555' }}>{t('No requests yet.', '还没有需求。')}</p>
+            </div>
+          ) : (
+            <div className="card-grid">
+              {requests.map(r => (
+                <div key={r.id} style={{
+                  background: '#0d0d20', border: '1px solid #1a1a3e', borderRadius: 14, padding: 20,
+                  display: 'flex', flexDirection: 'column',
+                }}>
+                  {r.title && (
+                    <div style={{ fontWeight: 700, fontSize: '1em', color: '#e0e0e0', marginBottom: 8 }}>
+                      {r.title}
                     </div>
-                    <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 10 }}>
-                      {r.platform && <Tag label={r.platform} color="#667eea" />}
-                      {r.budget && <Tag label={r.budget} color="#f59e0b" />}
-                      {r.use_case && (
-                        <span style={{ fontSize: '.75em', color: '#555', lineHeight: 1.5, flexBasis: '100%' }}>
-                          {text.scenePrefix}{r.use_case}
-                        </span>
-                      )}
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span style={{ fontSize: '.78em', color: '#444' }}>
-                        {new Date(r.created_at).toLocaleDateString(zh ? 'zh-CN' : 'en-US', { month: 'short', day: 'numeric' })}
-                      </span>
-                      <span style={{ fontSize: '.8em', color: r.contact ? '#667eea' : '#555' }}>
-                        {r.contact ? <>📬 {r.contact}</> : text.noContact}
-                      </span>
+                  )}
+                  <div style={{ fontSize: '.9em', color: '#cbd5e1', lineHeight: 1.7, flex: 1, marginBottom: 12 }}>
+                    {r.request}
+                  </div>
+                  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 10 }}>
+                    {r.platform && <Tag label={r.platform} color="#667eea" />}
+                    {r.budget && <Tag label={r.budget} color="#f59e0b" />}
+                    {r.allow_contact && <Tag label={t('Open to contact', '可联系')} color="#34d399" />}
+                  </div>
+                  <div style={{ fontSize: '.75em', color: '#444' }}>
+                    {new Date(r.created_at).toLocaleDateString(zh ? 'zh-CN' : 'en-US', { month: 'short', day: 'numeric' })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )
+        ) : (
+          /* My Requests */
+          myRequests.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: 60, background: '#0d0d20', border: '1px solid #1a1a3e', borderRadius: 18 }}>
+              <div style={{ fontSize: '2.5em', marginBottom: 12 }}>📭</div>
+              <p style={{ color: '#555', marginBottom: 16 }}>{t('You have not posted any requests.', '你还没有发布需求。')}</p>
+              <button onClick={openNew} style={{
+                padding: '10px 22px', borderRadius: 8, border: 'none',
+                background: 'linear-gradient(135deg,#667eea,#00d4ff)', color: '#fff',
+                fontWeight: 700, cursor: 'pointer',
+              }}>+ {t('Post Request', '发布需求')}</button>
+            </div>
+          ) : (
+            <div className="card-grid">
+              {myRequests.map(r => (
+                <div key={r.id} style={{
+                  background: '#0d0d20', border: '1px solid #1a1a3e', borderRadius: 14, padding: 20,
+                  display: 'flex', flexDirection: 'column',
+                }}>
+                  {r.title && (
+                    <div style={{ fontWeight: 700, fontSize: '1em', color: '#e0e0e0', marginBottom: 8 }}>{r.title}</div>
+                  )}
+                  <div style={{ fontSize: '.9em', color: '#cbd5e1', lineHeight: 1.7, flex: 1, marginBottom: 12 }}>{r.request}</div>
+                  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 10 }}>
+                    {r.platform && <Tag label={r.platform} color="#667eea" />}
+                    {r.budget && <Tag label={r.budget} color="#f59e0b" />}
+                    {r.allow_contact && <Tag label={t('Open to contact', '可联系')} color="#34d399" />}
+                    {r.contact && <span style={{ fontSize: '.75em', color: '#667eea' }}>📬 {r.contact}</span>}
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '.75em', color: '#444' }}>
+                      {new Date(r.created_at).toLocaleDateString(zh ? 'zh-CN' : 'en-US', { month: 'short', day: 'numeric' })}
+                    </span>
+                    <div style={{ display: 'flex', gap: 8 }}>
+                      <button onClick={() => openEdit(r)} style={{
+                        background: 'none', border: '1px solid #333', color: '#888', borderRadius: 6,
+                        padding: '4px 10px', fontSize: '.78em', cursor: 'pointer',
+                      }}>{t('Edit', '编辑')}</button>
+                      <button onClick={() => handleDelete(r.id)} style={{
+                        background: 'none', border: '1px solid #3a1a1a', color: '#f87171', borderRadius: 6,
+                        padding: '4px 10px', fontSize: '.78em', cursor: 'pointer',
+                      }}>{t('Delete', '删除')}</button>
                     </div>
                   </div>
-                ))}
+                </div>
+              ))}
+            </div>
+          )
+        )}
+      </div>
+
+      {/* Modal Form */}
+      {showForm && (
+        <div className="modal-overlay" onClick={() => setShowForm(false)}>
+          <div className="modal-box" onClick={e => e.stopPropagation()}>
+            <h2 style={{ margin: '0 0 20px', fontSize: '1.1em', fontWeight: 700 }}>
+              {editId ? t('Edit Request', '编辑需求') : t('Post a Request', '发布需求')}
+            </h2>
+            <form onSubmit={handleSubmit}>
+              <F label={t('Title', '标题')}>
+                <input type="text" value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))}
+                  placeholder={t('One-line summary', '一句话概括')} className="req-input" style={inputStyle} />
+              </F>
+              <F label={`${t('Description', '描述')} *`}>
+                <textarea value={form.request} onChange={e => setForm(p => ({ ...p, request: e.target.value }))} required
+                  placeholder={t('What features? What problem?', '需要什么功能？解决什么问题？')}
+                  className="req-textarea" style={{ ...inputStyle, minHeight: 100, resize: 'vertical' }} />
+              </F>
+              <F label={t('Platform', '平台')}>
+                <select value={form.platform} onChange={e => setForm(p => ({ ...p, platform: e.target.value }))}
+                  className="req-select" style={inputStyle}>
+                  <option value="">{t('Any', '不限')}</option>
+                  {PLATFORMS.map(p => <option key={p} value={p}>{p}</option>)}
+                </select>
+              </F>
+              <F label={t('Budget', '预算')}>
+                <input type="text" value={form.budget} onChange={e => setForm(p => ({ ...p, budget: e.target.value }))}
+                  placeholder={t('e.g. $50, negotiable', '如：$50, 议价')} className="req-input" style={inputStyle} />
+              </F>
+              <F label={t('Contact', '联系方式')}>
+                <input type="text" value={form.contact} onChange={e => setForm(p => ({ ...p, contact: e.target.value }))}
+                  placeholder={t('TG / Email (private)', 'TG / 邮箱（不公开）')} className="req-input" style={inputStyle} />
+              </F>
+              <div style={{ marginBottom: 20 }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: '.9em', color: '#ccc' }}>
+                  <input type="checkbox" checked={form.allow_contact} onChange={e => setForm(p => ({ ...p, allow_contact: e.target.checked }))}
+                    style={{ width: 18, height: 18, accentColor: '#667eea' }} />
+                  {t('Allow BytesAgain to contact me if needed', '允许必要时联系我')}
+                </label>
               </div>
-            )}
+
+              {error && <div style={{ color: '#f87171', fontSize: '.85em', marginBottom: 14, padding: '10px', background: '#3a1a1a10', borderRadius: 8 }}>⚠️ {error}</div>}
+
+              <div style={{ display: 'flex', gap: 10 }}>
+                <button type="submit" disabled={submitting} style={{
+                  flex: 1, padding: '12px 0', borderRadius: 10, border: 'none',
+                  background: submitting ? '#333' : 'linear-gradient(135deg,#667eea,#00d4ff)',
+                  color: '#fff', fontWeight: 700, cursor: submitting ? 'not-allowed' : 'pointer',
+                }}>{submitting ? '...' : editId ? t('Save', '保存') : t('Publish', '发布')}</button>
+                <button type="button" onClick={() => setShowForm(false)} style={{
+                  padding: '12px 20px', borderRadius: 10, border: '1px solid #333',
+                  background: 'none', color: '#888', cursor: 'pointer',
+                }}>{t('Cancel', '取消')}</button>
+              </div>
+            </form>
           </div>
         </div>
-      </div>
+      )}
     </main>
   )
 }
 
-function Field({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) {
+function F({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div style={{ marginBottom: 16 }}>
       <label style={{ display: 'block', marginBottom: 4, fontSize: '.82em', fontWeight: 600, color: '#ccc' }}>{label}</label>
       {children}
-      {hint && <p style={{ color: '#444', fontSize: '.72em', margin: '4px 0 0' }}>{hint}</p>}
-    </div>
-  )
-}
-
-function OkBox({ children }: { children: React.ReactNode }) {
-  return (
-    <div style={{ color: '#86efac', fontSize: '.85em', marginBottom: 14, padding: '10px', background: '#34d39910', borderRadius: 8, border: '1px solid #34d39922' }}>
-      ✅ {children}
-    </div>
-  )
-}
-
-function ErrBox({ children }: { children: React.ReactNode }) {
-  return (
-    <div style={{ color: '#f87171', fontSize: '.85em', marginBottom: 14, padding: '10px', background: '#3a1a1a10', borderRadius: 8, border: '1px solid #3a1a1a22' }}>
-      ⚠️ {children}
     </div>
   )
 }
