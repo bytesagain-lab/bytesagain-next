@@ -53,7 +53,6 @@ export default function NavBar() {
           <a href="/articles" style={navLinkStyle}>📝 {t.nav_articles}</a>
           <a href="/skills" style={navLinkStyle}>🧩 {t.nav_skills}</a>
           <a href="/use-case" style={navLinkStyle}>💼 {t.nav_cases}</a>
-          <a href="/store" style={{ color: '#34d399', textDecoration: 'none', fontSize: '.9em', fontWeight: 600 }}>🛒 Store</a>
           <a href="/requests" style={{ color: '#fbbf24', textDecoration: 'none', fontSize: '.9em', fontWeight: 600 }}>📋 Requests</a>
           {!loading && (
             email ? (
@@ -92,7 +91,6 @@ export default function NavBar() {
           <a href="/articles" style={navLinkStyle} onClick={() => setMenuOpen(false)}>📝 {t.nav_articles}</a>
           <a href="/skills" style={navLinkStyle} onClick={() => setMenuOpen(false)}>🧩 {t.nav_skills}</a>
           <a href="/use-case" style={navLinkStyle} onClick={() => setMenuOpen(false)}>💼 {t.nav_cases}</a>
-          <a href="/store" style={{ color: '#34d399', textDecoration: 'none', fontSize: '.9em', fontWeight: 600 }} onClick={() => setMenuOpen(false)}>🛒 Store</a>
           <a href="/requests" style={{ color: '#fbbf24', textDecoration: 'none', fontSize: '.9em', fontWeight: 600 }} onClick={() => setMenuOpen(false)}>📋 Requests</a>
           {!loading && (
             email ? (
