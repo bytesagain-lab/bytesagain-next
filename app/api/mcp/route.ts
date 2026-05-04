@@ -896,15 +896,15 @@ export async function POST(req: NextRequest) {
           const { data: skills } = await sb3.from('skills').select('slug,name,description,category,downloads,stars').or(`name.ilike.%${query}%,description.ilike.%${query}%`).order('downloads', { ascending: false }).limit(20)
           const skillList = skills || []
           const prompt = `You are a skill selection expert. Given the user goal "${query}", evaluate these ${skillList.length} skills and select the BEST 5 for the task.\n\nFor each, provide: slug (exact), reason (1 sentence).\n\nRules: Only select genuinely relevant skills. Prefer higher-downloads.\nOutput valid JSON array ONLY: [{slug,reason}]. No markdown.\n\nSkills:${JSON.stringify(skillList.slice(0,20).map(s=>({slug:s.slug,name:s.name,category:s.category,downloads:s.downloads})))}`
-          const dsKey = process.env.DEEPSEEK_API_KEY || process.env.DASHSCOPE_API_KEY || ''
+          const dsKey = process.env.DEEPSEEK_API_KEY || ''
           let selected: any[] = []
           if (dsKey) {
             const controller = new AbortController()
             setTimeout(() => controller.abort(), 30000);
-            const aiRes = await fetch('https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions', {
+            const aiRes = await fetch('https://api.deepseek.com/v1/chat/completions', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${dsKey}` },
-              body: JSON.stringify({ model: 'qwen-plus', messages: [{ role: 'user', content: prompt }], max_tokens: 2000, temperature: 0.5 }),
+              body: JSON.stringify({ model: 'deepseek-chat', messages: [{ role: 'user', content: prompt }], max_tokens: 2000, temperature: 0.5 }),
               signal: controller.signal,
             })
             const aiData = await aiRes.json()

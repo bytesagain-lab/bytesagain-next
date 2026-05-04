@@ -68,8 +68,8 @@ async function fetchPlatformSignals(): Promise<string[]> {
 
 // 用 Dashscope 分析信号，生成 use case
 async function generateUseCases(signals: string[]): Promise<any[]> {
-  const DASHSCOPE_KEY = process.env.DASHSCOPE_API_KEY
-  if (!DASHSCOPE_KEY || signals.length < 5) return []
+  const DEEPSEEK_KEY = process.env.DEEPSEEK_API_KEY
+  if (!DEEPSEEK_KEY || signals.length < 5) return []
 
   const prompt = `You are analyzing user requests from Reddit, HackerNews, and n8n community to identify high-demand AI agent use cases that are NOT yet covered.
 
@@ -99,14 +99,14 @@ Rules:
 - Output ONLY a JSON array, no markdown, no explanation`
 
   try {
-    const res = await fetch('https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions', {
+    const res = await fetch('https://api.deepseek.com/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${DASHSCOPE_KEY}`,
+        'Authorization': `Bearer ${DEEPSEEK_KEY}`,
       },
       body: JSON.stringify({
-        model: 'qwen-plus',
+        model: 'deepseek-chat',
         messages: [{ role: 'user', content: prompt }],
         temperature: 0.7,
         max_tokens: 2000,

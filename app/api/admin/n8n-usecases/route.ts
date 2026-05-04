@@ -54,8 +54,8 @@ async function generateUseCaseForCategory(
   catDesc: string,
   existingSlugs: string[]
 ): Promise<any | null> {
-  const DASHSCOPE_KEY = process.env.DASHSCOPE_API_KEY
-  if (!DASHSCOPE_KEY) return null
+  const DEEPSEEK_KEY = process.env.DEEPSEEK_API_KEY
+  if (!DEEPSEEK_KEY) return null
 
   const prompt = `Create a BytesAgain use case for this automation category.
 
@@ -82,14 +82,14 @@ Output ONLY valid JSON (no markdown):
 
 Use real ClawHub skill slugs: story-writer, email-assistant, task-planner, scheduler, note-taker, data-analysis, shell, excel-formula, translator-pro, api-tester, sql-assistant, chart-generator, code-reviewer, report-generator, crm-manager, web-scraper, lead-generator, support-bot, invoice-parser, pdf-reader, slack-notifier, github-assistant, notion-assistant, hubspot-sync, crypto-tracker, security-scanner, social-poster, ticket-manager, document-processor`
 
-  const res = await fetch('https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions', {
+  const res = await fetch('https://api.deepseek.com/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${DASHSCOPE_KEY}`,
+      'Authorization': `Bearer ${DEEPSEEK_KEY}`,
     },
     body: JSON.stringify({
-      model: 'qwen-plus',
+      model: 'deepseek-chat',
       messages: [{ role: 'user', content: prompt }],
       temperature: 0.6,
       max_tokens: 600,

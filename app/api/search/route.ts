@@ -2,7 +2,7 @@ export const dynamic = 'force-dynamic'
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
-const DASHSCOPE_KEY = process.env.DASHSCOPE_EMBEDDING_KEY!
+const DEEPSEEK_KEY = process.env.DEEPSEEK_API_KEY || ''
 
 // 中文关键词 → 英文搜索词扩展（快速词表）
 const ZH_MAP: Record<string, string> = {
@@ -194,21 +194,21 @@ function needsLLM(q: string, expanded: string): boolean {
   return q.length > 8 || /[\u4e00-\u9fa5]/.test(q) // 长句或中文需要
 }
 
-// LLM 意图扩展：qwen-turbo 把自然语言转成最优英文搜索词
+// LLM 意图扩展：deepseek-chat 把自然语言转成最优英文搜索词
 async function llmExpandQuery(q: string): Promise<string> {
+  if (!DEEPSEEK_KEY) return q
   try {
-    const resp = await fetch('https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation', {
+    const resp = await fetch('https://api.deepseek.com/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${DASHSCOPE_KEY}`,
+        'Authorization': `Bearer ${DEEPSEEK_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'qwen-turbo',
-        input: {
-          messages: [{
-            role: 'user',
-            content: `You are a search query optimizer for an AI agent skill directory.
+        model: 'deepseek-chat',
+        messages: [{
+          role: 'user',
+          content: `You are a search query optimizer for an AI agent skill directory.
 Convert the user's natural language intent into 3-5 concise English keywords for searching AI skills.
 Output ONLY the keywords space-separated. No explanation, no punctuation, no quotes.
 
@@ -221,13 +221,13 @@ Examples:
 
 User query: "${q}"
 Keywords:`
-          }]
-        },
-        parameters: { max_tokens: 20, temperature: 0.1 }
+        }],
+        max_tokens: 20,
+        temperature: 0.1
       }),
     })
     const data = await resp.json()
-    const result = data?.output?.choices?.[0]?.message?.content?.trim()
+    const result = data?.choices?.[0]?.message?.content?.trim()
     if (result && result.length > 2 && result.length < 80) return result
   } catch { /* ignore */ }
   return q

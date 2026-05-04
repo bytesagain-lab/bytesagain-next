@@ -9,8 +9,8 @@ export async function POST(req: NextRequest) {
   const { terms = [], existingSlugs = [] } = await req.json().catch(() => ({}))
   if (!terms.length) return NextResponse.json({ error: 'no terms' }, { status: 400 })
 
-  const DASHSCOPE_KEY = process.env.DASHSCOPE_API_KEY
-  if (!DASHSCOPE_KEY) return NextResponse.json({ error: 'no key' }, { status: 500 })
+  const DEEPSEEK_KEY = process.env.DEEPSEEK_API_KEY
+  if (!DEEPSEEK_KEY) return NextResponse.json({ error: 'no key' }, { status: 500 })
 
   const termsText = terms.map((t: string) => `- ${t}`).join('\n')
   const skipList = existingSlugs.slice(0, 60).join(', ')
@@ -29,11 +29,11 @@ Skill slugs: email-assistant,task-planner,data-analysis,chart-generator,report-g
 
 Output ONLY the JSON array, nothing else.`
 
-  const res = await fetch('https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions', {
+  const res = await fetch('https://api.deepseek.com/v1/chat/completions', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${DASHSCOPE_KEY}` },
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${DEEPSEEK_KEY}` },
     body: JSON.stringify({
-      model: 'qwen-plus',
+      model: 'deepseek-chat',
       messages: [{ role: 'user', content: prompt }],
       temperature: 0.6,
       max_tokens: 2000,
