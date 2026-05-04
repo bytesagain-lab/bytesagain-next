@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!
   )
-  const { error } = await sb.from('skill_requests').insert({
+  const r: Record<string, any> = {
     user_id: user.id,
     title: title?.trim() || null,
     request: request.trim(),
@@ -46,10 +46,12 @@ export async function POST(req: NextRequest) {
     budget: budget?.trim() || null,
     contact: contact?.trim() || null,
     allow_contact: allow_contact === true,
-    show_contact: show_contact === true,
-    image_url: image_url?.trim() || null,
-    nickname: nickname?.trim() || null,
-  })
+  }
+  // optional columns — table might not have them yet
+  if (show_contact !== undefined) r.show_contact = show_contact === true
+  if (image_url?.trim()) r.image_url = image_url.trim()
+  if (nickname?.trim()) r.nickname = nickname.trim()
+  const { error } = await sb.from('skill_requests').insert(r)
   if (error) return NextResponse.json({ error: 'Failed' }, { status: 500 })
   return NextResponse.json({ ok: true })
 }
@@ -72,18 +74,18 @@ export async function PATCH(req: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!
   )
-  const { error } = await sb.from('skill_requests')
-    .update({
-      title: body.title?.trim() || null,
-      request: body.request?.trim(),
-      platform: body.platform?.trim() || null,
-      budget: body.budget?.trim() || null,
-      contact: body.contact?.trim() || null,
-      allow_contact: body.allow_contact,
-      show_contact: body.show_contact,
-      image_url: body.image_url?.trim() || null,
-      nickname: body.nickname?.trim() || null,
-    })
+  const ru: Record<string, any> = {
+    title: body.title?.trim() || null,
+    request: body.request?.trim(),
+    platform: body.platform?.trim() || null,
+    budget: body.budget?.trim() || null,
+    contact: body.contact?.trim() || null,
+    allow_contact: body.allow_contact,
+  }
+  if (body.show_contact !== undefined) ru.show_contact = body.show_contact
+  if (body.image_url?.trim()) ru.image_url = body.image_url.trim()
+  if (body.nickname?.trim()) ru.nickname = body.nickname.trim()
+  const { error } = await sb.from('skill_requests').update(ru)
     .eq('id', id)
     .eq('user_id', user.id)
   if (error) return NextResponse.json({ error: 'Failed' }, { status: 500 })
