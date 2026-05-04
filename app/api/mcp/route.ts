@@ -66,6 +66,31 @@ const ALIEXPRESS_DEALS = {
     { code: 'DECD23', desc: '€169-€23' }, { code: 'DECD30', desc: '€239-€30' },
     { code: 'DECD45', desc: '€359-€45' }, { code: 'DECD60', desc: '€479-€60' },
   ]},
+  de_weekly: { label: 'DE Sparschwein wöchentlich', valid_until: 'weekly Sun 23:59 CET', codes: [] },
+  pl: { label: 'Poland Summer Ready', valid_until: '2026-05-07 CET', codes: [
+    { code: 'AEPLL02', desc: '€18-€2' }, { code: 'AEPLL05', desc: '€39-€5' },
+    { code: 'AEPLL08', desc: '€59-€8' }, { code: 'AEPLL15', desc: '€109-€15' },
+    { code: 'AEPLL23', desc: '€169-€23' }, { code: 'AEPLL30', desc: '€239-€30' },
+    { code: 'AEPLL45', desc: '€359-€45' }, { code: 'AEPLL60', desc: '€479-€60' },
+  ]},
+  ua: { label: 'Ukraine Summer Ready', valid_until: '2026-05-07 CET', codes: [
+    { code: 'AEUA01', desc: '$10-$1' }, { code: 'AEUA03', desc: '$25-$3' },
+    { code: 'AEUA05', desc: '$40-$5' }, { code: 'AEUA08', desc: '$65-$8' },
+    { code: 'AEUA13', desc: '$99-$13' }, { code: 'AEUA25', desc: '$189-$25' },
+    { code: 'AEUA30', desc: '$229-$30' }, { code: 'AEUA50', desc: '$379-$50' },
+  ]},
+  jp: { label: 'Japan 5月Choice Day', valid_until: '2026-05-08 15:59 JST', codes: [
+    { code: 'AFMC2', desc: '$2 off $15' }, { code: 'AFMC4', desc: '$4 off $30' },
+    { code: 'AFMC7', desc: '$7 off $49' }, { code: 'AFMC12', desc: '$12 off $89' },
+    { code: 'AFMC18', desc: '$18 off $149' }, { code: 'AFMC25', desc: '$25 off $209' },
+    { code: 'AFMC40', desc: '$40 off $329' }, { code: 'AFMC55', desc: '$55 off $449' },
+  ]},
+  euro_multi: { label: 'AT/BE/CH/CZ/DK/FI/HU/IE/PT/SE Summer Ready', valid_until: '2026-05-07 23:59', codes: [
+    { code: 'CD02VIO', desc: '€18-€2' }, { code: 'CD05VIO', desc: '€39-€5' },
+    { code: 'CD08VIO', desc: '€59-€8' }, { code: 'CD15VIO', desc: '€109-€15' },
+    { code: 'CD23VIO', desc: '€169-€23' }, { code: 'CD30VIO', desc: '€239-€30' },
+    { code: 'CD45VIO', desc: '€359-€45' }, { code: 'CD60VIO', desc: '€479-€60' },
+  ]},
 }
 
 // Strip characters that could be used in prompt injection or SQL injection.
