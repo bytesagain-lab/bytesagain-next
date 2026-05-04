@@ -208,18 +208,24 @@ export default function RequestsPage() {
                   placeholder={t('TG / Email (private)', 'TG / 邮箱（不公开）')} className="req-input" style={inputStyle} />
               </F>
               <F label={t('Image', '图片')}>
-                <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
                   <label style={{
                     padding: '10px 16px', borderRadius: 8, cursor: 'pointer',
                     background: '#0a0a18', border: '1px solid #2a2a4e',
                     color: '#ccc', fontSize: '.9em', display: 'inline-block',
                   }}>
-                    {uploading ? '⏳' : '📎 ' + t('Choose File', '选择图片')}
+                    {uploading ? '⏳' : '📎 ' + t('Add Image', '添加图片')}
                     <input type="file" accept="image/*" style={{ display: 'none' }}
                       onChange={async e => {
                         const file = e.target.files?.[0]
                         if (!file) return
+                        if (file.size > 2 * 1024 * 1024) {
+                          setError(t('Max 2MB', '图片不能超过 2MB'))
+                          e.target.value = ''
+                          return
+                        }
                         setUploading(true)
+                        setError('')
                         try {
                           const fd = new FormData()
                           fd.append('file', file)
@@ -232,6 +238,7 @@ export default function RequestsPage() {
                         } finally { setUploading(false) }
                       }} />
                   </label>
+                  <span style={{ color: '#555', fontSize: '.75em' }}>{t('(max 2MB, PNG/JPG/GIF/WebP)', '（最大2MB, PNG/JPG/GIF/WebP）')}</span>
                   {form.image_url && (
                     <button type="button" onClick={() => setForm(p => ({ ...p, image_url: '' }))}
                       style={{ background: 'none', border: 'none', color: '#f87171', cursor: 'pointer', fontSize: '.85em' }}>

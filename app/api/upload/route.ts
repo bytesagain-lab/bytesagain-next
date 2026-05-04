@@ -22,8 +22,8 @@ export async function POST(req: NextRequest) {
   if (!allowed.includes(file.type))
     return NextResponse.json({ error: 'Invalid file type' }, { status: 400 })
 
-  // Validate size (5MB)
-  const maxSize = 5 * 1024 * 1024
+  // Validate size (2MB)
+  const maxSize = 2 * 1024 * 1024
   if (file.size > maxSize)
     return NextResponse.json({ error: 'File too large (max 5MB)' }, { status: 400 })
 
