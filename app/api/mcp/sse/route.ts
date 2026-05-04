@@ -394,6 +394,17 @@ const TOOLS = [
       required: ['request'],
     },
   },
+  {
+    name: 'generate_usecase',
+    description: 'Generate a use case for a given topic: search AI skills, AI-score, produce structured use case with recommendations.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        query: { type: 'string', description: 'Task or goal in natural language. Example: "automate invoice processing".' },
+      },
+      required: ['query'],
+    },
+  }
 ]
 
 async function handleRpc(body: any): Promise<any> {

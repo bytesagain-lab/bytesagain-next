@@ -42,19 +42,25 @@
     {
       "name": "submit_request",
       "rest_action": "submit_request",
-      "description": "Submit a new skill request to the community wall. Provide title, description, platform, and optionally budget and contact info.",
+      "description": "Submit a new skill request to the community wall.",
       "status": "active"
     },
     {
       "name": "list_requests",
       "rest_action": "list_requests",
-      "description": "Get recent skill requests from the community wall, newest first. Optionally filter by keyword.",
+      "description": "Get recent skill requests from the community wall, newest first.",
       "status": "active"
     },
     {
       "name": "get_deals",
       "rest_action": "deals",
-      "description": "Get active AliExpress coupon codes and promotion deals by country/region. Returns coupon codes with discount thresholds, validity dates, and eligible regions.",
+      "description": "Get active AliExpress coupon codes.",
+      "status": "active"
+    },
+    {
+      "name": "generate_usecase",
+      "rest_action": "generate_usecase",
+      "description": "Generate a use case for a given topic: search skills, score, produce structured use case.",
       "status": "active"
     }
   ],

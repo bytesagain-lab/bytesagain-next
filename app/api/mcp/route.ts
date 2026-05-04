@@ -618,6 +618,18 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ action, query: region, deals }, { headers })
     }
 
+    if (action === 'generate_usecase') {
+      // Forward to POST handler via fetch + return
+      const baseUrl = `${req.nextUrl.protocol}//${req.nextUrl.host}`
+      const res = await fetch(`${baseUrl}/api/mcp`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'tools/call', params: { name: 'generate_usecase', arguments: { query } } }),
+      })
+      const data = await res.json()
+      return NextResponse.json({ action, query, result: data?.result?.content?.[0]?.text ? JSON.parse(data.result.content[0].text) : null }, { headers })
+    }
+
     // Default: API info
     return NextResponse.json({
       name: 'BytesAgain Agent API',
@@ -632,6 +644,7 @@ export async function GET(req: NextRequest) {
         workflow: '?action=workflow&q=<task>',
         list_requests: '?action=list_requests&q=<keyword>&limit=20',
         deals: '?action=deals&q=<region>',
+        generate_usecase: '?action=generate_usecase&q=<topic>',
         submit_request: 'POST /api/mcp (JSON-RPC)',
       },
       mcp_sse: 'https://bytesagain.com/api/mcp/sse',
@@ -778,6 +791,11 @@ export async function POST(req: NextRequest) {
           inputSchema: { type: 'object', properties: {
             region: { type: 'string', description: 'Optional region filter: "global", "us", "br", "kr", "fr", "es", "de", or "all". Default: "all".' },
           }, required: [] } },
+        { name: 'generate_usecase',
+          description: 'Generate a use case for a given topic or goal. The process: 1) search 60,000+ AI skills by keyword, 2) AI-score top results for relevance, 3) select best 5 skills for the task, 4) generate structured use case with skill recommendations. Use when a user describes a task and wants a curated AI skill stack.',
+          inputSchema: { type: 'object', properties: {
+            query: { type: 'string', description: 'Task or goal in natural language. Example: "automate invoice processing", "write social media content", "analyze customer feedback". Required.' },
+          }, required: ['query'] } },
       ]}
     }, { headers })
   }
@@ -868,6 +886,49 @@ export async function POST(req: NextRequest) {
           jsonrpc: '2.0', id,
           result: { content: [{ type: 'text', text: JSON.stringify(deals) }] }
         }, { headers })
+      } else if (name === 'generate_usecase') {
+        const query = sanitize(args.query || '', 200)
+        if (!query) {
+          return NextResponse.json({ jsonrpc: '2.0', id, error: { code: -32602, message: 'query is required' } }, { status: 400, headers })
+        }
+        try {
+          const sb3 = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
+          const { data: skills } = await sb3.from('skills').select('slug,name,description,category,downloads,stars').or(`name.ilike.%${query}%,description.ilike.%${query}%`).order('downloads', { ascending: false }).limit(20)
+          const skillList = skills || []
+          const prompt = `You are a skill selection expert. Given the user goal "${query}", evaluate these ${skillList.length} skills and select the BEST 5 for the task.\n\nFor each, provide: slug (exact), reason (1 sentence).\n\nRules: Only select genuinely relevant skills. Prefer higher-downloads.\nOutput valid JSON array ONLY: [{slug,reason}]. No markdown.\n\nSkills:${JSON.stringify(skillList.slice(0,20).map(s=>({slug:s.slug,name:s.name,category:s.category,downloads:s.downloads})))}`
+          const dsKey = process.env.DEEPSEEK_API_KEY || process.env.DASHSCOPE_API_KEY || ''
+          let selected: any[] = []
+          if (dsKey) {
+            const controller = new AbortController()
+            setTimeout(() => controller.abort(), 30000);
+            const aiRes = await fetch('https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${dsKey}` },
+              body: JSON.stringify({ model: 'qwen-plus', messages: [{ role: 'user', content: prompt }], max_tokens: 2000, temperature: 0.5 }),
+              signal: controller.signal,
+            })
+            const aiData = await aiRes.json()
+            let aiText = aiData?.choices?.[0]?.message?.content || ''
+            aiText = aiText.replace(/<think>[\s\S]*?<\/think>/g, '').trim()
+            const jsonMatch = aiText.match(/\[[\s\S]*\]/)
+            if (jsonMatch) {
+              try { selected = JSON.parse(jsonMatch[0]) } catch {}
+            }
+          }
+          if (!selected.length) selected = skillList.slice(0,5).map(s=>({slug:s.slug,reason:`Top ${s.category||'general'} skill with ${s.downloads} downloads`}))
+          const topSlugs = selected.map((s:any)=>s.slug)
+          const details = skillList.filter((s:any)=>topSlugs.includes(s.slug))
+          const result = {
+            title: `AI-Powered ${query.charAt(0).toUpperCase()+query.slice(1)}`,
+            description: `Use AI to ${query}. Essential skills to automate and optimize your workflow.`,
+            skills: selected.map((s:any)=>{const d=details.find((x:any)=>x.slug===s.slug);return{slug:s.slug,name:d?.name||s.slug,reason:s.reason,downloads:d?.downloads||0}}),
+            total_skills_evaluated: skillList.length,
+          }
+          logMcpCall({action:'generate_usecase',query,user_agent:req.headers.get('user-agent')||'',ip:req.headers.get('x-forwarded-for')?.split(',')[0].trim()||req.headers.get('x-real-ip')||'',result_count:selected.length,endpoint:'mcp_post'})
+          return NextResponse.json({jsonrpc:'2.0',id,result:{content:[{type:'text',text:JSON.stringify(result,null,2)}]}},{headers})
+        } catch(e:any) {
+          return NextResponse.json({jsonrpc:'2.0',id,error:{code:-32603,message:e.message}},{status:500,headers})
+        }
       } else {
       }
 
