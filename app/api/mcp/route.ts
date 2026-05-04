@@ -617,6 +617,12 @@ export async function POST(req: NextRequest) {
             contact: { type: 'string', description: 'Contact info (email/TG) — kept private, not shown publicly.' },
             nickname: { type: 'string', description: 'Display name shown publicly on the wall.' }
           }, required: ['request'] } },
+        { name: 'list_requests',
+          description: 'Get recent skill requests from the BytesAgain community wall, newest first. Returns id, title, request text, platform, budget, nickname, view_count, and created_at. Contact info is excluded for privacy. Optionally filter by keyword in title or request text.',
+          inputSchema: { type: 'object', properties: {
+            query: { type: 'string', description: 'Optional keyword to filter requests by title or content.' },
+            limit: { type: 'number', description: 'Number of requests to return. Default: 20. Max: 50.' }
+          }, required: [] } },
       ]}
     }, { headers })
   }
@@ -676,6 +682,19 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({
           jsonrpc: '2.0', id,
           result: { content: [{ type: 'text', text: JSON.stringify({ ok: true, id: ins.id, message: 'Request submitted successfully' }) }] }
+        }, { headers })
+      } else if (name === 'list_requests') {
+        const sb2 = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
+        const query = sanitize(args.query || '', 200)
+        const limit = Math.min(parseInt(args.limit) || 20, 50)
+        let sbQuery = sb2.from('skill_requests').select('id,title,request,platform,budget,nickname,view_count,created_at').order('created_at', { ascending: false }).limit(limit)
+        if (query) {
+          sbQuery = sbQuery.or(`title.ilike.%${query}%,request.ilike.%${query}%`)
+        }
+        const { data: requests } = await sbQuery
+        return NextResponse.json({
+          jsonrpc: '2.0', id,
+          result: { content: [{ type: 'text', text: JSON.stringify(requests || []) }] }
         }, { headers })
       } else {
       }

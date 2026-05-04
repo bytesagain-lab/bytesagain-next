@@ -44,6 +44,12 @@
       "rest_action": "submit_request",
       "description": "Submit a new skill request to the community wall. Provide title, description, platform, and optionally budget and contact info.",
       "status": "active"
+    },
+    {
+      "name": "list_requests",
+      "rest_action": "list_requests",
+      "description": "Get recent skill requests from the community wall, newest first. Optionally filter by keyword.",
+      "status": "active"
     }
   ],
   "rate_limit": {
