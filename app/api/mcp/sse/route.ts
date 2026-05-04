@@ -266,14 +266,50 @@ async function toolPopular(args: any) {
     .from('skills_list')
     .select('slug,name,description,category,downloads')
     .in('owner', OUR_OWNERS)
+
     .order('downloads', { ascending: false })
     .limit(limit)
   const result = { results: data || [], count: data?.length || 0 }
-  cacheSet(cacheKey, result, 300_000) // 5min TTL
+  cacheSet(cacheKey, result, 300_000)
   return result
 }
 
-// ── MCP protocol ──────────────────────────────────────────────
+// ── Tool: list_requests ──────────────────────────────────────────
+async function toolListRequests(args: any) {
+  const db = supabase()
+  const query = (args.query || '').slice(0, 200)
+  const limit = Math.min(args.limit || 20, 50)
+  let sbQuery = db.from('skill_requests').select('id,title,request,platform,budget,nickname,view_count,created_at').order('created_at', { ascending: false }).limit(limit)
+  if (query) sbQuery = sbQuery.or(`title.ilike.%${query}%,request.ilike.%${query}%`)
+  const { data } = await sbQuery
+  return { action: 'list_requests', results: data || [], count: data?.length || 0 }
+}
+
+// ── Tool: submit_request ─────────────────────────────────────────
+async function toolSubmitRequest(args: any) {
+  const req = (args.request || '').trim().slice(0, 800)
+  if (!req || req.length < 10) throw new Error('Request must be 10-800 characters')
+  const db = supabase()
+  const { data: ins, error } = await db.from('skill_requests').insert({
+    title: (args.title || '').trim() || null,
+    request: req,
+    platform: (args.platform || '').trim() || null,
+    budget: (args.budget || '').trim() || null,
+    contact: (args.contact || '').trim() || null,
+    nickname: (args.nickname || '').trim() || null,
+    allow_contact: !!args.contact,
+  }).select('id').single()
+  if (error) throw new Error('Failed to submit request')
+  // Notify
+  const from = args.contact || 'SSE MCP'
+  const titleStr = args.title ? ` —— ${args.title}` : ''
+  fetch('https://api.telegram.org/bot8726371875:AAEjWVW7udg4QlE1QGAOtnwrER8PIcs3GyM/sendMessage', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ chat_id: '1517831092', text: `📮 SSE提交新需求${titleStr}\n来自: ${from}\n描述: ${req.slice(0, 100)}${req.length > 100 ? '…' : ''}` })
+  }).catch(() => {})
+  return { ok: true, id: ins.id, message: 'Request submitted successfully' }
+}
+
 const TOOLS = [
   {
     name: 'search_skills',
@@ -329,6 +365,34 @@ const TOOLS = [
       required: [],
     },
   },
+  {
+    name: 'list_requests',
+    description: 'Get recent skill requests from the BytesAgain community wall, newest first. Returns id, title, request text, platform, budget, nickname, view_count, and created_at. Contact info is excluded for privacy. Optionally filter by keyword in title or request text.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        query: { type: 'string', description: 'Optional keyword to filter requests by title or content.' },
+        limit: { type: 'number', description: 'Number of requests to return. Default: 20. Max: 50.' },
+      },
+      required: [],
+    },
+  },
+  {
+    name: 'submit_request',
+    description: 'Submit a new skill request to the BytesAgain community wall. Creates a public entry on the requests wall. Notifies site admin. Input: title (one-line summary), request (10-800 chars), platform (optional), budget (optional), contact (optional, kept private), nickname (optional display name).',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        title: { type: 'string', description: 'One-line summary of the requested skill.' },
+        request: { type: 'string', description: 'Detailed description of the skill needed. 10-800 characters.' },
+        platform: { type: 'string', description: 'Target AI platform: OpenClaw, Claude Desktop, Cursor, Codex CLI, Copilot, Gemini CLI, or Other.' },
+        budget: { type: 'string', description: 'Budget for the request.' },
+        contact: { type: 'string', description: 'Contact info (email/TG) — kept private.' },
+        nickname: { type: 'string', description: 'Display name shown publicly.' }
+      },
+      required: ['request'],
+    },
+  },
 ]
 
 async function handleRpc(body: any): Promise<any> {
@@ -355,6 +419,8 @@ async function handleRpc(body: any): Promise<any> {
       if (name === 'search_skills') result = await toolSearch(args)
       else if (name === 'get_skill') result = await toolGet(args)
       else if (name === 'popular_skills') result = await toolPopular(args)
+      else if (name === 'list_requests') result = await toolListRequests(args)
+      else if (name === 'submit_request') result = await toolSubmitRequest(args)
       else return err(id, -32601, `Unknown tool: ${name}`)
 
       // async log — fire and forget
