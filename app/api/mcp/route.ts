@@ -479,11 +479,21 @@ export async function GET(req: NextRequest) {
       }, { headers })
     }
 
+    if (action === 'list_requests') {
+      const rLimit = Math.min(limit, 50)
+      let sbQuery = supabase.from('skill_requests').select('id,title,request,platform,budget,nickname,view_count,created_at').order('created_at', { ascending: false }).limit(rLimit)
+      if (query) {
+        sbQuery = sbQuery.or(`title.ilike.%${query}%,request.ilike.%${query}%`)
+      }
+      const { data: reqs } = await sbQuery
+      return NextResponse.json({ action, results: reqs || [], count: reqs?.length || 0 }, { headers })
+    }
+
     // Default: API info
     return NextResponse.json({
       name: 'BytesAgain Agent API',
       description: 'AI-readable skill search API. Curated from 100,000+ skills worldwide.',
-      version: '1.1',
+      version: '1.2',
       actions: {
         search: '?action=search&q=<query>&limit=10',
         recommend: '?action=recommend&role=<developer|creator|trader|marketer|student|ecommerce>&limit=10',
@@ -491,6 +501,8 @@ export async function GET(req: NextRequest) {
         popular: '?action=popular&limit=20',
         use_cases: '?action=use_cases&q=<task>&limit=10',
         workflow: '?action=workflow&q=<task>',
+        list_requests: '?action=list_requests&q=<keyword>&limit=20',
+        submit_request: 'POST /api/mcp (JSON-RPC)',
       },
       mcp_sse: 'https://bytesagain.com/api/mcp/sse',
       homepage: 'https://bytesagain.com',
@@ -563,7 +575,7 @@ export async function POST(req: NextRequest) {
       result: {
         protocolVersion: '2024-11-05',
         capabilities: { tools: {} },
-        serverInfo: { name: 'BytesAgain', version: '1.1.0' }
+        serverInfo: { name: 'BytesAgain', version: '1.2.0' }
       }
     }, { headers })
   }
@@ -679,6 +691,7 @@ export async function POST(req: NextRequest) {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ chat_id: '1517831092', text: `📮 MCP提交新需求${title ? ` —— ${title}` : ''}\n来自: ${notifFrom}\n描述: ${request.slice(0, 100)}${request.length > 100 ? '…' : ''}` })
         }).catch(() => {})
+        logMcpCall({ action: 'submit_request', query: (title || request).slice(0,100), user_agent: req.headers.get('user-agent')||'', ip: req.headers.get('x-forwarded-for')?.split(',')[0].trim()||req.headers.get('x-real-ip')||'', result_count: 1, endpoint: 'mcp_post' })
         return NextResponse.json({
           jsonrpc: '2.0', id,
           result: { content: [{ type: 'text', text: JSON.stringify({ ok: true, id: ins.id, message: 'Request submitted successfully' }) }] }
@@ -692,6 +705,7 @@ export async function POST(req: NextRequest) {
           sbQuery = sbQuery.or(`title.ilike.%${query}%,request.ilike.%${query}%`)
         }
         const { data: requests } = await sbQuery
+        logMcpCall({ action: 'list_requests', query: query||null, user_agent: req.headers.get('user-agent')||'', ip: req.headers.get('x-forwarded-for')?.split(',')[0].trim()||req.headers.get('x-real-ip')||'', result_count: requests?.length||0, endpoint: 'mcp_post' })
         return NextResponse.json({
           jsonrpc: '2.0', id,
           result: { content: [{ type: 'text', text: JSON.stringify(requests || []) }] }
