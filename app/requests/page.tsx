@@ -41,6 +41,7 @@ export default function RequestsPage() {
   const [form, setForm] = useState({ title: '', request: '', platform: '', budget: '', contact: '', allow_contact: false, show_contact: false, image_url: '', nickname: '' })
   const [submitting, setSubmitting] = useState(false)
   const [uploading, setUploading] = useState(false)
+  const [listening, setListening] = useState(false)
   const [error, setError] = useState('')
 
   const t = (en: string, zhStr: string) => zh ? zhStr : en
@@ -223,9 +224,58 @@ export default function RequestsPage() {
                   placeholder={t('One-line summary', '一句话概括')} className="req-input" style={inputStyle} />
               </F>
               <F label={`${t('Description', '描述')} *`}>
-                <textarea value={form.request} onChange={e => setForm(p => ({ ...p, request: e.target.value }))} required
-                  placeholder={t('What features? What problem?', '需要什么功能？解决什么问题？')}
-                  className="req-textarea" style={{ ...inputStyle, minHeight: 100, resize: 'vertical' }} />
+                <div style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+                  <textarea value={form.request} onChange={e => setForm(p => ({ ...p, request: e.target.value }))} required
+                    placeholder={t('What features? What problem?', '需要什么功能？解决什么问题？')}
+                    className="req-textarea" style={{ ...inputStyle, minHeight: 100, resize: 'vertical', flex: 1 }} />
+                  <button type="button" onClick={() => {
+                    if (listening) return
+                    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
+                    if (!SpeechRecognition) {
+                      setError(t('Voice not supported in this browser', '当前浏览器不支持语音输入'))
+                      return
+                    }
+                    const recognition = new SpeechRecognition()
+                    recognition.lang = zh ? 'zh-CN' : 'en-US'
+                    recognition.interimResults = true
+                    recognition.continuous = true
+                    setListening(true)
+                    recognition.onresult = (e: any) => {
+                      let text = ''
+                      for (let i = e.resultIndex; i < e.results.length; i++) {
+                        text += e.results[i][0].transcript
+                      }
+                      setForm(p => ({ ...p, request: p.request + text }))
+                    }
+                    recognition.onerror = () => { setListening(false) }
+                    recognition.onend = () => { setListening(false) }
+                    recognition.start()
+                    // Store so we can stop it
+                    (window as any).__recognition = recognition
+                  }} style={{
+                    width: 40, height: 40, borderRadius: 10, flexShrink: 0,
+                    background: listening ? '#f87171' : '#0a0a18',
+                    border: listening ? '2px solid #ef4444' : '1px solid #2a2a4e',
+                    color: listening ? '#fff' : '#888',
+                    fontSize: '1.1em', cursor: 'pointer', display: 'flex',
+                    alignItems: 'center', justifyContent: 'center',
+                    transition: 'all .15s',
+                    animation: listening ? 'pulse 1s infinite' : 'none',
+                  }} title={listening ? t('Listening… tap to stop', '录音中…点击停止') : t('Voice input', '语音输入')}>
+                    <style>{`@keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 #ef4444aa; } 50% { box-shadow: 0 0 0 8px #ef444400; } }`}</style>
+                    {listening ? '⏹' : '🎤'}
+                  </button>
+                  {listening && (
+                    <button type="button" onClick={() => {
+                      const r = (window as any).__recognition
+                      if (r) { r.stop(); setListening(false) }
+                    }} style={{
+                      width: 40, height: 40, borderRadius: 10, border: '1px solid #2a2a4e',
+                      background: '#0a0a18', color: '#888', fontSize: '1.1em', cursor: 'pointer',
+                      flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    }} title={t('Stop', '停止')}>⏹</button>
+                  )}
+                </div>
               </F>
               <F label={t('Platform', '平台')}>
                 <select value={form.platform} onChange={e => setForm(p => ({ ...p, platform: e.target.value }))}
