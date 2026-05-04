@@ -41,6 +41,7 @@ export default function RequestsPage() {
   const [editId, setEditId] = useState<number | null>(null)
   const [form, setForm] = useState({ title: '', request: '', platform: '', budget: '', contact: '', allow_contact: false, show_contact: false, image_url: '', nickname: '' })
   const [submitting, setSubmitting] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const [error, setError] = useState('')
 
   const t = (en: string, zhStr: string) => zh ? zhStr : en
@@ -206,11 +207,40 @@ export default function RequestsPage() {
                 <input type="text" value={form.contact} onChange={e => setForm(p => ({ ...p, contact: e.target.value }))}
                   placeholder={t('TG / Email (private)', 'TG / 邮箱（不公开）')} className="req-input" style={inputStyle} />
               </F>
-              <F label={t('Image URL', '图片链接')}>
-                <input type="text" value={form.image_url} onChange={e => setForm(p => ({ ...p, image_url: e.target.value }))}
-                  placeholder={t('Paste image URL (optional)', '粘贴图片链接（选填）')} className="req-input" style={inputStyle} />
+              <F label={t('Image', '图片')}>
+                <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                  <label style={{
+                    padding: '10px 16px', borderRadius: 8, cursor: 'pointer',
+                    background: '#0a0a18', border: '1px solid #2a2a4e',
+                    color: '#ccc', fontSize: '.9em', display: 'inline-block',
+                  }}>
+                    {uploading ? '⏳' : '📎 ' + t('Choose File', '选择图片')}
+                    <input type="file" accept="image/*" style={{ display: 'none' }}
+                      onChange={async e => {
+                        const file = e.target.files?.[0]
+                        if (!file) return
+                        setUploading(true)
+                        try {
+                          const fd = new FormData()
+                          fd.append('file', file)
+                          const res = await fetch('/api/upload', { method: 'POST', body: fd })
+                          if (!res.ok) throw new Error((await res.json()).error || 'Upload failed')
+                          const { url } = await res.json()
+                          setForm(p => ({ ...p, image_url: url }))
+                        } catch (err: any) {
+                          setError(err.message)
+                        } finally { setUploading(false) }
+                      }} />
+                  </label>
+                  {form.image_url && (
+                    <button type="button" onClick={() => setForm(p => ({ ...p, image_url: '' }))}
+                      style={{ background: 'none', border: 'none', color: '#f87171', cursor: 'pointer', fontSize: '.85em' }}>
+                      {t('Remove', '移除')}
+                    </button>
+                  )}
+                </div>
                 {form.image_url && (
-                  <img src={form.image_url} alt="preview" style={{ marginTop: 8, maxWidth: '100%', maxHeight: 120, borderRadius: 8, border: '1px solid #1a1a3e' }} />
+                  <img src={form.image_url} alt="preview" style={{ marginTop: 8, maxWidth: '100%', maxHeight: 120, borderRadius: 8, border: '1px solid #1a1a3e', objectFit: 'cover' }} />
                 )}
               </F>
               <F label={t('Display Nickname', '显示昵称')}>
