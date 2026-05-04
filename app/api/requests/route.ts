@@ -51,9 +51,9 @@ export async function POST(req: NextRequest) {
   if (show_contact !== undefined) r.show_contact = show_contact === true
   if (image_url?.trim()) r.image_url = image_url.trim()
   if (nickname?.trim()) r.nickname = nickname.trim()
-  const { error } = await sb.from('skill_requests').insert(r)
+  const { data: inserted, error } = await sb.from('skill_requests').insert(r).select('id').single()
   if (error) return NextResponse.json({ error: 'Failed' }, { status: 500 })
-  return NextResponse.json({ ok: true })
+  return NextResponse.json({ ok: true, id: inserted.id })
 }
 
 // 编辑/删除：只能操作自己的

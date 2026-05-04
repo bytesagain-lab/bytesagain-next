@@ -1,6 +1,5 @@
 'use client'
-
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { createBrowserClient } from '@supabase/ssr'
 import type { User } from '@supabase/supabase-js'
@@ -46,17 +45,32 @@ export default function RequestsPage() {
 
   const t = (en: string, zhStr: string) => zh ? zhStr : en
 
+  const loadRequests = useCallback(() => {
+    fetch('/api/requests').then(r => r.json()).then(d => { setRequests(d || []); setLoading(false) }).catch(() => setLoading(false))
+  }, [])
+
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
       setUser(data.user ?? null)
       setAuthLoading(false)
     })
     loadRequests()
-  }, [])
 
-  const loadRequests = () => {
-    fetch('/api/requests').then(r => r.json()).then(d => { setRequests(d || []); setLoading(false) }).catch(() => setLoading(false))
-  }
+    // Realtime: listen for broadcasted new requests
+    const channel = supabase
+      .channel('request-wall')
+      .on('broadcast', { event: 'new-request' }, (payload) => {
+        const r = payload.payload as Request
+        setRequests(prev => {
+          // Avoid duplicates (id already exists)
+          if (prev.some(x => x.id === r.id)) return prev
+          return [r, ...prev]
+        })
+      })
+      .subscribe()
+
+    return () => { supabase.removeChannel(channel) }
+  }, [loadRequests, supabase])
 
   const openNew = () => {
     setEditId(null)
@@ -82,8 +96,31 @@ export default function RequestsPage() {
       const body = editId ? { id: editId, ...form } : form
       const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
       if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || 'Failed')
+      if (editId) { loadRequests(); setShowForm(false); return }
+      // New request: broadcast to all viewers in real-time
+      const newRecord = await res.json()
+      if (newRecord.id) {
+        supabase.channel('request-wall').send({
+          type: 'broadcast',
+          event: 'new-request',
+          payload: {
+            id: newRecord.id,
+            title: form.title || null,
+            request: form.request,
+            platform: form.platform || null,
+            budget: form.budget || null,
+            contact: form.contact || null,
+            allow_contact: form.allow_contact,
+            show_contact: form.show_contact,
+            image_url: form.image_url || null,
+            nickname: form.nickname || null,
+            user_id: '',
+            created_at: new Date().toISOString(),
+            view_count: 0,
+          }
+        }).then()
+      }
       setShowForm(false)
-      loadRequests()
     } catch (err: any) {
       setError(err.message)
     } finally { setSubmitting(false) }
@@ -106,7 +143,6 @@ export default function RequestsPage() {
       `}</style>
 
       <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-        {/* Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 16, marginBottom: 32 }}>
           <div>
             <h1 style={{ fontSize: '2em', fontWeight: 800, marginBottom: 8 }}>📋 {t('Skill Request Wall', 'Skill 需求墙')}</h1>
@@ -132,7 +168,6 @@ export default function RequestsPage() {
           </div>
         </div>
 
-        {/* Content */}
         {loading ? (
           <div style={{ textAlign: 'center', padding: 60, color: '#555' }}>{t('Loading…', '加载中…')}</div>
         ) : requests.length === 0 ? (
