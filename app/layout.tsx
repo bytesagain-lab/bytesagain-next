@@ -12,6 +12,11 @@ export const metadata: Metadata = {
   title: { default: 'BytesAgain — AI Agent Skills', template: '%s | BytesAgain' },
   description: 'Discover the best AI agent skills from ClawHub, GitHub, LobeHub, MCP and more.',
   metadataBase: new URL('https://bytesagain.com'),
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
+  },
   alternates: {
     canonical: 'https://bytesagain.com',
     types: { 'text/plain': 'https://bytesagain.com/llms.txt' },
@@ -66,17 +71,51 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <a href="/register" style={{ color: '#00d4ff', textDecoration: 'underline' }}>Subscribe →</a>
           </div>
           <NavBar />
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([{
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "BytesAgain",
+            "url": "https://bytesagain.com",
+            "description": "Search hundreds of thousands of AI agent skills via MCP API or REST. Supports 7 languages. Free, no auth required.",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://bytesagain.com/skills?q={search_term_string}"
+              },
+              "query-input": "required name=search_term_string"
+            }
+          }, {
             "@context": "https://schema.org",
             "@type": "Organization",
             "name": "BytesAgain",
             "url": "https://bytesagain.com",
             "logo": { "@type": "ImageObject", "url": "https://bytesagain.com/og-image.png" },
-            "description": "Search 60,000+ AI agent skills via MCP API or REST. Supports 7 languages. Free, no auth required.",
+            "description": "AI agent skill directory. Search skills, use cases, and community requests.",
             "foundingDate": "2026",
             "sameAs": ["https://x.com/bytesagain", "https://github.com/bytesagain/ai-skills"],
             "contactPoint": { "@type": "ContactPoint", "email": "hello@bytesagain.com", "contactType": "customer support" }
-          }) }} />
+          }, {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [{
+              "@type": "Question",
+              "name": "What is BytesAgain?",
+              "acceptedAnswer": { "@type": "Answer", "text": "BytesAgain is a curated directory of AI agent skills. Search hundreds of thousands of skills, explore 1,000+ use cases, and browse community skill requests." }
+            }, {
+              "@type": "Question",
+              "name": "How do I find AI skills on BytesAgain?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Use the search bar on BytesAgain.com to search by keyword in 7 languages. You can also browse by role (developer, creator, trader, marketer) or by use case." }
+            }, {
+              "@type": "Question",
+              "name": "Is BytesAgain free?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Yes, BytesAgain is completely free. No registration required for searching skills. The MCP API is also free with rate limits." }
+            }, {
+              "@type": "Question",
+              "name": "Can I request a new AI skill on BytesAgain?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Yes! Visit the Requests page on BytesAgain.com to submit a skill request. Your request will be visible to the community and notified to the site admin." }
+            }]
+          }]) }} />
           <main>{children}</main>
           <FooterClient />
           <FeedbackButton />

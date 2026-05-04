@@ -73,6 +73,7 @@ export default async function HomePage() {
 
         {/* ── 3列特色入口 */}
         <section style={{ marginBottom: 56 }}>
+          <h2 style={{ display: 'none' }}>Browse AI Agent Skills, Use Cases, and MCP API</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
             {[
               { icon: '⚡', title: 'AI Agent Skills', desc: 'Search 60,000+ verified skills for Claude, Cursor, OpenClaw & more', href: '/skills', color: '#818cf8' },
@@ -100,6 +101,7 @@ export default async function HomePage() {
         {/* ── 最新文章 */}
         {articles.length > 0 && (
           <section style={{ marginBottom: 64 }}>
+            <h2 style={{ fontSize: '1em', fontWeight: 600, color: '#888', marginBottom: 12 }}>Latest Articles</h2>
             <div style={{
               maxHeight: 320,
               overflowY: 'auto',
