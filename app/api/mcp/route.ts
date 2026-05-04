@@ -573,6 +573,7 @@ export async function GET(req: NextRequest) {
         use_cases: '?action=use_cases&q=<task>&limit=10',
         workflow: '?action=workflow&q=<task>',
         list_requests: '?action=list_requests&q=<keyword>&limit=20',
+        deals: '?action=deals&q=<region>',
         submit_request: 'POST /api/mcp (JSON-RPC)',
       },
       mcp_sse: 'https://bytesagain.com/api/mcp/sse',
