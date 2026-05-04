@@ -91,6 +91,39 @@ const ALIEXPRESS_DEALS = {
     { code: 'CD23VIO', desc: '€169-€23' }, { code: 'CD30VIO', desc: '€239-€30' },
     { code: 'CD45VIO', desc: '€359-€45' }, { code: 'CD60VIO', desc: '€479-€60' },
   ]},
+  uk: { label: 'UK Summer Ready', valid_until: '2026-05-07 22:59 BST', codes: [
+    { code: 'AEUKCDX2', desc: '£15-£2' }, { code: 'AEUKCDX4', desc: '£30-£4' },
+    { code: 'AEUKCDX7', desc: '£49-£7' }, { code: 'AEUKCD12', desc: '£89-£12' },
+    { code: 'AEUKCD18', desc: '£149-£18' }, { code: 'AEUKCD25', desc: '£209-£25' },
+    { code: 'AEUKCD40', desc: '£329-£40' }, { code: 'AEUKCD55', desc: '£449-£55' },
+  ]},
+  uk_newuser: { label: 'UK New User', valid_until: '2026-07-09', codes: [
+    { code: 'UKNEW03', desc: '£7-£3' }, { code: 'UKNEW04', desc: '£15-£4' },
+  ]},
+  au: { label: 'Australia Winter Ready', valid_until: '2026-05-07 23:59 PST', codes: [
+    { code: 'AFFAU03', desc: 'A$23-A$3' }, { code: 'AFFAU06', desc: 'A$45-A$6' },
+    { code: 'AFFAU10', desc: 'A$70-A$10' }, { code: 'AFFAU16', desc: 'A$120-A$16' },
+    { code: 'AFFAU28', desc: 'A$230-A$28' }, { code: 'AFFAU35', desc: 'A$290-A$35' },
+    { code: 'AFFAU56', desc: 'A$460-A$56' }, { code: 'AFFAU78', desc: 'A$630-A$78' },
+  ]},
+  ca: { label: 'Canada Choice Day', valid_until: '2026-05-07 23:59 PDT', codes: [
+    { code: 'CDCA23', desc: 'C$23-C$3' }, { code: 'CDCA45', desc: 'C$45-C$6' },
+    { code: 'CDCA70', desc: 'C$70-C$7' }, { code: 'CDCA120', desc: 'C$120-C$16' },
+    { code: 'CDCA230', desc: 'C$230-C$28' }, { code: 'CDCA290', desc: 'C$290-C$35' },
+    { code: 'CDCA460', desc: 'C$460-C$56' }, { code: 'CDCA630', desc: 'C$630-C$78' },
+  ]},
+  mx: { label: 'Mexico Choice Day', valid_until: '2026-05-07 23:59 CT', codes: [
+    { code: 'CDMX1', desc: 'MX$320-MX$35' }, { code: 'CDMX2', desc: 'MX$700-MX$90' },
+    { code: 'CDMX3', desc: 'MX$1000-MX$140' }, { code: 'CDMX4', desc: 'MX$1900-MX$260' },
+    { code: 'CDMX5', desc: 'MX$2900-MX$400' }, { code: 'CDMX6', desc: 'MX$4200-MX$530' },
+    { code: 'CDMX7', desc: 'MX$6300-MX$800' }, { code: 'CDMX8', desc: 'MX$8400-MX$1050' },
+  ]},
+  gcc: { label: 'GCC (SA/AE/KW/OM/BH/QA)', valid_until: '2026-05-07 PST', codes: [
+    { code: 'GCCCD01', desc: '70SAR-8SAR' }, { code: 'GCCCD02', desc: '155SAR-20SAR' },
+    { code: 'GCCCD03', desc: '225SAR-27SAR' }, { code: 'GCCCD04', desc: '350SAR-48SAR' },
+    { code: 'GCCCD05', desc: '575SAR-75SAR' }, { code: 'GCCCD06', desc: '920SAR-115SAR' },
+    { code: 'GCCCD07', desc: '1430SAR-175SAR' }, { code: 'GCCCD08', desc: '1885SAR-230SAR' },
+  ]},
 }
 
 // Strip characters that could be used in prompt injection or SQL injection.
