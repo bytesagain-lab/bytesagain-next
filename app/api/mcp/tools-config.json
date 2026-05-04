@@ -50,6 +50,12 @@
       "rest_action": "list_requests",
       "description": "Get recent skill requests from the community wall, newest first. Optionally filter by keyword.",
       "status": "active"
+    },
+    {
+      "name": "get_deals",
+      "rest_action": "deals",
+      "description": "Get active AliExpress coupon codes and promotion deals by country/region. Returns coupon codes with discount thresholds, validity dates, and eligible regions.",
+      "status": "active"
     }
   ],
   "rate_limit": {

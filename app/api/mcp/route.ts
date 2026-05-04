@@ -10,6 +10,64 @@ const ALLOWED_TOOLS = new Set(
   toolsConfig.allowed_tools.filter(t => t.status === 'active').map(t => t.name)
 )
 
+// ── AliExpress Deals / Coupon Codes ───────────────────────────────
+const ALIEXPRESS_DEALS = {
+  global: { label: 'Global Codes', valid_until: '2026-05-07 23:59 PST', codes: [
+    { code: 'AFMC2', desc: '$2 off $15', threshold: '$15' },
+    { code: 'AFMC4', desc: '$4 off $30', threshold: '$30' },
+    { code: 'AFMC7', desc: '$7 off $49', threshold: '$49' },
+    { code: 'AFMC12', desc: '$12 off $89', threshold: '$89' },
+    { code: 'AFMC18', desc: '$18 off $149', threshold: '$149' },
+    { code: 'AFMC25', desc: '$25 off $209', threshold: '$209' },
+    { code: 'AFMC40', desc: '$40 off $329', threshold: '$329' },
+    { code: 'AFMC55', desc: '$55 off $449', threshold: '$449' },
+  ]},
+  us: { label: 'US Choice Day', valid_until: '2026-05-07 PST', codes: [
+    { code: 'USAFF02', desc: '$18-$2' }, { code: 'USAFF5', desc: '$39-$5' },
+    { code: 'USAFF8', desc: '$59-$8' }, { code: 'USAFF015', desc: '$109-$15' },
+    { code: 'USAFF23', desc: '$169-$23' }, { code: 'USAFF30', desc: '$239-$30' },
+    { code: 'USAFF045', desc: '$359-$45' }, { code: 'USAFF060', desc: '$479-$60' },
+  ]},
+  us_newuser: { label: 'US New User', valid_until: '2026-06-30', codes: [
+    { code: 'NEWUSOFF3', desc: '$10-$3' }, { code: 'NEWUSOFF5', desc: '$20-$5' },
+    { code: 'NEWUSOFF12', desc: '$80-$12' },
+  ]},
+  br: { label: 'Brazil Mother\'s Day', valid_until: '2026-05-07 BRT', codes: [
+    { code: 'MAES1', desc: 'R$80-R$10' }, { code: 'MAES2', desc: 'R$160-R$20' },
+    { code: 'MAES3', desc: 'R$260-R$35' }, { code: 'MAES4', desc: 'R$480-R$65' },
+    { code: 'MAES5', desc: 'R$800-R$95' }, { code: 'MAES6', desc: 'R$1150-R$140' },
+    { code: 'MAES7', desc: 'R$1770-R$220' }, { code: 'MAES8', desc: 'R$2450-R$300' },
+  ]},
+  kr: { label: 'Korea 5월 Choice Day', valid_until: '2026-05-07 KST', codes: [
+    { code: 'CHOICEKR03', desc: '$22-$3' }, { code: 'CHOICEKR04', desc: '$34-$4' },
+    { code: 'CHOICEKR07', desc: '$56-$7' }, { code: 'CHOICEKR10', desc: '$86-$10' },
+    { code: 'CHOICEKR16', desc: '$139-$16' }, { code: 'CHOICEKR27', desc: '$239-$27' },
+    { code: 'CHOICEKR38', desc: '$349-$38' },
+  ]},
+  fr: { label: 'France Choice Day', valid_until: '2026-05-07 CET', codes: [
+    { code: 'FRFW02', desc: '€18-€2' }, { code: 'FRFW05', desc: '€39-€5' },
+    { code: 'FRFW08', desc: '€59-€8' }, { code: 'FRFW15', desc: '€109-€15' },
+    { code: 'FRFW23', desc: '€169-€23' }, { code: 'FRFW30', desc: '€239-€30' },
+    { code: 'FRFW45', desc: '€359-€45' }, { code: 'FRFW60', desc: '€479-€60' },
+  ]},
+  es: { label: 'Spain Listos para verano', valid_until: '2026-05-07', codes: [
+    { code: 'CDES02', desc: '€15-€2', alt: 'ESCD02' },
+    { code: 'CDES04', desc: '€30-€4', alt: 'ESCD04' },
+    { code: 'CDES07', desc: '€49-€7', alt: 'ESCD07' },
+    { code: 'CDES12', desc: '€89-€12', alt: 'ESCD12' },
+    { code: 'CDES18', desc: '€149-€18', alt: 'ESCD18' },
+    { code: 'CDES25', desc: '€209-€25', alt: 'ESCD25' },
+    { code: 'CDES40', desc: '€329-€40', alt: 'ESCD40' },
+    { code: 'CDES55', desc: '€449-€55', alt: 'ESCD55' },
+  ]},
+  de: { label: 'Germany Choice Day', valid_until: '2026-05-07 CEST', codes: [
+    { code: 'DECD02', desc: '€18-€2' }, { code: 'DECD05', desc: '€39-€5' },
+    { code: 'DECD08', desc: '€59-€8' }, { code: 'DECD15', desc: '€109-€15' },
+    { code: 'DECD23', desc: '€169-€23' }, { code: 'DECD30', desc: '€239-€30' },
+    { code: 'DECD45', desc: '€359-€45' }, { code: 'DECD60', desc: '€479-€60' },
+  ]},
+}
+
 // Strip characters that could be used in prompt injection or SQL injection.
 // Keeps letters, numbers, spaces, common punctuation — removes control chars,
 // angle brackets, backticks, and common prompt-injection openers.
@@ -489,6 +547,19 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ action, results: reqs || [], count: reqs?.length || 0 }, { headers })
     }
 
+    if (action === 'deals') {
+      const region = (query || 'all').toLowerCase()
+      let deals: any
+      if (region === 'all') {
+        deals = ALIEXPRESS_DEALS
+      } else if (ALIEXPRESS_DEALS[region as keyof typeof ALIEXPRESS_DEALS]) {
+        deals = { [region]: ALIEXPRESS_DEALS[region as keyof typeof ALIEXPRESS_DEALS] }
+      } else {
+        deals = { error: `Unknown region "${region}". Available: global, us, br, kr, fr, es, de` }
+      }
+      return NextResponse.json({ action, query: region, deals }, { headers })
+    }
+
     // Default: API info
     return NextResponse.json({
       name: 'BytesAgain Agent API',
@@ -643,6 +714,11 @@ export async function POST(req: NextRequest) {
             query: { type: 'string', description: 'Optional keyword to filter requests by title or content.' },
             limit: { type: 'number', description: 'Number of requests to return. Default: 20. Max: 50.' }
           }, required: [] } },
+        { name: 'get_deals',
+          description: 'Get active AliExpress coupon codes and promotion deals. Returns region-specific coupon codes with discount thresholds and validity dates. Supported regions: global codes, US, Brazil, Korea, France, Spain, Germany. Each region has its own set of coupon codes. Use when the user asks about AliExpress discounts, coupon codes, or promotions.',
+          inputSchema: { type: 'object', properties: {
+            region: { type: 'string', description: 'Optional region filter: "global", "us", "br", "kr", "fr", "es", "de", or "all". Default: "all".' },
+          }, required: [] } },
       ]}
     }, { headers })
   }
@@ -717,6 +793,21 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({
           jsonrpc: '2.0', id,
           result: { content: [{ type: 'text', text: JSON.stringify(requests || []) }] }
+        }, { headers })
+      } else if (name === 'get_deals') {
+        const region = (args.region || 'all').toLowerCase()
+        let deals: any
+        if (region === 'all') {
+          deals = ALIEXPRESS_DEALS
+        } else if (ALIEXPRESS_DEALS[region as keyof typeof ALIEXPRESS_DEALS]) {
+          deals = { [region]: ALIEXPRESS_DEALS[region as keyof typeof ALIEXPRESS_DEALS] }
+        } else {
+          deals = { error: `Unknown region "${region}". Available: global, us, br, kr, fr, es, de` }
+        }
+        logMcpCall({ action: 'get_deals', query: region, user_agent: req.headers.get('user-agent')||'', ip: req.headers.get('x-forwarded-for')?.split(',')[0].trim()||req.headers.get('x-real-ip')||'', result_count: Object.keys(deals).length, endpoint: 'mcp_post' })
+        return NextResponse.json({
+          jsonrpc: '2.0', id,
+          result: { content: [{ type: 'text', text: JSON.stringify(deals) }] }
         }, { headers })
       } else {
       }

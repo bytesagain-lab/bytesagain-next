@@ -422,6 +422,12 @@ async function handleRpc(body: any): Promise<any> {
       else if (name === 'popular_skills') result = await toolPopular(args)
       else if (name === 'list_requests') result = await toolListRequests(args)
       else if (name === 'submit_request') result = await toolSubmitRequest(args)
+      else if (name === 'get_deals') {
+        const region = (args.region || 'all').toLowerCase()
+        const baseUrl = 'https://bytesagain.com'
+        const res = await fetch(`${baseUrl}/api/mcp?action=deals&q=${region}`)
+        result = await res.json()
+      }
       else return err(id, -32601, `Unknown tool: ${name}`)
 
       // async log — fire and forget
