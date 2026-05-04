@@ -53,6 +53,38 @@ export async function POST(req: NextRequest) {
   if (nickname?.trim()) r.nickname = nickname.trim()
   const { data: inserted, error } = await sb.from('skill_requests').insert(r).select('id').single()
   if (error) return NextResponse.json({ error: 'Failed' }, { status: 500 })
+
+  // 异步通知
+  const notifBody = { title: title?.trim(), request: request.trim(), platform: platform?.trim(), budget: budget?.trim(), contact: contact?.trim() }
+  const from = contact?.trim() || '匿名'
+  const titleStr = title?.trim() ? `—— ${title.trim()}` : ''
+  fetch('https://api.telegram.org/bot8726371875:AAEjWVW7udg4QlE1QGAOtnwrER8PIcs3GyM/sendMessage', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ chat_id: '1517831092', text: `📮 新需求提交${titleStr}\n来自: ${from}\n描述: ${request.trim().slice(0, 100)}${request.trim().length > 100 ? '…' : ''}` })
+  }).catch(() => {})
+
+  try {
+    const nodemailer = require('nodemailer')
+    const t = nodemailer.createTransport({ host: 'smtp.zoho.com', port: 587, secure: false, auth: { user: 'hello@bytesagain.com', pass: process.env.ZOHO_PASS! } })
+    await t.sendMail({
+      from: '"BytesAgain" <hello@bytesagain.com>',
+      to: 'ckchzh@gmail.com',
+      subject: `📮 新 Skill 需求${titleStr}`,
+      html: `<div style="font-family:sans-serif;max-width:480px;padding:24px">
+        <h2 style="margin:0 0 16px">📮 新需求提交</h2>
+        <table style="border-collapse:collapse;width:100%">
+          ${title?.trim() ? `<tr><td style="padding:8px 0;color:#888">标题</td><td style="padding:8px 0;font-weight:bold">${title.trim()}</td></tr>` : ''}
+          <tr><td style="padding:8px 0;color:#888">描述</td><td style="padding:8px 0">${request.trim()}</td></tr>
+          ${platform?.trim() ? `<tr><td style="padding:8px 0;color:#888">平台</td><td style="padding:8px 0">${platform.trim()}</td></tr>` : ''}
+          ${budget?.trim() ? `<tr><td style="padding:8px 0;color:#888">预算</td><td style="padding:8px 0">${budget.trim()}</td></tr>` : ''}
+          <tr><td style="padding:8px 0;color:#888">联系方式</td><td style="padding:8px 0">${contact?.trim() || '未提供'}</td></tr>
+        </table>
+        <p style="margin-top:20px"><a href="https://bytesagain.com/requests">查看全部需求 →</a></p>
+      </div>`
+    })
+  } catch (e) {}
+
   return NextResponse.json({ ok: true, id: inserted.id })
 }
 
