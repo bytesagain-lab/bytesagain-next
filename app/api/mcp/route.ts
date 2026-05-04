@@ -492,7 +492,7 @@ export async function GET(req: NextRequest) {
     // Default: API info
     return NextResponse.json({
       name: 'BytesAgain Agent API',
-      description: 'AI-readable skill search API. Curated from 100,000+ skills worldwide.',
+      description: 'The BytesAgain AI Skills Platform — 3 directions: 1️⃣ Skill Search (hundreds of thousands of AI agent skills, 7 languages), 2️⃣ Use Cases (1,000+ real-world AI workflows), 3️⃣ Request Wall (community skill requests). Free, no auth required.',
       version: '1.2',
       actions: {
         search: '?action=search&q=<query>&limit=10',
@@ -593,7 +593,15 @@ export async function POST(req: NextRequest) {
       jsonrpc: '2.0', id,
       result: { tools: [
         { name: 'search_skills',
-          description: 'Search 60,000+ AI agent skills by keyword or natural language query. Supports 7 languages (EN/ZH/JA/KO/DE/FR/ES). Returns skills with slug, name, description, category, downloads, stars. Results ranked by relevance then popularity. Use when user wants to find skills for a specific task. Example: "email automation" or "邮件自动化".',
+          description: [
+            'Search hundreds of thousands of AI agent skills from the BytesAgain platform.',
+            '3 main directions: Skill Search (hundreds of thousands of skills, 7 languages), Use Cases (1,000+ real-world AI workflows), Request Wall (community skill requests).',
+            'Supports 7 languages: EN, Chinese (中文), Japanese (日本語), Korean (한국어), German, French, ES.',
+            'Returns skills with slug, name, description, category, tags, downloads, stars, source, and source_url.',
+            'Results ranked by relevance (full-text score) then download count.',
+            'Use when user wants to find or discover skills for a specific task or topic.',
+            'Example queries: "email automation", "邮件自动化", "data analysis", "메일 자동화".',
+          ].join(' '),
           inputSchema: { type: 'object', properties: {
             query: { type: 'string', description: 'Search keyword in any supported language. Example: "data analysis" or "数据分析".' },
             limit: { type: 'number', description: 'Number of results. Default: 10. Max: 50.' }

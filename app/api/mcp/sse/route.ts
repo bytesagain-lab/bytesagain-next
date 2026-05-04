@@ -314,8 +314,9 @@ const TOOLS = [
   {
     name: 'search_skills',
     description: [
-      'Search 60,000+ AI agent skills by keyword or natural language query.',
-      'Supports 7 languages: English, Chinese (中文), Japanese (日本語), Korean (한국어), German, French, Portuguese/Spanish.',
+      'Search hundreds of thousands of AI agent skills from the BytesAgain platform.',
+      '3 main directions: Skill Search (hundreds of thousands of skills, 7 languages), Use Cases (1,000+ real-world AI workflows), Request Wall (community skill requests).',
+      'Supports 7 languages: EN, Chinese (中文), Japanese (日本語), Korean (한국어), German, French, ES.',
       'Returns an array of matching skills, each with: slug, name, description, category, tags, downloads, stars, source, and source_url.',
       'Results are ranked by relevance (full-text score) then download count.',
       'Use this tool when the user wants to find or discover skills for a specific task or topic.',
@@ -402,7 +403,7 @@ async function handleRpc(body: any): Promise<any> {
     return ok(id, {
       protocolVersion: '2024-11-05',
       capabilities: { tools: {} },
-      serverInfo: { name: 'BytesAgain Skill Server', version: '1.0.0' },
+      serverInfo: { name: 'BytesAgain Skill Server', version: '1.2.0' },
     })
   }
 
