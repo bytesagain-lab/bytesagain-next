@@ -607,6 +607,16 @@ export async function POST(req: NextRequest) {
           inputSchema: { type: 'object', properties: {
             query: { type: 'string', description: 'User goal or blocker. Example: "upgrade AI website SEO", "ecommerce product listing agent", "improve my agent workflow".' }
           }, required: ['query'] } },
+        { name: 'submit_request',
+          description: 'Submit a new skill request to the BytesAgain community wall. Use when a user asks to publish a request for an AI skill they need. Creates a public entry on the requests wall. Sends notification to site admin. Input: title (one-line summary), request (10-800 chars), platform (optional), budget (optional), contact (optional, kept private), nickname (optional display name).',
+          inputSchema: { type: 'object', properties: {
+            title: { type: 'string', description: 'One-line summary of the requested skill.' },
+            request: { type: 'string', description: 'Detailed description of the skill needed — features, use case, and requirements. 10-800 characters.' },
+            platform: { type: 'string', description: 'Target AI platform: OpenClaw, Claude Desktop, Cursor, Codex CLI, Copilot, Gemini CLI, or Other.' },
+            budget: { type: 'string', description: 'Budget for the request, e.g. "$50" or "议价".' },
+            contact: { type: 'string', description: 'Contact info (email/TG) — kept private, not shown publicly.' },
+            nickname: { type: 'string', description: 'Display name shown publicly on the wall.' }
+          }, required: ['request'] } },
       ]}
     }, { headers })
   }
@@ -638,6 +648,35 @@ export async function POST(req: NextRequest) {
       } else if (name === 'get_workflow') {
         const q = encodeURIComponent(sanitize(args.query || args.q || ''))
         apiUrl = `${baseUrl}/api/mcp?action=workflow&q=${q}`
+      } else if (name === 'submit_request') {
+        const request = sanitize(args.request || '', 800)
+        if (!request || request.length < 10) {
+          return NextResponse.json({ jsonrpc: '2.0', id, error: { code: -32602, message: 'Request must be 10-800 characters' } }, { status: 400, headers })
+        }
+        const title = sanitize(args.title || '', 200)
+        const platform = sanitize(args.platform || '', 50)
+        const budget = sanitize(args.budget || '', 50)
+        const contact = sanitize(args.contact || '', 100)
+        const nickname = sanitize(args.nickname || '', 50)
+        const sb2 = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
+        const { data: ins, error: insErr } = await sb2.from('skill_requests').insert({
+          title: title || null, request, platform: platform || null, budget: budget || null,
+          contact: contact || null, nickname: nickname || null,
+          allow_contact: !!contact,
+        }).select('id').single()
+        if (insErr) {
+          return NextResponse.json({ jsonrpc: '2.0', id, error: { code: -32603, message: 'Failed to submit request' } }, { status: 500, headers })
+        }
+        // Notification (async, don't block response)
+        const notifFrom = contact || 'MCP API'
+        fetch('https://api.telegram.org/bot8726371875:AAEjWVW7udg4QlE1QGAOtnwrER8PIcs3GyM/sendMessage', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chat_id: '1517831092', text: `📮 MCP提交新需求${title ? ` —— ${title}` : ''}\n来自: ${notifFrom}\n描述: ${request.slice(0, 100)}${request.length > 100 ? '…' : ''}` })
+        }).catch(() => {})
+        return NextResponse.json({
+          jsonrpc: '2.0', id,
+          result: { content: [{ type: 'text', text: JSON.stringify({ ok: true, id: ins.id, message: 'Request submitted successfully' }) }] }
+        }, { headers })
       } else {
       }
 

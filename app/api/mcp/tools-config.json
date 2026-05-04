@@ -38,6 +38,12 @@
       "rest_action": "workflow",
       "description": "Return a complete AI agent workflow with tested skill-stack candidates and upgrade path",
       "status": "active"
+    },
+    {
+      "name": "submit_request",
+      "rest_action": "submit_request",
+      "description": "Submit a new skill request to the community wall. Provide title, description, platform, and optionally budget and contact info.",
+      "status": "active"
     }
   ],
   "rate_limit": {
