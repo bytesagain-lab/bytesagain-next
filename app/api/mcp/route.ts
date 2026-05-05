@@ -1133,20 +1133,13 @@ export async function POST(req: NextRequest) {
               evaluatedSlugs.add(s)
             } catch {}
           }
-          // Re-run query to include evaluation data
+          // ─── Step 2: Search skills_list (61K skills) + 6-dim scoring ───
           let skillPool: any[] = []
-          if (evaluatedSlugs.size > 0) {
-            const { data: fresh } = await sb.from('skills').select('slug,name,description,category,downloads,stars,source')
-              .or(`name.ilike.%${query}%,description.ilike.%${query}%`)
-              .order('downloads', { ascending: false }).limit(40)
-            if (fresh?.length) skillPool = fresh.filter((s:any) => s.source !== 'banned')
-          }
-          if (!skillPool.length) {
-            const { data: raw } = await sb.from('skills').select('slug,name,description,category,downloads,stars,source')
-              .or(`name.ilike.%${query}%,description.ilike.%${query}%`)
-              .order('downloads', { ascending: false }).limit(40)
-            skillPool = (raw || []).filter((s:any) => s.source !== 'banned')
-          }
+          const { data: listSkills } = await sb.from('skills_list')
+            .select('slug,name,description,category,downloads,stars,source')
+            .or(`name.ilike.%${query}%,description.ilike.%${query}%`)
+            .order('downloads', { ascending: false }).limit(40)
+          if (listSkills?.length) skillPool = listSkills
           if (!skillPool.length) {
             return NextResponse.json({jsonrpc:'2.0',id,error:{code:-32000,message:'No skills found for this topic'}},{status:404,headers})
           }
