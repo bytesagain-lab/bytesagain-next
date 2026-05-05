@@ -22,6 +22,29 @@ export interface Skill {
   is_ours?: boolean
   tags?: string[]
   source?: string
+  evaluation?: SkillEvaluationData
+}
+
+export interface SkillEvaluationData {
+  safety_score: number
+  risk_level: string
+  summary: string
+  verified_capabilities: string[]
+  strengths: string[]
+  weaknesses: string[]
+  risks: string[]
+  quality_grade: string
+  recommendation: string
+}
+
+export async function getSkillEvaluation(slug: string): Promise<SkillEvaluationData | null> {
+  try {
+    const data = await sbFetch(`skill_evaluations?slug=eq.${encodeURIComponent(slug)}&select=evaluation&limit=1`)
+    if (data?.[0]?.evaluation) return data[0].evaluation as SkillEvaluationData
+  } catch {
+    // Table might not exist yet
+  }
+  return null
 }
 
 export interface Article {

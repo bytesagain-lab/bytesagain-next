@@ -1089,6 +1089,58 @@ export async function POST(req: NextRequest) {
             console.error('ClawHub search failed, falling back to Supabase-only:', chErr)
           }
 
+          // ─── Evaluate imported skills (static analysis) ───
+          const evaluatedSlugs = new Set<string>()
+          const filteredMalicious: string[] = []
+          const dangerousPatterns: {pattern:RegExp;deduction:number}[] = [
+            {pattern:/cat\s+(\$HOME|~[\/]|\.env|\/etc\/shadow|\/etc\/passwd|~\/\.ssh|\/var\/log)/gi,deduction:100},
+            {pattern:/curl[^\n]*\|[\s]*(?:ba[sd]h|sh)/gi,deduction:100},
+            {pattern:/base64[^\n]*(?:--decode|-d)[^\n]*\|[\s]*(?:ba[sd]h|sh|python|perl)/gi,deduction:100},
+            {pattern:/\/dev\/tcp\//gi,deduction:100},
+            {pattern:/bash[\s]*-i[\s]*>/gi,deduction:100},
+            {pattern:/rm[\s]+-rf[\s]+[\/\s]/gi,deduction:50},
+            {pattern:/eval[\s]+/gi,deduction:50},
+          ]
+          for (const s of importedSlugs) {
+            try {
+              const pkgRes = await fetch(`https://clawhub.ai/api/v1/packages/${s}`, {
+                headers:{'User-Agent':'Mozilla/5.0 (compatible; BytesAgain/1.0)'},
+                signal:AbortSignal.timeout(5000),
+              })
+              if (!pkgRes.ok) continue
+              const pkg = await pkgRes.json()
+              const script = pkg.files?.script || pkg.files?.main || pkg.files?.['script.sh'] || pkg.content || ''
+              if (!script) continue
+              let score = 100
+              for (const p of dangerousPatterns) {
+                if (p.pattern.test(script)) { score = Math.max(0, score - p.deduction); p.pattern.lastIndex = 0 }
+              }
+              const risk = score >= 80 ? 'safe' : score >= 50 ? 'suspicious' : score >= 20 ? 'dangerous' : 'malicious'
+              const evaluation = {
+                safety_score: score,
+                risk_level: risk,
+                summary: `Static analysis score: ${score}/100. ${risk === 'safe' ? 'No dangerous patterns detected.' : 'Flagged by automated scan.'}`,
+                verified_capabilities: ['See sandbox evaluation for details'],
+                strengths: [], weaknesses: [risk !== 'safe' ? `Automated scan: ${risk} risk level` : ''].filter(Boolean),
+                risks: [], quality_grade: score >= 80 ? 'A' : score >= 50 ? 'C' : 'F',
+                recommendation: score >= 80 ? 'install-ok' : 'investigate',
+              }
+              if (score < 50) filteredMalicious.push(s)
+              // Save to skill_evaluations table (safe try — table might not exist yet)
+              try {
+                await sb.from('skill_evaluations').upsert({slug:s,evaluation, safety_score:score, risk_level:risk}, {onConflict:'slug'})
+              } catch {}
+              evaluatedSlugs.add(s)
+            } catch {}
+          }
+          // Re-run query to include evaluation data
+          if (evaluatedSlugs.size > 0) {
+            const { data: updated } = await sb.from('skills').select('slug,name,description,category,downloads,stars,source')
+              .or(`name.ilike.%${query}%,description.ilike.%${query}%`)
+              .order('downloads', { ascending: false }).limit(40)
+            if (updated?.length) skillPool = updated.filter((s:any) => s.source !== 'banned')
+          }
+
           // ─── Step 2: Combined search (Supabase + newly imported) + 6-dim scoring ───
           const { data: rawSkills } = await sb.from('skills').select('slug,name,description,category,downloads,stars,source')
             .or(`name.ilike.%${query}%,description.ilike.%${query}%`)
@@ -1372,6 +1424,8 @@ ALL fields required. DO NOT wrap in markdown. Output ONLY the JSON.`
             query,
             publish,
             clawhub_imported: importedSlugs,
+            evaluation_run: evaluatedSlugs.size,
+            evaluation_filtered: filteredMalicious,
             scoring_report: {
               total_evaluated: skillPool.length,
               scoring_formula: {

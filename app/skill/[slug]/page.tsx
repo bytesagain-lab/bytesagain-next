@@ -1,5 +1,6 @@
 export const revalidate = 86400
-import { getSkill, getSkills } from '@/lib/supabase'
+import { getSkill, getSkills, getSkillEvaluation } from '@/lib/supabase'
+import type { SkillEvaluationData } from '@/lib/supabase'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import RelatedContent from '@/app/components/RelatedContent'
@@ -107,6 +108,9 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
     { name: 'Cline', desc: 'VS Code extension for autonomous coding with MCP tools.', href: 'https://github.com/cline/cline', label: 'Cline on GitHub' },
     { name: 'Copilot Workspace', desc: 'GitHub\'s AI dev environment. Suitable for code-generation skills.', href: 'https://github.com/features/copilot', label: 'Copilot Workspace' },
   ]
+
+  // Fetch evaluation if it exists (reshallow, no new DB query if no data)
+  const evaluation = await getSkillEvaluation(slug)
 
   return (
     <>
@@ -276,6 +280,86 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
             </a>
           </div>
         </div>
+
+        {/* Security & Quality Evaluation — only shown if evaluation data exists */}
+        {evaluation && (
+          <div className="skill-card" style={{ borderColor: evaluation.safety_score >= 80 ? '#22c55e44' : evaluation.safety_score >= 50 ? '#eab30844' : '#ef444444' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+              <span style={{
+                fontSize: '.72em', fontWeight: 700, padding: '4px 14px', borderRadius: 999,
+                background: evaluation.safety_score >= 80 ? '#22c55e22' : evaluation.safety_score >= 50 ? '#eab30822' : '#ef444422',
+                color: evaluation.safety_score >= 80 ? '#22c55e' : evaluation.safety_score >= 50 ? '#eab308' : '#ef4444',
+                border: '1px solid ' + (evaluation.safety_score >= 80 ? '#22c55e44' : evaluation.safety_score >= 50 ? '#eab30844' : '#ef444444'),
+              }}>
+                {evaluation.safety_score >= 80 ? '✅ Safe' : evaluation.safety_score >= 50 ? '⚠️ Suspicious' : '🚫 Dangerous'}
+              </span>
+              <span style={{ fontSize: '.72em', color: '#374151', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>
+                Security Score: {evaluation.safety_score}/100
+              </span>
+              <span style={{ fontSize: '.72em', color: '#374151', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>
+                Quality: {evaluation.quality_grade}
+              </span>
+            </div>
+
+            {evaluation.summary && (
+              <p style={{ color: '#94a3b8', fontSize: '.88em', lineHeight: 1.6, margin: '0 0 14px' }}>
+                {evaluation.summary}
+              </p>
+            )}
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 14 }}>
+              {evaluation.verified_capabilities?.length > 0 && (
+                <div>
+                  <div style={{ fontSize: '.72em', color: '#374151', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 600, marginBottom: 8 }}>Verified Capabilities</div>
+                  {evaluation.verified_capabilities.map((c: string, i: number) => (
+                    <div key={i} style={{ color: '#22c55e', fontSize: '.82em', marginBottom: 4 }}>✅ {c}</div>
+                  ))}
+                </div>
+              )}
+              {evaluation.weaknesses?.length > 0 && (
+                <div>
+                  <div style={{ fontSize: '.72em', color: '#374151', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 600, marginBottom: 8 }}>Weaknesses</div>
+                  {evaluation.weaknesses.map((w: string, i: number) => (
+                    <div key={i} style={{ color: '#eab308', fontSize: '.82em', marginBottom: 4 }}>⚠️ {w}</div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+              {evaluation.strengths?.length > 0 && (
+                <div>
+                  <div style={{ fontSize: '.72em', color: '#374151', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 600, marginBottom: 8 }}>Strengths</div>
+                  {evaluation.strengths.map((s: string, i: number) => (
+                    <div key={i} style={{ color: '#94a3b8', fontSize: '.82em', marginBottom: 4 }}>✦ {s}</div>
+                  ))}
+                </div>
+              )}
+              {evaluation.risks?.length > 0 && (
+                <div>
+                  <div style={{ fontSize: '.72em', color: '#374151', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 600, marginBottom: 8 }}>Risks</div>
+                  {evaluation.risks.map((r: string, i: number) => (
+                    <div key={i} style={{ color: '#ef4444', fontSize: '.82em', marginBottom: 4 }}>🔴 {r}</div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {evaluation.recommendation && (
+              <div style={{
+                marginTop: 16, padding: '10px 14px', borderRadius: 8,
+                background: evaluation.safety_score >= 80 ? '#22c55e11' : '#ef444411',
+                border: '1px solid ' + (evaluation.safety_score >= 80 ? '#22c55e33' : '#ef444433'),
+                color: evaluation.safety_score >= 80 ? '#22c55e' : '#ef4444',
+                fontSize: '.82em', fontWeight: 600
+              }}>
+                {evaluation.recommendation === 'install-ok' ? '✅ Recommended — safe to install and use.' :
+                 evaluation.recommendation === 'investigate' ? '⚠️ Review before installing — some concerns found.' :
+                 '🚫 Do not install — security risks detected.'}
+              </div>
+            )}
+          </div>
+        )}
 
         {/* TWO-COLUMN LAYOUT: main content (left) + sidebar (right) */}
         <div className="two-col">
