@@ -1134,18 +1134,19 @@ export async function POST(req: NextRequest) {
             } catch {}
           }
           // Re-run query to include evaluation data
+          let skillPool: any[] = []
           if (evaluatedSlugs.size > 0) {
-            const { data: updated } = await sb.from('skills').select('slug,name,description,category,downloads,stars,source')
+            const { data: fresh } = await sb.from('skills').select('slug,name,description,category,downloads,stars,source')
               .or(`name.ilike.%${query}%,description.ilike.%${query}%`)
               .order('downloads', { ascending: false }).limit(40)
-            if (updated?.length) skillPool = updated.filter((s:any) => s.source !== 'banned')
+            if (fresh?.length) skillPool = fresh.filter((s:any) => s.source !== 'banned')
           }
-
-          // ─── Step 2: Combined search (Supabase + newly imported) + 6-dim scoring ───
-          const { data: rawSkills } = await sb.from('skills').select('slug,name,description,category,downloads,stars,source')
-            .or(`name.ilike.%${query}%,description.ilike.%${query}%`)
-            .order('downloads', { ascending: false }).limit(40)
-          let skillPool = (rawSkills || []).filter((s:any) => s.source !== 'banned')
+          if (!skillPool.length) {
+            const { data: raw } = await sb.from('skills').select('slug,name,description,category,downloads,stars,source')
+              .or(`name.ilike.%${query}%,description.ilike.%${query}%`)
+              .order('downloads', { ascending: false }).limit(40)
+            skillPool = (raw || []).filter((s:any) => s.source !== 'banned')
+          }
           if (!skillPool.length) {
             return NextResponse.json({jsonrpc:'2.0',id,error:{code:-32000,message:'No skills found for this topic'}},{status:404,headers})
           }
