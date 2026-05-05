@@ -889,10 +889,13 @@ export async function POST(req: NextRequest) {
         if (!request || request.length < 10) {
           return NextResponse.json({ jsonrpc: '2.0', id, error: { code: -32602, message: 'Request must be 10-800 characters' } }, { status: 400, headers })
         }
+        const contact = sanitize(args.contact || '', 100)
+        if (!contact) {
+          return NextResponse.json({ jsonrpc: '2.0', id, error: { code: -32602, message: 'Contact info is REQUIRED (email/TG for follow-up)' } }, { status: 400, headers })
+        }
         const title = sanitize(args.title || '', 200)
         const platform = sanitize(args.platform || '', 50)
         const budget = sanitize(args.budget || '', 50)
-        const contact = sanitize(args.contact || '', 100)
         const nickname = sanitize(args.nickname || '', 50)
         const sb2 = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
         const { data: ins, error: insErr } = await sb2.from('skill_requests').insert({
