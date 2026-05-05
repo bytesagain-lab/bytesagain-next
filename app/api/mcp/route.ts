@@ -1304,19 +1304,64 @@ Make it look professional, dark theme tech blog style. Use colors that fit the t
     </linearGradient>
     <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" style="stop-color:${acc}"/>
-      <stop offset="100%" style="stop-color:${acc2}"/>
+      <stop offset="50%" style="stop-color:${acc2}"/>
+      <stop offset="100%" style="stop-color:${acc}"/>
     </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="35%" r="50%">
+      <stop offset="0%" style="stop-color:${acc}33"/>
+      <stop offset="100%" style="stop-color:${bg1}00"/>
+    </radialGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.3"/>
+    </filter>
   </defs>
+
+  <!-- Deep background -->
   <rect width="1792" height="1024" fill="url(#bg)"/>
-  <rect x="0" y="0" width="14" height="1024" fill="url(#accent)"/>
-  <text x="100" y="200" font-family="system-ui,sans-serif" font-size="64" font-weight="700" fill="${textMain}">${titleSafe}</text>
-  <text x="100" y="280" font-family="system-ui,sans-serif" font-size="40" fill="${textSec}">AI-Powered Skill Stack</text>
-  <text x="100" y="400" font-family="system-ui,sans-serif" font-size="80">${icon}</text>
-  <rect x="100" y="500" width="400" height="4" fill="${acc}"/>
-  <text x="100" y="560" font-family="system-ui,sans-serif" font-size="28" fill="${textSec}">Selected Skills:</text>
-  ${skillDetails.slice(0,6).map((s:any,i:number) => `<text x="100" y="${620+i*56}" font-family="system-ui,sans-serif" font-size="26" fill="${textMain}">\u2022 ${escapeXml(s.name)}</text>`).join('\n')}
-  <text x="100" y="950" font-family="system-ui,sans-serif" font-size="24" fill="#64748b">bytesagain.com</text>
-  <text x="1692" y="950" font-family="system-ui,sans-serif" font-size="24" fill="#64748b" text-anchor="end">AI Skills Platform</text>
+
+  <!-- Decorative glow -->
+  <ellipse cx="896" cy="360" rx="700" ry="500" fill="url(#glow)"/>
+
+  <!-- Subtle grid dots -->
+  <g fill="${textSec}" opacity="0.06">
+    ${Array.from({length: 40}, (_,i) => { const x=24+(i%8)*224; const y=48+Math.floor(i/8)*112; return x <= 1792 && y <= 1024 ? '<circle cx="'+x+'" cy="'+y+'" r="2"/>' : ''; }).filter(Boolean).join('\n    ')}
+  </g>
+
+  <!-- Top accent bar -->
+  <rect x="0" y="0" width="1792" height="6" fill="url(#accent)"/>
+
+  <!-- Icon circle -->
+  <circle cx="1450" cy="220" r="100" fill="none" stroke="${acc}" stroke-width="2" opacity="0.3"/>
+  <text x="1450" y="255" font-family="system-ui,sans-serif" font-size="64" text-anchor="middle" dominant-baseline="middle">${icon}</text>
+
+  <!-- Title area -->
+  <text x="120" y="220" font-family="system-ui,sans-serif" font-size="72" font-weight="800" fill="${textMain}" filter="url(#shadow)">${titleSafe}</text>
+  <text x="120" y="300" font-family="system-ui,sans-serif" font-size="36" fill="${textSec}" letter-spacing="2">AI-POWERED SKILL STACK</text>
+
+  <!-- Accent divider -->
+  <rect x="120" y="380" width="80" height="4" rx="2" fill="${acc}"/>
+  <rect x="208" y="380" width="200" height="1" rx="1" fill="${acc}" opacity="0.3"/>
+
+  <!-- Skills section label -->
+  <text x="120" y="480" font-family="system-ui,sans-serif" font-size="24" fill="${textSec}" letter-spacing="3">SELECTED SKILLS</text>
+
+  <!-- Skills as cards (2 columns x 3 rows) -->
+  ${skillDetails.slice(0,6).map((s:any,i:number) => {
+    const col = i % 2;
+    const row = Math.floor(i / 2);
+    const cx = 120 + col * 720;
+    const cy = 520 + row * 130;
+    const name = escapeXml(s.name || s.slug);
+    return `<rect x="${cx}" y="${cy}" width="660" height="100" rx="12" fill="${bg2}" opacity="0.5"/>
+    <rect x="${cx}" y="${cy}" width="6" height="100" rx="3" fill="${acc}" opacity="0.6"/>
+    <text x="${cx+28}" y="${cy+42}" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="${textMain}">${name}</text>
+    <text x="${cx+28}" y="${cy+72}" font-family="system-ui,sans-serif" font-size="16" fill="${textSec}" opacity="0.7">$(i+1). ${s.category || 'Skill'}</text>`;
+  }).join('\n  ')}
+
+  <!-- Footer -->
+  <line x1="120" y1="940" x2="1672" y2="940" stroke="${textSec}" stroke-width="0.5" opacity="0.2"/>
+  <text x="120" y="978" font-family="system-ui,sans-serif" font-size="20" fill="#64748b">bytesagain.com</text>
+  <text x="1672" y="978" font-family="system-ui,sans-serif" font-size="20" fill="#64748b" text-anchor="end">AI Skills Platform</text>
 </svg>`
 
             const sharpMod = await import('sharp')
