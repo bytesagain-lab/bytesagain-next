@@ -1211,6 +1211,52 @@ ${JSON.stringify(topScored.map((s:any)=>({slug:s.slug,name:s.name,category:s.cat
             }
           })
 
+          // ─── Evaluate selected skills (save for page display) ───
+          for (const sk of skillDetails) {
+            try {
+              // Check if already evaluated
+              const { data: existing } = await sb.from('skill_evaluations').select('slug').eq('slug',sk.slug).limit(1)
+              if (existing?.length) continue
+              // Quick static analysis
+              const pkgRes = await fetch(`https://clawhub.ai/api/v1/packages/${sk.slug}`, {
+                headers:{'User-Agent':'Mozilla/5.0 (compatible; BytesAgain/1.0)'},
+                signal:AbortSignal.timeout(5000),
+              })
+              if (!pkgRes.ok) continue
+              const pkg = await pkgRes.json()
+              const script = pkg.files?.script || pkg.files?.main || pkg.files?.['script.sh'] || pkg.content || ''
+              if (!script) continue
+              let sScore = 100
+              const patterns: {pattern:RegExp;d:number}[] = [
+                {pattern:/cat\s+(\$HOME|~[\/]|\.env|\/etc\/shadow)/gi,d:100},
+                {pattern:/curl[^\n]*\|[\s]*(?:ba[sd]h|sh)/gi,d:100},
+                {pattern:/base64[^\n]*(?:--decode|-d)[^\n]*\|[\s]*(?:ba[sd]h|sh)/gi,d:100},
+                {pattern:/\/dev\/tcp\//gi,d:100},
+                {pattern:/bash[\s]*-i[\s]*>/gi,d:100},
+                {pattern:/rm[\s]+-rf[\s]+[\/\s]/gi,d:50},
+                {pattern:/eval[\s]+/gi,d:50},
+              ]
+              for (const p of patterns) {
+                if (p.pattern.test(script)) { sScore = Math.max(0, sScore - p.d); p.pattern.lastIndex = 0 }
+              }
+              const risk = sScore >= 80 ? 'safe' : sScore >= 50 ? 'suspicious' : 'dangerous'
+              await sb.from('skill_evaluations').upsert({
+                slug: sk.slug,
+                evaluation: {
+                  safety_score: sScore,
+                  risk_level: risk,
+                  summary: `Quick scan: ${sScore}/100. ${sScore >= 80 ? 'No dangerous patterns detected.' : 'Flagged by automated scan.'}`,
+                  verified_capabilities: ['Run evaluate_skill for detailed report'],
+                  strengths: [], weaknesses: sScore < 80 ? ['Flagged by automated scan'] : [],
+                  risks: [], quality_grade: sScore >= 80 ? 'A' : 'C',
+                  recommendation: sScore >= 80 ? 'install-ok' : 'investigate',
+                },
+                safety_score: sScore,
+                risk_level: risk,
+              }, { onConflict: 'slug' })
+            } catch {}
+          }
+
           // ─── Step 4: Generate cover image (AI designs SVG, sharp renders) ───
           const now = new Date().toISOString()
           const postSlug = query.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60) + '-' + Math.random().toString(36).slice(2,6)
@@ -1943,6 +1989,16 @@ Be thorough, specific, and honest. If a skill seems incomplete or broken, say so
             } : null,
             evaluation,
           }
+
+          // Save to skill_evaluations table for skill page display
+          try {
+            await sb.from('skill_evaluations').upsert({
+              slug,
+              evaluation: evaluation || {},
+              safety_score,
+              risk_level,
+            }, { onConflict: 'slug' })
+          } catch {}
 
           logMcpCall({action:'evaluate_skill',query:slug,user_agent:req.headers.get('user-agent')||'',ip:req.headers.get('x-forwarded-for')?.split(',')[0].trim()||req.headers.get('x-real-ip')||'',result_count:violations.length,endpoint:'mcp_post'})
           return NextResponse.json({jsonrpc:'2.0',id,result:{content:[{type:'text',text:JSON.stringify(result,null,2)}]}},{headers})
