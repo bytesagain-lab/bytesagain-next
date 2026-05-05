@@ -39,7 +39,12 @@ export interface SkillEvaluationData {
 
 export async function getSkillEvaluation(slug: string): Promise<SkillEvaluationData | null> {
   try {
-    const data = await sbFetch(`skill_evaluations?slug=eq.${encodeURIComponent(slug)}&select=evaluation&limit=1`)
+    const res = await fetch(`${SB_URL}/rest/v1/skill_evaluations?slug=eq.${encodeURIComponent(slug)}&select=evaluation&limit=1`, {
+      headers: { apikey: SB_KEY },
+      next: { revalidate: 60 }, // 1min cache so ISR picks up new data quickly
+    })
+    if (!res.ok) return null
+    const data = await res.json()
     if (data?.[0]?.evaluation) return data[0].evaluation as SkillEvaluationData
   } catch {
     // Table might not exist yet
