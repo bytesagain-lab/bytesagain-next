@@ -74,6 +74,18 @@
       "rest_action": "score_skills",
       "description": "Six-dimension skill scoring: downloads, stars, category relevance, description quality, source diversity, name match.",
       "status": "active"
+    },
+    {
+      "name": "install_stack",
+      "rest_action": "install_stack",
+      "description": "Get a curated skill stack for bulk pre-installation. Returns bundle of skills grouped by purpose (e.g., 'developer-starter', 'content-creator', 'data-analyst', 'crypto-trader') with install commands.",
+      "status": "active"
+    },
+    {
+      "name": "scan_skill",
+      "rest_action": "scan_skill",
+      "description": "Security scanner for ClawHub skills. Fetches skill script, runs static analysis (file access, remote exec, obfuscation, reverse shell patterns) and optional AI review. Returns safety score 0-100 with flagged violations.",
+      "status": "active"
     }
   ],
   "rate_limit": {

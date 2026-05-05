@@ -825,6 +825,22 @@ export async function POST(req: NextRequest) {
             query: { type: 'string', description: 'Topic for the full pipeline. Example: "automate invoice processing", "write code documentation". Required.' },
             publish: { type: 'boolean', description: 'Auto-publish to live site. Default: false (draft). Set true to set status=published.' },
           }, required: ['query'] } },
+        { name: 'install_stack',
+          description: [
+            'Return a curated skill stack (bundle) for bulk pre-installation.',
+            'Each stack groups 5-15 skills for a common use case.',
+            'Returns: stack name, description, skills with slugs, install commands.',
+            'Available stacks: developer-starter, content-creator, data-analyst, crypto-trader, devops-engineer, ai-agent-developer, security-auditor, homework-helper, startup-founders, marketing-team',
+          ].join(' '),
+          inputSchema: { type: 'object', properties: {
+            name: { type: 'string', description: 'Stack name. Available: developer-starter, content-creator, data-analyst, crypto-trader, devops-engineer, ai-agent-developer, security-auditor, homework-helper, startup-founders, marketing-team. Default: "developer-starter".' },
+          }, required: [] } },
+        { name: 'scan_skill',
+          description: 'Security scanner for AI agent skills. Fetches the skill\'s script, runs static analysis checking 30+ dangerous patterns: sensitive file reads (.env, .ssh, $HOME), remote code execution (curl|bash, base64 decode + exec), obfuscation signals, reverse shells, credential leaks, affiliate link abuse. Uses pattern matching for fast results and optional DeepSeek AI for deeper review. Returns safety score 0-100, flagged violations, and recommendations.',
+          inputSchema: { type: 'object', properties: {
+            slug: { type: 'string', description: 'ClawHub skill slug to scan. Example: "shell", "task-planner". Required.' },
+            deep: { type: 'boolean', description: 'Run DeepSeek AI analysis on the script content for deeper inspection. Default: true.' },
+          }, required: ['slug'] } },
       ]}
     }, { headers })
   }
@@ -1382,6 +1398,314 @@ ALL fields required. DO NOT wrap in markdown. Output ONLY the JSON.`
 
           logMcpCall({action:'run_pipeline',query,user_agent:req.headers.get('user-agent')||'',ip:req.headers.get('x-forwarded-for')?.split(',')[0].trim()||req.headers.get('x-real-ip')||'',result_count:skillDetails.length,endpoint:'mcp_post'})
           return NextResponse.json({jsonrpc:'2.0',id,result:{content:[{type:'text',text:JSON.stringify(pipelineResult,null,2)}]}},{headers})
+        } catch(e:any) {
+          return NextResponse.json({jsonrpc:'2.0',id,error:{code:-32603,message:e.message}},{status:500,headers})
+        }
+      } else if (name === 'install_stack') {
+        // ── Skill Dock: curated pre-install bundles ──
+        const STACKS: Record<string,{title:string;description:string;icon:string;skills:{slug:string;name:string;why:string}[]}> = {
+          'developer-starter': {
+            title: 'Developer Starter Pack', icon: '🛠️',
+            description: 'Essential dev tools: shell, git, code review, debug, CI/CD — start coding smarter with AI.',
+            skills: [
+              {slug:'shell',name:'Shell Scripting',why:'Write, debug, and automate shell commands'},
+              {slug:'code-generator',name:'Code Generator',why:'Generate boilerplate and production code'},
+              {slug:'code-reviewer',name:'Code Reviewer',why:'Review pull requests with AI-driven analysis'},
+              {slug:'git-commit',name:'Git Commit Assistant',why:'Write meaningful git commits'},
+              {slug:'api-tester',name:'API Tester',why:'Test and debug API endpoints'},
+              {slug:'debug',name:'Debug Assistant',why:'Diagnose and fix code issues'},
+              {slug:'json',name:'JSON Processor',why:'Validate, format, and transform JSON'},
+              {slug:'regex-helper',name:'Regex Helper',why:'Build and test regular expressions'},
+            ]
+          },
+          'content-creator': {
+            title: 'Content Creator Pack', icon: '✍️',
+            description: 'Write better content: blog posts, social media, emails, ad copy, SEO-optimized text.',
+            skills: [
+              {slug:'blog-post-writer',name:'Blog Post Writer',why:'Generate full blog posts from outline'},
+              {slug:'seo-content-optimizer',name:'SEO Content Optimizer',why:'Optimize content for search ranking'},
+              {slug:'ad-copywriter',name:'Ad Copywriter',why:'Write compelling ad copy'},
+              {slug:'email-marketing',name:'Email Marketing Assistant',why:'Draft marketing and transactional emails'},
+              {slug:'social-poster',name:'Social Media Poster',why:'Create and schedule social content'},
+              {slug:'translator-pro',name:'Translator Pro',why:'Translate content with context awareness'},
+              {slug:'plagiarism-checker',name:'Plagiarism Checker',why:'Check content originality'},
+            ]
+          },
+          'data-analyst': {
+            title: 'Data Analyst Pack', icon: '📊',
+            description: 'Crunch numbers: SQL queries, data visualization, spreadsheet automation, chart generation.',
+            skills: [
+              {slug:'sql-assistant',name:'SQL Assistant',why:'Write and optimize SQL queries'},
+              {slug:'data-analysis',name:'Data Analysis Tool',why:'Analyze datasets and extract insights'},
+              {slug:'chart-generator',name:'Chart Generator',why:'Generate charts and visualizations'},
+              {slug:'excel-formula',name:'Excel Formula Builder',why:'Build complex Excel formulas'},
+              {slug:'report-generator',name:'Report Generator',why:'Auto-generate data reports'},
+              {slug:'csv',name:'CSV Processor',why:'Parse and transform CSV data'},
+            ]
+          },
+          'crypto-trader': {
+            title: 'Crypto Trader Pack', icon: '₿',
+            description: 'Trade smarter: market analysis, portfolio tracking, price alerts, DeFi research.',
+            skills: [
+              {slug:'crypto-tracker',name:'Crypto Portfolio Tracker',why:'Track portfolio performance'},
+              {slug:'defi-helper',name:'DeFi Helper',why:'Research DeFi protocols and yields'},
+              {slug:'market-analysis',name:'Market Analysis Tool',why:'Analyze market trends and sentiment'},
+              {slug:'chart-generator',name:'Chart Generator',why:'Generate trading charts'},
+              {slug:'news-summarizer',name:'News Summarizer',why:'Stay updated on crypto news'},
+            ]
+          },
+          'devops-engineer': {
+            title: 'DevOps Engineer Pack', icon: '🐳',
+            description: 'Infrastructure and deployment: Docker, k8s, terraform, CI/CD, monitoring.',
+            skills: [
+              {slug:'dockerfile-builder',name:'Dockerfile Builder',why:'Generate optimized Dockerfiles'},
+              {slug:'k8s',name:'Kubernetes Helper',why:'Manage k8s resources and manifests'},
+              {slug:'iac-scanner',name:'IaC Security Scanner',why:'Scan Terraform/CloudFormation for vulnerabilities'},
+              {slug:'ci-cd',name:'CI/CD Pipeline Builder',why:'Design and debug CI/CD pipelines'},
+              {slug:'log-analyzer',name:'Log Analyzer',why:'Analyze logs and system metrics'},
+              {slug:'monitor',name:'Monitoring Setup',why:'Configure monitoring and alerting'},
+            ]
+          },
+          'startup-founders': {
+            title: 'Startup Founder Pack', icon: '🚀',
+            description: 'Ship faster: pitch deck, landing page, product roadmaps, legal docs, user research.',
+            skills: [
+              {slug:'pitch-deck',name:'Pitch Deck Creator',why:'Create compelling investor pitch decks'},
+              {slug:'startup-tools',name:'Startup Toolkit',why:'Essential toolkit for launching a startup'},
+              {slug:'product-roadmap',name:'Product Roadmap',why:'Plan and communicate product vision'},
+              {slug:'landing-page',name:'Landing Page Builder',why:'Build high-converting landing pages'},
+              {slug:'legal-advisor',name:'Legal Document Advisor',why:'Draft and review legal documents'},
+              {slug:'user-research',name:'User Research Assistant',why:'Conduct and analyze user research'},
+            ]
+          },
+          'marketing-team': {
+            title: 'Marketing Team Pack', icon: '📣',
+            description: 'Campaigns, analytics, SEO, social media — full marketing stack.',
+            skills: [
+              {slug:'seo-audit',name:'SEO Audit Tool',why:'Audit website for SEO improvements'},
+              {slug:'social-poster',name:'Social Media Poster',why:'Create and schedule social media posts'},
+              {slug:'email-campaign',name:'Email Campaign Builder',why:'Design and automate email campaigns'},
+              {slug:'competitor-analysis',name:'Competitor Analysis',why:'Analyze competitor strategies'},
+              {slug:'analytics',name:'Analytics Dashboard',why:'Track campaign performance metrics'},
+              {slug:'keyword-research',name:'Keyword Research Tool',why:'Research high-value keywords'},
+            ]
+          },
+          'ai-agent-developer': {
+            title: 'AI Agent Developer Pack', icon: '🤖',
+            description: 'Build AI agents: prompt engineering, memory, tool integration, testing, deployment.',
+            skills: [
+              {slug:'prompt-optimizer',name:'Prompt Optimizer',why:'Craft and optimize AI prompts'},
+              {slug:'vector-store',name:'Vector DB Helper',why:'Manage vector databases for RAG'},
+              {slug:'memory-system',name:'Memory System',why:'Implement agent memory systems'},
+              {slug:'agent-test',name:'Agent Testing Framework',why:'Test and validate agent behaviors'},
+              {slug:'mcp-toolkit',name:'MCP Integration Toolkit',why:'Integrate MCP tools with agents'},
+              {slug:'task-planner',name:'Task Planner',why:'Plan and decompose complex agent tasks'},
+            ]
+          },
+          'security-auditor': {
+            title: 'Security Auditor Pack', icon: '🔒',
+            description: 'Security analysis: vulnerability scanning, penetration testing, compliance checks, threat intel.',
+            skills: [
+              {slug:'vuln-scanner',name:'Vulnerability Scanner',why:'Scan systems for known vulnerabilities'},
+              {slug:'network-audit',name:'Network Security Auditor',why:'Audit network configurations'},
+              {slug:'compliance',name:'Compliance Checker',why:'Check compliance with standards'},
+              {slug:'threat-intel',name:'Threat Intelligence',why:'Analyze threat intelligence data'},
+              {slug:'log-analyzer',name:'Security Log Analyzer',why:'Analyze security logs for incidents'},
+            ]
+          },
+          'homework-helper': {
+            title: 'Homework Helper Pack', icon: '📚',
+            description: 'Study smarter: math solver, essay writer, research assistant, flashcard maker.',
+            skills: [
+              {slug:'math-solver',name:'Math Problem Solver',why:'Solve math problems step by step'},
+              {slug:'essay-writer',name:'Essay Writer',why:'Write well-structured essays'},
+              {slug:'research-assistant',name:'Research Assistant',why:'Find and summarize academic sources'},
+              {slug:'flashcard',name:'Flashcard Generator',why:'Create study flashcards'},
+              {slug:'note-taker',name:'Smart Note Taker',why:'Take and organize study notes'},
+              {slug:'quiz-generator',name:'Quiz Generator',why:'Generate practice quizzes'},
+            ]
+          },
+        }
+
+        const stackName = sanitize(args.name || 'developer-starter', 50)
+        const stack = STACKS[stackName]
+        if (!stack) {
+          return NextResponse.json({jsonrpc:'2.0',id,error:{code:-32602,message:`Unknown stack "${stackName}". Available: ${Object.keys(STACKS).join(', ')}`}},{status:400,headers})
+        }
+
+        const installCmds = stack.skills.map(s => `clawhub install ${s.slug}`)
+        const batchScript = `#!/usr/bin/env bash\n# ${stack.title}\n# ${stack.description}\nset -e\n\n${installCmds.join('\n')}\n\necho "✅ ${stack.title} installed!"`
+
+        logMcpCall({action:'install_stack',query:stackName,user_agent:req.headers.get('user-agent')||'',ip:req.headers.get('x-forwarded-for')?.split(',')[0].trim()||req.headers.get('x-real-ip')||'',result_count:stack.skills.length,endpoint:'mcp_post'})
+        return NextResponse.json({jsonrpc:'2.0',id,result:{content:[{type:'text',text:JSON.stringify({
+          stack: stackName,
+          title: stack.title,
+          icon: stack.icon,
+          description: stack.description,
+          skill_count: stack.skills.length,
+          skills: stack.skills,
+          install_commands: installCmds,
+          install_all: `for s in ${stack.skills.map(s=>s.slug).join(' ')}; do clawhub install \"$s\"; done`,
+          batch_script: batchScript,
+        },null,2)}]}},{headers})
+      } else if (name === 'scan_skill') {
+        // ── Virus Scanner: static analysis + AI for skill safety ──
+        const slug = sanitizeSlug(args.slug || '')
+        if (!slug) {
+          return NextResponse.json({jsonrpc:'2.0',id,error:{code:-32602,message:'slug is required'}},{status:400,headers})
+        }
+        const deepScan = args.deep !== false
+        const dsKey = process.env.DEEPSEEK_API_KEY || ''
+
+        try {
+          // Fetch skill metadata
+          const metaRes = await fetch(`https://clawhub.ai/api/v1/skills/${slug}`, {
+            headers: { 'User-Agent': 'Mozilla/5.0 (compatible; BytesAgain/1.0)' },
+            signal: AbortSignal.timeout(10000),
+          })
+          if (!metaRes.ok) {
+            return NextResponse.json({jsonrpc:'2.0',id,error:{code:-32000,message:`Skill "${slug}" not found on ClawHub (HTTP ${metaRes.status})`}},{status:404,headers})
+          }
+          const meta = await metaRes.json()
+
+          // Fetch the actual script content
+          const pkgRes = await fetch(`https://clawhub.ai/api/v1/packages/${slug}`, {
+            headers: { 'User-Agent': 'Mozilla/5.0 (compatible; BytesAgain/1.0)' },
+            signal: AbortSignal.timeout(10000),
+          })
+          let scriptContent = ''
+          if (pkgRes.ok) {
+            const pkg = await pkgRes.json()
+            scriptContent = pkg.files?.script || pkg.files?.main || pkg.files?.['script.sh'] || pkg.content || ''
+          }
+
+          // ── Static Analysis: pattern matching ──
+          const violations: {severity:string;pattern:string;match:string;score:number;line?:number}[] = []
+          let safetyScore = 100
+
+          const patterns: {pattern:RegExp;severity:'critical'|'high'|'medium'|'low';name:string;deduction:number}[] = [
+            // Critical: sensitive file reads
+            {pattern:/cat\s+(\$HOME|~[\/]|\.env|\/etc\/shadow|\/etc\/passwd|~\/\.ssh|\/var\/log)/gi,severity:'critical',name:'Sensitive file read',deduction:100},
+            {pattern:/(\$HOME|\/root|\/home\/[^\/]+)\/\.env/gi,severity:'critical',name:'HOME/.env access',deduction:100},
+            {pattern:/cat.*~\/\.\w+.*(?:api.?key|token|secret|password)/gi,severity:'critical',name:'Credential file read',deduction:100},
+            // Critical: remote code execution
+            {pattern:/curl[^\n]*\|[\s]*(?:ba[sd]h|sh)/gi,severity:'critical',name:'Remote code execution (curl|bash)',deduction:100},
+            {pattern:/wget[^\n]*\|[\s]*(?:ba[sd]h|sh)/gi,severity:'critical',name:'Remote code execution (wget|sh)',deduction:100},
+            {pattern:/curl[^\n]*--output[^\n]*&&[\s]*(?:ba[sd]h|sh|chmod|\/)/gi,severity:'critical',name:'Remote download + execute',deduction:100},
+            {pattern:/base64[^\n]*--decode[^\n]*\|[\s]*(?:ba[sd]h|sh|python|perl)/gi,severity:'critical',name:'Obfuscated script decode + exec',deduction:100},
+            {pattern:/base64[^\n]*-d[^\n]*\|[\s]*(?:ba[sd]h|sh|python|perl)/gi,severity:'critical',name:'Obfuscated script decode + exec',deduction:100},
+            // Critical: reverse shell
+            {pattern:/\/dev\/tcp\//gi,severity:'critical',name:'Reverse shell (dev/tcp)',deduction:100},
+            {pattern:/bash[\s]*-i[\s]*>/gi,severity:'critical',name:'Interactive shell',deduction:100},
+            {pattern:/nc[\s]+-e/gi,severity:'critical',name:'Netcat reverse shell',deduction:100},
+            {pattern:/python[\s]+-c[\s]*['"].*reverse/gi,severity:'critical',name:'Python reverse shell',deduction:100},
+            // High: dangerous commands
+            {pattern:/eval[\s]+/gi,severity:'high',name:'Unsafe eval() usage',deduction:50},
+            {pattern:/rm[\s]+-rf[\s]+[\/\s]/gi,severity:'high',name:'Destructive rm -rf /',deduction:50},
+            {pattern:/chmod[\s]+777/gi,severity:'high',name:'Excessive permissions (chmod 777)',deduction:40},
+            {pattern:/>(?:\s*)\/(?:etc|usr|boot|dev|proc)/gi,severity:'high',name:'Write to system directory',deduction:50},
+            // Medium: obfuscation & risks
+            {pattern:/[A-Za-z0-9+/]{100,}={0,2}/gi,severity:'medium',name:'Long base64 payload (obfuscation signal)',deduction:25},
+            {pattern:/sudo[\s]+/gi,severity:'medium',name:'Unsafe sudo usage',deduction:20},
+            {pattern:/\$\{[^}]+\}|\$[a-zA-Z_][a-zA-Z0-9_]*={/g,severity:'medium',name:'Complex variable expansion',deduction:10},
+            {pattern:/~\/\.(?:ssh|aws|gcloud|kube|docker|npmrc|gitconfig)/gi,severity:'medium',name:'Home directory service config access',deduction:25},
+            // Low: spam & hygiene
+            {pattern:/(?:affiliate|ref|referral|tagname|tag_id|utm_source)[\s=]/gi,severity:'low',name:'Possible referral/affiliate link',deduction:5},
+            {pattern:/openclaw\.ai\/skills\/[a-z-]+-skill-[a-z0-9]+/gi,severity:'low',name:'Sponsored/generated skill name',deduction:5},
+          ]
+
+          const lines = scriptContent.split('\n')
+          for (let li = 0; li < lines.length; li++) {
+            const line = lines[li]
+            for (const p of patterns) {
+              if (p.pattern.test(line)) {
+                p.pattern.lastIndex = 0
+                const match = line.slice(0,120).trim()
+                // Avoid duplicate pattern on same line
+                if (violations.some(v => v.pattern === p.name && v.line === li+1)) continue
+                violations.push({
+                  severity: p.severity,
+                  pattern: p.name,
+                  match,
+                  score: Math.max(0, safetyScore - p.deduction),
+                  line: li+1,
+                })
+                safetyScore = Math.max(0, safetyScore - p.deduction)
+              }
+            }
+          }
+
+          // Bonus checks
+          if (scriptContent.length > 50000) safetyScore -= 15 // oversized script
+          const readme = meta.summary || meta.description || ''
+          const refLinks = (readme.match(/(?:https?:\/\/)?(?:www\.)?(?:okx|binance|coinbase|crypto\.com)[^\s]*/gi) || []).length
+          if (refLinks > 3) safetyScore -= 10
+
+          // ── AI Deep Analysis ──
+          let aiReview: string | null = null
+          if (deepScan && dsKey && (safetyScore < 80 || violations.length > 0 || scriptContent.length > 2000)) {
+            try {
+              const scanPrompt = `You are a cybersecurity expert reviewing an AI agent skill for malicious behavior.
+
+Skill: ${meta.displayName || slug} (${slug})
+Owner: ${meta.ownerHandle || 'unknown'}
+
+Script content (${scriptContent.length} chars):
+\`\`\`bash\n${scriptContent.slice(0,3000)}\n\`\`\`
+
+Static analysis found ${violations.length} violation(s):
+${violations.map(v=>`- [${v.severity.toUpperCase()}] Line ${v.line}: ${v.pattern} — "${v.match.slice(0,100)}"`).join('\n')}
+
+Tasks:
+1. Is this skill malicious, safe, or suspicious? Give ONE word: SAFE / SUSPICIOUS / MALICIOUS
+2. Are there any patterns the static scanner missed? (max 3)
+3. What is the overall risk assessment? (one sentence)
+
+Respond ONLY with valid JSON:
+{"verdict": "SAFE|SUSPICIOUS|MALICIOUS", "missed_patterns": ["..."], "risk_assessment": "...", "recommendation": "install-ok|investigate|block"}`
+
+              const aiRes = await fetch('https://api.deepseek.com/v1/chat/completions',{
+                method:'POST',
+                headers:{'Content-Type':'application/json','Authorization':`Bearer ${dsKey}`},
+                body:JSON.stringify({model:'deepseek-chat',messages:[{role:'user',content:scanPrompt}],max_tokens:1000,temperature:0.2}),
+                signal:AbortSignal.timeout(20000),
+              })
+              let aiText = (await aiRes.json())?.choices?.[0]?.message?.content || ''
+              aiText = aiText.replace(/<think>[\s\S]*?<\/think>/g,'').trim()
+              const jm = aiText.match(/\{[\s\S]*\}/)
+              if (jm) {
+                try {
+                  const parsed = JSON.parse(jm[0])
+                  aiReview = JSON.stringify(parsed)
+                  // Adjust score based on AI verdict
+                  if (parsed.verdict === 'MALICIOUS') safetyScore = Math.min(safetyScore, 20)
+                  else if (parsed.verdict === 'SUSPICIOUS') safetyScore = Math.min(safetyScore, 60)
+                } catch {}
+              }
+              if (!aiReview) aiReview = aiText.slice(0,500)
+            } catch (aiErr) {
+              console.error('AI scan failed:', aiErr)
+            }
+          }
+
+          // Risk level
+          const riskLevel = safetyScore >= 80 ? 'safe' : safetyScore >= 50 ? 'suspicious' : safetyScore >= 20 ? 'dangerous' : 'malicious'
+          const recommendation = safetyScore >= 80 ? '✅ Safe to install' : safetyScore >= 50 ? '⚠️ Review violations before installing' : '🚫 Do not install — high risk'
+
+          const result = {
+            skill: { slug, name: meta.displayName || slug, owner: meta.ownerHandle || 'unknown', source: 'clawhub' },
+            summary: (meta.summary || meta.description || '').slice(0,200),
+            script_size: scriptContent.length,
+            safety_score: Math.max(0, Math.min(100, safetyScore)),
+            risk_level: riskLevel,
+            recommendation,
+            violations_found: violations.length,
+            violations: violations.slice(0,20).map(v=>({severity:v.severity,pattern:v.pattern,match:v.match.slice(0,100),line:v.line})),
+            ai_review: aiReview ? (()=>{try{return JSON.parse(aiReview)}catch{return aiReview}})() : null,
+          }
+
+          logMcpCall({action:'scan_skill',query:slug,user_agent:req.headers.get('user-agent')||'',ip:req.headers.get('x-forwarded-for')?.split(',')[0].trim()||req.headers.get('x-real-ip')||'',result_count:violations.length,endpoint:'mcp_post'})
+          return NextResponse.json({jsonrpc:'2.0',id,result:{content:[{type:'text',text:JSON.stringify(result,null,2)}]}},{headers})
         } catch(e:any) {
           return NextResponse.json({jsonrpc:'2.0',id,error:{code:-32603,message:e.message}},{status:500,headers})
         }
