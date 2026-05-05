@@ -995,7 +995,14 @@ export async function POST(req: NextRequest) {
           return NextResponse.json({jsonrpc:'2.0',id,error:{code:-32603,message:e.message}},{status:500,headers})
         }
       } else if (name === 'run_pipeline') {
-        // ── run_pipeline: discover → score → AI select → usecase → article → tweets → cover → save ──
+        // ── New run_pipeline ──
+        // 1. Search ClawHub GitHub for skills → cross-ref Supabase → import missing ones
+        // 2. Six-dimension scoring with full report per skill
+        // 3. DeepSeek selects best 5-8 skills
+        // 4. AI generates cover image (SVG design → sharp PNG → Supabase Storage)
+        // 5. AI generates use case + article (references image + use case URL) + 3 tweets
+        // 6. Save to Supabase (posts + use_cases), publish if requested
+        // 7. Return full result
         const query = sanitize(args.query || '', 200)
         if (!query) {
           return NextResponse.json({jsonrpc:'2.0',id,error:{code:-32602,message:'query is required'}},{status:400,headers})
@@ -1006,48 +1013,103 @@ export async function POST(req: NextRequest) {
         const BLOG_AUTHOR = process.env.BLOG_AUTHOR || 'BytesAgain Team'
 
         try {
-          // Step 1-2: Discover + Score
-          const { data: rawSkills } = await sb.from('skills').select('slug,name,description,category,downloads,stars')
+          // ─── Step 1: Discover from ClawHub + import missing skills ───
+          // Search ClawHub API for skills matching the topic
+          let importedSlugs: string[] = []
+          try {
+            const chRes = await fetch(`https://clawhub.ai/api/v1/packages?family=skill&q=${encodeURIComponent(query)}&limit=30`, {
+              headers: { 'User-Agent': 'Mozilla/5.0 (compatible; BytesAgain/1.0)' },
+              signal: AbortSignal.timeout(10000),
+            })
+            if (chRes.ok) {
+              const chData = await chRes.json()
+              const chItems: any[] = chData.items || chData.data || []
+              // Build rows using same logic as fetch-clawhub admin route
+              const rows: any[] = []
+              for (const item of chItems) {
+                const pkgSlug = (item.name || '').toLowerCase()
+                if (!pkgSlug) continue
+                const summary = (item.summary || '').replace(/\\u0000/g,'').replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g,'').slice(0,500)
+                const displayName = (item.displayName || pkgSlug).replace(/\\u0000/g,'').replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g,'').slice(0,200)
+                const owner = item.ownerHandle || ''
+                const capTags: string[] = item.capabilityTags || []
+                rows.push({
+                  slug: pkgSlug,
+                  name: displayName,
+                  description: summary,
+                  category: capTags[0] || 'clawhub',
+                  tags: [...new Set([...capTags, 'clawhub'])],
+                  downloads: 0,
+                  stars: 0,
+                  source: 'clawhub',
+                  source_url: `https://clawhub.ai/${owner}/${pkgSlug}`,
+                  owner,
+                  version: item.latestVersion || '1.0.0',
+                })
+              }
+              if (rows.length > 0) {
+                const { data: existing } = await sb.from('skills').select('slug').in('slug', rows.map(r=>r.slug))
+                const existingSet = new Set((existing||[]).map((e:any)=>e.slug))
+                const newRows = rows.filter(r => !existingSet.has(r.slug))
+                if (newRows.length > 0) {
+                  const { error: upsertErr } = await sb.from('skills').upsert(newRows, { onConflict: 'slug', ignoreDuplicates: false })
+                  if (!upsertErr) importedSlugs = newRows.map(r=>r.slug)
+                }
+              }
+            }
+          } catch (chErr) {
+            console.error('ClawHub search failed, falling back to Supabase-only:', chErr)
+          }
+
+          // ─── Step 2: Combined search (Supabase + newly imported) + 6-dim scoring ───
+          const { data: rawSkills } = await sb.from('skills').select('slug,name,description,category,downloads,stars,source')
             .or(`name.ilike.%${query}%,description.ilike.%${query}%`)
-            .order('downloads', { ascending: false }).limit(30)
-          const skillPool = rawSkills || []
+            .order('downloads', { ascending: false }).limit(40)
+          let skillPool = (rawSkills || []).filter((s:any) => s.source !== 'banned')
           if (!skillPool.length) {
             return NextResponse.json({jsonrpc:'2.0',id,error:{code:-32000,message:'No skills found for this topic'}},{status:404,headers})
           }
 
-          const maxDl = Math.max(...skillPool.map(s=>s.downloads||0), 1)
-          const maxStars = Math.max(...skillPool.map(s=>s.stars||0), 1)
-          const qTokens = query.toLowerCase().split(/\s+/).filter(t=>t.length>1)
-          const scored = skillPool.map(s => {
+          const maxDl = Math.max(...skillPool.map((s:any)=>s.downloads||0), 1)
+          const maxStars = Math.max(...skillPool.map((s:any)=>s.stars||0), 1)
+          const qTokens = query.toLowerCase().split(/\s+/).filter((t:string)=>t.length>1)
+          const scored = skillPool.map((s:any) => {
             const dlScore = Math.min(25, Math.round(25*(s.downloads||0)/maxDl))
             const starScore = Math.min(15, Math.round(15*(s.stars||0)/maxStars))
             const catMatch = s.category ? (
-              qTokens.some(t=>s.category.toLowerCase().includes(t)) ? 15 :
-              qTokens.some(t=>s.description?.toLowerCase().includes(t)) ? 10 : 5
+              qTokens.some((t:string)=>s.category.toLowerCase().includes(t)) ? 15 :
+              qTokens.some((t:string)=>s.description?.toLowerCase().includes(t)) ? 10 : 5
             ) : 5
             const descQ = s.description ? Math.min(15, Math.round(15*Math.min(s.description.length,500)/500)) : 0
-            const srcScore = s.stars > 0 ? 15 : 10
-            const nmScore = Math.min(10, qTokens.reduce((sum,t)=>sum+(s.name?.toLowerCase().includes(t)?1:0)+(s.slug?.toLowerCase().includes(t)?2:0),0))
-            return {...s, _score: dlScore + starScore + catMatch + descQ + srcScore + nmScore}
-          }).sort((a,b)=>b._score-a._score)
+            const srcScore = s.source === 'clawhub' || (s.stars||0) > 0 ? 15 : 10
+            const nmScore = Math.min(10, qTokens.reduce((sum:number,t:string)=>sum+(s.name?.toLowerCase().includes(t)?1:0)+(s.slug?.toLowerCase().includes(t)?2:0),0))
+            return {
+              slug: s.slug, name: s.name, category: s.category, downloads: s.downloads,
+              stars: s.stars, description: s.description?.slice(0,200), source: s.source,
+              _scores: { downloads: dlScore, stars: starScore, category_relevance: catMatch, description_quality: descQ, source_diversity: srcScore, name_match: nmScore },
+              _score: dlScore + starScore + catMatch + descQ + srcScore + nmScore
+            }
+          }).sort((a:any,b:any)=>b._score-a._score)
 
-          // Step 3: AI select best skills
+          // ─── Step 3: DeepSeek selects best 5-8 ───
           const topScored = scored.slice(0, 15)
           let selected: {slug:string;reason:string}[] = []
           if (dsKey) {
-            const selPrompt = `You are a skill selection expert. Given user goal "${query}", evaluate these ${topScored.length} skills and select the BEST 5-8 for the task.
+            const selPrompt = `You are a skill curation expert. User goal: "${query}".
 
-Rules:
-1. ONLY select genuinely relevant skills — a skill must be useful for the goal
-2. Prefer higher-download skills when relevance is equal
-3. Give each selected skill a 1-sentence reason (why it helps with this goal)
-4. Do NOT select skills that are obviously unrelated
+Evaluate these ${topScored.length} AI skills. Select the 5-8 BEST for the task.
 
-Output valid JSON array ONLY — no markdown, no explanation, just the array:
-[{"slug": "exact-slug", "reason": "why selected"}]
+CRITICAL RULES:
+- Only select genuinely relevant skills (must help achieve the goal)
+- Prefer higher-download skills when relevance is equal
+- Give each selected skill a 1-sentence, specific reason (not generic)
+- Reject skills that are tangentially related or irrelevant
 
-Skills to evaluate:
-${JSON.stringify(topScored.map(s=>({slug:s.slug,name:s.name,category:s.category,downloads:s.downloads,description:s.description?.slice(0,200)})))}`
+Output ONLY valid JSON array — no markdown, no preamble:
+[{"slug": "exact-slug", "reason": "why this skill helps with this specific goal (max 15 words)"}]
+
+Skills:
+${JSON.stringify(topScored.map((s:any)=>({slug:s.slug,name:s.name,category:s.category,downloads:s.downloads,score:s._score,description:s.description?.slice(0,200)})))}`
 
             const selRes = await fetch('https://api.deepseek.com/v1/chat/completions',{
               method:'POST',
@@ -1057,55 +1119,153 @@ ${JSON.stringify(topScored.map(s=>({slug:s.slug,name:s.name,category:s.category,
             })
             let selText = (await selRes.json())?.choices?.[0]?.message?.content || ''
             selText = selText.replace(/<think>[\s\S]*?<\/think>/g,'').trim()
-            const jsonMatch = selText.match(/\[[\s\S]*\]/)
-            if (jsonMatch) {
-              try { selected = JSON.parse(jsonMatch[0]) } catch {}
-            }
+            const jm = selText.match(/\[[\s\S]*\]/)
+            if (jm) { try { selected = JSON.parse(jm[0]) } catch {} }
           }
-          if (!selected.length) selected = topScored.slice(0,5).map(s=>({slug:s.slug,reason:`Top ${s.category||'general'} skill with ${s.downloads||0} downloads`}))
+          if (!selected.length) selected = topScored.slice(0,5).map((s:any)=>({slug:s.slug,reason:`Top ${s.category||'general'} skill with ${s.downloads||0} downloads`}))
 
-          // Build full skill details
+          // Build full + scoring details for selected skills
           const selectedSlugs = new Set(selected.map(s=>s.slug))
-          const selectedSkills = skillPool.filter(s=>selectedSlugs.has(s.slug))
-          const skillDetails = selected.map(s=>{
-            const d = selectedSkills.find(x=>x.slug===s.slug)
-            return {slug:s.slug,name:d?.name||s.slug,category:d?.category||'',downloads:d?.downloads||0,stars:d?.stars||0,reason:s.reason}
+          const skillDetails = selected.map((s:any)=>{
+            const d = scored.find((x:any)=>x.slug===s.slug)
+            return {
+              slug: s.slug, name: d?.name||s.slug, category: d?.category||'',
+              downloads: d?.downloads||0, stars: d?.stars||0, source: d?.source||'',
+              scores: d?._scores||{},
+              total_score: d?._score||0,
+              reason: s.reason
+            }
           })
 
-          // Step 4-6: AI generate use case + article + tweets (one big prompt)
-          const genQuery = query
-          const genPrompt = `You are a content strategist. Generate a complete use case package for the topic "${genQuery}".
+          // ─── Step 4: Generate cover image (AI designs SVG, sharp renders) ───
+          const now = new Date().toISOString()
+          const postSlug = query.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60) + '-' + Math.random().toString(36).slice(2,6)
+          let coverImageUrl: string | null = null
+          let coverSvgDesign: string = ''
+          try {
+            if (dsKey) {
+              const imgDesignPrompt = `Design a 1792×1024 hero image for an article about "${query}". 
+The article features these AI skills: ${skillDetails.map((s:any)=>s.name).join(', ')}.
 
-Selected skills:
-${JSON.stringify(skillDetails,null,2)}
-
-Output valid JSON ONLY — no markdown, no explanation, exactly this structure:
+Respond with ONLY valid JSON (no markdown, no explanation):
 {
-  "usecase": {
-    "slug": "short-kebab-case-identifier",
-    "title": "Action-Oriented Title (3-6 words)",
-    "description": "One sentence: what task can users automate? Be specific and practical.",
-    "icon": "single emoji representing the topic",
-    "searchLink": "/skills?q=keyword1+keyword2+keyword3"
-  },
-  "article": {
-    "title": "Compelling blog post title (6-12 words)",
-    "content": "Full article in markdown. Must be 800-1200 words. Structure: ## Executive Summary (2-3 sentences), ## Why This Matters (2-3 paragraphs on the problem), ## The Skill Stack (for each selected skill: ### [Skill Name] — 1-line intro + 2-3 paragraphs explaining setup, usage, and results + a Tip callout), ## Getting Started (installation steps for each skill using \`clawhub install <slug>\`), ## Real-World Results (1-2 paragraphs), ## Next Steps (call to action). Use natural helpful tone, not salesy. Include specific examples."
-  },
-  "tweets": [
-    {"tweet": "Tweet draft 1 — promotional, includes key benefit and emojis. Max 280 chars."},
-    {"tweet": "Tweet draft 2 — tip/insight angle, shareable value. Max 280 chars."},
-    {"tweet": "Tweet draft 3 — social proof / use case story. Max 280 chars."}
-  ]
+  "gradient_start": "dark color hex",
+  "gradient_end": "dark color hex",
+  "accent_color": "vibrant accent hex",
+  "secondary_accent": "secondary accent hex",
+  "emoji_icon": "single emoji representing the topic",
+  "layout_style": "one of: center-title, left-title-with-list, grid-style",
+  "text_color_primary": "hex for title",
+  "text_color_secondary": "hex for subtitle"
 }
 
-ALL fields required. DO NOT wrap in markdown code blocks. Output ONLY the JSON.`
+Make it look professional, dark theme tech blog style. Use colors that fit the topic.`
+              const designRes = await fetch('https://api.deepseek.com/v1/chat/completions',{
+                method:'POST',
+                headers:{'Content-Type':'application/json','Authorization':`Bearer ${dsKey}`},
+                body:JSON.stringify({model:'deepseek-chat',messages:[{role:'user',content:imgDesignPrompt}],max_tokens:500,temperature:0.7}),
+                signal:AbortSignal.timeout(15000),
+              })
+              let designText = (await designRes.json())?.choices?.[0]?.message?.content || ''
+              designText = designText.replace(/<think>[\s\S]*?<\/think>/g,'').trim()
+              designText = designText.replace(/^\\\`\\\`\\\`json?/gm,'').replace(/\\\`\\\`\\\`$/gm,'').trim()
+              const dm = designText.match(/\{[\s\S]*\}/)
+              if (dm) { try { coverSvgDesign = JSON.parse(dm[0]); coverSvgDesign = typeof coverSvgDesign === 'string' ? coverSvgDesign : JSON.stringify(coverSvgDesign) } catch {} }
+            }
+          } catch (designErr) {
+            console.error('Image design prompt failed, using defaults:', designErr)
+          }
+
+          // Parse or default SVG design
+          let design: any = {}
+          try { design = JSON.parse(typeof coverSvgDesign === 'string' ? coverSvgDesign : '{}') } catch {}
+          const bg1 = design.gradient_start || '#0f172a'
+          const bg2 = design.gradient_end || '#1e1b4b'
+          const acc = design.accent_color || '#6366f1'
+          const acc2 = design.secondary_accent || '#a855f7'
+          const icon = escapeXml(design.emoji_icon || '\u{1F916}')
+          const textMain = design.text_color_primary || '#e2e8f0'
+          const textSec = design.text_color_secondary || '#94a3b8'
+
+          try {
+            const titleSafe = escapeXml(query.slice(0, 60).charAt(0).toUpperCase() + query.slice(1))
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1024" viewBox="0 0 1792 1024">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:${bg1}"/>
+      <stop offset="100%" style="stop-color:${bg2}"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:${acc}"/>
+      <stop offset="100%" style="stop-color:${acc2}"/>
+    </linearGradient>
+  </defs>
+  <rect width="1792" height="1024" fill="url(#bg)"/>
+  <rect x="0" y="0" width="14" height="1024" fill="url(#accent)"/>
+  <text x="100" y="200" font-family="system-ui,sans-serif" font-size="64" font-weight="700" fill="${textMain}">${titleSafe}</text>
+  <text x="100" y="280" font-family="system-ui,sans-serif" font-size="40" fill="${textSec}">AI-Powered Skill Stack</text>
+  <text x="100" y="400" font-family="system-ui,sans-serif" font-size="80">${icon}</text>
+  <rect x="100" y="500" width="400" height="4" fill="${acc}"/>
+  <text x="100" y="560" font-family="system-ui,sans-serif" font-size="28" fill="${textSec}">Selected Skills:</text>
+  ${skillDetails.slice(0,6).map((s:any,i:number) => `<text x="100" y="${620+i*56}" font-family="system-ui,sans-serif" font-size="26" fill="${textMain}">\u2022 ${escapeXml(s.name)}</text>`).join('\n')}
+  <text x="100" y="950" font-family="system-ui,sans-serif" font-size="24" fill="#64748b">bytesagain.com</text>
+  <text x="1692" y="950" font-family="system-ui,sans-serif" font-size="24" fill="#64748b" text-anchor="end">AI Skills Platform</text>
+</svg>`
+
+            const sharpMod = await import('sharp')
+            const sharp = sharpMod.default
+            const pngBuf = await sharp(Buffer.from(svg)).resize(1792,1024).png().toBuffer()
+
+            const { data: uploadData } = await sb.storage
+              .from('article-images')
+              .upload(`${postSlug}.png`, pngBuf, { contentType: 'image/png', upsert: true })
+            if (uploadData) {
+              const { data: { publicUrl } } = sb.storage.from('article-images').getPublicUrl(`${postSlug}.png`)
+              coverImageUrl = publicUrl
+            }
+          } catch (imgErr) {
+            console.error('Cover image generation failed:', imgErr)
+          }
+
+          // ─── Step 5: Generate use case + article + tweets ───
+          const ucUrl = `https://bytesagain.com/use-case/${postSlug}`
+          const imgUrl = coverImageUrl || `https://jfpeycpiyayrpjldppzq.supabase.co/storage/v1/object/public/article-images/${postSlug}.png`
 
           let usecase: any = null
           let article: any = null
           let tweets: any[] = []
 
           if (dsKey) {
+            const genPrompt = `You are a content strategist. Generate a complete content package for "${query}".
+
+Selected AI skills:
+${JSON.stringify(skillDetails,null,2)}
+
+Cover image URL (reference in article): ${imgUrl}
+Use case URL (reference in article): ${ucUrl}
+
+Output valid JSON ONLY — no markdown, no explanation, exactly this structure:
+{
+  "usecase": {
+    "slug": "${postSlug}",
+    "title": "Action-Oriented Title (3-6 words) for ${query}",
+    "description": "One sentence: what task can users automate? Be specific and practical. Include the specific topic.",
+    "icon": "single emoji representing the topic",
+    "searchLink": "/skills?q=${encodeURIComponent(query)}"
+  },
+  "article": {
+    "title": "Compelling blog post title for ${query} (6-12 words)",
+    "content": "Full 800-1200 word article in markdown. Structure: ## Executive Summary (2-3 sentences), ## Why This Matters (2-3 paragraphs), ## The Skill Stack (for EACH selected skill: ### [Skill name] — 1-line intro + 2-3 paragraphs of setup/usage/results + > **Tip:** callout), ## Getting Started (\\`clawhub install <slug>\\` for each skill), ## Real-World Results (1-2 paragraphs with specific metrics), ## Next Steps (call to action).\n\nIMPORTANT: In the article, include this image at the start: ![${query} cover image](${imgUrl})\nAlso link to the use case page: [View the complete use case for ${query}](${ucUrl})\nUse natural helpful tone, not salesy."
+  },
+  "tweets": [
+    {"tweet": "Tweet draft 1 for ${query} — promotional, includes key benefit, emojis. Max 280 chars. Include link: ${ucUrl}"},
+    {"tweet": "Tweet draft 2 — tip/insight angle. Max 280 chars."},
+    {"tweet": "Tweet draft 3 — use case story / social proof. Max 280 chars."}
+  ]
+}
+
+ALL fields required. DO NOT wrap in markdown. Output ONLY the JSON.`
+
             const genRes = await fetch('https://api.deepseek.com/v1/chat/completions',{
               method:'POST',
               headers:{'Content-Type':'application/json','Authorization':`Bearer ${dsKey}`},
@@ -1114,12 +1274,11 @@ ALL fields required. DO NOT wrap in markdown code blocks. Output ONLY the JSON.`
             })
             let genText = (await genRes.json())?.choices?.[0]?.message?.content || ''
             genText = genText.replace(/<think>[\s\S]*?<\/think>/g,'').trim()
-            // Strip markdown code fences if present
-            genText = genText.replace(/^\\`\\`\\`json?/gm,'').replace(/\\`\\`\\`$/gm,'').trim()
-            const jsonMatch = genText.match(/\{[\s\S]*\}/)
-            if (jsonMatch) {
+            genText = genText.replace(/^\\\`\\\`\\\`json?/gm,'').replace(/\\\`\\\`\\\`$/gm,'').trim()
+            const jm = genText.match(/\{[\s\S]*\}/)
+            if (jm) {
               try {
-                const parsed = JSON.parse(jsonMatch[0])
+                const parsed = JSON.parse(jm[0])
                 usecase = parsed.usecase
                 article = parsed.article
                 tweets = parsed.tweets || []
@@ -1127,52 +1286,31 @@ ALL fields required. DO NOT wrap in markdown code blocks. Output ONLY the JSON.`
             }
           }
 
-          // Fallback if AI failed
+          // Fallbacks
           if (!usecase) {
-            usecase = {
-              slug: genQuery.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60),
-              title: `AI for ${genQuery.charAt(0).toUpperCase()+genQuery.slice(1)}`,
-              description: `Use AI to ${genQuery}. Essential skills to automate and optimize your workflow.`,
-              icon: '\u{1F916}', searchLink: `/skills?q=${encodeURIComponent(genQuery)}`,
-            }
+            usecase = { slug: postSlug, title: `AI for ${query.charAt(0).toUpperCase()+query.slice(1)}`, description: `Use AI to ${query}. Essential skills to automate your workflow.`, icon: '\u{1F916}', searchLink: `/skills?q=${encodeURIComponent(query)}` }
           }
           if (!article) {
             article = {
-              title: `How to Use AI for ${genQuery.charAt(0).toUpperCase()+genQuery.slice(1)}`,
-              content: `# ${genQuery.charAt(0).toUpperCase()+genQuery.slice(1)}
-
-AI can help you automate and optimize ${genQuery}. Here are the essential skills.
-
-## The Skill Stack
-
-${skillDetails.map((s,i)=>`### ${i+1}. ${s.name}
-${s.reason}
-
-Install: \`clawhub install ${s.slug}\``).join('\n\n')}
-
-## Get Started
-
-Install any of these skills and start using them with your AI agent.`,
+              title: `How to Use AI for ${query.charAt(0).toUpperCase()+query.slice(1)}`,
+              content: `# ${query.charAt(0).toUpperCase()+query.slice(1)}\n\n![${query} cover](${imgUrl})\n\nAI can help you automate **${query}**. Here are the essential skills.\n\n## The Skill Stack\n\n${skillDetails.map((s:any,i:number)=>`### ${i+1}. ${s.name}\n${s.reason}\n\nInstall: \\`clawhub install ${s.slug}\\``).join('\n\n')}\n\n## Getting Started\n\nCheck out the [complete use case for ${query}](${ucUrl}).\n\nStart using these skills today.`
             }
           }
           if (!tweets.length) {
-            tweets = skillDetails.slice(0,3).map(s=>({tweet:`Try ${s.name} for ${genQuery}! ${s.reason.slice(0,80)} Install: bytesagain.com/skill/${s.slug}`}))
+            tweets = skillDetails.slice(0,3).map((s:any)=>({tweet:`Try ${s.name} for ${query}! ${s.reason.slice(0,60)} ${ucUrl}`}))
           }
 
-          // Step 7: Save to Supabase
-          const postSlug = usecase.slug || genQuery.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60)
-          const now = new Date().toISOString()
+          // ─── Step 6: Save to Supabase ───
           let savedArticle: any = null
           let savedUseCase: any = null
 
-          // Save article to posts table
           const { data: insPost, error: postErr } = await sb.from('posts').insert({
             title: article.title,
             slug: postSlug,
             content: article.content,
             category: 'AI Skills',
             author_name: BLOG_AUTHOR,
-            tags: [genQuery, ...skillDetails.map(s=>s.name)],
+            tags: [query, ...skillDetails.map((s:any)=>s.name)],
             post_type: 'article',
             status: publish ? 'published' : 'draft',
             published_at: publish ? now : null,
@@ -1184,14 +1322,13 @@ Install any of these skills and start using them with your AI agent.`,
             savedArticle = { id: insPost?.id, slug: postSlug, status: publish ? 'published' : 'draft' }
           }
 
-          // Save use case to use_cases table
           const { data: insUc, error: ucErr } = await sb.from('use_cases').insert({
             slug: postSlug,
             title: usecase.title,
             description: usecase.description,
             icon: usecase.icon || '\u{1F916}',
-            searchLink: usecase.searchLink || `/skills?q=${encodeURIComponent(genQuery)}`,
-            skills: skillDetails.map(s=>({slug:s.slug,name:s.name,reason:s.reason})),
+            searchLink: usecase.searchLink || `/skills?q=${encodeURIComponent(query)}`,
+            skills: skillDetails.map((s:any)=>({slug:s.slug,name:s.name,reason:s.reason})),
             status: publish ? 'published' : 'draft',
             created_at: now,
           }).select('id').single()
@@ -1202,67 +1339,33 @@ Install any of these skills and start using them with your AI agent.`,
             savedUseCase = { id: insUc?.id, slug: postSlug }
           }
 
-          // Step 8: Cover image (SVG → sharp → PNG → upload to Supabase Storage)
-          let coverImageUrl: string | null = null
-          try {
-            const titleText = article.title.slice(0, 80)
-            const slugText = postSlug
-            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1024" viewBox="0 0 1792 1024">
-  <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0f172a"/>
-      <stop offset="100%" style="stop-color:#1e1b4b"/>
-    </linearGradient>
-    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#6366f1"/>
-      <stop offset="100%" style="stop-color:#a855f7"/>
-    </linearGradient>
-  </defs>
-  <rect width="1792" height="1024" fill="url(#bg)"/>
-  <rect x="0" y="0" width="12" height="1024" fill="url(#accent)"/>
-  <text x="100" y="200" font-family="system-ui,sans-serif" font-size="72" font-weight="700" fill="#e2e8f0">${escapeXml(titleText)}</text>
-  <text x="100" y="300" font-family="system-ui,sans-serif" font-size="36" fill="#94a3b8">AI-Powered Skill Stack</text>
-  <rect x="100" y="400" width="400" height="4" fill="#6366f1"/>
-  <text x="100" y="480" font-family="system-ui,sans-serif" font-size="28" fill="#c4b5fd">Selected Skills:</text>
-  ${skillDetails.slice(0,6).map((s,i) => `<text x="100" y="${540+i*56}" font-family="system-ui,sans-serif" font-size="26" fill="#e2e8f0">\u2022 ${escapeXml(s.name)}</text>`).join('\n')}
-  <text x="100" y="920" font-family="system-ui,sans-serif" font-size="24" fill="#64748b">bytesagain.com</text>
-  <text x="1792-100" y="920" font-family="system-ui,sans-serif" font-size="24" fill="#64748b" text-anchor="end">AI Skills Platform</text>
-</svg>`
-
-            // Convert SVG to PNG via sharp (dynamic import for ESM)
-            const sharpMod = await import('sharp')
-            const sharp = sharpMod.default
-            const pngBuf = await sharp(Buffer.from(svg)).resize(1792,1024).png().toBuffer()
-
-            // Upload to Supabase Storage
-            const { data: uploadData } = await sb.storage
-              .from('article-images')
-              .upload(`${postSlug}.png`, pngBuf, {
-                contentType: 'image/png',
-                upsert: true,
-              })
-            if (uploadData) {
-              const { data: { publicUrl } } = sb.storage.from('article-images').getPublicUrl(`${postSlug}.png`)
-              coverImageUrl = publicUrl
-            }
-          } catch (imgErr) {
-            console.error('Cover image generation failed:', imgErr)
-          }
-
+          // ─── Step 7: Return full result ───
           const pipelineResult = {
-            query: genQuery,
+            query,
             publish,
-            scoring: {
+            clawhub_imported: importedSlugs,
+            scoring_report: {
               total_evaluated: skillPool.length,
-              top_scored: scored.slice(0,8).map(s=>({slug:s.slug,name:s.name,score:s._score})),
+              scoring_formula: {
+                downloads: '25pts (relative to max)',
+                stars: '15pts (relative to max)',
+                category_relevance: '15pts (direct match) / 10pts (desc match) / 5pts (default)',
+                description_quality: '15pts (proportional to length, cap 500 chars)',
+                source_diversity: '15pts (clawhub/community) / 10pts (basic)',
+                name_match: '10pts (name + slug keyword hits)',
+              },
+              top_scored: scored.slice(0,10).map((s:any)=>({
+                slug: s.slug, name: s.name, total: s._score,
+                scores: s._scores
+              })),
             },
-            selection: {
-              skill_count: skillDetails.length,
+            selected_skills: {
+              count: skillDetails.length,
               skills: skillDetails,
             },
             usecase: {
               ...usecase,
-              url: `https://bytesagain.com/use-case/${postSlug}`,
+              url: ucUrl,
             },
             article: {
               title: article.title,
