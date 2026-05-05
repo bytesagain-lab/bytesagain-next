@@ -62,6 +62,18 @@
       "rest_action": "generate_usecase",
       "description": "Generate a use case for a given topic: search skills, score, produce structured use case.",
       "status": "active"
+    },
+    {
+      "name": "run_pipeline",
+      "rest_action": "run_pipeline",
+      "description": "Full pipeline: discover skills, 6-dimension scoring, AI select best 5-8, generate use case, write article + 3 tweets, cover image, save to Supabase.",
+      "status": "active"
+    },
+    {
+      "name": "score_skills",
+      "rest_action": "score_skills",
+      "description": "Six-dimension skill scoring: downloads, stars, category relevance, description quality, source diversity, name match.",
+      "status": "active"
     }
   ],
   "rate_limit": {

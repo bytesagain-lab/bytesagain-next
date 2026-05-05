@@ -179,6 +179,11 @@ function setCached(key: string, data: any, ttlMs = 300_000) {
   if (RESPONSE_CACHE.size > 500) RESPONSE_CACHE.clear()
   RESPONSE_CACHE.set(key, { data, exp: Date.now() + ttlMs })
 }
+function escapeXml(s: string): string {
+  if (!s) return ''
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;')
+}
+
 function shouldWriteApiLog(params: { action?: string; endpoint?: string; result_count?: number | null }) {
   const base = Number(process.env.MCP_LOG_SAMPLE_RATE || '0.08')
   const endpoint = params.endpoint || 'rest'
@@ -796,6 +801,30 @@ export async function POST(req: NextRequest) {
           inputSchema: { type: 'object', properties: {
             query: { type: 'string', description: 'Task or goal in natural language. Example: "automate invoice processing", "write social media content", "analyze customer feedback". Required.' },
           }, required: ['query'] } },
+        { name: 'score_skills',
+          description: 'Six-dimension skill scoring engine. Given a topic, searches skills and scores each on: downloads (25pts), stars (15pts), category relevance to topic (20pts, AI-evaluated), description quality (15pts), source diversity (15pts), name match (10pts). Use when you want to see how well skills rank for a task. Returns scored list sorted by total.',
+          inputSchema: { type: 'object', properties: {
+            query: { type: 'string', description: 'Topic or task to score skills against. Example: "email automation", "data analysis". Required.' },
+            limit: { type: 'number', description: 'Number of skills to return scored. Default: 20. Max: 50.' },
+          }, required: ['query'] } },
+        { name: 'run_pipeline',
+          description: [
+            'Full automated content pipeline. Given a topic, it:',
+            '1) Discovers relevant skills from 60,000+ database (search + rank)',
+            '2) Scores each on 6 dimensions (downloads, stars, category relevance, description quality, source diversity, name match)',
+            '3) Uses AI to select the best 5-8 skills that genuinely fit the topic',
+            '4) Generates a structured use case (title, description, skill stack with reasons)',
+            '5) Writes a full 800+ word article in markdown',
+            '6) Creates 3 tweet drafts promoting the use case',
+            '7) Saves article to Supabase posts table and use case to use_cases table',
+            '8) Generates a 1792x1024 cover image and uploads to Supabase Storage',
+            '9) Returns everything in one response',
+            'Set publish=true to auto-publish. Set publish=false (default) for draft-only.',
+          ].join(' '),
+          inputSchema: { type: 'object', properties: {
+            query: { type: 'string', description: 'Topic for the full pipeline. Example: "automate invoice processing", "write code documentation". Required.' },
+            publish: { type: 'boolean', description: 'Auto-publish to live site. Default: false (draft). Set true to set status=published.' },
+          }, required: ['query'] } },
       ]}
     }, { headers })
   }
@@ -926,6 +955,330 @@ export async function POST(req: NextRequest) {
           }
           logMcpCall({action:'generate_usecase',query,user_agent:req.headers.get('user-agent')||'',ip:req.headers.get('x-forwarded-for')?.split(',')[0].trim()||req.headers.get('x-real-ip')||'',result_count:selected.length,endpoint:'mcp_post'})
           return NextResponse.json({jsonrpc:'2.0',id,result:{content:[{type:'text',text:JSON.stringify(result,null,2)}]}},{headers})
+        } catch(e:any) {
+          return NextResponse.json({jsonrpc:'2.0',id,error:{code:-32603,message:e.message}},{status:500,headers})
+        }
+      } else if (name === 'score_skills') {
+        const query = sanitize(args.query || args.q || '', 200)
+        if (!query) {
+          return NextResponse.json({jsonrpc:'2.0',id,error:{code:-32602,message:'query is required'}},{status:400,headers})
+        }
+        const sLeft = Math.min(parseInt(args.limit) || 20, 50)
+        try {
+          const sb = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
+          const { data: skills } = await sb.from('skills').select('slug,name,description,category,downloads,stars')
+            .or(`name.ilike.%${query}%,description.ilike.%${query}%`)
+            .order('downloads', { ascending: false }).limit(sLeft)
+          const list = skills || []
+          // Six-dimension scoring
+          const maxDl = Math.max(...list.map(s=>s.downloads||0), 1)
+          const maxStars = Math.max(...list.map(s=>s.stars||0), 1)
+          const qTokens = query.toLowerCase().split(/\s+/).filter(t=>t.length>1)
+          const scored = list.map(s => {
+            const dlScore = Math.min(25, Math.round(25 * (s.downloads||0) / maxDl))
+            const starScore = Math.min(15, Math.round(15 * (s.stars||0) / maxStars))
+            const catMatch = s.category ? (qTokens.some(t=>s.category.toLowerCase().includes(t)) ? 15 : qTokens.some(t=>s.description?.toLowerCase().includes(t)) ? 10 : 5) : 5
+            const descQuality = s.description ? Math.min(15, Math.round(15 * Math.min(s.description.length, 500) / 500)) : 0
+            const srcScore = s.stars > 0 ? 15 : 10 // has stars = active community
+            const nameMatch = qTokens.reduce((sum,t)=>sum + (s.name?.toLowerCase().includes(t)?1:0)*(s.slug?.toLowerCase().includes(t)?2:0), 0)
+            const nameScore = Math.min(10, nameMatch)
+            const total = dlScore + starScore + catMatch + descQuality + srcScore + nameScore
+            return {
+              slug: s.slug, name: s.name, category: s.category, downloads: s.downloads, stars: s.stars,
+              description: s.description?.slice(0,200),
+              scores: { downloads: dlScore, stars: starScore, category_relevance: catMatch, description_quality: descQuality, source_community: srcScore, name_match: nameScore, total }
+            }
+          }).sort((a,b)=>b.scores.total-a.scores.total)
+          logMcpCall({action:'score_skills',query,user_agent:req.headers.get('user-agent')||'',ip:req.headers.get('x-forwarded-for')?.split(',')[0].trim()||req.headers.get('x-real-ip')||'',result_count:scored.length,endpoint:'mcp_post'})
+          return NextResponse.json({jsonrpc:'2.0',id,result:{content:[{type:'text',text:JSON.stringify({query,count:scored.length,results:scored},null,2)}]}},{headers})
+        } catch(e:any) {
+          return NextResponse.json({jsonrpc:'2.0',id,error:{code:-32603,message:e.message}},{status:500,headers})
+        }
+      } else if (name === 'run_pipeline') {
+        // ── run_pipeline: discover → score → AI select → usecase → article → tweets → cover → save ──
+        const query = sanitize(args.query || '', 200)
+        if (!query) {
+          return NextResponse.json({jsonrpc:'2.0',id,error:{code:-32602,message:'query is required'}},{status:400,headers})
+        }
+        const publish = args.publish === true
+        const sb = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
+        const dsKey = process.env.DEEPSEEK_API_KEY || ''
+        const BLOG_AUTHOR = process.env.BLOG_AUTHOR || 'BytesAgain Team'
+
+        try {
+          // Step 1-2: Discover + Score
+          const { data: rawSkills } = await sb.from('skills').select('slug,name,description,category,downloads,stars')
+            .or(`name.ilike.%${query}%,description.ilike.%${query}%`)
+            .order('downloads', { ascending: false }).limit(30)
+          const skillPool = rawSkills || []
+          if (!skillPool.length) {
+            return NextResponse.json({jsonrpc:'2.0',id,error:{code:-32000,message:'No skills found for this topic'}},{status:404,headers})
+          }
+
+          const maxDl = Math.max(...skillPool.map(s=>s.downloads||0), 1)
+          const maxStars = Math.max(...skillPool.map(s=>s.stars||0), 1)
+          const qTokens = query.toLowerCase().split(/\s+/).filter(t=>t.length>1)
+          const scored = skillPool.map(s => {
+            const dlScore = Math.min(25, Math.round(25*(s.downloads||0)/maxDl))
+            const starScore = Math.min(15, Math.round(15*(s.stars||0)/maxStars))
+            const catMatch = s.category ? (
+              qTokens.some(t=>s.category.toLowerCase().includes(t)) ? 15 :
+              qTokens.some(t=>s.description?.toLowerCase().includes(t)) ? 10 : 5
+            ) : 5
+            const descQ = s.description ? Math.min(15, Math.round(15*Math.min(s.description.length,500)/500)) : 0
+            const srcScore = s.stars > 0 ? 15 : 10
+            const nmScore = Math.min(10, qTokens.reduce((sum,t)=>sum+(s.name?.toLowerCase().includes(t)?1:0)+(s.slug?.toLowerCase().includes(t)?2:0),0))
+            return {...s, _score: dlScore + starScore + catMatch + descQ + srcScore + nmScore}
+          }).sort((a,b)=>b._score-a._score)
+
+          // Step 3: AI select best skills
+          const topScored = scored.slice(0, 15)
+          let selected: {slug:string;reason:string}[] = []
+          if (dsKey) {
+            const selPrompt = `You are a skill selection expert. Given user goal "${query}", evaluate these ${topScored.length} skills and select the BEST 5-8 for the task.
+
+Rules:
+1. ONLY select genuinely relevant skills — a skill must be useful for the goal
+2. Prefer higher-download skills when relevance is equal
+3. Give each selected skill a 1-sentence reason (why it helps with this goal)
+4. Do NOT select skills that are obviously unrelated
+
+Output valid JSON array ONLY — no markdown, no explanation, just the array:
+[{"slug": "exact-slug", "reason": "why selected"}]
+
+Skills to evaluate:
+${JSON.stringify(topScored.map(s=>({slug:s.slug,name:s.name,category:s.category,downloads:s.downloads,description:s.description?.slice(0,200)})))}`
+
+            const selRes = await fetch('https://api.deepseek.com/v1/chat/completions',{
+              method:'POST',
+              headers:{'Content-Type':'application/json','Authorization':`Bearer ${dsKey}`},
+              body:JSON.stringify({model:'deepseek-chat',messages:[{role:'user',content:selPrompt}],max_tokens:2000,temperature:0.4}),
+              signal:AbortSignal.timeout(30000),
+            })
+            let selText = (await selRes.json())?.choices?.[0]?.message?.content || ''
+            selText = selText.replace(/<think>[\s\S]*?<\/think>/g,'').trim()
+            const jsonMatch = selText.match(/\[[\s\S]*\]/)
+            if (jsonMatch) {
+              try { selected = JSON.parse(jsonMatch[0]) } catch {}
+            }
+          }
+          if (!selected.length) selected = topScored.slice(0,5).map(s=>({slug:s.slug,reason:`Top ${s.category||'general'} skill with ${s.downloads||0} downloads`}))
+
+          // Build full skill details
+          const selectedSlugs = new Set(selected.map(s=>s.slug))
+          const selectedSkills = skillPool.filter(s=>selectedSlugs.has(s.slug))
+          const skillDetails = selected.map(s=>{
+            const d = selectedSkills.find(x=>x.slug===s.slug)
+            return {slug:s.slug,name:d?.name||s.slug,category:d?.category||'',downloads:d?.downloads||0,stars:d?.stars||0,reason:s.reason}
+          })
+
+          // Step 4-6: AI generate use case + article + tweets (one big prompt)
+          const genQuery = query
+          const genPrompt = `You are a content strategist. Generate a complete use case package for the topic "${genQuery}".
+
+Selected skills:
+${JSON.stringify(skillDetails,null,2)}
+
+Output valid JSON ONLY — no markdown, no explanation, exactly this structure:
+{
+  "usecase": {
+    "slug": "short-kebab-case-identifier",
+    "title": "Action-Oriented Title (3-6 words)",
+    "description": "One sentence: what task can users automate? Be specific and practical.",
+    "icon": "single emoji representing the topic",
+    "searchLink": "/skills?q=keyword1+keyword2+keyword3"
+  },
+  "article": {
+    "title": "Compelling blog post title (6-12 words)",
+    "content": "Full article in markdown. Must be 800-1200 words. Structure: ## Executive Summary (2-3 sentences), ## Why This Matters (2-3 paragraphs on the problem), ## The Skill Stack (for each selected skill: ### [Skill Name] — 1-line intro + 2-3 paragraphs explaining setup, usage, and results + a Tip callout), ## Getting Started (installation steps for each skill using \`clawhub install <slug>\`), ## Real-World Results (1-2 paragraphs), ## Next Steps (call to action). Use natural helpful tone, not salesy. Include specific examples."
+  },
+  "tweets": [
+    {"tweet": "Tweet draft 1 — promotional, includes key benefit and emojis. Max 280 chars."},
+    {"tweet": "Tweet draft 2 — tip/insight angle, shareable value. Max 280 chars."},
+    {"tweet": "Tweet draft 3 — social proof / use case story. Max 280 chars."}
+  ]
+}
+
+ALL fields required. DO NOT wrap in markdown code blocks. Output ONLY the JSON.`
+
+          let usecase: any = null
+          let article: any = null
+          let tweets: any[] = []
+
+          if (dsKey) {
+            const genRes = await fetch('https://api.deepseek.com/v1/chat/completions',{
+              method:'POST',
+              headers:{'Content-Type':'application/json','Authorization':`Bearer ${dsKey}`},
+              body:JSON.stringify({model:'deepseek-chat',messages:[{role:'user',content:genPrompt}],max_tokens:4000,temperature:0.6}),
+              signal:AbortSignal.timeout(60000),
+            })
+            let genText = (await genRes.json())?.choices?.[0]?.message?.content || ''
+            genText = genText.replace(/<think>[\s\S]*?<\/think>/g,'').trim()
+            // Strip markdown code fences if present
+            genText = genText.replace(/^\\`\\`\\`json?/gm,'').replace(/\\`\\`\\`$/gm,'').trim()
+            const jsonMatch = genText.match(/\{[\s\S]*\}/)
+            if (jsonMatch) {
+              try {
+                const parsed = JSON.parse(jsonMatch[0])
+                usecase = parsed.usecase
+                article = parsed.article
+                tweets = parsed.tweets || []
+              } catch {}
+            }
+          }
+
+          // Fallback if AI failed
+          if (!usecase) {
+            usecase = {
+              slug: genQuery.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60),
+              title: `AI for ${genQuery.charAt(0).toUpperCase()+genQuery.slice(1)}`,
+              description: `Use AI to ${genQuery}. Essential skills to automate and optimize your workflow.`,
+              icon: '\u{1F916}', searchLink: `/skills?q=${encodeURIComponent(genQuery)}`,
+            }
+          }
+          if (!article) {
+            article = {
+              title: `How to Use AI for ${genQuery.charAt(0).toUpperCase()+genQuery.slice(1)}`,
+              content: `# ${genQuery.charAt(0).toUpperCase()+genQuery.slice(1)}
+
+AI can help you automate and optimize ${genQuery}. Here are the essential skills.
+
+## The Skill Stack
+
+${skillDetails.map((s,i)=>`### ${i+1}. ${s.name}
+${s.reason}
+
+Install: \`clawhub install ${s.slug}\``).join('\n\n')}
+
+## Get Started
+
+Install any of these skills and start using them with your AI agent.`,
+            }
+          }
+          if (!tweets.length) {
+            tweets = skillDetails.slice(0,3).map(s=>({tweet:`Try ${s.name} for ${genQuery}! ${s.reason.slice(0,80)} Install: bytesagain.com/skill/${s.slug}`}))
+          }
+
+          // Step 7: Save to Supabase
+          const postSlug = usecase.slug || genQuery.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60)
+          const now = new Date().toISOString()
+          let savedArticle: any = null
+          let savedUseCase: any = null
+
+          // Save article to posts table
+          const { data: insPost, error: postErr } = await sb.from('posts').insert({
+            title: article.title,
+            slug: postSlug,
+            content: article.content,
+            category: 'AI Skills',
+            author_name: BLOG_AUTHOR,
+            tags: [genQuery, ...skillDetails.map(s=>s.name)],
+            post_type: 'article',
+            status: publish ? 'published' : 'draft',
+            published_at: publish ? now : null,
+          }).select('id').single()
+
+          if (postErr) {
+            console.error('Failed to save article:', postErr)
+          } else {
+            savedArticle = { id: insPost?.id, slug: postSlug, status: publish ? 'published' : 'draft' }
+          }
+
+          // Save use case to use_cases table
+          const { data: insUc, error: ucErr } = await sb.from('use_cases').insert({
+            slug: postSlug,
+            title: usecase.title,
+            description: usecase.description,
+            icon: usecase.icon || '\u{1F916}',
+            searchLink: usecase.searchLink || `/skills?q=${encodeURIComponent(genQuery)}`,
+            skills: skillDetails.map(s=>({slug:s.slug,name:s.name,reason:s.reason})),
+            status: publish ? 'published' : 'draft',
+            created_at: now,
+          }).select('id').single()
+
+          if (ucErr) {
+            console.error('Failed to save use case:', ucErr)
+          } else {
+            savedUseCase = { id: insUc?.id, slug: postSlug }
+          }
+
+          // Step 8: Cover image (SVG → sharp → PNG → upload to Supabase Storage)
+          let coverImageUrl: string | null = null
+          try {
+            const titleText = article.title.slice(0, 80)
+            const slugText = postSlug
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1024" viewBox="0 0 1792 1024">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="100%" style="stop-color:#a855f7"/>
+    </linearGradient>
+  </defs>
+  <rect width="1792" height="1024" fill="url(#bg)"/>
+  <rect x="0" y="0" width="12" height="1024" fill="url(#accent)"/>
+  <text x="100" y="200" font-family="system-ui,sans-serif" font-size="72" font-weight="700" fill="#e2e8f0">${escapeXml(titleText)}</text>
+  <text x="100" y="300" font-family="system-ui,sans-serif" font-size="36" fill="#94a3b8">AI-Powered Skill Stack</text>
+  <rect x="100" y="400" width="400" height="4" fill="#6366f1"/>
+  <text x="100" y="480" font-family="system-ui,sans-serif" font-size="28" fill="#c4b5fd">Selected Skills:</text>
+  ${skillDetails.slice(0,6).map((s,i) => `<text x="100" y="${540+i*56}" font-family="system-ui,sans-serif" font-size="26" fill="#e2e8f0">\u2022 ${escapeXml(s.name)}</text>`).join('\n')}
+  <text x="100" y="920" font-family="system-ui,sans-serif" font-size="24" fill="#64748b">bytesagain.com</text>
+  <text x="1792-100" y="920" font-family="system-ui,sans-serif" font-size="24" fill="#64748b" text-anchor="end">AI Skills Platform</text>
+</svg>`
+
+            // Convert SVG to PNG via sharp (dynamic import for ESM)
+            const sharpMod = await import('sharp')
+            const sharp = sharpMod.default
+            const pngBuf = await sharp(Buffer.from(svg)).resize(1792,1024).png().toBuffer()
+
+            // Upload to Supabase Storage
+            const { data: uploadData } = await sb.storage
+              .from('article-images')
+              .upload(`${postSlug}.png`, pngBuf, {
+                contentType: 'image/png',
+                upsert: true,
+              })
+            if (uploadData) {
+              const { data: { publicUrl } } = sb.storage.from('article-images').getPublicUrl(`${postSlug}.png`)
+              coverImageUrl = publicUrl
+            }
+          } catch (imgErr) {
+            console.error('Cover image generation failed:', imgErr)
+          }
+
+          const pipelineResult = {
+            query: genQuery,
+            publish,
+            scoring: {
+              total_evaluated: skillPool.length,
+              top_scored: scored.slice(0,8).map(s=>({slug:s.slug,name:s.name,score:s._score})),
+            },
+            selection: {
+              skill_count: skillDetails.length,
+              skills: skillDetails,
+            },
+            usecase: {
+              ...usecase,
+              url: `https://bytesagain.com/use-case/${postSlug}`,
+            },
+            article: {
+              title: article.title,
+              slug: postSlug,
+              word_count: article.content.split(/\s+/).length,
+              url: `https://bytesagain.com/article/${postSlug}`,
+              saved: !!savedArticle,
+              status: savedArticle?.status || 'error',
+            },
+            usecase_saved: !!savedUseCase,
+            tweets,
+            cover_image: coverImageUrl,
+          }
+
+          logMcpCall({action:'run_pipeline',query,user_agent:req.headers.get('user-agent')||'',ip:req.headers.get('x-forwarded-for')?.split(',')[0].trim()||req.headers.get('x-real-ip')||'',result_count:skillDetails.length,endpoint:'mcp_post'})
+          return NextResponse.json({jsonrpc:'2.0',id,result:{content:[{type:'text',text:JSON.stringify(pipelineResult,null,2)}]}},{headers})
         } catch(e:any) {
           return NextResponse.json({jsonrpc:'2.0',id,error:{code:-32603,message:e.message}},{status:500,headers})
         }
