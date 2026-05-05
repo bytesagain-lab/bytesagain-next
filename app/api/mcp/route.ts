@@ -1826,6 +1826,7 @@ Respond ONLY with valid JSON:
         }
         const testInput = sanitize(args.test_input || 'help', 200)
         const dsKey = process.env.DEEPSEEK_API_KEY || ''
+        const sb = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
 
         try {
           // ── Phase 1: Fetch skill metadata from ClawHub ──
@@ -1995,8 +1996,8 @@ Be thorough, specific, and honest. If a skill seems incomplete or broken, say so
             await sb.from('skill_evaluations').upsert({
               slug,
               evaluation: evaluation || {},
-              safety_score,
-              risk_level,
+              safety_score: safetyScore,
+              risk_level: riskLevel,
             }, { onConflict: 'slug' })
           } catch {}
 
