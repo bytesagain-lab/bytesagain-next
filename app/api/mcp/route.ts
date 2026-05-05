@@ -1993,13 +1993,17 @@ Be thorough, specific, and honest. If a skill seems incomplete or broken, say so
 
           // Save to skill_evaluations table for skill page display
           try {
-            await sb.from('skill_evaluations').upsert({
+            console.log('Saving evaluation for', slug, 'score:', safetyScore)
+            const { error: saveErr } = await sb.from('skill_evaluations').upsert({
               slug,
               evaluation: evaluation || {},
               safety_score: safetyScore,
               risk_level: riskLevel,
             }, { onConflict: 'slug' })
-          } catch {}
+            if (saveErr) console.error('Save eval failed:', saveErr)
+          } catch (e: any) {
+            console.error('Save eval exception:', e?.message || e)
+          }
 
           logMcpCall({action:'evaluate_skill',query:slug,user_agent:req.headers.get('user-agent')||'',ip:req.headers.get('x-forwarded-for')?.split(',')[0].trim()||req.headers.get('x-real-ip')||'',result_count:violations.length,endpoint:'mcp_post'})
           return NextResponse.json({jsonrpc:'2.0',id,result:{content:[{type:'text',text:JSON.stringify(result,null,2)}]}},{headers})
