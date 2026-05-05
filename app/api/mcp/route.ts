@@ -1978,18 +1978,17 @@ Be thorough, specific, and honest. If a skill seems incomplete or broken, say so
             evaluation,
           }
 
-          // Save to skill_evaluations table for skill page display
-          try {
-            console.log('Saving evaluation for', slug, 'score:', safetyScore)
-            const { error: saveErr } = await sb.from('skill_evaluations').upsert({
-              slug,
-              evaluation: evaluation || {},
-              safety_score: safetyScore,
-              risk_level: riskLevel,
-            }, { onConflict: 'slug' })
-            if (saveErr) console.error('Save eval failed:', saveErr)
-          } catch (e: any) {
-            console.error('Save eval exception:', e?.message || e)
+          // Save to skill_evaluations — only if we have actual script to analyze
+          if (scriptContent.length > 200) {
+            try {
+              const { error: saveErr } = await sb.from('skill_evaluations').upsert({
+                slug,
+                evaluation: evaluation || {},
+                safety_score: safetyScore,
+                risk_level: riskLevel,
+              }, { onConflict: 'slug' })
+              if (saveErr) console.error('Save eval failed:', saveErr)
+            } catch {}
           }
 
           logMcpCall({action:'evaluate_skill',query:slug,user_agent:req.headers.get('user-agent')||'',ip:req.headers.get('x-forwarded-for')?.split(',')[0].trim()||req.headers.get('x-real-ip')||'',result_count:violations.length,endpoint:'mcp_post'})
