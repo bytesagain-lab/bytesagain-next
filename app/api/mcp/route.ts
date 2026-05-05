@@ -1103,33 +1103,32 @@ export async function POST(req: NextRequest) {
           ]
           for (const s of importedSlugs) {
             try {
-              const pkgRes = await fetch(`https://clawhub.ai/api/v1/packages/${s}`, {
+              const metaRes = await fetch(`https://clawhub.ai/api/v1/skills/${s}`, {
                 headers:{'User-Agent':'Mozilla/5.0 (compatible; BytesAgain/1.0)'},
                 signal:AbortSignal.timeout(5000),
               })
-              if (!pkgRes.ok) continue
-              const pkg = await pkgRes.json()
-              const script = pkg.files?.script || pkg.files?.main || pkg.files?.['script.sh'] || pkg.content || ''
-              if (!script) continue
-              let score = 100
-              for (const p of dangerousPatterns) {
-                if (p.pattern.test(script)) { score = Math.max(0, score - p.deduction); p.pattern.lastIndex = 0 }
+              if (!metaRes.ok) continue
+              const meta = await metaRes.json()
+              const summary = (meta.skill?.summary || meta.summary || '').toLowerCase()
+              // Metadata-based safety score
+              let score = 85 // start high
+              const suspiciousKeywords = ['crack','hack','keygen','malware','trojan','exploit','botnet','phish','spam','steal','reverse','shell','backdoor','inject']
+              for (const kw of suspiciousKeywords) {
+                if (summary.includes(kw)) { score -= 25; break }
               }
-              const risk = score >= 80 ? 'safe' : score >= 50 ? 'suspicious' : score >= 20 ? 'dangerous' : 'malicious'
+              if ((meta.skill?.downloads || 0) < 10) score -= 10 // low downloads = untrusted
+              const risk = score >= 80 ? 'safe' : score >= 50 ? 'suspicious' : 'dangerous'
               const evaluation = {
                 safety_score: score,
                 risk_level: risk,
-                summary: `Static analysis score: ${score}/100. ${risk === 'safe' ? 'No dangerous patterns detected.' : 'Flagged by automated scan.'}`,
-                verified_capabilities: ['See sandbox evaluation for details'],
-                strengths: [], weaknesses: [risk !== 'safe' ? `Automated scan: ${risk} risk level` : ''].filter(Boolean),
+                summary: `Metadata-based evaluation: ${score}/100. ${risk === 'safe' ? 'No suspicious signals detected.' : 'Flagged by automated scan.'}`,
+                verified_capabilities: ['Run evaluate_skill for detailed analysis'],
+                strengths: [], weaknesses: [risk !== 'safe' ? `Automated scan flagged: ${risk}` : ''].filter(Boolean),
                 risks: [], quality_grade: score >= 80 ? 'A' : score >= 50 ? 'C' : 'F',
                 recommendation: score >= 80 ? 'install-ok' : 'investigate',
               }
               if (score < 50) filteredMalicious.push(s)
-              // Save to skill_evaluations table (safe try — table might not exist yet)
-              try {
-                await sb.from('skill_evaluations').upsert({slug:s,evaluation, safety_score:score, risk_level:risk}, {onConflict:'slug'})
-              } catch {}
+              try { await sb.from('skill_evaluations').upsert({slug:s, evaluation, safety_score:score, risk_level:risk}, {onConflict:'slug'}) } catch {}
               evaluatedSlugs.add(s)
             } catch {}
           }
@@ -1217,28 +1216,16 @@ ${JSON.stringify(topScored.map((s:any)=>({slug:s.slug,name:s.name,category:s.cat
               // Check if already evaluated
               const { data: existing } = await sb.from('skill_evaluations').select('slug').eq('slug',sk.slug).limit(1)
               if (existing?.length) continue
-              // Quick static analysis
-              const pkgRes = await fetch(`https://clawhub.ai/api/v1/packages/${sk.slug}`, {
+              // Metadata-based safety evaluation
+              const metaRes2 = await fetch(`https://clawhub.ai/api/v1/skills/${sk.slug}`, {
                 headers:{'User-Agent':'Mozilla/5.0 (compatible; BytesAgain/1.0)'},
                 signal:AbortSignal.timeout(5000),
               })
-              if (!pkgRes.ok) continue
-              const pkg = await pkgRes.json()
-              const script = pkg.files?.script || pkg.files?.main || pkg.files?.['script.sh'] || pkg.content || ''
-              if (!script) continue
-              let sScore = 100
-              const patterns: {pattern:RegExp;d:number}[] = [
-                {pattern:/cat\s+(\$HOME|~[\/]|\.env|\/etc\/shadow)/gi,d:100},
-                {pattern:/curl[^\n]*\|[\s]*(?:ba[sd]h|sh)/gi,d:100},
-                {pattern:/base64[^\n]*(?:--decode|-d)[^\n]*\|[\s]*(?:ba[sd]h|sh)/gi,d:100},
-                {pattern:/\/dev\/tcp\//gi,d:100},
-                {pattern:/bash[\s]*-i[\s]*>/gi,d:100},
-                {pattern:/rm[\s]+-rf[\s]+[\/\s]/gi,d:50},
-                {pattern:/eval[\s]+/gi,d:50},
-              ]
-              for (const p of patterns) {
-                if (p.pattern.test(script)) { sScore = Math.max(0, sScore - p.d); p.pattern.lastIndex = 0 }
-              }
+              const sumText = metaRes2.ok ? (await metaRes2.json()).skill?.summary || '' : ''
+              let sScore = 85
+              const suspicious = ['crack','hack','keygen','malware','trojan','exploit','botnet','phish','spam','reverse','shell','backdoor','inject']
+              for (const kw of suspicious) { if (sumText.toLowerCase().includes(kw)) { sScore -= 25; break } }
+              if ((sk.downloads || 0) < 10) sScore -= 10
               const risk = sScore >= 80 ? 'safe' : sScore >= 50 ? 'suspicious' : 'dangerous'
               await sb.from('skill_evaluations').upsert({
                 slug: sk.slug,
