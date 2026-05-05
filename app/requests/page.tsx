@@ -288,8 +288,8 @@ export default function RequestsPage() {
                 <input type="text" value={form.budget} onChange={e => setForm(p => ({ ...p, budget: e.target.value }))}
                   placeholder={t('e.g. $50, negotiable', '如：$50, 议价')} className="req-input" style={inputStyle} />
               </F>
-              <F label={t('Contact', '联系方式')}>
-                <input type="text" value={form.contact} onChange={e => setForm(p => ({ ...p, contact: e.target.value }))}
+              <F label={t('Contact (required)', '联系方式（必填）')}>
+                <input type="text" value={form.contact} onChange={e => setForm(p => ({ ...p, contact: e.target.value }))} required
                   placeholder={t('TG / Email (private)', 'TG / 邮箱（不公开）')} className="req-input" style={inputStyle} />
               </F>
               <F label={t('Image', '图片')}>

@@ -776,15 +776,15 @@ export async function POST(req: NextRequest) {
             query: { type: 'string', description: 'User goal or blocker. Example: "upgrade AI website SEO", "ecommerce product listing agent", "improve my agent workflow".' }
           }, required: ['query'] } },
         { name: 'submit_request',
-          description: 'Submit a new skill request to the BytesAgain community wall. Use when a user asks to publish a request for an AI skill they need. Creates a public entry on the requests wall. Sends notification to site admin. Input: title (one-line summary), request (10-800 chars), platform (optional), budget (optional), contact (optional, kept private), nickname (optional display name).',
+          description: 'Submit a new skill request to the BytesAgain community wall. Use when a user asks to publish a request for an AI skill they need. Creates a public entry on the requests wall. Sends notification to site admin. Input: title (one-line summary), request (10-800 chars), platform (optional), budget (optional), contact (required — email/TG for follow-up, kept private), nickname (optional display name).',
           inputSchema: { type: 'object', properties: {
             title: { type: 'string', description: 'One-line summary of the requested skill.' },
             request: { type: 'string', description: 'Detailed description of the skill needed — features, use case, and requirements. 10-800 characters.' },
             platform: { type: 'string', description: 'Target AI platform: OpenClaw, Claude Desktop, Cursor, Codex CLI, Copilot, Gemini CLI, or Other.' },
             budget: { type: 'string', description: 'Budget for the request, e.g. "$50" or "议价".' },
-            contact: { type: 'string', description: 'Contact info (email/TG) — kept private, not shown publicly.' },
+            contact: { type: 'string', description: 'Contact info (email/TG) — REQUIRED. Kept private, not shown publicly.' },
             nickname: { type: 'string', description: 'Display name shown publicly on the wall.' }
-          }, required: ['request'] } },
+          }, required: ['request', 'contact'] } },
         { name: 'list_requests',
           description: 'Get recent skill requests from the BytesAgain community wall, newest first. Returns id, title, request text, platform, budget, nickname, view_count, and created_at. Contact info is excluded for privacy. Optionally filter by keyword in title or request text.',
           inputSchema: { type: 'object', properties: {

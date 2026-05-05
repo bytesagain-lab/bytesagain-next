@@ -6,7 +6,8 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
   const sb = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
 
   // 浏览量 +1
-  await sb.rpc('increment_view', { row_id: parseInt(id) }).then(undefined, () => {})
+  const { data: cur } = await sb.from('skill_requests').select('view_count').eq('id', parseInt(id)).single()
+  await sb.from('skill_requests').update({ view_count: (cur?.view_count || 0) + 1 }).eq('id', parseInt(id))
 
   const { data, error } = await sb
     .from('skill_requests')
