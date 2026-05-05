@@ -1335,7 +1335,7 @@ Output valid JSON ONLY — no markdown, no explanation, exactly this structure:
   },
   "article": {
     "title": "Compelling blog post title for ${query} (6-12 words)",
-    "content": "Full 800-1200 word article in markdown. Structure: ## Executive Summary (2-3 sentences), ## Why This Matters (2-3 paragraphs), ## The Skill Stack (for EACH selected skill: ### [Skill name] — 1-line intro + 2-3 paragraphs of setup/usage/results + > **Tip:** callout), ## Getting Started (\\`clawhub install <slug>\\` for each skill), ## Real-World Results (1-2 paragraphs with specific metrics), ## Next Steps (call to action).\n\nIMPORTANT: In the article, include this image at the start: ![${query} cover image](${imgUrl})\nAlso link to the use case page: [View the complete use case for ${query}](${ucUrl})\nUse natural helpful tone, not salesy."
+    "content": "Full 800-1200 word article in markdown. Structure: ## Executive Summary (2-3 sentences), ## Why This Matters (2-3 paragraphs), ## The Skill Stack (for EACH selected skill: ### [Skill name] — 1-line intro + 2-3 paragraphs of setup/usage/results + > **Tip:** callout), ## Getting Started (\`clawhub install <slug>\` for each skill), ## Real-World Results (1-2 paragraphs with specific metrics), ## Next Steps (call to action).\n\nIMPORTANT: In the article, include this image at the start: ![${query} cover image](${imgUrl})\nAlso link to the use case page: [View the complete use case for ${query}](${ucUrl})\nUse natural helpful tone, not salesy."
   },
   "tweets": [
     {"tweet": "Tweet draft 1 for ${query} — promotional, includes key benefit, emojis. Max 280 chars. Include link: ${ucUrl}"},
@@ -1373,7 +1373,7 @@ ALL fields required. DO NOT wrap in markdown. Output ONLY the JSON.`
           if (!article) {
             article = {
               title: `How to Use AI for ${query.charAt(0).toUpperCase()+query.slice(1)}`,
-              content: `# ${query.charAt(0).toUpperCase()+query.slice(1)}\n\n![${query} cover](${imgUrl})\n\nAI can help you automate **${query}**. Here are the essential skills.\n\n## The Skill Stack\n\n${skillDetails.map((s:any,i:number)=>`### ${i+1}. ${s.name}\n${s.reason}\n\nInstall: \\`clawhub install ${s.slug}\\``).join('\n\n')}\n\n## Getting Started\n\nCheck out the [complete use case for ${query}](${ucUrl}).\n\nStart using these skills today.`
+              content: `# ${query.charAt(0).toUpperCase()+query.slice(1)}\n\n![${query} cover](${imgUrl})\n\nAI can help you automate **${query}**. Here are the essential skills.\n\n## The Skill Stack\n\n${skillDetails.map((s:any,i:number)=>`### ${i+1}. ${s.name}\n${s.reason}\n\nInstall: \`clawhub install ${s.slug}\``).join('\n\n')}\n\n## Getting Started\n\nCheck out the [complete use case for ${query}](${ucUrl}).\n\nStart using these skills today.`
             }
           }
           if (!tweets.length) {
