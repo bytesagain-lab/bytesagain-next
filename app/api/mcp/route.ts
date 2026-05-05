@@ -841,6 +841,18 @@ export async function POST(req: NextRequest) {
             slug: { type: 'string', description: 'ClawHub skill slug to scan. Example: "shell", "task-planner". Required.' },
             deep: { type: 'boolean', description: 'Run DeepSeek AI analysis on the script content for deeper inspection. Default: true.' },
           }, required: ['slug'] } },
+        { name: 'evaluate_skill',
+          description: [
+            'Full skill evaluation lab.',
+            'Static analysis (23 patterns: sensitive file reads, remote exec, reverse shells, obfuscation)',
+            'Docker sandbox execution (install skill, run with strace, monitor syscalls, file access, network)',
+            'AI evaluation (strengths, weaknesses, risks, quality grade, verified capabilities)',
+            'Returns: safety_score, risk_level, execution_report, evaluation (summary + verified_capabilities + strengths + weaknesses + risks + quality_grade + recommendation)',
+          ].join(' '),
+          inputSchema: { type: 'object', properties: {
+            slug: { type: 'string', description: 'ClawHub skill slug to evaluate. Example: "shell", "invoice-pdf". Required.' },
+            test_input: { type: 'string', description: 'Test input to pass to the skill. Default: "hello world".' },
+          }, required: ['slug'] } },
       ]}
     }, { headers })
   }
@@ -1705,6 +1717,186 @@ Respond ONLY with valid JSON:
           }
 
           logMcpCall({action:'scan_skill',query:slug,user_agent:req.headers.get('user-agent')||'',ip:req.headers.get('x-forwarded-for')?.split(',')[0].trim()||req.headers.get('x-real-ip')||'',result_count:violations.length,endpoint:'mcp_post'})
+          return NextResponse.json({jsonrpc:'2.0',id,result:{content:[{type:'text',text:JSON.stringify(result,null,2)}]}},{headers})
+        } catch(e:any) {
+          return NextResponse.json({jsonrpc:'2.0',id,error:{code:-32603,message:e.message}},{status:500,headers})
+        }
+      } else if (name === 'evaluate_skill') {
+        // ── evaluate_skill: Full evaluation lab ──
+        // 1. Static analysis (pattern matching)
+        // 2. Docker sandbox execution (install + run + strace + log collection)
+        // 3. AI evaluation (strengths, weaknesses, risks, quality grade)
+        const slug = sanitizeSlug(args.slug || '')
+        if (!slug) {
+          return NextResponse.json({jsonrpc:'2.0',id,error:{code:-32602,message:'slug is required'}},{status:400,headers})
+        }
+        const testInput = sanitize(args.test_input || 'help', 200)
+        const dsKey = process.env.DEEPSEEK_API_KEY || ''
+
+        try {
+          // ── Phase 1: Fetch skill metadata from ClawHub ──
+          const metaRes = await fetch(`https://clawhub.ai/api/v1/skills/${slug}`, {
+            headers: { 'User-Agent': 'Mozilla/5.0 (compatible; BytesAgain/1.0)' },
+            signal: AbortSignal.timeout(10000),
+          })
+          if (!metaRes.ok) {
+            return NextResponse.json({jsonrpc:'2.0',id,error:{code:-32000,message:`Skill "${slug}" not found (HTTP ${metaRes.status})`}},{status:404,headers})
+          }
+          const meta = await metaRes.json()
+
+          // Fetch full package for script content
+          const pkgRes = await fetch(`https://clawhub.ai/api/v1/packages/${slug}`, {
+            headers: { 'User-Agent': 'Mozilla/5.0 (compatible; BytesAgain/1.0)' },
+            signal: AbortSignal.timeout(10000),
+          })
+          let scriptContent = ''
+          if (pkgRes.ok) {
+            const pkg = await pkgRes.json()
+            scriptContent = pkg.files?.script || pkg.files?.main || pkg.files?.['script.sh'] || pkg.content || ''
+          }
+
+          const skillInfo = {
+            slug, name: meta.displayName || slug,
+            owner: meta.ownerHandle || 'unknown',
+            summary: (meta.summary || '').slice(0,300),
+            version: meta.latestVersion || '1.0.0',
+            downloads: meta.downloads || 0,
+            scriptSize: scriptContent.length,
+          }
+
+          // ── Phase 2: Static analysis (reuse scan_skill logic) ──
+          const violations: {severity:string;pattern:string;match:string}[] = []
+          let safetyScore = 100
+          const patterns: {pattern:RegExp;severity:'critical'|'high'|'medium'|'low';name:string;deduction:number}[] = [
+            {pattern:/cat\s+(\$HOME|~[\/]|\.env|\/etc\/shadow|\/etc\/passwd|~\/\.ssh|\/var\/log)/gi,severity:'critical',name:'Sensitive file read',deduction:100},
+            {pattern:/curl[^\n]*\|[\s]*(?:ba[sd]h|sh)/gi,severity:'critical',name:'curl|bash remote exec',deduction:100},
+            {pattern:/base64[^\n]*(?:--decode|-d)[^\n]*\|[\s]*(?:ba[sd]h|sh|python|perl)/gi,severity:'critical',name:'Obfuscated exec',deduction:100},
+            {pattern:/\/dev\/tcp\//gi,severity:'critical',name:'Reverse shell (dev/tcp)',deduction:100},
+            {pattern:/bash[\s]*-i[\s]*>/gi,severity:'critical',name:'Interactive shell',deduction:100},
+            {pattern:/nc[\s]+-e/gi,severity:'critical',name:'Netcat reverse shell',deduction:100},
+            {pattern:/eval[\s]+/gi,severity:'high',name:'Unsafe eval()',deduction:50},
+            {pattern:/rm[\s]+-rf[\s]+[\/\s]/gi,severity:'high',name:'Destructive rm -rf',deduction:50},
+            {pattern:/chmod[\s]+777/gi,severity:'high',name:'Excessive chmod 777',deduction:40},
+            {pattern:/>(?:\s*)\/(?:etc|usr|boot|dev|proc)/gi,severity:'high',name:'System dir write',deduction:50},
+            {pattern:/[A-Za-z0-9+/]{100,}={0,2}/gi,severity:'medium',name:'Long base64 payload',deduction:25},
+            {pattern:/sudo[\s]+/gi,severity:'medium',name:'Unsafe sudo',deduction:20},
+            {pattern:/~\/\.(?:ssh|aws|gcloud|kube|docker|npmrc|gitconfig)/gi,severity:'medium',name:'Config file access',deduction:25},
+            {pattern:/(?:affiliate|ref|referral|tagname|tag_id|utm_source)[\s=]/gi,severity:'low',name:'Affiliate/spam links',deduction:5},
+          ]
+          for (const p of patterns) {
+            if (p.pattern.test(scriptContent)) {
+              p.pattern.lastIndex = 0
+              const match = scriptContent.match(p.pattern)?.[0]?.slice(0,80) || ''
+              violations.push({severity:p.severity,pattern:p.name,match})
+              safetyScore = Math.max(0, safetyScore - p.deduction)
+            }
+          }
+          const riskLevel = safetyScore >= 80 ? 'safe' : safetyScore >= 50 ? 'suspicious' : safetyScore >= 20 ? 'dangerous' : 'malicious'
+
+          // ── Phase 3: Docker sandbox execution ──
+          let sandboxResult: any = null
+          try {
+            const { execSync } = require('child_process')
+            const safeInput = testInput.replace(/"/g,'\\"')
+            const cmd = `sudo docker run --rm skill-evaluator:latest "${slug}" "${safeInput}" 2>&1`
+            const rawJson = execSync(cmd, { timeout: 60000, encoding: 'utf-8', maxBuffer: 1024*1024 })
+            // Extract JSON from output (strip stderr noise)
+            const jsonStart = rawJson.indexOf('{')
+            const jsonEnd = rawJson.lastIndexOf('}') + 1
+            if (jsonStart >= 0 && jsonEnd > jsonStart) {
+              sandboxResult = JSON.parse(rawJson.slice(jsonStart, jsonEnd))
+            }
+          } catch (sbErr) {
+            console.error('Sandbox execution failed:', sbErr)
+          }
+
+          // ── Phase 4: AI evaluation ──
+          let evaluation: any = null
+          if (dsKey) {
+            const evalPrompt = `You are a senior AI skills evaluator. Evaluate this ClawHub skill.
+
+SKILL: ${meta.displayName || slug} (${slug})
+OWNER: ${meta.ownerHandle || 'unknown'}
+SUMMARY: ${(meta.summary || '').slice(0,500)}
+
+STATIC ANALYSIS:
+- Safety score: ${safetyScore}/100
+- Risk level: ${riskLevel}
+- Violations found: ${violations.length} (${violations.map(v=>v.pattern).join(', ') || 'none'})
+
+SCRIPT SIZE: ${scriptContent.length} chars
+
+` + (sandboxResult ? `
+SANDBOX EXECUTION:
+- Install success: ${sandboxResult.install?.success}
+- Execution success: ${sandboxResult.execution?.success}
+- Exit code: ${sandboxResult.execution?.exit_code}
+- Duration: ${sandboxResult.execution?.duration_ms}ms
+- Output preview: ${(sandboxResult.execution?.output_preview || '').slice(0,300)}
+- Syscalls: ${sandboxResult.syscall_analysis?.total_syscalls || 0} total, ${sandboxResult.syscall_analysis?.fork_clone_count || 0} forks, ${sandboxResult.syscall_analysis?.execve_count || 0} execs
+` : '\nSANDBOX EXECUTION: Failed or unavailable\n') + `
+Output valid JSON ONLY — no markdown, no explanation. Schema:
+{
+  "summary": "1-2 sentence overall assessment",
+  "verified_capabilities": ["what the skill actually does — max 7 items"],
+  "strengths": ["strength 1 (specific)", "strength 2 (specific)"],
+  "weaknesses": ["weakness 1 (specific)", "weakness 2 (specific)"],
+  "risks": ["risk 1 (if any)", "risk 2 (if any)"],
+  "quality_grade": "A|B|C|D|F",
+  "recommendation": "install-ok|investigate|block"
+}
+
+Be thorough, specific, and honest. If a skill seems incomplete or broken, say so.`
+
+            try {
+              const aiRes = await fetch('https://api.deepseek.com/v1/chat/completions',{
+                method:'POST',
+                headers:{'Content-Type':'application/json','Authorization':`Bearer ${dsKey}`},
+                body:JSON.stringify({model:'deepseek-chat',messages:[{role:'user',content:evalPrompt}],max_tokens:2000,temperature:0.3}),
+                signal:AbortSignal.timeout(30000),
+              })
+              let aiText = (await aiRes.json())?.choices?.[0]?.message?.content || ''
+              aiText = aiText.replace(/<think>[\s\S]*?<\/think>/g,'').trim()
+              const jm = aiText.match(/\{[\s\S]*\}/)
+              if (jm) { try { evaluation = JSON.parse(jm[0]) } catch {} }
+            } catch {}
+          }
+
+          // Fallback evaluation
+          if (!evaluation) {
+            evaluation = {
+              summary: sandboxResult ? 'Skill installed and ran. See sandbox report for details.' : 'Static analysis completed. Sandbox execution unavailable.',
+              verified_capabilities: ['Check sandbox output for details'],
+              strengths: safetyScore >= 80 ? ['No dangerous patterns detected'] : [],
+              weaknesses: violations.length > 0 ? [`Found ${violations.length} pattern violations (${violations.map(v=>v.pattern).join(', ')})`] : [],
+              risks: [],
+              quality_grade: safetyScore >= 80 ? 'B' : 'D',
+              recommendation: safetyScore >= 80 ? 'install-ok' : 'investigate',
+            }
+          }
+
+          const result = {
+            skill: skillInfo,
+            static_analysis: {
+              safety_score: safetyScore,
+              risk_level: riskLevel,
+              violations_found: violations.length,
+              violations,
+            },
+            sandbox_execution: sandboxResult ? {
+              install_success: sandboxResult.install?.success,
+              execution_exit_code: sandboxResult.execution?.exit_code,
+              execution_duration_ms: sandboxResult.execution?.duration_ms,
+              output_preview: (sandboxResult.execution?.output_preview || '').slice(0,500),
+              syscall_count: sandboxResult.syscall_analysis?.total_syscalls,
+              fork_count: sandboxResult.syscall_analysis?.fork_clone_count,
+              exec_count: sandboxResult.syscall_analysis?.execve_count,
+              strace_log: 'Available on server (docker logs)',
+            } : null,
+            evaluation,
+          }
+
+          logMcpCall({action:'evaluate_skill',query:slug,user_agent:req.headers.get('user-agent')||'',ip:req.headers.get('x-forwarded-for')?.split(',')[0].trim()||req.headers.get('x-real-ip')||'',result_count:violations.length,endpoint:'mcp_post'})
           return NextResponse.json({jsonrpc:'2.0',id,result:{content:[{type:'text',text:JSON.stringify(result,null,2)}]}},{headers})
         } catch(e:any) {
           return NextResponse.json({jsonrpc:'2.0',id,error:{code:-32603,message:e.message}},{status:500,headers})

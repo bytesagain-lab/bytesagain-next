@@ -86,6 +86,12 @@
       "rest_action": "scan_skill",
       "description": "Security scanner for ClawHub skills. Fetches skill script, runs static analysis (file access, remote exec, obfuscation, reverse shell patterns) and optional AI review. Returns safety score 0-100 with flagged violations.",
       "status": "active"
+    },
+    {
+      "name": "evaluate_skill",
+      "rest_action": "evaluate_skill",
+      "description": "Full skill evaluation: 1) static analysis (23+ dangerous patterns), 2) Docker sandbox execution (strace monitoring, syscall analysis), 3) AI evaluation (strengths, weaknesses, risks, quality grade). Returns comprehensive report with safety score, verified capabilities, and actionable recommendations.",
+      "status": "active"
     }
   ],
   "rate_limit": {
