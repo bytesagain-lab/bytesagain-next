@@ -17,6 +17,10 @@ export interface Skill {
   description: string
   category: string
   downloads: number
+  installs_current?: number
+  installs_all_time?: number
+  stars?: number
+  comment_count?: number
   version: string
   owner: string
   is_ours?: boolean

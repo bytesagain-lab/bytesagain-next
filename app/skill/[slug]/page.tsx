@@ -246,10 +246,22 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
                 <span className="meta-value">{skill.downloads?.toLocaleString()}</span>
               </div>
             )}
+            {((skill as any).installs_all_time ?? 0) > 0 && (
+              <div className="meta-item">
+                <span className="meta-label">Installs</span>
+                <span className="meta-value">{(skill as any).installs_all_time?.toLocaleString()}</span>
+              </div>
+            )}
             {(skill as any).stars > 0 && (
               <div className="meta-item">
                 <span className="meta-label">Stars</span>
                 <span className="meta-value">⭐ {(skill as any).stars?.toLocaleString()}</span>
+              </div>
+            )}
+            {((skill as any).comment_count ?? 0) > 0 && (
+              <div className="meta-item">
+                <span className="meta-label">Comments</span>
+                <span className="meta-value">{(skill as any).comment_count?.toLocaleString()}</span>
               </div>
             )}
             {tags.length > 0 && (

@@ -5,6 +5,7 @@ import { getArticle, getArticles } from '@/lib/supabase'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { marked } from 'marked'
+import ViewCounter from './ViewCounter'
 import fs from 'fs'
 import path from 'path'
 
@@ -110,6 +111,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       <p style={{ color: '#666', margin: '0 0 30px', fontSize: '.9em' }}>
         By <strong style={{ color: '#ccc' }}>{article.author_name || 'BytesAgain'}</strong>
         {displayDate && <> · {displayDateLabel} {displayDate}</>}
+        {' · '}<ViewCounter slug={slug} />
       </p>
       <div
         style={{ lineHeight: 1.8, fontSize: '1.05em', background: '#111133', borderRadius: 16, padding: '30px 36px', border: '1px solid #1a1a3e' }}
