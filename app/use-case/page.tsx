@@ -1,4 +1,4 @@
-export const revalidate = 60  // 临时缩短缓存，更新后恢复
+export const revalidate = 3600  // revalidate every hour
 
 import { createClient } from '@supabase/supabase-js'
 import type { Metadata } from 'next'
