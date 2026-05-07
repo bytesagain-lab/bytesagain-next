@@ -99,3 +99,4 @@ export async function getCategories(): Promise<string[]> {
   const cats = [...new Set(data.map((d: any) => d.category).filter(Boolean))] as string[]
   return cats.sort()
 }
+// redeploy Thu May  7 10:27:32 PM CST 2026
