@@ -67,9 +67,21 @@ export async function fetchSkillDesc(slug: string): Promise<SkillDescData> {
     } catch {}
   }
 
-  // Try GitHub raw sources
+  // Try Supabase Storage first (fastest — local cached SKILL.md)
   let fullMd: string | null = null
-  if (owner) {
+  try {
+    const storageRes = await fetch(
+      `${SB_URL}/storage/v1/object/public/skill-md/${encodeURIComponent(slug)}.md`,
+      { next: { revalidate: 86400 } }
+    )
+    if (storageRes.ok) {
+      const text = await storageRes.text()
+      if (text && text.length > 100) fullMd = text
+    }
+  } catch {}
+
+  // Fallback: GitHub raw sources
+  if (!fullMd && owner) {
     for (const branch of ['main', 'master']) {
       fullMd = await tryFetch(
         `https://raw.githubusercontent.com/openclaw/skills/${branch}/skills/${owner}/${slug}/SKILL.md`
