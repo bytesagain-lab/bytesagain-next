@@ -134,21 +134,22 @@ export default async function SkillsPage({
   const rawQ = (sp.q || '').trim()
   const from = (page - 1) * PAGE_SIZE
 
-  // 多词查询取主要词（最长词），避免 AND 过严导致空结果
+  // 多词时保留完整查询作为 FTS 搜索词，truncated q 仅用于 ilike 后备
   const words = rawQ.split(/\s+/).filter(Boolean)
   const q = words.length > 1
     ? words.reduce((a, b) => a.length >= b.length ? a : b, words[0])
     : rawQ
+  const ftsQuery = rawQ.replace(/-/g, ' ') // 完整多词传给 FTS
 
   // 有搜索词时用全文搜索 RPC（更准确），否则用 skills_list 翻页
   let skills: any[] = []
   let total = 55000
 
-  if (q) {
+  if (rawQ) {
     try {
       // 全文搜索：不支持翻页，直接返回 top N
       const { data: ftsData } = await supabase.rpc('fts_search_skills', {
-        query_text: q.replace(/-/g, ' '), // api-generator → api generator
+        query_text: ftsQuery, // 用完整多词查询
         match_count: 200
       })
       let results = ftsData || []
