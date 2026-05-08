@@ -4,6 +4,16 @@ import Link from 'next/link'
 
 const PAGE = 48
 
+const SOURCE_BADGE: Record<string, { label: string; color: string; emoji: string }> = {
+  clawhub:    { label: 'ClawHub',    color: '#667eea', emoji: '🦀' },
+  github:     { label: 'GitHub',     color: '#444',    emoji: '⭐' },
+  bytesagain: { label: 'BytesAgain', color: '#00d4ff', emoji: '✦' },
+  lobehub:    { label: 'LobeHub',    color: '#7c3aed', emoji: '🤖' },
+  dify:       { label: 'Dify',       color: '#f59e0b', emoji: '🔧' },
+  mcp:        { label: 'MCP',        color: '#00c853', emoji: '🔌' },
+  official:   { label: 'Official',   color: '#10b981', emoji: '✅' },
+}
+
 export default function SkillSearchResults({ initialSkills, query }: {
   initialSkills: any[]
   query: string
@@ -43,6 +53,9 @@ export default function SkillSearchResults({ initialSkills, query }: {
         {skills.map((skill: any) => {
           const isGithub = skill._source === 'github' || skill.source === 'github'
           const isOurs = skill.is_ours
+          // Determine source: FTS results may not have source field, default to clawhub
+          const src = (skill.source || skill._source || 'clawhub') as string
+          const badge = SOURCE_BADGE[src] || SOURCE_BADGE.clawhub
           const skillLink = isGithub 
             ? (skill.github_url || `https://github.com/${skill.github_owner}/${skill.github_repo}`)
             : `/skill/${skill.slug}`
@@ -56,42 +69,34 @@ export default function SkillSearchResults({ initialSkills, query }: {
                 height: '100%',
                 transition: 'border-color .2s',
               }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
-                  <span style={{ fontWeight: 700, color: '#e0e0e0', fontSize: '.95em', lineHeight: 1.3, flex: 1 }}>
-                    {skill.name || skill.slug}
+                {/* Source badge row */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+                  <span style={{ fontSize: '.72em', background: badge.color, color: '#fff', borderRadius: 20, padding: '2px 8px', fontWeight: 600 }}>
+                    {badge.emoji} {badge.label}
                   </span>
-                  {isOurs && (
-                    <span style={{ fontSize: '.68em', color: '#00d4ff', background: '#00d4ff18', border: '1px solid #00d4ff33', borderRadius: 20, padding: '1px 7px', fontWeight: 600, marginLeft: 8, flexShrink: 0 }}>
-                      ours
-                    </span>
-                  )}
-                </div>
-                <div style={{ color: '#555', fontSize: '.82em', lineHeight: 1.5, marginBottom: 10 }}>
-                  {(skill.description || '').slice(0, 100)}…
-                </div>
-                <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                  {skill.category && !isGithub && (
-                    <span style={{ fontSize: '.72em', color: '#667eea', background: '#667eea15', borderRadius: 20, padding: '2px 8px', fontWeight: 600 }}>
-                      {skill.category}
-                    </span>
-                  )}
-                  {isGithub && (
-                    <span style={{ fontSize: '.72em', color: '#64748b', background: '#64748b15', borderRadius: 20, padding: '2px 8px', fontWeight: 600 }}>
-                      GitHub
-                    </span>
-                  )}
-                  {(skill.downloads ?? 0) > 0 && (
-                    <span style={{ fontSize: '.72em', color: '#555', marginLeft: 'auto' }}>
+                  {(skill.downloads ?? 0) > 0 && !isGithub && (
+                    <span style={{ fontSize: '.75em', color: '#555' }}>
                       {Number(skill.downloads) >= 1000
                         ? `${(Number(skill.downloads) / 1000).toFixed(1)}k`
                         : skill.downloads} dl
                     </span>
                   )}
                   {isGithub && (skill.stars ?? 0) > 0 && (
-                    <span style={{ fontSize: '.72em', color: '#555', marginLeft: 'auto' }}>
+                    <span style={{ fontSize: '.75em', color: '#555' }}>
                       ⭐ {(skill.stars >= 1000 ? `${(skill.stars/1000).toFixed(1)}k` : skill.stars)}
                     </span>
                   )}
+                </div>
+                <div style={{ fontWeight: 700, color: '#e0e0e0', fontSize: '.95em', marginBottom: 6, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  {skill.name || skill.slug}
+                  {isOurs && (
+                    <span style={{ fontSize: '.68em', color: '#00d4ff', background: '#00d4ff18', border: '1px solid #00d4ff33', borderRadius: 20, padding: '1px 7px', fontWeight: 600, marginLeft: 8 }}>
+                      ✦ BytesAgain
+                    </span>
+                  )}
+                </div>
+                <div style={{ color: '#555', fontSize: '.82em', lineHeight: 1.5, marginBottom: 10, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                  {skill.description || '—'}
                 </div>
               </div>
             </a>
