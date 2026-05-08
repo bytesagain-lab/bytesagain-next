@@ -86,6 +86,22 @@ export async function fetchSkillDesc(slug: string): Promise<SkillDescData> {
     }
   }
 
+  // Fallback: fetch SKILL.md from ClawHub API (handles skills not backed up on GitHub)
+  if (!fullMd) {
+    try {
+      const apiRes = await fetch(`https://clawhub.ai/api/v1/skills/${encodeURIComponent(slug)}`, {
+        next: { revalidate: 3600 },
+      })
+      if (apiRes.ok) {
+        const apiData = await apiRes.json()
+        const skillMarkdown = apiData?.latestVersion?.skillMarkdown
+        if (skillMarkdown && skillMarkdown.length > 200) {
+          fullMd = skillMarkdown
+        }
+      }
+    } catch {}
+  }
+
   // Fetch script.sh
   let script: string | null = null
   if (owner) {
