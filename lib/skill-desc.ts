@@ -22,11 +22,14 @@ export interface SkillDescData {
     configuration: string | null
     tips: string | null
     script: string | null
+    when_to_use: string | null
+    core_types: string | null
+    constraints: string | null
   }
 }
 
 export async function fetchSkillDesc(slug: string): Promise<SkillDescData> {
-  const empty = { summary: null, full_description: null, sections: { examples: null, configuration: null, tips: null, script: null } }
+  const empty = { summary: null, full_description: null, sections: { examples: null, configuration: null, tips: null, script: null, when_to_use: null, core_types: null, constraints: null } }
   if (!slug) return empty
 
   const headers = { 'apikey': ANON_KEY, 'Authorization': `Bearer ${ANON_KEY}` }
@@ -98,7 +101,7 @@ export async function fetchSkillDesc(slug: string): Promise<SkillDescData> {
   const summary = descMatch ? descMatch[1] : dbDesc
 
   // Parse sections
-  const sections = fullMd ? parseMarkdownSections(fullMd) : { examples: null, configuration: null, tips: null }
+  const sections = fullMd ? parseMarkdownSections(fullMd) : { examples: null, configuration: null, tips: null, when_to_use: null, core_types: null, constraints: null }
 
   return {
     summary,
@@ -107,7 +110,14 @@ export async function fetchSkillDesc(slug: string): Promise<SkillDescData> {
   }
 }
 
-function parseMarkdownSections(md: string): { examples: string | null; configuration: string | null; tips: string | null } {
+function parseMarkdownSections(md: string): {
+  examples: string | null
+  configuration: string | null
+  tips: string | null
+  when_to_use: string | null
+  core_types: string | null
+  constraints: string | null
+} {
   function extractSection(headings: string[]): string | null {
     for (const h of headings) {
       const regex = new RegExp(`##\\s+${h}\\s*\\n([\\s\\S]*?)(?=\\n##\\s|$)`, 'i')
@@ -123,5 +133,8 @@ function parseMarkdownSections(md: string): { examples: string | null; configura
     examples: extractSection(['Examples?', 'Usage', 'Quick Start', 'Getting Started']),
     configuration: extractSection(['Configuration', 'Config', 'Options', 'Settings', 'Setup', 'Prerequisites']),
     tips: extractSection(['Tips', 'Best Practices', 'Notes', 'Troubleshooting', 'FAQ', '常见问题']),
+    when_to_use: extractSection(['When to Use', 'Trigger Action', 'Use Cases', 'When Should I Use This?']),
+    core_types: extractSection(['Core Types', 'Types', 'Type System', 'Entity Types', 'Schema']),
+    constraints: extractSection(['Constraints', 'Rules', 'Validation', 'Constraint Rules']),
   }
 }

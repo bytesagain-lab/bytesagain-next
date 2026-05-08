@@ -220,6 +220,7 @@ def process_table(
         print(f'\n[{table}] ✅ No records to process (all embeddings present)')
         return stats
 
+    EMBED_BATCH = 10  # DashScope batch limit
     total = len(rows)
     for batch_start in range(0, total, batch_size):
         batch = rows[batch_start:batch_start + batch_size]
@@ -245,11 +246,21 @@ def process_table(
             stats['skipped'] += len(batch)
             continue
 
-        # 调用 DashScope
-        embeddings = call_dashscope(texts)
-        if embeddings is None:
-            # 失败则逐条重试
-            print(f'  Batch failed, retrying one-by-one...')
+        # 调用 DashScope — 按 EMBED_BATCH 分批（API 限制最多10条/次）
+        all_embeddings: list[list[float]] = []
+        sub_failed = False
+        for sub_start in range(0, len(texts), EMBED_BATCH):
+            sub_texts = texts[sub_start:sub_start + EMBED_BATCH]
+            sub_embeddings = call_dashscope(sub_texts)
+            if sub_embeddings is None:
+                sub_failed = True
+                break
+            all_embeddings.extend(sub_embeddings)
+            time.sleep(0.3)  # DashScope QPS limit
+
+        if sub_failed:
+            # 逐条重试
+            print(f'  Sub-batch failed, retrying one-by-one...')
             for i, row in enumerate(batch):
                 single = call_dashscope([texts[i]])
                 if single:
@@ -267,7 +278,7 @@ def process_table(
         # 批量写回
         for i, row in enumerate(batch):
             rid = row[id_col]
-            ok = sb_patch(table, id_col, rid, embeddings[i])
+            ok = sb_patch(table, id_col, rid, all_embeddings[i])
             if ok:
                 stats['processed'] += 1
             else:
