@@ -2,9 +2,18 @@
 
 import { useEffect, useState, useRef } from 'react'
 
+interface Sections {
+  examples: string | null
+  configuration: string | null
+  tips: string | null
+  script?: string | null
+}
+
 interface Props {
   slug: string
   owner: string
+  sections?: Sections
+  fullDesc?: string | null
 }
 
 function renderMarkdown(md: string): string {
@@ -19,19 +28,21 @@ function renderMarkdown(md: string): string {
     .replace(/\*\*(.+?)\*\*/g, '<strong style="color:#e5e7eb">$1</strong>')
     .replace(/`([^`]+)`/g, '<code style="background:#0d0d1e;color:#a5f3fc;padding:1px 5px;border-radius:3px;font-size:.88em">$1</code>')
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, t, u) => `<a href="${u}" target="_blank" rel="noopener" style="color:#6366f1">${t}</a>`)
+    .replace(/^- (.+)$/gm, '<li style="color:#94a3b8;margin:3px 0">$1</li>')
     .replace(/\n{2,}/g, '</p><p style="margin:8px 0">')
 
   return `<p style="margin:8px 0">${html}</p>`
 }
 
-export default function FullSkillDescription({ slug, owner }: Props) {
-  const [fullDesc, setFullDesc] = useState<string | null>(null)
+export default function FullSkillDescription({ slug, owner, sections, fullDesc }: Props) {
+  const [fetchedDesc, setFetchedDesc] = useState<string | null>(fullDesc || null)
   const [loading, setLoading] = useState(false)
   const [expanded, setExpanded] = useState(false)
   const fetchedRef = useRef(false)
 
   useEffect(() => {
     if (!expanded || fetchedRef.current || !owner) return
+    if (fetchedDesc) { fetchedRef.current = true; return } // already have it from props
     fetchedRef.current = true
     setLoading(true)
 
@@ -39,17 +50,76 @@ export default function FullSkillDescription({ slug, owner }: Props) {
       .then(r => r.json())
       .then(data => {
         if (data.full_description && data.full_description.length > 200) {
-          setFullDesc(data.full_description)
+          setFetchedDesc(data.full_description)
         }
         setLoading(false)
       })
       .catch(() => setLoading(false))
-  }, [expanded, slug, owner])
+  }, [expanded, slug, owner, fetchedDesc])
 
   if (!owner) return null
 
+  const showSections = sections && (sections.examples || sections.configuration || sections.tips)
+
   return (
     <div style={{ marginBottom: 14 }}>
+      {/* -- Structured Sections (if available from props) -- */}
+      {showSections && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 8, marginBottom: 12 }}>
+          {sections!.examples && (
+            <div style={{
+              background: '#070714', border: '1px solid #1e1e3f', borderRadius: 12,
+              padding: '16px 18px',
+            }}>
+              <div style={{ color: '#22d3ee', fontSize: '.82em', fontWeight: 700, marginBottom: 10, display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span>💡</span> Examples
+              </div>
+              <div style={{
+                fontSize: '.85em', lineHeight: 1.65, color: '#94a3b8',
+                maxHeight: 400, overflowY: 'auto',
+              }}
+                dangerouslySetInnerHTML={{ __html: renderMarkdown(sections!.examples!) }}
+              />
+            </div>
+          )}
+
+          {sections!.configuration && (
+            <div style={{
+              background: '#070714', border: '1px solid #1e1e3f', borderRadius: 12,
+              padding: '16px 18px',
+            }}>
+              <div style={{ color: '#fbbf24', fontSize: '.82em', fontWeight: 700, marginBottom: 10, display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span>⚙️</span> Configuration
+              </div>
+              <div style={{
+                fontSize: '.85em', lineHeight: 1.65, color: '#94a3b8',
+                maxHeight: 400, overflowY: 'auto',
+              }}
+                dangerouslySetInnerHTML={{ __html: renderMarkdown(sections!.configuration!) }}
+              />
+            </div>
+          )}
+
+          {sections!.tips && (
+            <div style={{
+              background: '#070714', border: '1px solid #1e1e3f', borderRadius: 12,
+              padding: '16px 18px',
+            }}>
+              <div style={{ color: '#a78bfa', fontSize: '.82em', fontWeight: 700, marginBottom: 10, display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span>📋</span> Tips &amp; Best Practices
+              </div>
+              <div style={{
+                fontSize: '.85em', lineHeight: 1.65, color: '#94a3b8',
+                maxHeight: 400, overflowY: 'auto',
+              }}
+                dangerouslySetInnerHTML={{ __html: renderMarkdown(sections!.tips!) }}
+              />
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* -- Full MD Toggle -- */}
       <button
         onClick={() => setExpanded(!expanded)}
         style={{
@@ -58,12 +128,12 @@ export default function FullSkillDescription({ slug, owner }: Props) {
           display: 'inline-flex', alignItems: 'center', gap: 4,
         }}
       >
-        {expanded ? '▾ Hide' : '▸ Show full description'}
+        {expanded ? '▾ Hide full description' : '▸ Show full description'}
       </button>
       {expanded && loading && (
         <div style={{ color: '#4b5563', fontSize: '.82em', padding: '8px 0' }}>Loading...</div>
       )}
-      {expanded && !loading && fullDesc && (
+      {expanded && !loading && fetchedDesc && (
         <div style={{
           marginTop: 8,
           background: '#050510', border: '1px solid #1e1e3f', borderRadius: 10,
@@ -71,10 +141,10 @@ export default function FullSkillDescription({ slug, owner }: Props) {
           maxHeight: 500, overflowY: 'auto',
           padding: '14px 16px',
         }}
-          dangerouslySetInnerHTML={{ __html: renderMarkdown(fullDesc) }}
+          dangerouslySetInnerHTML={{ __html: renderMarkdown(fetchedDesc) }}
         />
       )}
-      {expanded && !loading && !fullDesc && (
+      {expanded && !loading && !fetchedDesc && (
         <div style={{ color: '#4b5563', fontSize: '.82em', padding: '8px 0' }}>
           <a href={`https://clawhub.ai/${owner}/${slug}`} target="_blank" rel="noopener"
              style={{ color: '#6366f1' }}>

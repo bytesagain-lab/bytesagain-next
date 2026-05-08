@@ -1,5 +1,6 @@
 export const revalidate = 86400
 import { getSkill, getSkills, getSkillEvaluation } from '@/lib/supabase'
+import { fetchSkillDesc } from '@/lib/skill-desc'
 import type { SkillEvaluationData } from '@/lib/supabase'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
@@ -91,7 +92,6 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
   const OUR_ACCOUNTS = ['ckchzh', 'xueyetianya', 'bytesagain3', 'bytesagain-lab', 'loutai0307-prog', 'bytesagain1']
   const isOurs = (skill as any).is_ours === true || OUR_ACCOUNTS.includes(skill.owner || '')
 
-  // slug 已经是 clean 格式，直接用于 install
   const installSlug = slug
   const installCmd = `clawhub install ${installSlug}`
   const canInstallWithClawHub = source !== 'github'
@@ -109,8 +109,24 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
     { name: 'Copilot Workspace', desc: 'GitHub\'s AI dev environment. Suitable for code-generation skills.', href: 'https://github.com/features/copilot', label: 'Copilot Workspace' },
   ]
 
-  // Fetch evaluation if it exists (reshallow, no new DB query if no data)
+  // Fetch evaluation if it exists
   const evaluation = await getSkillEvaluation(slug)
+
+  // Fetch SKILL.md structured data + script
+  const skillDesc = await fetchSkillDesc(slug)
+
+  // Fetch skill articles
+  let skillArticles: any[] = []
+  try {
+    const articlesRes = await fetch(`https://bytesagain.com/api/skill-articles?slug=${encodeURIComponent(slug)}`, { next: { revalidate: 3600 } })
+    if (articlesRes.ok) {
+      skillArticles = await articlesRes.json()
+    }
+  } catch {}
+
+  const hasSections = skillDesc.sections.examples || skillDesc.sections.configuration || skillDesc.sections.tips
+  const hasScript = !!skillDesc.sections.script
+  const hasArticles = skillArticles.length > 0
 
   return (
     <>
@@ -159,6 +175,9 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
         .disclaimer { margin-top: 20px; padding: 14px 18px; background: #070714; border: 1px solid #1a1a3a; border-radius: 10px; font-size: .78em; color: #374151; line-height: 1.7; }
         .disclaimer a { color: #6366f1; }
         .ours-badge { display: inline-flex; align-items: center; gap: 6px; font-size: .72em; font-weight: 700; color: #22d3ee; background: #22d3ee10; border: 1px solid #22d3ee30; border-radius: 999px; padding: 4px 14px; }
+        .section-card { background: #0d0d1f; border: 1px solid #1e1e3f; border-radius: 16px; padding: 22px 24px; margin-bottom: 20px; }
+        .section-title { color: #f8fafc; font-size: 1.08em; font-weight: 800; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+        .section-content { font-size: .88em; color: #94a3b8; line-height: 1.7; }
         .next-step-card { background: linear-gradient(135deg, #10102a, #0d0d1f); border: 1px solid #6366f144; border-radius: 16px; padding: 20px; margin: 0 0 20px; }
         .next-step-title { color: #f8fafc; font-size: 1.18em; font-weight: 800; margin: 0 0 8px; }
         .next-step-sub { color: #94a3b8; line-height: 1.65; margin: 0 0 18px; }
@@ -179,6 +198,16 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
         .cta-banner { background: linear-gradient(135deg, #0d0d1f, #13103a); border: 1px solid #6366f133; border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 8px; }
         .cta-title { font-weight: 700; color: #e2e8f0; margin: 0 0 4px; }
         .cta-sub { color: #4b5563; font-size: .86em; }
+        /* Script box */
+        .script-box { background: #050510; border: 1px solid #1e1e3f; border-radius: 12px; overflow: hidden; }
+        .script-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 14px; background: #0a0a1c; border-bottom: 1px solid #1e1e3f; }
+        .script-filename { font-size: .72em; color: #4b5563; font-family: 'Courier New', monospace; }
+        .script-copy-btn { font-size: .72em; color: #6366f1; background: none; border: 1px solid #6366f130; border-radius: 4px; padding: 2px 10px; cursor: pointer; }
+        .script-copy-btn:hover { background: #6366f115; }
+        .script-body { padding: 14px 16px; font-family: 'Courier New', monospace; font-size: .82em; line-height: 1.6; color: #a5f3fc; overflow-x: auto; max-height: 420px; overflow-y: auto; white-space: pre; }
+        /* Articles */
+        .article-card { display: block; background: #0f0f23; border: 1px solid #1a1a3e; border-radius: 10px; padding: 14px 16px; text-decoration: none; transition: border-color .15s; }
+        .article-card:hover { border-color: #6366f1; }
         @media (max-width: 600px) {
           .skill-card { padding: 20px; }
           .skill-title { font-size: 1.5em; }
@@ -204,181 +233,246 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
           <a href="/">BytesAgain</a> › <a href="/skills">Skills</a> › {skill.name || slug}
         </div>
 
-        {/* Main card */}
-        <div className="skill-card">
-          {/* Header: badge + actions in one row */}
-          <div className="skill-header">
-            <div className="skill-badges">
-              <span className="badge" style={{ color: sm.color, background: sm.bg, borderColor: sm.color + '44' }}>
-                {sm.emoji} {sm.label}
-              </span>
-              {isOurs && (
-                <span className="ours-badge">✦ BytesAgain</span>
-              )}
-            </div>
-            <div className="skill-top-actions">
-              <SkillActions slug={slug} />
-            </div>
-          </div>
-
-          {/* Title + owner inline */}
-          <h1 className="skill-title">{skill.name || slug}</h1>
-          {skill.owner && (
-            <p className="skill-owner">by <span>@{skill.owner}</span></p>
-          )}
-
-          {/* Description — condensed */}
-          <p className="skill-desc">
-            {skill.description || `${skill.name || slug} is an AI agent skill. Install it to supercharge your AI workflow.`}
-          </p>
-
-          {/* Meta row + tags combined */}
-          <div className="skill-meta">
-            {skill.version && (
-              <div className="meta-item">
-                <span className="meta-label">Version</span>
-                <span className="meta-value">v{skill.version}</span>
-              </div>
-            )}
-            {(skill.downloads ?? 0) > 0 && (
-              <div className="meta-item">
-                <span className="meta-label">Downloads</span>
-                <span className="meta-value">{skill.downloads?.toLocaleString()}</span>
-              </div>
-            )}
-            {((skill as any).installs_all_time ?? 0) > 0 && (
-              <div className="meta-item">
-                <span className="meta-label">Installs</span>
-                <span className="meta-value">{(skill as any).installs_all_time?.toLocaleString()}</span>
-              </div>
-            )}
-            {(skill as any).stars > 0 && (
-              <div className="meta-item">
-                <span className="meta-label">Stars</span>
-                <span className="meta-value">⭐ {(skill as any).stars?.toLocaleString()}</span>
-              </div>
-            )}
-            {((skill as any).comment_count ?? 0) > 0 && (
-              <div className="meta-item">
-                <span className="meta-label">Comments</span>
-                <span className="meta-value">{(skill as any).comment_count?.toLocaleString()}</span>
-              </div>
-            )}
-            {tags.length > 0 && (
-              <div className="meta-item" style={{ flexDirection: 'row', gap: 6, alignItems: 'center' }}>
-                {tags.slice(0, 5).map(t => (
-                  <a key={t} href={`/?q=${encodeURIComponent(t)}`} className="tag">#{t}</a>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Full description (expanded from ClawHub) */}
-          <FullSkillDescription slug={installSlug} owner={skill.owner || ''} />
-
-          {/* Action buttons */}
-          <div className="actions-row" style={{ marginBottom: 14, gap: 8 }}>
-            <button className="copy-btn" data-cmd={testPrompt} style={{
-              background: '#6366f115', color: '#6366f1', border: '1px solid #6366f130',
-              borderRadius: 8, padding: '6px 12px', fontSize: '.82em', cursor: 'pointer', whiteSpace: 'nowrap'
-            }}>
-              Copy test prompt
-            </button>
-            <a href={externalUrl} target="_blank" rel="noopener" className="btn-secondary" style={{
-              padding: '6px 12px', fontSize: '.82em', borderRadius: 8, background: 'transparent',
-              border: '1px solid #1e1e3f', color: '#6b7280', textDecoration: 'none', whiteSpace: 'nowrap'
-            }}>
-              Source
-            </a>
-          </div>
-        </div>
-
-        {/* Security & Quality Evaluation — only shown if evaluation data exists */}
-        {evaluation && (
-          <div className="skill-card" style={{ borderColor: evaluation.safety_score >= 80 ? '#22c55e44' : evaluation.safety_score >= 50 ? '#eab30844' : '#ef444444' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-              <span style={{
-                fontSize: '.72em', fontWeight: 700, padding: '4px 14px', borderRadius: 999,
-                background: evaluation.safety_score >= 80 ? '#22c55e22' : evaluation.safety_score >= 50 ? '#eab30822' : '#ef444422',
-                color: evaluation.safety_score >= 80 ? '#22c55e' : evaluation.safety_score >= 50 ? '#eab308' : '#ef4444',
-                border: '1px solid ' + (evaluation.safety_score >= 80 ? '#22c55e44' : evaluation.safety_score >= 50 ? '#eab30844' : '#ef444444'),
-              }}>
-                {evaluation.safety_score >= 80 ? '✅ Safe' : evaluation.safety_score >= 50 ? '⚠️ Suspicious' : '🚫 Dangerous'}
-              </span>
-              <span style={{ fontSize: '.72em', color: '#374151', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>
-                Security Score: {evaluation.safety_score}/100
-              </span>
-              <span style={{ fontSize: '.72em', color: '#374151', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>
-                Quality: {evaluation.quality_grade}
-              </span>
-            </div>
-
-            {evaluation.summary && (
-              <p style={{ color: '#94a3b8', fontSize: '.88em', lineHeight: 1.6, margin: '0 0 14px' }}>
-                {evaluation.summary}
-              </p>
-            )}
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 14 }}>
-              {evaluation.verified_capabilities?.length > 0 && (
-                <div>
-                  <div style={{ fontSize: '.72em', color: '#374151', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 600, marginBottom: 8 }}>Verified Capabilities</div>
-                  {evaluation.verified_capabilities.map((c: string, i: number) => (
-                    <div key={i} style={{ color: '#22c55e', fontSize: '.82em', marginBottom: 4 }}>✅ {c}</div>
-                  ))}
-                </div>
-              )}
-              {evaluation.weaknesses?.length > 0 && (
-                <div>
-                  <div style={{ fontSize: '.72em', color: '#374151', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 600, marginBottom: 8 }}>Weaknesses</div>
-                  {evaluation.weaknesses.map((w: string, i: number) => (
-                    <div key={i} style={{ color: '#eab308', fontSize: '.82em', marginBottom: 4 }}>⚠️ {w}</div>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-              {evaluation.strengths?.length > 0 && (
-                <div>
-                  <div style={{ fontSize: '.72em', color: '#374151', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 600, marginBottom: 8 }}>Strengths</div>
-                  {evaluation.strengths.map((s: string, i: number) => (
-                    <div key={i} style={{ color: '#94a3b8', fontSize: '.82em', marginBottom: 4 }}>✦ {s}</div>
-                  ))}
-                </div>
-              )}
-              {evaluation.risks?.length > 0 && (
-                <div>
-                  <div style={{ fontSize: '.72em', color: '#374151', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 600, marginBottom: 8 }}>Risks</div>
-                  {evaluation.risks.map((r: string, i: number) => (
-                    <div key={i} style={{ color: '#ef4444', fontSize: '.82em', marginBottom: 4 }}>🔴 {r}</div>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {evaluation.recommendation && (
-              <div style={{
-                marginTop: 16, padding: '10px 14px', borderRadius: 8,
-                background: evaluation.safety_score >= 80 ? '#22c55e11' : '#ef444411',
-                border: '1px solid ' + (evaluation.safety_score >= 80 ? '#22c55e33' : '#ef444433'),
-                color: evaluation.safety_score >= 80 ? '#22c55e' : '#ef4444',
-                fontSize: '.82em', fontWeight: 600
-              }}>
-                {evaluation.recommendation === 'install-ok' ? '✅ Recommended — safe to install and use.' :
-                 evaluation.recommendation === 'investigate' ? '⚠️ Review before installing — some concerns found.' :
-                 '🚫 Do not install — security risks detected.'}
-              </div>
-            )}
-          </div>
-        )}
-
         {/* TWO-COLUMN LAYOUT: main content (left) + sidebar (right) */}
         <div className="two-col">
           {/* --- LEFT: Main content --- */}
           <div className="two-col-main">
+            {/* 1. Skill 主卡片 */}
+            <div className="skill-card">
+              {/* Header: badge + actions */}
+              <div className="skill-header">
+                <div className="skill-badges">
+                  <span className="badge" style={{ color: sm.color, background: sm.bg, borderColor: sm.color + '44' }}>
+                    {sm.emoji} {sm.label}
+                  </span>
+                  {isOurs && (
+                    <span className="ours-badge">✦ BytesAgain</span>
+                  )}
+                </div>
+                <div className="skill-top-actions">
+                  <SkillActions slug={slug} />
+                </div>
+              </div>
+
+              {/* Title + owner */}
+              <h1 className="skill-title">{skill.name || slug}</h1>
+              {skill.owner && (
+                <p className="skill-owner">by <span>@{skill.owner}</span></p>
+              )}
+
+              {/* Description */}
+              <p className="skill-desc">
+                {skill.description || `${skill.name || slug} is an AI agent skill. Install it to supercharge your AI workflow.`}
+              </p>
+
+              {/* Meta row + tags */}
+              <div className="skill-meta">
+                {skill.version && (
+                  <div className="meta-item">
+                    <span className="meta-label">Version</span>
+                    <span className="meta-value">v{skill.version}</span>
+                  </div>
+                )}
+                {(skill.downloads ?? 0) > 0 && (
+                  <div className="meta-item">
+                    <span className="meta-label">Downloads</span>
+                    <span className="meta-value">{skill.downloads?.toLocaleString()}</span>
+                  </div>
+                )}
+                {((skill as any).installs_all_time ?? 0) > 0 && (
+                  <div className="meta-item">
+                    <span className="meta-label">Installs</span>
+                    <span className="meta-value">{(skill as any).installs_all_time?.toLocaleString()}</span>
+                  </div>
+                )}
+                {(skill as any).stars > 0 && (
+                  <div className="meta-item">
+                    <span className="meta-label">Stars</span>
+                    <span className="meta-value">⭐ {(skill as any).stars?.toLocaleString()}</span>
+                  </div>
+                )}
+                {((skill as any).comment_count ?? 0) > 0 && (
+                  <div className="meta-item">
+                    <span className="meta-label">Comments</span>
+                    <span className="meta-value">{(skill as any).comment_count?.toLocaleString()}</span>
+                  </div>
+                )}
+                {tags.length > 0 && (
+                  <div className="meta-item" style={{ flexDirection: 'row', gap: 6, alignItems: 'center' }}>
+                    {tags.slice(0, 5).map(t => (
+                      <a key={t} href={`/?q=${encodeURIComponent(t)}`} className="tag">#{t}</a>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* SKILL.md structured sections */}
+              <FullSkillDescription
+                slug={installSlug}
+                owner={skill.owner || ''}
+                sections={skillDesc.sections}
+                fullDesc={skillDesc.full_description}
+              />
+
+              {/* Action buttons */}
+              <div className="actions-row" style={{ marginTop: 8, marginBottom: 4, gap: 8 }}>
+                <button className="copy-btn" data-cmd={testPrompt} style={{
+                  background: '#6366f115', color: '#6366f1', border: '1px solid #6366f130',
+                  borderRadius: 8, padding: '6px 12px', fontSize: '.82em', cursor: 'pointer', whiteSpace: 'nowrap'
+                }}>
+                  Copy test prompt
+                </button>
+                <a href={externalUrl} target="_blank" rel="noopener" className="btn-secondary" style={{
+                  padding: '6px 12px', fontSize: '.82em', borderRadius: 8, background: 'transparent',
+                  border: '1px solid #1e1e3f', color: '#6b7280', textDecoration: 'none', whiteSpace: 'nowrap'
+                }}>
+                  Source
+                </a>
+                {canInstallWithClawHub && (
+                  <button className="copy-btn" data-cmd={installCmd} style={{
+                    background: 'linear-gradient(135deg, #22c55e22, #16a34a22)', color: '#22c55e',
+                    border: '1px solid #22c55e33', borderRadius: 8, padding: '6px 12px',
+                    fontSize: '.82em', cursor: 'pointer', whiteSpace: 'nowrap', fontWeight: 700
+                  }}>
+                    📋 Copy install
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* 2. Install Box (prominent standalone) */}
+            {canInstallWithClawHub && (
+              <div className="install-box">
+                <div className="install-header">
+                  <div className="install-dots">
+                    <div className="dot" style={{ background: '#ef4444' }} />
+                    <div className="dot" style={{ background: '#eab308' }} />
+                    <div className="dot" style={{ background: '#22c55e' }} />
+                  </div>
+                  <span className="install-label">TERMINAL</span>
+                </div>
+                <div className="install-body" style={{ flexWrap: 'wrap' }}>
+                  <code className="install-cmd">{installCmd}</code>
+                  <button className="copy-btn" data-cmd={installCmd} style={{ fontWeight: 700 }}>
+                    Copy
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* 3. Security & Quality Evaluation */}
+            {evaluation && (
+              <div className="skill-card" style={{ borderColor: evaluation.safety_score >= 80 ? '#22c55e44' : evaluation.safety_score >= 50 ? '#eab30844' : '#ef444444' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+                  <span style={{
+                    fontSize: '.72em', fontWeight: 700, padding: '4px 14px', borderRadius: 999,
+                    background: evaluation.safety_score >= 80 ? '#22c55e22' : evaluation.safety_score >= 50 ? '#eab30822' : '#ef444422',
+                    color: evaluation.safety_score >= 80 ? '#22c55e' : evaluation.safety_score >= 50 ? '#eab308' : '#ef4444',
+                    border: '1px solid ' + (evaluation.safety_score >= 80 ? '#22c55e44' : evaluation.safety_score >= 50 ? '#eab30844' : '#ef444444'),
+                  }}>
+                    {evaluation.safety_score >= 80 ? '✅ Safe' : evaluation.safety_score >= 50 ? '⚠️ Suspicious' : '🚫 Dangerous'}
+                  </span>
+                  <span style={{ fontSize: '.72em', color: '#374151', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>
+                    Security Score: {evaluation.safety_score}/100
+                  </span>
+                  <span style={{ fontSize: '.72em', color: '#374151', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>
+                    Quality: {evaluation.quality_grade}
+                  </span>
+                </div>
+
+                {evaluation.summary && (
+                  <p style={{ color: '#94a3b8', fontSize: '.88em', lineHeight: 1.6, margin: '0 0 14px' }}>
+                    {evaluation.summary}
+                  </p>
+                )}
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 14 }}>
+                  {evaluation.verified_capabilities?.length > 0 && (
+                    <div>
+                      <div style={{ fontSize: '.72em', color: '#374151', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 600, marginBottom: 8 }}>Verified Capabilities</div>
+                      {evaluation.verified_capabilities.map((c: string, i: number) => (
+                        <div key={i} style={{ color: '#22c55e', fontSize: '.82em', marginBottom: 4 }}>✅ {c}</div>
+                      ))}
+                    </div>
+                  )}
+                  {evaluation.weaknesses?.length > 0 && (
+                    <div>
+                      <div style={{ fontSize: '.72em', color: '#374151', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 600, marginBottom: 8 }}>Weaknesses</div>
+                      {evaluation.weaknesses.map((w: string, i: number) => (
+                        <div key={i} style={{ color: '#eab308', fontSize: '.82em', marginBottom: 4 }}>⚠️ {w}</div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                  {evaluation.strengths?.length > 0 && (
+                    <div>
+                      <div style={{ fontSize: '.72em', color: '#374151', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 600, marginBottom: 8 }}>Strengths</div>
+                      {evaluation.strengths.map((s: string, i: number) => (
+                        <div key={i} style={{ color: '#94a3b8', fontSize: '.82em', marginBottom: 4 }}>✦ {s}</div>
+                      ))}
+                    </div>
+                  )}
+                  {evaluation.risks?.length > 0 && (
+                    <div>
+                      <div style={{ fontSize: '.72em', color: '#374151', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 600, marginBottom: 8 }}>Risks</div>
+                      {evaluation.risks.map((r: string, i: number) => (
+                        <div key={i} style={{ color: '#ef4444', fontSize: '.82em', marginBottom: 4 }}>🔴 {r}</div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {evaluation.recommendation && (
+                  <div style={{
+                    marginTop: 16, padding: '10px 14px', borderRadius: 8,
+                    background: evaluation.safety_score >= 80 ? '#22c55e11' : '#ef444411',
+                    border: '1px solid ' + (evaluation.safety_score >= 80 ? '#22c55e33' : '#ef444433'),
+                    color: evaluation.safety_score >= 80 ? '#22c55e' : '#ef4444',
+                    fontSize: '.82em', fontWeight: 600
+                  }}>
+                    {evaluation.recommendation === 'install-ok' ? '✅ Recommended — safe to install and use.' :
+                     evaluation.recommendation === 'investigate' ? '⚠️ Review before installing — some concerns found.' :
+                     '🚫 Do not install — security risks detected.'}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* 4. SKILL.md Description Summary */}
+            {skillDesc.summary && (
+              <div className="section-card">
+                <h2 className="section-title">📝 Description</h2>
+                <div className="section-content">{skillDesc.summary}</div>
+              </div>
+            )}
+
+            {/* 5. Script source */}
+            {hasScript && (
+              <div className="section-card" style={{ padding: 0, overflow: 'hidden' }}>
+                <div style={{ padding: '18px 24px 0' }}>
+                  <h2 className="section-title" style={{ marginBottom: 0 }}>💻 Source Code</h2>
+                </div>
+                <div className="script-box" style={{ margin: '14px 24px 20px', border: '1px solid #1e1e3f', borderRadius: 10 }}>
+                  <div className="script-header">
+                    <span className="script-filename">📄 script.sh</span>
+                    <button
+                      className="script-copy-btn"
+                      data-cmd={skillDesc.sections.script || ''}
+                      style={{ fontSize: '.72em', color: '#6366f1', background: 'none', border: '1px solid #6366f130', borderRadius: 4, padding: '2px 10px', cursor: 'pointer' }}
+                    >
+                      Copy
+                    </button>
+                  </div>
+                  <pre className="script-body">{skillDesc.sections.script}</pre>
+                </div>
+              </div>
+            )}
+
+            {/* 6. Test platform (agent options) */}
             <section className="next-step-card">
-              <h2 className="next-step-title">Use this skill with your agent</h2>
+              <h2 className="next-step-title">🧪 Use this skill with your agent</h2>
               <p className="next-step-sub">
                 Most visitors already have an agent. Pick your environment, install or copy the workflow, then run the smoke-test prompt above.
               </p>
@@ -401,20 +495,8 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
                 ))}
               </div>
 
-              {/* CTA banner inside main content */}
-              <div className="cta-banner" style={{ marginTop: 24 }}>
-                <div>
-                  <p className="cta-title">🔍 Can&apos;t find the right skill?</p>
-                  <p className="cta-sub">Search 60,000+ AI agent skills — free, no login needed.</p>
-                </div>
-                <a href="/" className="btn-primary" style={{ fontSize: '.88em', padding: '10px 22px' }}>
-                  Search Skills →
-                </a>
-              </div>
-            </section>
-
-            <section className="next-step-card">
-              <h2 className="next-step-title">What to do next</h2>
+              {/* Steps + prompt */}
+              <h2 className="next-step-title" style={{ marginTop: 24 }}>What to do next</h2>
               <p className="next-step-sub">
                 Skills are meant to be used inside your own AI agent. Install it, run a quick smoke test, then ask your agent to apply it to your real task.
               </p>
@@ -441,7 +523,43 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
                 <button className="copy-btn" data-cmd={testPrompt}>Copy test prompt</button>
                 <button className="copy-btn" data-cmd={agentConfig}>Copy agent setup</button>
               </div>
+
+              {/* CTA banner */}
+              <div className="cta-banner" style={{ marginTop: 24 }}>
+                <div>
+                  <p className="cta-title">🔍 Can&apos;t find the right skill?</p>
+                  <p className="cta-sub">Search 60,000+ AI agent skills — free, no login needed.</p>
+                </div>
+                <a href="/" className="btn-primary" style={{ fontSize: '.88em', padding: '10px 22px' }}>
+                  Search Skills →
+                </a>
+              </div>
             </section>
+
+            {/* 7. Related Articles */}
+            {hasArticles && (
+              <div className="section-card">
+                <h2 className="section-title">📖 Related Articles</h2>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  {skillArticles.map((article: any) => (
+                    <a
+                      key={article.slug}
+                      href={`/article/${article.slug}`}
+                      className="article-card"
+                    >
+                      <div style={{ fontWeight: 600, color: '#e0e0e0', fontSize: '.88em', marginBottom: 4 }}>
+                        {article.title}
+                      </div>
+                      <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', fontSize: '.72em', color: '#4b5563' }}>
+                        {article.category && <span>{article.category}</span>}
+                        {article.author_name && <span>by {article.author_name}</span>}
+                        {article.published_at && <span>{new Date(article.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>}
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* --- RIGHT: Sidebar --- */}
@@ -452,13 +570,15 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
       </div>
 
       <script dangerouslySetInnerHTML={{ __html: `
-        document.querySelectorAll('.copy-btn').forEach(btn => {
+        document.querySelectorAll('.copy-btn, .script-copy-btn').forEach(btn => {
           btn.addEventListener('click', () => {
             const cmd = btn.getAttribute('data-cmd');
+            if (!cmd) return;
             navigator.clipboard.writeText(cmd).then(() => {
+              const orig = btn.textContent;
               btn.textContent = 'Copied!';
-              setTimeout(() => btn.textContent = 'Copy', 1500);
-            });
+              setTimeout(() => btn.textContent = orig, 1500);
+            }).catch(() => {});
           });
         });
       `}} />
