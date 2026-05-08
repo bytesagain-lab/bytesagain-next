@@ -95,8 +95,6 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
   const installSlug = slug
   const installCmd = `clawhub install ${installSlug}`
   const canInstallWithClawHub = source !== 'github'
-  const testPrompt = `I just installed the ${skill.name || slug} skill. Please run a quick smoke test: explain what this skill can do, ask me for the minimum input it needs, then produce one small sample output for a realistic task.`
-  const agentConfig = `1. Install the skill: ${installCmd}\n2. Restart or reload your agent session if needed.\n3. Ask your agent: \"Use the ${skill.name || slug} skill to help me with [your task].\"`
   const manusInviteUrl = 'https://manus.im/invitation/PAN0HWLUJPLKA?utm_source=bytesagain&utm_medium=skill_page&utm_campaign=agent_cta'
   const agentOptions = [
     { name: 'Manus', desc: 'Task-oriented agent. Great for testing AI skills end-to-end.', href: manusInviteUrl, label: 'Try Manus', sponsored: true },
@@ -181,13 +179,6 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
         .next-step-card { background: linear-gradient(135deg, #10102a, #0d0d1f); border: 1px solid #6366f144; border-radius: 16px; padding: 20px; margin: 0 0 20px; }
         .next-step-title { color: #f8fafc; font-size: 1.18em; font-weight: 800; margin: 0 0 8px; }
         .next-step-sub { color: #94a3b8; line-height: 1.65; margin: 0 0 18px; }
-        .steps-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(210px,1fr)); gap: 12px; margin-bottom: 18px; }
-        .step-card { background: #070714; border: 1px solid #1e1e3f; border-radius: 14px; padding: 16px; }
-        .step-num { width: 26px; height: 26px; border-radius: 999px; display: inline-grid; place-items: center; background: #6366f122; color: #a5b4fc; font-weight: 800; margin-bottom: 10px; }
-        .step-card strong { display: block; color: #e2e8f0; margin-bottom: 6px; }
-        .step-card span { color: #64748b; font-size: .86em; line-height: 1.55; }
-        .prompt-box { background: #050510; border: 1px solid #1e1e3f; border-radius: 12px; padding: 14px 16px; color: #c4b5fd; font-family: 'Courier New', monospace; font-size: .88em; line-height: 1.6; margin: 10px 0 14px; }
-        .copy-row { display: flex; gap: 10px; flex-wrap: wrap; }
         .agent-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(210px,1fr)); gap: 12px; margin-top: 14px; }
         .agent-card { display: block; background: #070714; border: 1px solid #1e1e3f; border-radius: 14px; padding: 16px; text-decoration: none; transition: border-color .15s, transform .15s; }
         .agent-card:hover { border-color: #818cf8; transform: translateY(-1px); }
@@ -316,17 +307,11 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
 
               {/* Action buttons */}
               <div className="actions-row" style={{ marginTop: 8, marginBottom: 4, gap: 8 }}>
-                <button className="copy-btn" data-cmd={testPrompt} style={{
-                  background: '#6366f115', color: '#6366f1', border: '1px solid #6366f130',
-                  borderRadius: 8, padding: '6px 12px', fontSize: '.82em', cursor: 'pointer', whiteSpace: 'nowrap'
-                }}>
-                  Copy test prompt
-                </button>
                 <a href={externalUrl} target="_blank" rel="noopener" className="btn-secondary" style={{
                   padding: '6px 12px', fontSize: '.82em', borderRadius: 8, background: 'transparent',
                   border: '1px solid #1e1e3f', color: '#6b7280', textDecoration: 'none', whiteSpace: 'nowrap'
                 }}>
-                  Source
+                  View on {sm.label}
                 </a>
                 {canInstallWithClawHub && (
                   <button className="copy-btn" data-cmd={installCmd} style={{
@@ -495,46 +480,18 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
                 ))}
               </div>
 
-              {/* Steps + prompt */}
-              <h2 className="next-step-title" style={{ marginTop: 24 }}>What to do next</h2>
-              <p className="next-step-sub">
-                Skills are meant to be used inside your own AI agent. Install it, run a quick smoke test, then ask your agent to apply it to your real task.
-              </p>
-              <div className="steps-grid">
-                <div className="step-card">
-                  <div className="step-num">1</div>
-                  <strong>{canInstallWithClawHub ? 'Install into your agent' : 'Open the source'}</strong>
-                  <span>{canInstallWithClawHub ? 'Copy the ClawHub install command and run it where your OpenClaw/agent environment is configured.' : 'This skill is indexed from GitHub. Review the source and copy the SKILL.md into your agent skill folder if compatible.'}</span>
-                </div>
-                <div className="step-card">
-                  <div className="step-num">2</div>
-                  <strong>Run a smoke test</strong>
-                  <span>Use the test prompt below to confirm the skill loads and understands the workflow before relying on it.</span>
-                </div>
-                <div className="step-card">
-                  <div className="step-num">3</div>
-                  <strong>Use it in your own agent</strong>
-                  <span>Paste your actual task into Manus, OpenClaw, Claude Code, Cursor, or another agent that supports skills.</span>
-                </div>
-              </div>
-              <div className="prompt-box">{testPrompt}</div>
-              <div className="copy-row">
-                {canInstallWithClawHub && <button className="copy-btn" data-cmd={installCmd}>Copy install</button>}
-                <button className="copy-btn" data-cmd={testPrompt}>Copy test prompt</button>
-                <button className="copy-btn" data-cmd={agentConfig}>Copy agent setup</button>
-              </div>
+              </section>
 
-              {/* CTA banner */}
-              <div className="cta-banner" style={{ marginTop: 24 }}>
-                <div>
-                  <p className="cta-title">🔍 Can&apos;t find the right skill?</p>
-                  <p className="cta-sub">Search 60,000+ AI agent skills — free, no login needed.</p>
-                </div>
-                <a href="/" className="btn-primary" style={{ fontSize: '.88em', padding: '10px 22px' }}>
-                  Search Skills →
-                </a>
+            {/* CTA banner */}
+            <div className="cta-banner">
+              <div>
+                <p className="cta-title">🔍 Can&apos;t find the right skill?</p>
+                <p className="cta-sub">Search 60,000+ AI agent skills — free, no login needed.</p>
               </div>
-            </section>
+              <a href="/" className="btn-primary" style={{ fontSize: '.88em', padding: '10px 22px' }}>
+                Search Skills →
+              </a>
+            </div>
 
             {/* 7. Related Articles */}
             {hasArticles && (
