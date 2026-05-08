@@ -425,15 +425,7 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
               </div>
             )}
 
-            {/* 4. SKILL.md Description Summary */}
-            {skillDesc.summary && (
-              <div className="section-card">
-                <h2 className="section-title">📝 Description</h2>
-                <div className="section-content">{skillDesc.summary}</div>
-              </div>
-            )}
-
-            {/* 5. Script source */}
+            {/* 4. Script source */}
             {hasScript && (
               <div className="section-card" style={{ padding: 0, overflow: 'hidden' }}>
                 <div style={{ padding: '18px 24px 0' }}>
