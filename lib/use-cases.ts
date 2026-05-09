@@ -17,9 +17,7 @@ export const USE_CASES: UseCase[] = [
     title: 'Write Weekly Reports',
     description: 'Generate professional weekly, daily, and monthly reports automatically — save 2+ hours every week.',
     icon: '📝',
-    skills: [
-      { slug: 'story-writer', name: 'story writer', reason: 'Top-rated write skill with 1091 downloads' }, { slug: 'short-drama-writer', name: 'short drama writer', reason: 'Top-rated write skill with 853 downloads' }, { slug: 'jd-writer', name: 'jd writer', reason: 'Top-rated write skill with 455 downloads' }, { slug: 'ad-copywriter', name: 'ad copywriter', reason: 'Top-rated write skill with 435 downloads' }, { slug: 'sop-writer', name: 'sop writer', reason: 'Top-rated write skill with 357 downloads' }
-    ],
+    skills: [{ slug: 'story-writer', name: 'story writer', reason: 'story writer' }, { slug: 'short-drama-writer', name: 'short drama writer', reason: 'short drama writer' }, { slug: 'jd-writer', name: 'jd writer', reason: 'jd writer' }, { slug: 'ad-copywriter', name: 'ad copywriter', reason: 'ad copywriter' }, { slug: 'sop-writer', name: 'sop writer', reason: 'sop writer' }],
     searchLink: '/skills?q=report+generator+weekly',
   },
 {
@@ -27,19 +25,14 @@ export const USE_CASES: UseCase[] = [
     title: 'Build a SaaS Product',
     description: 'The essential AI skill stack for indie hackers and small teams shipping a SaaS product — from architecture to deployment.',
     icon: '🚀',
-    skills: [
-      { slug: 'startup-tools', name: 'Startup Tools', reason: 'Essential toolkit for launching and running a SaaS startup' }, { slug: 'pitch-deck', name: 'Pitch Deck', reason: 'Create compelling pitch decks to attract investors and early customers' }, { slug: 'cli-builder', name: 'cli builder', reason: 'Top-rated build skill with 412 downloads' }, { slug: 'schema-builder', name: 'schema builder', reason: 'Top-rated build skill with 382 downloads' }, { slug: 'dockerfile-builder', name: 'dockerfile builder', reason: 'Top-rated build skill with 305 downloads' }
-    ],
+    skills: [{ slug: 'startup-tools', name: 'Startup Tools', reason: 'Essential toolkit for launching and running a SaaS startup' }, { slug: 'pitch-deck', name: 'Pitch Deck', reason: 'Create compelling pitch decks to attract investors and early customers' }, { slug: 'cli-builder', name: 'cli builder', reason: 'cli builder' }, { slug: 'schema-builder', name: 'schema builder', reason: 'schema builder' }, { slug: 'dockerfile-builder', name: 'dockerfile builder', reason: 'dockerfile builder' }],
   },
 {
     slug: 'vercel-supabase-stack',
     title: 'Vercel + Supabase: The Modern Dev Stack',
     description: 'Ship faster with AI skills that generate Vercel CLI commands and Supabase API calls — no credentials stored, no configuration needed.',
     icon: '🛠️',
-    skills: [
-      { slug: 'vercel-tool', name: 'Vercel Tool', reason: 'Generate Vercel CLI commands for deployments, domains, env vars, and project management' },
-      { slug: 'supabase-tool', name: 'Supabase Tool', reason: 'Generate Supabase API calls for database, auth, storage, and edge functions' },
-    ],
+    skills: [{ slug: 'vercel-tool', name: 'Vercel Tool', reason: 'Generate Vercel CLI commands for deployments, domains, env vars, and project management' }, { slug: 'supabase-tool', name: 'Supabase Tool', reason: 'Generate Supabase API calls for database, auth, storage, and edge functions' }],
     searchLink: '/skills?q=vercel+supabase+deploy+database',
   },
 {
@@ -47,11 +40,7 @@ export const USE_CASES: UseCase[] = [
     title: 'Data Science & Analysis Toolkit',
     description: 'Your AI-powered data science environment — Python code snippets, R-style statistical analysis, and Jupyter notebook management in one place.',
     icon: '📊',
-    skills: [
-      { slug: 'python-cookbook', name: 'Python Cookbook', reason: '14 ready-to-use Python code snippets for data processing and automation' },
-      { slug: 'r-analyst', name: 'R Analyst', reason: 'Statistical analysis and data visualization in R style' },
-      { slug: 'jupyter-helper', name: 'Jupyter Helper', reason: 'Manage and run Jupyter notebooks from your terminal' },
-    ],
+    skills: [{ slug: 'python-cookbook', name: 'Python Cookbook', reason: '14 ready-to-use Python code snippets for data processing and automation' }, { slug: 'r-analyst', name: 'R Analyst', reason: 'Statistical analysis and data visualization in R style' }, { slug: 'jupyter-helper', name: 'Jupyter Helper', reason: 'Manage and run Jupyter notebooks from your terminal' }],
     searchLink: '/skills?q=python+data+science+jupyter+R',
   },
 {
@@ -59,12 +48,7 @@ export const USE_CASES: UseCase[] = [
     title: 'Build BI Dashboards & KPI Charts',
     description: 'Turn business metrics into dashboard plans, SQL queries, chart specs, and Superset-compatible visualization JSON.',
     icon: '📈',
-    skills: [
-      { slug: 'bytesagain-bi-dashboard-builder', name: 'BytesAgain BI Dashboard Builder', reason: 'Builds dashboard plans, SQL templates, chart specs, and Superset-compatible chart JSON' },
-      { slug: 'data-visualizer', name: 'Data Visualizer', reason: 'Creates visual charts from datasets for BI reporting and presentation' },
-      { slug: 'data-analysis', name: 'Data Analysis', reason: 'Extracts trends and insights before turning metrics into dashboard views' },
-      { slug: 'data-analyst-pro', name: 'Data Analyst', reason: 'Helps analyze business datasets and define useful KPIs' },
-    ],
+    skills: [{ slug: 'bytesagain-bi-dashboard-builder', name: 'BytesAgain BI Dashboard Builder', reason: 'Builds dashboard plans, SQL templates, chart specs, and Superset-compatible chart JSON' }, { slug: 'data-visualizer', name: 'Data Visualizer', reason: 'Creates visual charts from datasets for BI reporting and presentation' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Extracts trends and insights before turning metrics into dashboard views' }, { slug: 'data-analyst-pro', name: 'Data Analyst', reason: 'Helps analyze business datasets and define useful KPIs' }],
     searchLink: '/skills?q=BI+dashboard+chart+Superset+SQL',
   },
 {
@@ -72,13 +56,7 @@ export const USE_CASES: UseCase[] = [
     title: 'Product Listing Optimization for E-commerce',
     description: 'Create marketplace-ready product titles, descriptions, SEO keywords, bullets, and listing pages for Shopify, Amazon, Taobao, Pinduoduo, and Shopee.',
     icon: '🛒',
-    skills: [
-      { slug: 'shopify-helper', name: 'Shopify Helper', reason: 'Builds Shopify stores and optimizes product pages, collections, titles, descriptions, and store SEO' },
-      { slug: 'product-desc', name: 'Product Description', reason: 'Writes SEO product descriptions, feature bullets, benefit copy, and marketplace listing text' },
-      { slug: 'ecommerce-listing-optimizer-lite', name: 'Ecommerce Listing Optimizer Lite', reason: 'Generates Amazon listing titles, bullets, and backend keywords from product information' },
-      { slug: 'product-title-optimization', name: 'Product Title Optimization', reason: 'Optimizes product titles for search visibility and click-through across ecommerce platforms' },
-      { slug: 'product-page-seo', name: 'Product Page SEO', reason: 'Improves ecommerce product pages with on-page SEO, structured data, and content strategy' },
-    ],
+    skills: [{ slug: 'shopify-helper', name: 'Shopify Helper', reason: 'Builds Shopify stores and optimizes product pages, collections, titles, descriptions, and store SEO' }, { slug: 'product-desc', name: 'Product Description', reason: 'Writes SEO product descriptions, feature bullets, benefit copy, and marketplace listing text' }, { slug: 'ecommerce-listing-optimizer-lite', name: 'Ecommerce Listing Optimizer Lite', reason: 'Generates Amazon listing titles, bullets, and backend keywords from product information' }, { slug: 'product-title-optimization', name: 'Product Title Optimization', reason: 'Optimizes product titles for search visibility and click-through across ecommerce platforms' }, { slug: 'product-page-seo', name: 'Product Page SEO', reason: 'Improves ecommerce product pages with on-page SEO, structured data, and content strategy' }],
     searchLink: '/skills?q=ecommerce+product+listing+optimization+Shopify+Amazon+SEO',
   },
 {
@@ -86,45 +64,35 @@ export const USE_CASES: UseCase[] = [
     title: 'Developer Daily Workflow',
     description: 'The skills that make your dev environment smarter — from writing code to shipping and monitoring.',
     icon: '⚡',
-    skills: [
-      { slug: 'developer', name: 'Developer', reason: 'All-in-one developer assistant for everyday coding tasks' }, { slug: 'code-generator', name: 'Code Generator', reason: 'Generate code in any language from natural language descriptions' }, { slug: 'cli-developer', name: 'CLI Developer', reason: 'Boost productivity with command-line tooling and scripting' }, { slug: 'ai-code-helper', name: 'AI Code Helper', reason: 'Get instant explanations and fixes for your code' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated developer skill with 797 downloads' }
-    ],
+    skills: [{ slug: 'developer', name: 'Developer', reason: 'All-in-one developer assistant for everyday coding tasks' }, { slug: 'code-generator', name: 'Code Generator', reason: 'Generate code in any language from natural language descriptions' }, { slug: 'cli-developer', name: 'CLI Developer', reason: 'Boost productivity with command-line tooling and scripting' }, { slug: 'ai-code-helper', name: 'AI Code Helper', reason: 'Get instant explanations and fixes for your code' }],
   },
 {
     slug: 'job-hunting',
     title: 'Job Hunting & Career',
     description: 'Land your next role faster with AI skills that help you craft applications, prep for interviews, and negotiate offers.',
     icon: '💼',
-    skills: [
-      { slug: 'interview-analysis', name: 'Interview Analysis', reason: 'Analyze interview questions and prepare winning answers with AI' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'Translate and localize job applications for international opportunities' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
-    ],
+    skills: [{ slug: 'interview-analysis', name: 'Interview Analysis', reason: 'Analyze interview questions and prepare winning answers with AI' }, { slug: 'translator-pro', name: 'Translator Pro', reason: 'Translate and localize job applications for international opportunities' }],
   },
 {
     slug: 'remote-work',
     title: 'Remote Work Productivity',
     description: 'Stay focused and organized working from anywhere — AI tools for async communication, task tracking, and deep work.',
     icon: '🏠',
-    skills: [
-      { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated work skill with 402 downloads' }, { slug: 'data-analysis-workflow', name: 'Data Analysis Workflow', reason: 'Top-rated work skill with 209 downloads' }, { slug: 'networkmanager', name: 'networkmanager', reason: 'Top-rated work skill with 100 downloads' }
-    ],
+    skills: [{ slug: 'data-analysis-workflow', name: 'Data Analysis Workflow', reason: 'Data Analysis Workflow' }, { slug: 'networkmanager', name: 'networkmanager', reason: 'networkmanager' }],
   },
 {
     slug: 'startup-founder',
     title: 'Startup Founder Toolkit',
     description: 'From idea to funding — AI skills to help founders move fast, pitch confidently, and build lean.',
     icon: '🦄',
-    skills: [
-      { slug: 'startup-tools', name: 'Startup Tools', reason: 'Comprehensive toolkit for founders at every stage of the startup journey' }, { slug: 'pitch-deck', name: 'Pitch Deck', reason: 'Build investor-ready pitch decks that tell a compelling story' }, { slug: 'apple-developer-toolkit', name: 'apple-developer-toolkit', reason: 'Top-rated toolkit skill with 1127 downloads' }, { slug: 'hr-toolkit', name: 'hr toolkit', reason: 'Top-rated toolkit skill with 636 downloads' }, { slug: 'shopify-toolkit', name: 'shopify toolkit', reason: 'Top-rated toolkit skill with 499 downloads' }
-    ],
+    skills: [{ slug: 'startup-tools', name: 'Startup Tools', reason: 'Comprehensive toolkit for founders at every stage of the startup journey' }, { slug: 'pitch-deck', name: 'Pitch Deck', reason: 'Build investor-ready pitch decks that tell a compelling story' }, { slug: 'apple-developer-toolkit', name: 'apple-developer-toolkit', reason: 'apple-developer-toolkit' }, { slug: 'hr-toolkit', name: 'hr toolkit', reason: 'hr toolkit' }, { slug: 'shopify-toolkit', name: 'shopify toolkit', reason: 'shopify toolkit' }],
   },
 {
     slug: 'minimalist-entrepreneur',
     title: 'Minimalist Entrepreneur',
     description: 'Build a profitable, sustainable business with less — inspired by Sahil Lavingia\'s framework from The Minimalist Entrepreneur.',
     icon: '🎯',
-    skills: [
-      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
-    ],
+    skills: [{ slug: 'startup-tools', name: 'Startup Tools', reason: 'Lean startup toolkit for bootstrapping' }, { slug: 'pitch-deck', name: 'Pitch Deck', reason: 'Create compelling pitch decks' }, { slug: 'minimalist-entrepreneur-resources', name: 'Minimalist Entrepreneur', reason: 'Build lean and sustainable' }, { slug: 'budget-tracker', name: 'Budget Tracker', reason: 'Track expenses on a shoestring' }, { slug: 'lean-analytics', name: 'Lean Analytics', reason: 'Measure what matters most' }],
     searchLink: '/skills?q=startup+entrepreneur+lean+business',
   },
 {
@@ -132,63 +100,49 @@ export const USE_CASES: UseCase[] = [
     title: 'Project Management',
     description: 'Deliver projects on time with AI skills for planning, tracking, reporting, and stakeholder communication.',
     icon: '📋',
-    skills: [
-      { slug: 'freedcamp-agent-skill', name: 'Freedcamp Project Management', reason: 'Manage tasks, deadlines, and milestones with AI-powered project tools' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
-    ],
+    skills: [{ slug: 'clickup-project-management', name: 'Clickup Project Management', reason: 'Clickup Project Management' }, { slug: 'social-media-management', name: 'Social Media Management', reason: 'Social Media Management' }, { slug: 'project-context-sync', name: 'Project Context Sync', reason: 'Project Context Sync' }, { slug: 'todo-management-1-1-2', name: 'Todo Management 1.1.2', reason: 'Todo Management 1.1.2' }, { slug: 'email-management', name: 'Email Management', reason: 'Email Management' }],
   },
 {
     slug: 'hr-recruiting',
     title: 'HR & Recruiting',
     description: 'Hire better and faster — AI skills for writing job posts, screening candidates, and onboarding new hires.',
     icon: '🧑‍💼',
-    skills: [
-      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
-    ],
+    skills: [{ slug: 'afrexai-recruiting-engine', name: 'AI Recruiting Engine', reason: 'AI Recruiting Engine' }],
   },
 {
     slug: 'content-creator',
     title: 'Content Creator Toolkit',
     description: 'AI skills for YouTubers, bloggers, and social media creators who want to produce more content with less effort.',
     icon: '🎬',
-    skills: [
-      { slug: 'content-strategy', name: 'Content Strategy', reason: 'Top-rated content skill with 6579 downloads' }, { slug: 'shopify-toolkit', name: 'shopify toolkit', reason: 'Top-rated toolkit skill with 499 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated toolkit skill with 426 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated toolkit skill with 371 downloads' }, { slug: 'discord-toolkit', name: 'discord toolkit', reason: 'Top-rated toolkit skill with 340 downloads' }
-    ],
+    skills: [{ slug: 'content-strategy', name: 'Content Strategy', reason: 'Content Strategy' }, { slug: 'shopify-toolkit', name: 'shopify toolkit', reason: 'shopify toolkit' }, { slug: 'discord-toolkit', name: 'discord toolkit', reason: 'discord toolkit' }],
   },
 {
     slug: 'video-creator',
     title: 'Video Creator & YouTuber',
     description: 'From script to upload — AI skills to speed up video production, optimize titles, and grow your channel.',
     icon: '📹',
-    skills: [
-      { slug: 'video-fetcher', name: 'Video Fetcher', reason: 'Top-rated video skill with 101 downloads' }, { slug: 'video-toolbox', name: 'Video Toolbox', reason: 'All-in-one toolkit for video editing, cutting, and formatting' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
-    ],
+    skills: [{ slug: 'video-fetcher', name: 'Video Fetcher', reason: 'Video Fetcher' }, { slug: 'video-toolbox', name: 'Video Toolbox', reason: 'All-in-one toolkit for video editing, cutting, and formatting' }],
   },
 {
     slug: 'writer-author',
     title: 'Writer & Author',
     description: 'Write faster and better — AI skills for novelists, bloggers, journalists, and copywriters.',
     icon: '✍️',
-    skills: [
-      { slug: 'story-writer', name: 'Story Writer', reason: 'Generate compelling narratives and story structures for any genre' }, { slug: 'short-drama-writer', name: 'Short Drama Writer', reason: 'Craft engaging short-form dramatic scripts and stories' }, { slug: 'ad-copywriter', name: 'Ad Copywriter', reason: 'Write persuasive copy for blogs, ads, and marketing materials' }, { slug: 'jd-writer', name: 'jd writer', reason: 'Top-rated writer skill with 455 downloads' }, { slug: 'sop-writer', name: 'sop writer', reason: 'Top-rated writer skill with 357 downloads' }
-    ],
+    skills: [{ slug: 'story-writer', name: 'Story Writer', reason: 'Generate compelling narratives and story structures for any genre' }, { slug: 'short-drama-writer', name: 'Short Drama Writer', reason: 'Craft engaging short-form dramatic scripts and stories' }, { slug: 'ad-copywriter', name: 'Ad Copywriter', reason: 'Write persuasive copy for blogs, ads, and marketing materials' }, { slug: 'jd-writer', name: 'jd writer', reason: 'jd writer' }, { slug: 'sop-writer', name: 'sop writer', reason: 'sop writer' }],
   },
 {
     slug: 'marketing-automation',
     title: 'Marketing Automation',
     description: 'Scale your marketing efforts with AI skills for content, email, analytics, and campaign management.',
     icon: '📣',
-    skills: [
-      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
-    ],
+    skills: [{ slug: 'browser-automation', name: 'Browser Automation', reason: 'Browser Automation' }, { slug: 'xiaohongshu-mcp', name: 'Xiaohongshu (小红书) Automation', reason: 'Xiaohongshu (小红书) Automation' }, { slug: 'playwright', name: 'Playwright (Automation + MCP + Scraper)', reason: 'Playwright (Automation + MCP + Scraper)' }, { slug: 'marketing-skills', name: 'Marketing Skills', reason: 'Marketing Skills' }, { slug: 'openclaw-anything', name: 'Comprehensive skill for installing, configuring, and managing the OpenClaw ecosystem (Gateway, Channels, Models, Automation, Nodes, and Deployment)', reason: 'Comprehensive skill for installing, conf' }],
   },
 {
     slug: 'seo-geo',
     title: 'SEO & GEO Optimization',
     description: 'Optimize your website for both traditional search engines and the new generation of AI-powered search.',
     icon: '🔍',
-    skills: [
-      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
-    ],
+    skills: [{ slug: 'performance-reporter', name: 'SEO & GEO Performance Reporter', reason: 'SEO & GEO Performance Reporter' }, { slug: 'competitor-analysis', name: 'SEO Competitor Analysis & Gap Finder', reason: 'SEO Competitor Analysis & Gap Finder' }, { slug: 'auto-index', name: 'Google SEO GEO Auto Index', reason: 'Google SEO GEO Auto Index' }, { slug: 'technical-seo-checker', name: 'Technical SEO Checker & Site Auditor', reason: 'Technical SEO Checker & Site Auditor' }, { slug: 'citedy-seo-agent', name: 'Clawhub Skill', reason: 'Clawhub Skill' }],
     searchLink: '/skills?q=seo+geo+optimization+ai+search',
   },
 {
@@ -196,156 +150,112 @@ export const USE_CASES: UseCase[] = [
     title: 'Podcast Producer',
     description: 'Plan, record, and grow your podcast — AI skills for show notes, guest research, and audience building.',
     icon: '🎙️',
-    skills: [
-      { slug: 'podcast-notes', name: 'Podcast Notes', reason: 'Auto-generate structured show notes and key takeaways from episodes' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
-    ],
+    skills: [{ slug: 'podcast-notes', name: 'Podcast Notes', reason: 'Auto-generate structured show notes and key takeaways from e' }, { slug: 'skill-creator', name: 'Skill Creator', reason: 'Skill Creator' }, { slug: 'skill-builder', name: 'Skill Builder / Creator', reason: 'Skill Builder / Creator' }, { slug: 'content-creator', name: 'Content Creator', reason: 'Content Creator' }, { slug: 'creator-rights-assistant', name: 'Creator Rights Assistant', reason: 'Creator Rights Assistant' }],
   },
 {
     slug: 'learn-programming',
     title: 'Learn Programming',
     description: 'Accelerate your coding journey with AI skills that explain concepts, debug your code, and guide your learning path.',
     icon: '📚',
-    skills: [
-      { slug: 'code-generator', name: 'Code Generator', reason: 'Generate code in any language from natural language descriptions' }, { slug: 'ai-code-helper', name: 'AI Code Helper', reason: 'Get instant explanations and fixes for your code' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated learn skill with 337 downloads' }
-    ],
+    skills: [{ slug: 'code-generator', name: 'Code Generator', reason: 'Generate code in any language from natural language descriptions' }, { slug: 'ai-code-helper', name: 'AI Code Helper', reason: 'Get instant explanations and fixes for your code' }],
   },
 {
     slug: 'language-learner',
     title: 'Language Learning',
     description: 'Pick up a new language faster with AI skills for translation, writing practice, and vocabulary building.',
     icon: '🌍',
-    skills: [
-      { slug: 'subtitle-translator', name: 'Subtitle Translator', reason: 'Learn languages by translating video subtitles in real time' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
-    ],
+    skills: [{ slug: 'subtitle-translator', name: 'Subtitle Translator', reason: 'Learn languages by translating video subtitles in real time' }, { slug: 'language-learning', name: 'Language Learning Tutor', reason: 'Language Learning Tutor' }, { slug: 'web-learner', name: 'Web Learner', reason: 'Web Learner' }, { slug: 'vgl', name: 'Visual Gen Ai Language', reason: 'Visual Gen Ai Language' }, { slug: 'expanso-language-detect', name: 'Expanso language-detect', reason: 'Expanso language-detect' }],
   },
 {
     slug: 'student',
     title: 'Student & Academic',
     description: 'Study smarter, write better papers, and manage deadlines with AI skills built for academic life.',
     icon: '🎓',
-    skills: [
-      { slug: 'study-plan', name: 'Study Plan', reason: 'Create personalized study schedules and learning roadmaps' }, { slug: 'student', name: 'student', reason: 'Top-rated student skill with 270 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
-    ],
+    skills: [{ slug: 'study-plan', name: 'Study Plan', reason: 'Create personalized study schedules and learning roadmaps' }, { slug: 'student', name: 'student', reason: 'student' }],
   },
 {
     slug: 'researcher',
     title: 'Researcher & Analyst',
     description: 'Synthesize information, build reports, and present findings with AI-powered research skills.',
     icon: '🔬',
-    skills: [
-      { slug: 'data-analyst-pro', name: 'Data Analyst', reason: 'Top-rated analyst skill with 3316 downloads' }, { slug: 'analyst', name: 'Analyst', reason: 'Top-rated analyst skill with 2041 downloads' }, { slug: 'data-analyst-cn', name: 'Data Analyst Cn', reason: 'Top-rated analyst skill with 999 downloads' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Extract statistical insights and patterns from research datasets' }, { slug: 'ai-data-analyst-cn', name: 'Ai Data Analyst Cn', reason: 'Top-rated analyst skill with 788 downloads' }
-    ],
+    skills: [{ slug: 'data-analyst-pro', name: 'Data Analyst', reason: 'Data Analyst' }, { slug: 'analyst', name: 'Analyst', reason: 'Analyst' }, { slug: 'data-analyst-cn', name: 'Data Analyst Cn', reason: 'Data Analyst Cn' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Extract statistical insights and patterns from research datasets' }, { slug: 'ai-data-analyst-cn', name: 'Ai Data Analyst Cn', reason: 'Ai Data Analyst Cn' }],
   },
 {
     slug: 'crypto-research',
     title: 'Crypto & DeFi Research',
     description: 'Research protocols, track markets, and analyze on-chain data with AI-powered crypto skills.',
     icon: '🪙',
-    skills: [
-      { slug: 'crypto-tracker-cn', name: 'Crypto Tracker', reason: 'Track real-time crypto prices and portfolio performance' },
-      { slug: 'crypto-defi', name: 'Crypto DeFi', reason: 'Research and analyze DeFi protocols, yields, and opportunities' },
-      { slug: 'crypto-whale-tracker', name: 'Crypto Whale Tracker', reason: 'Monitor large wallet movements and whale activity on-chain' },
-      { slug: 'crypto-news-feed', name: 'Crypto News Feed', reason: 'Stay updated with aggregated news from the crypto ecosystem' },
-      { slug: 'crypto-tax-calc', name: 'Crypto Tax Calc', reason: 'Calculate taxes on crypto trades and DeFi transactions' },
-    ],
+    skills: [{ slug: 'crypto-tracker-cn', name: 'Crypto Tracker', reason: 'Track real-time crypto prices and portfolio performance' }, { slug: 'crypto-defi', name: 'Crypto DeFi', reason: 'Research and analyze DeFi protocols, yields, and opportunities' }, { slug: 'crypto-whale-tracker', name: 'Crypto Whale Tracker', reason: 'Monitor large wallet movements and whale activity on-chain' }, { slug: 'crypto-news-feed', name: 'Crypto News Feed', reason: 'Stay updated with aggregated news from the crypto ecosystem' }, { slug: 'crypto-tax-calc', name: 'Crypto Tax Calc', reason: 'Calculate taxes on crypto trades and DeFi transactions' }],
   },
 {
     slug: 'stock-investor',
     title: 'Stock Market Investor',
     description: 'Research equities, analyze financials, and manage your portfolio with AI skills for serious investors.',
     icon: '📈',
-    skills: [
-      { slug: 'us-stock-analysis', name: 'US Stock Analysis', reason: 'Deep analysis of US equities with financial metrics and trends' }, { slug: 'market-analysis-cn', name: 'Market Analysis CN | 市场分析服务', reason: 'Top-rated market skill with 7242 downloads' }, { slug: 'fundamental-stock-analysis', name: 'Fundamental Stock Analysis', reason: 'Perform value investing analysis using fundamental financial data' }, { slug: 'polymarket-screener', name: 'Polymarket Screener 🎯', reason: 'Top-rated market skill with 363 downloads' }, { slug: 'investment-portfolio', name: 'Investment Portfolio', reason: 'Manage and rebalance your investment portfolio with AI guidance' }
-    ],
+    skills: [{ slug: 'us-stock-analysis', name: 'US Stock Analysis', reason: 'Deep analysis of US equities with financial metrics and trends' }, { slug: 'market-analysis-cn', name: 'Market Analysis CN | 市场分析服务', reason: 'Market Analysis CN | 市场分析服务' }, { slug: 'fundamental-stock-analysis', name: 'Fundamental Stock Analysis', reason: 'Perform value investing analysis using fundamental financial data' }, { slug: 'polymarket-screener', name: 'Polymarket Screener 🎯', reason: 'Polymarket Screener 🎯' }, { slug: 'investment-portfolio', name: 'Investment Portfolio', reason: 'Manage and rebalance your investment portfolio with AI guidance' }],
   },
 {
     slug: 'data-analysis',
     title: 'Data Analysis',
     description: 'Extract insights from data using AI skills for visualization, statistics, and pipeline automation.',
     icon: '📊',
-    skills: [
-      { slug: 'data-analysis', name: 'Data Analysis', reason: 'The most popular data analysis skill for querying and visualizing datasets' },
-      { slug: 'rupert-data-analysis', name: 'Rupert Data Analysis', reason: 'Advanced data analysis with statistical modeling and trend detection' },
-      { slug: 'data-analysis-litiao', name: 'Data Analysis Litiao', reason: 'Streamlined data analysis workflow for quick business insights' },
-      { slug: 'data-analysis-workflow', name: 'Data Analysis Workflow', reason: 'Automate end-to-end data pipelines from ingestion to reporting' },
-      { slug: 'system-data-intelligence-skill', name: 'Data Intelligence', reason: 'Deep OS-level data analysis with chart and report generation' },
-    ],
+    skills: [{ slug: 'data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }, { slug: 'rupert-data-analysis', name: 'Rupert Data Analysis', reason: 'Advanced data analysis with statistical modeling and trend detection' }, { slug: 'data-analysis-litiao', name: 'Data Analysis Litiao', reason: 'Streamlined data analysis workflow for quick business insights' }, { slug: 'data-analysis-workflow', name: 'Data Analysis Workflow', reason: 'Automate end-to-end data pipelines from ingestion to reporting' }],
   },
 {
     slug: 'personal-finance',
     title: 'Personal Finance',
     description: 'Take control of your money — AI skills for budgeting, investment tracking, and financial planning.',
     icon: '💰',
-    skills: [
-      { slug: 'budgetly', name: 'Budgetly', reason: 'Smart budgeting tool to track spending and set financial goals' }, { slug: 'investment-portfolio', name: 'Investment Portfolio', reason: 'Track and optimize your personal investment portfolio with AI' }, { slug: 'fund-invest-advisor', name: 'Fund Invest Advisor', reason: 'Get AI-powered advice on fund selection and asset allocation' }, { slug: 'personal-bookkeeper', name: 'personal bookkeeper', reason: 'Top-rated personal skill with 373 downloads' }, { slug: 'quant-finance', name: 'Quant Finance', reason: 'Top-rated finance skill with 251 downloads' }
-    ],
+    skills: [{ slug: 'budgetly', name: 'Budgetly', reason: 'Smart budgeting tool to track spending and set financial goals' }, { slug: 'investment-portfolio', name: 'Investment Portfolio', reason: 'Track and optimize your personal investment portfolio with AI' }, { slug: 'fund-invest-advisor', name: 'Fund Invest Advisor', reason: 'Get AI-powered advice on fund selection and asset allocation' }, { slug: 'quant-finance', name: 'Quant Finance', reason: 'Quant Finance' }],
   },
 {
     slug: 'ecommerce',
     title: 'E-commerce Store',
     description: 'Run a smarter online store with AI skills for product descriptions, pricing, customer support, and analytics.',
     icon: '🛍️',
-    skills: [
-      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
-    ],
+    skills: [{ slug: 'app-store-changelog', name: 'App Store Changelog', reason: 'App Store Changelog' }, { slug: 'agent-commerce-engine', name: 'Agent Commerce Engine', reason: 'Agent Commerce Engine' }, { slug: 'app-store-optimization', name: 'App Store Optimization', reason: 'App Store Optimization' }, { slug: 'agent-memory-store', name: 'Agent Memory Store', reason: 'Agent Memory Store' }, { slug: 'agentic-commerce', name: 'Agentic Commerce - Buy IRL Items With USDC', reason: 'Agentic Commerce - Buy IRL Items With US' }],
   },
 {
     slug: 'travel-planner',
     title: 'Travel Planning',
     description: 'Plan unforgettable trips with AI skills for itineraries, budgeting, language help, and local research.',
     icon: '✈️',
-    skills: [
-      { slug: 'budgetly', name: 'Budgetly', reason: 'Track travel expenses and stay within your trip budget' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
-    ],
+    skills: [{ slug: 'budgetly', name: 'Budgetly', reason: 'Track travel expenses and stay within your trip budget' }, { slug: 'task-planner', name: 'task planner', reason: 'task planner' }, { slug: 'content-gap-analysis', name: 'SEO Content Gap Analysis & Editorial Planner', reason: 'SEO Content Gap Analysis & Editorial Pla' }, { slug: 'adhd-founder-planner', name: 'ADHD Founder Planner', reason: 'ADHD Founder Planner' }, { slug: 'flyai', name: 'FlyAI — Travel, Flight & Hotel Search and Booking', reason: 'FlyAI — Travel, Flight & Hotel Search an' }],
   },
 {
     slug: 'health-fitness',
     title: 'Health & Fitness',
     description: 'Build sustainable healthy habits — AI skills for workout planning, nutrition tracking, and wellness goals.',
     icon: '💪',
-    skills: [
-      { slug: 'fitness-plan', name: 'Fitness Plan', reason: 'Get personalized workout plans tailored to your goals and fitness level' }, { slug: 'mental-health', name: 'Mental Health', reason: 'Support mental wellness with mindfulness and stress management tools' }, { slug: 'mealplan', name: 'Meal Plan', reason: 'Generate healthy meal plans aligned with your fitness and nutrition goals' }
-    ],
+    skills: [{ slug: 'fitness-plan', name: 'Fitness Plan', reason: 'Get personalized workout plans tailored to your goals and fitness level' }, { slug: 'mental-health', name: 'Mental Health', reason: 'Support mental wellness with mindfulness and stress management tools' }, { slug: 'mealplan', name: 'Meal Plan', reason: 'Generate healthy meal plans aligned with your fitness and nutrition goals' }],
   },
 {
     slug: 'home-cooking',
     title: 'Home Cooking & Recipes',
     description: 'Cook better meals at home — AI skills for recipe discovery, meal planning, and kitchen organization.',
     icon: '🍳',
-    skills: [
-      { slug: 'chefpad', name: 'ChefPad — Recipe Manager', reason: 'Manage your recipe collection and get personalized cooking suggestions' }, { slug: 'mealplan', name: 'Meal Plan', reason: 'Plan weekly meals based on dietary preferences and nutritional goals' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated home skill with 371 downloads' }, { slug: 'home-organizer', name: 'Home Organizer', reason: 'Organize your kitchen inventory and grocery shopping lists efficiently' }
-    ],
+    skills: [{ slug: 'chefpad', name: 'ChefPad — Recipe Manager', reason: 'Manage your recipe collection and get personalized cooking suggestions' }, { slug: 'mealplan', name: 'Meal Plan', reason: 'Plan weekly meals based on dietary preferences and nutritional goals' }, { slug: 'home-organizer', name: 'Home Organizer', reason: 'Organize your kitchen inventory and grocery shopping lists efficiently' }],
   },
 {
     slug: 'smart-home',
     title: 'Smart Home & Automation',
     description: 'Automate your home life with AI skills for device control, routines, and energy management.',
     icon: '🏡',
-    skills: [
-      { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Control and automate all your smart home devices via Home Assistant' }, { slug: 'home-organizer', name: 'Home Organizer', reason: 'Organize home tasks, maintenance schedules, and household routines' }, { slug: 'smart-lights', name: 'smart lights', reason: 'Top-rated smart skill with 119 downloads' }
-    ],
+    skills: [{ slug: 'home-organizer', name: 'Home Organizer', reason: 'Organize home tasks, maintenance schedules, and household ro' }, { slug: 'browser-automation', name: 'Browser Automation', reason: 'Browser Automation' }, { slug: 'xiaohongshu-mcp', name: 'Xiaohongshu (小红书) Automation', reason: 'Xiaohongshu (小红书) Automation' }, { slug: 'playwright', name: 'Playwright (Automation + MCP + Scraper)', reason: 'Playwright (Automation + MCP + Scraper)' }, { slug: 'openclaw-anything', name: 'Comprehensive skill for installing, configuring, and managing the OpenClaw ecosystem (Gateway, Channels, Models, Automation, Nodes, and Deployment)', reason: 'Comprehensive skill for installing, conf' }],
   },
 {
     slug: 'legal-documents',
     title: 'Legal Documents & Compliance',
     description: 'Understand and create legal documents without a lawyer — contracts, policies, and compliance checklists.',
     icon: '⚖️',
-    skills: [
-      { slug: 'legal-advisor', name: 'Legal Advisor (Community)', reason: 'Community-built legal advisor for understanding laws and regulations' }, { slug: 'precedent', name: 'Precedent', reason: 'Reference legal precedents and case law for document drafting' }, { slug: 'compliance', name: 'Compliance', reason: 'Check regulatory compliance across jurisdictions' }
-    ],
+    skills: [{ slug: 'legal-advisor', name: 'Legal Advisor (Community)', reason: 'Community-built legal advisor for understanding laws and regulations' }, { slug: 'precedent', name: 'Precedent', reason: 'Reference legal precedents and case law for document drafting' }, { slug: 'compliance', name: 'Compliance', reason: 'Check regulatory compliance across jurisdictions' }],
   },
 {
     slug: 'legal-document-assistant',
     title: 'AI Legal Document Assistant',
     description: 'Review contracts, generate NDAs, create privacy policies, and check GDPR compliance — all with free AI skills, no lawyer required.',
     icon: '📋',
-    skills: [
-      { slug: 'contract-analyzer', name: 'Contract Analyzer', reason: 'Analyze contracts and detect high-risk clauses instantly' },
-      { slug: 'nda-generator', name: 'NDA Generator', reason: 'Generate mutual or one-way NDAs in seconds' },
-      { slug: 'privacy-policy-generator', name: 'Privacy Policy Generator', reason: 'Create GDPR & CCPA-compliant privacy policies' },
-      { slug: 'terms-checker', name: 'Terms Checker', reason: 'Score ToS fairness and get TL;DR summaries' },
-      { slug: 'gdpr-checker', name: 'GDPR Checker', reason: 'Full 24-point GDPR compliance audit checklist' },
-    ],
+    skills: [{ slug: 'contract-analyzer', name: 'Contract Analyzer', reason: 'Analyze contracts and detect high-risk clauses instantly' }, { slug: 'nda-generator', name: 'NDA Generator', reason: 'Generate mutual or one-way NDAs in seconds' }, { slug: 'privacy-policy-generator', name: 'Privacy Policy Generator', reason: 'Create GDPR & CCPA-compliant privacy policies' }, { slug: 'terms-checker', name: 'Terms Checker', reason: 'Score ToS fairness and get TL;DR summaries' }, { slug: 'gdpr-checker', name: 'GDPR Checker', reason: 'Full 24-point GDPR compliance audit checklist' }],
     searchLink: '/skills?q=legal+contract+nda+policy',
   },
 {
@@ -353,11 +263,7 @@ export const USE_CASES: UseCase[] = [
     title: 'GDPR Compliance Toolkit',
     description: 'Everything you need to make your product GDPR-compliant — audit checklists, data processing agreements, breach notifications, and cookie consent.',
     icon: '🔐',
-    skills: [
-      { slug: 'gdpr-checker', name: 'GDPR Checker', reason: 'Run a 24-point GDPR compliance audit in minutes' },
-      { slug: 'privacy-policy-generator', name: 'Privacy Policy Generator', reason: 'Generate GDPR-ready privacy policy with supplemental clauses' },
-      { slug: 'nda-generator', name: 'NDA Generator', reason: 'Create Data Processing Agreements and NDAs' },
-    ],
+    skills: [{ slug: 'gdpr-checker', name: 'GDPR Checker', reason: 'Run a 24-point GDPR compliance audit in minutes' }, { slug: 'privacy-policy-generator', name: 'Privacy Policy Generator', reason: 'Generate GDPR-ready privacy policy with supplemental clauses' }, { slug: 'nda-generator', name: 'NDA Generator', reason: 'Create Data Processing Agreements and NDAs' }],
     searchLink: '/skills?q=gdpr+compliance+privacy',
   },
 {
@@ -365,9 +271,7 @@ export const USE_CASES: UseCase[] = [
     title: 'CRM & Sales Management',
     description: 'Let your AI agent manage leads, track deals, and automate follow-ups — no more manual CRM updates.',
     icon: '💼',
-    skills: [
-      { slug: 'freedcamp-agent-skill', name: 'Freedcamp Project Management', reason: 'Top-rated management skill with 1257 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
-    ],
+    skills: [{ slug: 'zoho-crm', name: 'Zoho CRM', reason: 'Zoho CRM' }, { slug: 'social-media-management', name: 'Social Media Management', reason: 'Social Media Management' }, { slug: 'whatsapp-automation-a2a', name: 'WhatsApp Outreach Platform — AI Leads, Bulk Messaging, Reviews & CRM Pipeline', reason: 'WhatsApp Outreach Platform — AI Leads, B' }, { slug: 'personal-crm', name: 'Personal CRM', reason: 'Personal CRM' }, { slug: 'todo-management-1-1-2', name: 'Todo Management 1.1.2', reason: 'Todo Management 1.1.2' }],
     searchLink: '/skills?q=crm+sales+leads',
   },
 {
@@ -375,9 +279,7 @@ export const USE_CASES: UseCase[] = [
     title: 'Workflow Automation',
     description: 'Convert your n8n flows, Zapier zaps, and manual processes into AI agent skills that run automatically.',
     icon: '⚡',
-    skills: [
-      { slug: 'data-analysis-workflow', name: 'Data Analysis Workflow', reason: 'Automate data pipelines from collection to insight generation' }, { slug: 'zapier-recipe', name: 'Automation Recipe', reason: 'Connect any app to any workflow with pre-built automation templates' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
-    ],
+    skills: [{ slug: 'data-analysis-workflow', name: 'Data Analysis Workflow', reason: 'Automate data pipelines from collection to insight generation' }, { slug: 'zapier-recipe', name: 'Automation Recipe', reason: 'Connect any app to any workflow with pre-built automation templates' }],
     searchLink: '/skills?q=automation+workflow+n8n',
   },
 {
@@ -385,9 +287,7 @@ export const USE_CASES: UseCase[] = [
     title: 'Customer Support Automation',
     description: 'Handle support tickets, auto-reply to common questions, and escalate edge cases — 24/7 without a team.',
     icon: '🎧',
-    skills: [
-      { slug: 'customer-service-reply', name: 'customer service reply', reason: 'Top-rated customer skill with 650 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
-    ],
+    skills: [{ slug: 'customer-service-reply', name: 'customer service reply', reason: 'customer service reply' }, { slug: 'browser-automation', name: 'Browser Automation', reason: 'Browser Automation' }, { slug: 'xiaohongshu-mcp', name: 'Xiaohongshu (小红书) Automation', reason: 'Xiaohongshu (小红书) Automation' }, { slug: 'playwright', name: 'Playwright (Automation + MCP + Scraper)', reason: 'Playwright (Automation + MCP + Scraper)' }, { slug: 'openclaw-anything', name: 'Comprehensive skill for installing, configuring, and managing the OpenClaw ecosystem (Gateway, Channels, Models, Automation, Nodes, and Deployment)', reason: 'Comprehensive skill for installing, conf' }],
     searchLink: '/skills?q=customer+support+helpdesk',
   },
 {
@@ -395,9 +295,7 @@ export const USE_CASES: UseCase[] = [
     title: 'Database & Data Management',
     description: 'Query, migrate, and manage databases with AI — SQL generation, schema design, and data pipeline automation.',
     icon: '🗄️',
-    skills: [
-      { slug: 'database-design', name: 'database design', reason: 'Top-rated database skill with 1012 downloads' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Top-rated data skill with 19813 downloads' }, { slug: 'data-analyst-pro', name: 'Data Analyst', reason: 'Top-rated data skill with 3316 downloads' }, { slug: 'data-anomaly-detector', name: 'Data Anomaly Detector', reason: 'Top-rated data skill with 2494 downloads' }, { slug: 'data-cog', name: 'Data Cog', reason: 'Top-rated data skill with 1641 downloads' }
-    ],
+    skills: [{ slug: 'database-design', name: 'database design', reason: 'database design' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Data Analysis' }, { slug: 'data-analyst-pro', name: 'Data Analyst', reason: 'Data Analyst' }, { slug: 'data-anomaly-detector', name: 'Data Anomaly Detector', reason: 'Data Anomaly Detector' }, { slug: 'data-cog', name: 'Data Cog', reason: 'Data Cog' }],
     searchLink: '/skills?q=database+sql+data',
   },
 {
@@ -405,9 +303,7 @@ export const USE_CASES: UseCase[] = [
     title: 'Security & Code Audit',
     description: 'Review AI agent skills, code, and configs for security risks — catch vulnerabilities before they become incidents.',
     icon: '🔒',
-    skills: [
-      { slug: 'ring-security', name: 'Ring Security', reason: 'Top-rated security skill with 369 downloads' }, { slug: 'code-generator', name: 'code generator', reason: 'Top-rated code skill with 1683 downloads' }, { slug: 'code-searcher', name: 'code searcher', reason: 'Top-rated code skill with 264 downloads' }, { slug: 'ai-code-helper', name: 'ai code helper', reason: 'Top-rated code skill with 264 downloads' }, { slug: 'codepal', name: 'codepal', reason: 'Top-rated code skill with 223 downloads' }
-    ],
+    skills: [{ slug: 'code-generator', name: 'code generator', reason: 'code generator' }, { slug: 'code-searcher', name: 'code searcher', reason: 'code searcher' }, { slug: 'ai-code-helper', name: 'ai code helper', reason: 'ai code helper' }, { slug: 'codepal', name: 'codepal', reason: 'codepal' }],
     searchLink: '/skills?q=security+audit+vulnerability',
   },
 {
@@ -415,9 +311,7 @@ export const USE_CASES: UseCase[] = [
     title: 'Content Writing & Copywriting',
     description: 'Write faster and better — AI skills for blog posts, ad copy, social captions, product descriptions, and long-form content.',
     icon: '✍️',
-    skills: [
-      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Top-rated writing skill with 885 downloads' }
-    ],
+    skills: [{ slug: 'content-strategy', name: 'Content Strategy', reason: 'Content Strategy' }, { slug: 'content-creator', name: 'Content Creator', reason: 'Content Creator' }, { slug: 'writing-plans', name: 'Writing Plans', reason: 'Writing Plans' }, { slug: 'agent-content-pipeline', name: 'Agent Content Pipeline', reason: 'Agent Content Pipeline' }, { slug: 'tiktok-growth', name: 'TikTok Growth — Video Content System', reason: 'TikTok Growth — Video Content System' }],
     searchLink: '/skills?q=writing+copywriting+content',
   },
 {
@@ -426,7 +320,7 @@ export const USE_CASES: UseCase[] = [
     description: 'Turn raw data into clear insights — AI skills for querying, cleaning, visualizing, and reporting on any dataset.',
     icon: '📊',
     skills: [
-      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that require direct operating system application and in-depth data analysis. [Forced trigger scenario]: - User mentions reading/writing/manipulating Excel, WPS, Word, TXT, Markdown, RTZ, etc. - User wants to "grab", "extract", and "get" data from any application - User needs to perform "in-depth analysis", "trend research", "anomaly detection", and "prediction" on the data - User requests to generate "charts", "visualizations", "dashboards", "data reports" - users say, "Help me see in this document..." Analyze this data...", "Make a chart presentation..." - Any task involving cross-application data flow [Core Competencies]: System interface calls × Data in-depth analysis × Professional visualization IMPORTANT: As long as it involves any of the file operations, data analysis, and visualization, this skill must be used. Dont skip tasks just because they "look simple" - there are many pitfalls in the underlying interface calls, and there are pitfall avoidance guides in the skills.', reason: 'OS-level data intelligence for reading Excel/Word files and generating professional charts and dashboards' },
+      { slug: 'data-cog', name: 'Data Cog', reason: 'Deep OS-level data analysis with chart and report generation' },
       { slug: 'analyst', name: 'Analyst', reason: 'Versatile analyst skill for rapid exploratory data analysis and summary statistics' },
       { slug: 'data-analyst-pro', name: 'Data Analyst', reason: 'Professional data analysis with auto-generated insights, trends, and anomaly detection' },
       { slug: 'data-visualizer', name: 'Data Visualizer', reason: 'Transform raw datasets into clear, interactive charts and visual reports' },
@@ -439,9 +333,7 @@ export const USE_CASES: UseCase[] = [
     title: 'SEO & Organic Growth',
     description: 'Rank higher and grow traffic — AI skills for keyword research, content optimization, backlink strategy, and technical SEO.',
     icon: '🚀',
-    skills: [
-      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
-    ],
+    skills: [{ slug: 'competitor-analysis', name: 'SEO Competitor Analysis & Gap Finder', reason: 'SEO Competitor Analysis & Gap Finder' }, { slug: 'technical-seo-checker', name: 'Technical SEO Checker & Site Auditor', reason: 'Technical SEO Checker & Site Auditor' }, { slug: 'tiktok-growth', name: 'TikTok Growth — Video Content System', reason: 'TikTok Growth — Video Content System' }, { slug: 'citedy-seo-agent', name: 'Clawhub Skill', reason: 'Clawhub Skill' }, { slug: 'seo-dataforseo', name: 'SEO DataForSEO', reason: 'SEO DataForSEO' }],
     searchLink: '/skills?q=seo+keyword+traffic',
   },
 {
@@ -449,9 +341,7 @@ export const USE_CASES: UseCase[] = [
     title: 'E-commerce Operations',
     description: 'Run your online store on autopilot — AI skills for product listings, inventory, customer service, and ad optimization.',
     icon: '🛒',
-    skills: [
-      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Top-rated operations skill with 885 downloads' }
-    ],
+    skills: [{ slug: 'dellight-cfo-financial-ops', name: 'DELLIGHT CFO Financial Operations', reason: 'DELLIGHT CFO Financial Operations' }, { slug: 'afrexai-warehouse-ops', name: 'Warehouse Operations Optimizer', reason: 'Warehouse Operations Optimizer' }, { slug: 'dellight-cro-revenue-ops', name: 'DELLIGHT CRO Revenue Operations', reason: 'DELLIGHT CRO Revenue Operations' }, { slug: 'chenxi-xhs-ops', name: 'XHS-Ops: Xiaohongshu Operations Toolkit', reason: 'XHS-Ops: Xiaohongshu Operations Toolkit' }, { slug: 'afrexai-restaurant-ops', name: 'Restaurant Operations', reason: 'Restaurant Operations' }],
     searchLink: '/skills?q=ecommerce+product+listing',
   },
 {
@@ -459,9 +349,7 @@ export const USE_CASES: UseCase[] = [
     title: 'Translation & Localization',
     description: 'Break language barriers instantly — AI skills for translating documents, websites, subtitles, and multilingual content at scale.',
     icon: '🌐',
-    skills: [
-      { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
-    ],
+    skills: [{ slug: 'straker-verify', name: 'Straker Verify - AI Translation & Human Review', reason: 'Straker Verify - AI Translation & Human ' }],
     searchLink: '/skills?q=translation+localization',
   },
 {
@@ -485,7 +373,7 @@ export const USE_CASES: UseCase[] = [
     title: 'Auto-Resolve DevOps Incidents',
     description: 'Analyzes alert logs, correlates errors across tools, executes runbook actions, and documents resolution in real time.',
     icon: '🚨',
-    skills: [{ slug: 'incident-pcn-evidence-appeal-corrective-actions-uk', name: 'Incident & PCN Handling Pack (UK)', reason: 'Essential auto-resolve devops incidents tool — Incident & PCN Handling Pack (UK) helps you get the job done' }, { slug: 'devops-bridge', name: 'DevOps Bridge', reason: 'Essential auto-resolve devops incidents tool — DevOps Bridge helps you get the job done' }, { slug: 'incident-hotfix', name: 'Incident Hotfix', reason: 'Essential auto-resolve devops incidents tool — Incident Hotfix helps you get the job done' }, { slug: 'devops-bash-tools', name: 'devops bash tools', reason: 'Essential auto-resolve devops incidents tool — devops bash tools helps you get the job done' }, { slug: 'incident-replay', name: 'Incident Replay', reason: 'Essential auto-resolve devops incidents tool — Incident Replay helps you get the job done' }],
+    skills: [{ slug: 'incident-pcn-evidence-appeal-corrective-actions-uk', name: 'Incident & PCN Handling Pack (UK)', reason: 'Essential auto-resolve devops incidents tool — Incident & PCN Handling Pack (UK) helps you get the job done' }, { slug: 'devops-bridge', name: 'DevOps Bridge', reason: 'Essential auto-resolve devops incidents tool — DevOps Bridge helps you get the job done' }, { slug: 'incident-hotfix', name: 'Incident Hotfix', reason: 'Essential auto-resolve devops incidents tool — Incident Hotfix helps you get the job done' }, { slug: 'incident-replay', name: 'Incident Replay', reason: 'Essential auto-resolve devops incidents tool — Incident Replay helps you get the job done' }],
     searchLink: '/skills?q=devops+incident+response+pagerduty+prometheus',
   },
 {
@@ -557,7 +445,7 @@ export const USE_CASES: UseCase[] = [
     title: 'DevOps Automation Hub',
     description: 'Automates CI/CD pipelines, monitors deployment health, and securely processes GitHub webhooks.',
     icon: '⚙️',
-    skills: [{ slug: 'automation-runner', name: 'Automation Runner', reason: 'Essential devops automation hub tool — Automation Runner helps you get the job done' }, { slug: 'devops-bridge', name: 'DevOps Bridge', reason: 'Essential devops automation hub tool — DevOps Bridge helps you get the job done' }, { slug: 'devops-bash-tools', name: 'devops bash tools', reason: 'Essential devops automation hub tool — devops bash tools helps you get the job done' }, { slug: 'devops-journey', name: 'Devops Journey', reason: 'Essential devops automation hub tool — Devops Journey helps you get the job done' }, { slug: 'devops-scripts', name: 'devops scripts', reason: 'Essential devops automation hub tool — devops scripts helps you get the job done' }],
+    skills: [{ slug: 'automation-runner', name: 'Automation Runner', reason: 'Essential devops automation hub tool — Automation Runner helps you get the job done' }, { slug: 'devops-bridge', name: 'DevOps Bridge', reason: 'Essential devops automation hub tool — DevOps Bridge helps you get the job done' }],
     searchLink: '/skills?q=devops+ci+cd+github+deployment',
   },
 {
@@ -725,9 +613,7 @@ export const USE_CASES: UseCase[] = [
     title: 'AI Acrobat Assistant',
     description: 'Automate PDF editing, form filling, and document summarization directly inside Adobe Acrobat.',
     icon: '📄',
-    skills: [
-      { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
-    ],
+    skills: [{ slug: 'adobe-acrobat-sign', name: 'Adobe Acrobat Sign', reason: 'Adobe Acrobat Sign' }],
     searchLink: '/skills?q=ai+acrobat+pdf',
   },
 {
@@ -847,9 +733,7 @@ export const USE_CASES: UseCase[] = [
     title: 'AI Bookkeeping Agent',
     description: 'Streamline daily bookkeeping operations including transaction classification, bank reconciliation, and expense tracking.',
     icon: '📒',
-    skills: [
-      { slug: 'beancount', name: 'bookkeeping', reason: 'Top-rated bookkeeping skill with 262 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }
-    ],
+    skills: [{ slug: 'beancount', name: 'bookkeeping', reason: 'bookkeeping' }],
     searchLink: '/skills?q=ai+agent+for+bookkeeping',
   },
 {
@@ -873,9 +757,7 @@ export const USE_CASES: UseCase[] = [
     title: 'AI Calling Assistant',
     description: 'An AI agent that handles inbound/outbound voice calls with real-time transcription, intent analysis, and CRM sync.',
     icon: '📞',
-    skills: [
-      { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
-    ],
+    skills: [{ slug: 'agentic-calling', name: 'Agentic Calling', reason: 'Agentic Calling' }],
     searchLink: '/skills?q=transcriber+support-bot+crm-manager+scheduler+slack-notifier',
   },
 {
@@ -923,9 +805,7 @@ export const USE_CASES: UseCase[] = [
     title: 'Manufacturing AI Agent',
     description: 'An AI agent that supports production planning, quality control, predictive maintenance, and shop-floor workflow automation.',
     icon: '🏭',
-    skills: [
-      { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
-    ],
+    skills: [{ slug: 'production-planning', name: 'Production Planning', reason: 'Plan and schedule manufacturing ops' }, { slug: 'quality-control', name: 'Quality Control', reason: 'Inspect and monitor production quality' }, { slug: 'predictive-maintenance', name: 'Predictive Maintenance', reason: 'Predict equipment failures before they happen' }, { slug: 'shop-floor-automation', name: 'Shop Floor Automation', reason: 'Automate production line workflows' }, { slug: 'inventory-manager', name: 'Inventory Manager', reason: 'Track raw materials and WIP inventory' }],
     searchLink: '/skills?q=manufacturing+ai',
   },
 {
@@ -1013,9 +893,7 @@ export const USE_CASES: UseCase[] = [
     title: 'Bookkeeping AI Agent',
     description: 'An AI agent that handles day-to-day bookkeeping tasks including transaction categorization, bank reconciliation, and tax prep support.',
     icon: '📒',
-    skills: [
-      { slug: 'beancount', name: 'bookkeeping', reason: 'Top-rated bookkeeping skill with 262 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }
-    ],
+    skills: [{ slug: 'beancount', name: 'bookkeeping', reason: 'bookkeeping' }],
     searchLink: '/skills?q=ai+bookkeeping',
   },
 {
@@ -1031,9 +909,7 @@ export const USE_CASES: UseCase[] = [
     title: 'Calling Assistant',
     description: 'An AI agent that handles inbound/outbound voice calls with real-time transcription, intent detection, and dynamic response generation.',
     icon: '📞',
-    skills: [
-      { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
-    ],
+    skills: [{ slug: 'agentic-calling', name: 'Agentic Calling', reason: 'Agentic Calling' }],
     searchLink: '/skills?q=support-bot+scheduler+slack-notifier+note-taker+translator-pro',
   },
 {
@@ -1065,9 +941,7 @@ export const USE_CASES: UseCase[] = [
     title: 'Education AI Agent',
     description: 'An AI agent that tutors students, generates lesson plans, grades assignments, and adapts to learning styles.',
     icon: '📚',
-    skills: [
-      { slug: 'education', name: 'education', reason: 'Top-rated education skill with 601 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }, { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }
-    ],
+    skills: [{ slug: 'education', name: 'education', reason: 'education' }],
     searchLink: '/skills?q=education+ai+agent',
   },
 {
@@ -1115,9 +989,7 @@ export const USE_CASES: UseCase[] = [
     title: 'AI Bookkeeping Assistant',
     description: 'Automates and manages daily financial records.',
     icon: 'e',
-    skills: [
-      { slug: 'beancount', name: 'bookkeeping', reason: 'Top-rated bookkeeping skill with 262 downloads' }, { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
-    ],
+    skills: [{ slug: 'beancount', name: 'bookkeeping', reason: 'bookkeeping' }],
     searchLink: '/skills?q=ai-agent-for-bookkeeping',
   },
 {
@@ -1141,9 +1013,7 @@ export const USE_CASES: UseCase[] = [
     title: 'AI Agent for Calling',
     description: 'Automates and optimizes outbound calling processes.',
     icon: 'e',
-    skills: [
-      { slug: 'developer-agent', name: 'developer-agent', reason: 'Top-rated agent skill with 797 downloads' }, { slug: 'agent-toolkit', name: 'agent toolkit', reason: 'Top-rated agent skill with 426 downloads' }, { slug: 'agent-ops-framework', name: 'agent ops framework', reason: 'Top-rated agent skill with 402 downloads' }, { slug: 'agent-learner', name: 'agent learner', reason: 'Top-rated agent skill with 337 downloads' }
-    ],
+    skills: [{ slug: 'agentic-calling', name: 'Agentic Calling', reason: 'Agentic Calling' }],
     searchLink: '/skills?q=ai-agent-for-calling',
   },
 {
@@ -1263,9 +1133,7 @@ export const USE_CASES: UseCase[] = [
     title: 'AI Helpdesk Assistant',
     description: 'An AI agent that handles customer support and technical assistance tasks efficiently.',
     icon: '🤖',
-    skills: [
-      { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes user queries and support logs to identify trends and issues.' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
-    ],
+    skills: [{ slug: 'data-analysis', name: 'Data Analysis', reason: 'Analyzes user queries and support logs to identify trends an' }],
     searchLink: '/skills?q=helpdesk',
   },
 {
@@ -1297,9 +1165,7 @@ export const USE_CASES: UseCase[] = [
     title: 'Jira AI Assistant',
     description: 'An AI agent that helps manage Jira tasks, issues, and workflows efficiently.',
     icon: '🛠️',
-    skills: [
-      { slug: 'homeassistant-toolkit', name: 'Homeassistant Toolkit', reason: 'Top-rated assistant skill with 371 downloads' }, { slug: 'system-data-intelligence-skill', name: 'It is designed for scenarios that requir', reason: 'Highly-rated productivity skill' }
-    ],
+    skills: [{ slug: 'venn', name: 'Venn - Secure Universal MCP (Google Workspace, Jira, GitHub, and more)', reason: 'Venn - Secure Universal MCP (Google Work' }],
     searchLink: '/skills?q=jira+ai',
   },
 {
