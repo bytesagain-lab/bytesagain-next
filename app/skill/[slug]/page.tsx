@@ -80,7 +80,8 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
     github:   { label: 'GitHub',   color: '#94a3b8', bg: '#94a3b822', emoji: '⭐' },
     lobehub:  { label: 'LobeHub',  color: '#a78bfa', bg: '#a78bfa22', emoji: '🤖' },
     dify:     { label: 'Dify',     color: '#fbbf24', bg: '#fbbf2422', emoji: '🔧' },
-    mcp:      { label: 'MCP',      color: '#34d399', bg: '#34d39922', emoji: '⚡' },
+    mcp:        { label: 'MCP',      color: '#34d399', bg: '#34d39922', emoji: '⚡' },
+    skillssh:   { label: 'Skills.sh', color: '#7c3aed', bg: '#7c3aed22', emoji: '🛠️' },
     wechat:   { label: 'WeChat',   color: '#4ade80', bg: '#4ade8022', emoji: '💬' },
   }
   const sm = sourceMeta[source] || sourceMeta.clawhub

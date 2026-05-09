@@ -10,7 +10,8 @@ const SOURCE_BADGE: Record<string, { label: string; color: string; emoji: string
   bytesagain: { label: 'BytesAgain', color: '#00d4ff', emoji: '✦' },
   lobehub:    { label: 'LobeHub',    color: '#7c3aed', emoji: '🤖' },
   dify:       { label: 'Dify',       color: '#f59e0b', emoji: '🔧' },
-  mcp:        { label: 'MCP',        color: '#00c853', emoji: '🔌' },
+  mcp:      { label: 'MCP',      color: '#00c853', emoji: '🔌' },
+  skillssh:    { label: 'Skills.sh', color: '#7c3aed', emoji: '🛠️' },
   official:   { label: 'Official',   color: '#10b981', emoji: '✅' },
 }
 

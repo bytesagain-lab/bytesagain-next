@@ -37,7 +37,7 @@ const CATEGORIES = [
   // 效率
   'automation','communication','productivity',
   // 来源
-  'clawhub','bytesagain','lobehub','dify','mcp',
+  'clawhub','bytesagain','lobehub','dify','mcp','skillssh',
 ]
 
 const SOURCE_BADGE: Record<string, { label: string; color: string; emoji: string }> = {
@@ -47,14 +47,15 @@ const SOURCE_BADGE: Record<string, { label: string; color: string; emoji: string
   lobehub:    { label: 'LobeHub',    color: '#7c3aed', emoji: '🤖' },
   dify:       { label: 'Dify',       color: '#f59e0b', emoji: '🔧' },
   mcp:        { label: 'MCP',        color: '#00c853', emoji: '🔌' },
+  skillssh:    { label: 'Skills.sh', color: '#7c3aed', emoji: '🛠️' },
   official:   { label: 'Official',   color: '#10b981', emoji: '✅' },
 }
 
 const PAGE_SIZE = 48
 
 // Round-robin sources for cat=all: shuffle so each page shows a mix of sources
-const ROUNDROBIN_SOURCES = ['clawhub', 'github', 'bytesagain', 'lobehub', 'dify', 'mcp', 'official']
-const ROUNDROBIN_PER_PAGE = Math.ceil(PAGE_SIZE / ROUNDROBIN_SOURCES.length) + 2 // ~9 per source, 7 sources
+const ROUNDROBIN_SOURCES = ['clawhub', 'github', 'bytesagain', 'lobehub', 'dify', 'mcp', 'official', 'skillssh']
+const ROUNDROBIN_PER_PAGE = Math.ceil(PAGE_SIZE / ROUNDROBIN_SOURCES.length) + 2 // ~6 per source, 8 sources
 
 // Fallback env: hardcoded as Vercel env vars sometimes missing during build
 const _SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://jfpeycpiyayrpjldppzq.supabase.co'
@@ -106,7 +107,7 @@ async function cachedSkillsList(cat: string, from: number) {
     limit: String(PAGE_SIZE),
     offset: String(from),
   })
-  if (['clawhub','lobehub','dify','github','mcp','official','bytesagain'].includes(cat)) {
+  if (['clawhub','lobehub','dify','github','mcp','official','bytesagain','skillssh'].includes(cat)) {
     params.set('source', `eq.${cat}`)
   } else {
     params.set('tags', `ov.{${cat}}`)
@@ -190,7 +191,7 @@ export default async function SkillsPage({
       }
       // 分类过滤
       if (cat !== 'all') {
-        if (['clawhub','lobehub','dify','github','mcp','official','bytesagain'].includes(cat)) {
+        if (['clawhub','lobehub','dify','github','mcp','official','bytesagain','skillssh'].includes(cat)) {
           results = results.filter((s: any) => s.source === cat)
         } else {
           results = results.filter((s: any) => (s.tags || []).includes(cat))
