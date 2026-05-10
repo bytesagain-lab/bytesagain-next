@@ -4,6 +4,46 @@
       "source": "/skills/(.*)",
       "destination": "/skill/$1",
       "permanent": true
+    },
+    {
+      "source": "/(202[4-6])/(.*)",
+      "destination": "/articles",
+      "permanent": true
+    },
+    {
+      "source": "/blog/(.*)",
+      "destination": "/articles",
+      "permanent": true
+    },
+    {
+      "source": "/category/(.*)",
+      "destination": "/articles",
+      "permanent": true
+    },
+    {
+      "source": "/tag/(.*)",
+      "destination": "/articles",
+      "permanent": true
+    },
+    {
+      "source": "/author/(.*)",
+      "destination": "/articles",
+      "permanent": true
+    },
+    {
+      "source": "/page/(.*)",
+      "destination": "/articles",
+      "permanent": true
+    },
+    {
+      "source": "/feed",
+      "destination": "/articles",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)\\.php",
+      "destination": "/articles",
+      "permanent": true
     }
   ],
   "headers": [
