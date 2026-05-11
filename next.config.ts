@@ -2,20 +2,32 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: 'standalone',
-  // Strip Next.js RSC Vary header for public pages — allows CDN caching
+  // Strip Next.js RSC Vary header for public pages + set aggressive CDN cache
   async headers() {
     return [
       {
         source: '/skill/:path*',
-        headers: [{ key: 'Vary', value: 'Accept-Encoding' }],
-      },
-      {
-        source: '/use-case/:path*',
-        headers: [{ key: 'Vary', value: 'Accept-Encoding' }],
+        headers: [
+          { key: 'Cache-Control', value: 'public, s-maxage=43200, stale-while-revalidate=86400' },
+          { key: 'CDN-Cache-Control', value: 'public, max-age=43200, stale-while-revalidate=86400' },
+          { key: 'Vary', value: 'Accept-Encoding' },
+        ],
       },
       {
         source: '/article/:path*',
-        headers: [{ key: 'Vary', value: 'Accept-Encoding' }],
+        headers: [
+          { key: 'Cache-Control', value: 'public, s-maxage=14400, stale-while-revalidate=86400' },
+          { key: 'CDN-Cache-Control', value: 'public, max-age=14400, stale-while-revalidate=86400' },
+          { key: 'Vary', value: 'Accept-Encoding' },
+        ],
+      },
+      {
+        source: '/use-case/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, s-maxage=21600, stale-while-revalidate=86400' },
+          { key: 'CDN-Cache-Control', value: 'public, max-age=21600, stale-while-revalidate=86400' },
+          { key: 'Vary', value: 'Accept-Encoding' },
+        ],
       },
     ]
   },
