@@ -2,6 +2,23 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  // Strip Next.js RSC Vary header for public pages — allows CDN caching
+  async headers() {
+    return [
+      {
+        source: '/skill/:path*',
+        headers: [{ key: 'Vary', value: 'Accept-Encoding' }],
+      },
+      {
+        source: '/use-case/:path*',
+        headers: [{ key: 'Vary', value: 'Accept-Encoding' }],
+      },
+      {
+        source: '/article/:path*',
+        headers: [{ key: 'Vary', value: 'Accept-Encoding' }],
+      },
+    ]
+  },
   async redirects() {
     return [
       // sitemap variants are served by App Router routes so strict crawlers get direct 200 responses.
