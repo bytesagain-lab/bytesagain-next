@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+export const dynamic = 'force-dynamic'
 import { getGithubSkillIds } from '@/lib/github-skills'
 
 export const revalidate = 86400
