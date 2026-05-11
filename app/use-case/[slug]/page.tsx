@@ -77,15 +77,58 @@ async function getUseCase(slug: string): Promise<UseCaseRow | null> {
 
 async function getRelatedUseCases(uc: UseCaseRow) {
   const safeSlug = encodeURIComponent(uc.slug)
+  // Primary: bridge table — use cases that share the most skills with this one
+  try {
+    const links = await sbFetch(`skill_use_case_links?select=use_case_slug,skill_slug,relevance&use_case_slug=eq.${safeSlug}&order=relevance.desc&limit=30`)
+    if (links.length >= 3) {
+      // Get use cases that are linked to the same skills
+      const skillSlugs = [...new Set(links.map((l: any) => l.skill_slug))].filter(Boolean).slice(0, 8) as string[]
+      if (skillSlugs.length > 0) {
+        const orClause = skillSlugs.map((s: string) => `skill_slug=eq.${encodeURIComponent(s)}`).join(',')
+        const related = await sbFetch(`skill_use_case_links?select=use_case_slug,relevance&or=(${orClause})&order=relevance.desc&limit=30`)
+        const seen = new Set<string>([safeSlug])
+        const candidates: [string, number][] = []
+        for (const r of related) {
+          if (r.use_case_slug && !seen.has(r.use_case_slug)) {
+            seen.add(r.use_case_slug)
+            candidates.push([r.use_case_slug, r.relevance || 0])
+          }
+        }
+        candidates.sort((a, b) => b[1] - a[1])
+        if (candidates.length >= 3) {
+          const slugs = candidates.slice(0, 6).map(c => c[0])
+          const encodedSlugs = slugs.map(s => encodeURIComponent(String(s))).join(',')
+          const ucRows = await sbFetch(`use_cases?select=slug,title,icon,skills&slug=in.(${encodedSlugs})&limit=6`)
+          return ucRows.slice(0, 6)
+        }
+      }
+    }
+  } catch { /* fallback */ }
+  // Fallback: original method
   const rows = await sbFetch(`use_cases?select=slug,title,icon,skills&slug=neq.${safeSlug}&limit=24`)
   return rows.filter((u: any) => Array.isArray(u.skills) && u.skills.length >= 3).slice(0, 6)
 }
 
 async function getRelatedArticles(uc: UseCaseRow) {
+  // Primary: articles that are evaluation pages for skills linked to this use case
+  if (Array.isArray(uc.skills) && uc.skills.length > 0) {
+    const skillSlugs = uc.skills.map((s: any) => s.slug).filter(Boolean).slice(0, 6)
+    if (skillSlugs.length > 0) {
+      try {
+        // Check if any of these skills have ucevaluation articles
+        const orClause = skillSlugs
+          .map(s => `slug.ilike.*${encodeURIComponent(s)}*`)
+          .join(',')
+        const linked = await sbFetch(`posts?select=slug,title,category,published_at&post_type=eq.article&status=eq.published&or=(${orClause})&order=published_at.desc&limit=8`)
+        if (linked.length >= 2) return linked.slice(0, 4)
+      } catch {}
+    }
+  }
+  // Fallback: keyword token matching (improved)
   const tokens = keywordTokens(uc).slice(0, 5)
   if (!tokens.length) return []
   const orClause = tokens
-    .map(t => `title.ilike.*${encodeURIComponent(t)}*,content.ilike.*${encodeURIComponent(t)}*`)
+    .map(t => `title.ilike.*${encodeURIComponent(t)}*`)
     .join(',')
   const rows = await sbFetch(`posts?select=slug,title,category,published_at&post_type=eq.article&status=eq.published&or=(${orClause})&order=published_at.desc&limit=8`)
   return rows.slice(0, 4)

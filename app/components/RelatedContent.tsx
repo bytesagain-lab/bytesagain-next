@@ -2,13 +2,20 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { USE_CASES } from '@/lib/use-cases'
 
 interface RelatedSkill {
   slug: string
   name: string
   description: string
   downloads?: number
+}
+
+interface RelatedUseCase {
+  use_case_slug: string
+  use_case_title: string
+  use_case_description: string
+  use_case_icon: string
+  relevance: number
 }
 
 interface Props {
@@ -20,6 +27,7 @@ interface Props {
 
 export default function RelatedContent({ category, currentSlug, name, tags = [] }: Props) {
   const [skills, setSkills] = useState<RelatedSkill[]>([])
+  const [useCases, setUseCases] = useState<RelatedUseCase[]>([])
 
   useEffect(() => {
     if (!currentSlug) return
@@ -30,25 +38,22 @@ export default function RelatedContent({ category, currentSlug, name, tags = [] 
       .then(r => r.json())
       .then(setSkills)
       .catch(() => {})
+
+    // Fetch use cases from bridge table (Phase 2)
+    fetch(`/api/related-usecases?slug=${encodeURIComponent(currentSlug)}&limit=6`)
+      .then(r => r.json())
+      .then(setUseCases)
+      .catch(() => {})
   }, [category, currentSlug, name])
 
-  // 匹配 use cases
-  const matchedCases = USE_CASES.filter(uc => {
-    const ucText = (uc.title + ' ' + uc.description).toLowerCase()
-    return tags.some(tag => {
-      const t = tag.toLowerCase().replace(/-/g, ' ')
-      return ucText.includes(t)
-    })
-  }).slice(0, 6)
-
   const hasSkills = skills.length > 0
-  const hasCases = matchedCases.length > 0
+  const hasCases = useCases.length > 0
 
   if (!hasSkills && !hasCases) return null
 
   return (
     <div style={{ marginTop: 0 }}>
-      {/* 🔧 Related Skills — 无tab切换，直接显示 */}
+      {/* 🔧 Related Skills */}
       {hasSkills && (
         <div style={{ marginBottom: 28 }}>
           <h4 style={{ color: '#94a3b8', fontSize: '.82em', fontWeight: 700, margin: '0 0 12px', textTransform: 'uppercase', letterSpacing: '1px' }}>
@@ -69,21 +74,23 @@ export default function RelatedContent({ category, currentSlug, name, tags = [] 
         </div>
       )}
 
-      {/* 🎯 Use Cases — 无tab切换，直接显示 */}
+      {/* 🎯 Use Cases — from bridge table */}
       {hasCases && (
         <div>
           <h4 style={{ color: '#94a3b8', fontSize: '.82em', fontWeight: 700, margin: '0 0 12px', textTransform: 'uppercase', letterSpacing: '1px' }}>
-            🎯 Use Cases <span style={{ color: '#4b5563', fontWeight: 400 }}>({matchedCases.length})</span>
+            🎯 Use Cases <span style={{ color: '#4b5563', fontWeight: 400 }}>({useCases.length})</span>
           </h4>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-            {matchedCases.map(uc => (
-              <Link key={uc.slug} href={`/use-case/${uc.slug}`}
+            {useCases.map(uc => (
+              <Link key={uc.use_case_slug} href={`/use-case/${uc.use_case_slug}`}
                 style={{ display: 'block', padding: '12px 14px', background: '#0f0f23', border: '1px solid #1a1a2e', borderRadius: 10, textDecoration: 'none' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
-                  <span style={{ fontSize: '1.1em' }}>{uc.icon}</span>
-                  <span style={{ color: '#e0e0e0', fontWeight: 600, fontSize: '.88em' }}>{uc.title}</span>
+                  <span style={{ fontSize: '1.1em' }}>{uc.use_case_icon || '🗺️'}</span>
+                  <span style={{ color: '#e0e0e0', fontWeight: 600, fontSize: '.88em' }}>{uc.use_case_title}</span>
                 </div>
-                <div style={{ color: '#666', fontSize: '.78em', lineHeight: 1.5 }}>{uc.description.slice(0, 70)}…</div>
+                <div style={{ color: '#666', fontSize: '.78em', lineHeight: 1.5 }}>
+                  {(uc.use_case_description || '').slice(0, 70)}{(uc.use_case_description || '').length > 70 ? '…' : ''}
+                </div>
               </Link>
             ))}
           </div>
