@@ -1,5 +1,5 @@
 export const revalidate = 3600
-export const dynamic = 'force-dynamic'
+// ISR: page is cached for 3600s, purged on-demand via /api/revalidate
 
 import { getArticle, getArticles } from '@/lib/supabase'
 import { notFound } from 'next/navigation'
