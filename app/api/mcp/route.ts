@@ -12,117 +12,62 @@ const ALLOWED_TOOLS = new Set(
 
 // ── AliExpress Deals / Coupon Codes ───────────────────────────────
 const ALIEXPRESS_DEALS = {
-  global: { label: 'Global Codes', valid_until: '2026-05-07 23:59 PST', codes: [
-    { code: 'AFMC2', desc: '$2 off $15', threshold: '$15' },
-    { code: 'AFMC4', desc: '$4 off $30', threshold: '$30' },
-    { code: 'AFMC7', desc: '$7 off $49', threshold: '$49' },
-    { code: 'AFMC12', desc: '$12 off $89', threshold: '$89' },
-    { code: 'AFMC18', desc: '$18 off $149', threshold: '$149' },
-    { code: 'AFMC25', desc: '$25 off $209', threshold: '$209' },
-    { code: 'AFMC40', desc: '$40 off $329', threshold: '$329' },
-    { code: 'AFMC55', desc: '$55 off $449', threshold: '$449' },
+  global: { label: 'Summer Refresh Savings — Global', valid_until: '2026-05-15 23:59 PST', banner: 'Up to 60% off across all categories including smartphones!', codes: [
+    { code: 'SRAE02', desc: '$15-$2' },
+    { code: 'SRAE03', desc: '$29-$3' },
+    { code: 'SRAE05', desc: '$45-$5' },
+    { code: 'SRAE07', desc: '$69-$7' },
+    { code: 'SRAE17', desc: '$149-$17' },
+    { code: 'SRAE30', desc: '$249-$30' },
   ]},
-  us: { label: 'US Choice Day', valid_until: '2026-05-07 PST', codes: [
-    { code: 'USAFF02', desc: '$18-$2' }, { code: 'USAFF5', desc: '$39-$5' },
-    { code: 'USAFF8', desc: '$59-$8' }, { code: 'USAFF015', desc: '$109-$15' },
-    { code: 'USAFF23', desc: '$169-$23' }, { code: 'USAFF30', desc: '$239-$30' },
-    { code: 'USAFF045', desc: '$359-$45' }, { code: 'USAFF060', desc: '$479-$60' },
+  ca: { label: 'Summer Refresh Savings — Canada', valid_until: '2026-05-15 23:59 PST', codes: [
+    { code: 'SRAE02', desc: 'C$23-C$3' }, { code: 'SRAE03', desc: 'C$39-C$4' },
+    { code: 'SRAE05', desc: 'C$65-C$7' }, { code: 'SRAE07', desc: 'C$99-C$10' },
+    { code: 'SRAE17', desc: 'C$209-C$24' }, { code: 'SRAE30', desc: 'C$350-C$40' },
   ]},
-  us_newuser: { label: 'US New User', valid_until: '2026-06-30', codes: [
-    { code: 'NEWUSOFF3', desc: '$10-$3' }, { code: 'NEWUSOFF5', desc: '$20-$5' },
-    { code: 'NEWUSOFF12', desc: '$80-$12' },
+  br: { label: 'Summer Refresh Savings — Brazil', valid_until: '2026-05-15 23:59 BRT', codes: [
+    { code: 'WRBR02', desc: 'R$80-R$10' }, { code: 'WRBR03', desc: 'R$159-R$16' },
+    { code: 'WRBR06', desc: 'R$240-R$32' }, { code: 'WRBR08', desc: 'R$380-R$44' },
+    { code: 'WRBR16', desc: 'R$800-R$86' }, { code: 'WRBR30', desc: 'R$1400-R$170' },
   ]},
-  br: { label: 'Brazil Mother\'s Day', valid_until: '2026-05-07 BRT', codes: [
-    { code: 'MAES1', desc: 'R$80-R$10' }, { code: 'MAES2', desc: 'R$160-R$20' },
-    { code: 'MAES3', desc: 'R$260-R$35' }, { code: 'MAES4', desc: 'R$480-R$65' },
-    { code: 'MAES5', desc: 'R$800-R$95' }, { code: 'MAES6', desc: 'R$1150-R$140' },
-    { code: 'MAES7', desc: 'R$1770-R$220' }, { code: 'MAES8', desc: 'R$2450-R$300' },
+  kr: { label: 'Summer Refresh Savings — Korea', valid_until: '2026-05-15 KST', codes: [
+    { code: 'REFRESH02', desc: '$18-$2' }, { code: 'REFRESH04', desc: '$35-$4' },
+    { code: 'REFRESH06', desc: '$55-$6' }, { code: 'REFRESH09', desc: '$89-$9' },
+    { code: 'REFRESH15', desc: '$138-$15' },
   ]},
-  kr: { label: 'Korea 5월 Choice Day', valid_until: '2026-05-07 KST', codes: [
-    { code: 'CHOICEKR03', desc: '$22-$3' }, { code: 'CHOICEKR04', desc: '$34-$4' },
-    { code: 'CHOICEKR07', desc: '$56-$7' }, { code: 'CHOICEKR10', desc: '$86-$10' },
-    { code: 'CHOICEKR16', desc: '$139-$16' }, { code: 'CHOICEKR27', desc: '$239-$27' },
-    { code: 'CHOICEKR38', desc: '$349-$38' },
+  es: { label: 'Summer Refresh Savings — Spain', valid_until: '2026-05-15 CET', codes: [
+    { code: 'SRES02', desc: '€15-€2' }, { code: 'SRES04', desc: '€39-€4' },
+    { code: 'SRES07', desc: '€69-€7' }, { code: 'SRES16', desc: '€139-€16' },
+    { code: 'SRES25', desc: '€209-€25' }, { code: 'SRES38', desc: '€309-€38' },
   ]},
-  fr: { label: 'France Choice Day', valid_until: '2026-05-07 CET', codes: [
-    { code: 'FRFW02', desc: '€18-€2' }, { code: 'FRFW05', desc: '€39-€5' },
-    { code: 'FRFW08', desc: '€59-€8' }, { code: 'FRFW15', desc: '€109-€15' },
-    { code: 'FRFW23', desc: '€169-€23' }, { code: 'FRFW30', desc: '€239-€30' },
-    { code: 'FRFW45', desc: '€359-€45' }, { code: 'FRFW60', desc: '€479-€60' },
+  de: { label: 'Summer Refresh Savings — Germany', valid_until: '2026-05-15 CEST', codes: [
+    { code: 'SRDE02', desc: '€15-€2' }, { code: 'SRDE04', desc: '€39-€4' },
+    { code: 'SRDE07', desc: '€69-€7' }, { code: 'SRDE16', desc: '€139-€16' },
+    { code: 'SRDE25', desc: '€209-€25' }, { code: 'SRDE38', desc: '€309-€38' },
   ]},
-  es: { label: 'Spain Listos para verano', valid_until: '2026-05-07', codes: [
-    { code: 'CDES02', desc: '€15-€2', alt: 'ESCD02' },
-    { code: 'CDES04', desc: '€30-€4', alt: 'ESCD04' },
-    { code: 'CDES07', desc: '€49-€7', alt: 'ESCD07' },
-    { code: 'CDES12', desc: '€89-€12', alt: 'ESCD12' },
-    { code: 'CDES18', desc: '€149-€18', alt: 'ESCD18' },
-    { code: 'CDES25', desc: '€209-€25', alt: 'ESCD25' },
-    { code: 'CDES40', desc: '€329-€40', alt: 'ESCD40' },
-    { code: 'CDES55', desc: '€449-€55', alt: 'ESCD55' },
+  pl: { label: 'Summer Refresh Savings — Poland', valid_until: '2026-05-15 CET', codes: [
+    { code: 'SRPL02', desc: '$15-$2' }, { code: 'SRPL03', desc: '$29-$3' },
+    { code: 'SRPL05', desc: '$45-$5' }, { code: 'SRPL07', desc: '$69-$7' },
+    { code: 'SRPL17', desc: '$149-$17' }, { code: 'SRPL30', desc: '$249-$30' },
   ]},
-  de: { label: 'Germany Choice Day', valid_until: '2026-05-07 CEST', codes: [
-    { code: 'DECD02', desc: '€18-€2' }, { code: 'DECD05', desc: '€39-€5' },
-    { code: 'DECD08', desc: '€59-€8' }, { code: 'DECD15', desc: '€109-€15' },
-    { code: 'DECD23', desc: '€169-€23' }, { code: 'DECD30', desc: '€239-€30' },
-    { code: 'DECD45', desc: '€359-€45' }, { code: 'DECD60', desc: '€479-€60' },
+  ua: { label: 'Summer Refresh Savings — Ukraine', valid_until: '2026-05-15 CET', codes: [
+    { code: 'SRUA01', desc: '$10-$1' }, { code: 'SRUA02', desc: '$19-$2' },
+    { code: 'SRUA04', desc: '$39-$4' }, { code: 'SRUA07', desc: '$69-$7' },
+    { code: 'SRUA16', desc: '$149-$16' }, { code: 'SRUA25', desc: '$209-$25' },
   ]},
-  de_weekly: { label: 'DE Sparschwein wöchentlich', valid_until: 'weekly Sun 23:59 CET', codes: [] },
-  pl: { label: 'Poland Summer Ready', valid_until: '2026-05-07 CET', codes: [
-    { code: 'AEPLL02', desc: '€18-€2' }, { code: 'AEPLL05', desc: '€39-€5' },
-    { code: 'AEPLL08', desc: '€59-€8' }, { code: 'AEPLL15', desc: '€109-€15' },
-    { code: 'AEPLL23', desc: '€169-€23' }, { code: 'AEPLL30', desc: '€239-€30' },
-    { code: 'AEPLL45', desc: '€359-€45' }, { code: 'AEPLL60', desc: '€479-€60' },
-  ]},
-  ua: { label: 'Ukraine Summer Ready', valid_until: '2026-05-07 CET', codes: [
-    { code: 'AEUA01', desc: '$10-$1' }, { code: 'AEUA03', desc: '$25-$3' },
-    { code: 'AEUA05', desc: '$40-$5' }, { code: 'AEUA08', desc: '$65-$8' },
-    { code: 'AEUA13', desc: '$99-$13' }, { code: 'AEUA25', desc: '$189-$25' },
-    { code: 'AEUA30', desc: '$229-$30' }, { code: 'AEUA50', desc: '$379-$50' },
-  ]},
-  jp: { label: 'Japan 5月Choice Day', valid_until: '2026-05-08 15:59 JST', codes: [
-    { code: 'AFMC2', desc: '$2 off $15' }, { code: 'AFMC4', desc: '$4 off $30' },
-    { code: 'AFMC7', desc: '$7 off $49' }, { code: 'AFMC12', desc: '$12 off $89' },
-    { code: 'AFMC18', desc: '$18 off $149' }, { code: 'AFMC25', desc: '$25 off $209' },
-    { code: 'AFMC40', desc: '$40 off $329' }, { code: 'AFMC55', desc: '$55 off $449' },
-  ]},
-  euro_multi: { label: 'AT/BE/CH/CZ/DK/FI/HU/IE/PT/SE Summer Ready', valid_until: '2026-05-07 23:59', codes: [
-    { code: 'CD02VIO', desc: '€18-€2' }, { code: 'CD05VIO', desc: '€39-€5' },
-    { code: 'CD08VIO', desc: '€59-€8' }, { code: 'CD15VIO', desc: '€109-€15' },
-    { code: 'CD23VIO', desc: '€169-€23' }, { code: 'CD30VIO', desc: '€239-€30' },
-    { code: 'CD45VIO', desc: '€359-€45' }, { code: 'CD60VIO', desc: '€479-€60' },
-  ]},
-  uk: { label: 'UK Summer Ready', valid_until: '2026-05-07 22:59 BST', codes: [
-    { code: 'AEUKCDX2', desc: '£15-£2' }, { code: 'AEUKCDX4', desc: '£30-£4' },
-    { code: 'AEUKCDX7', desc: '£49-£7' }, { code: 'AEUKCD12', desc: '£89-£12' },
-    { code: 'AEUKCD18', desc: '£149-£18' }, { code: 'AEUKCD25', desc: '£209-£25' },
-    { code: 'AEUKCD40', desc: '£329-£40' }, { code: 'AEUKCD55', desc: '£449-£55' },
+  uk: { label: 'Summer Refresh Savings — UK', valid_until: '2026-05-15 22:59 BST', codes: [
+    { code: 'SRGB02', desc: '£15-£2' }, { code: 'SRGB04', desc: '£39-£4' },
+    { code: 'SRGB07', desc: '£69-£7' }, { code: 'SRGB16', desc: '£139-£16' },
+    { code: 'SRGB25', desc: '£209-£25' }, { code: 'SRGB38', desc: '£309-£38' },
   ]},
   uk_newuser: { label: 'UK New User', valid_until: '2026-07-09', codes: [
     { code: 'UKNEW03', desc: '£7-£3' }, { code: 'UKNEW04', desc: '£15-£4' },
   ]},
-  au: { label: 'Australia Winter Ready', valid_until: '2026-05-07 23:59 PST', codes: [
-    { code: 'AFFAU03', desc: 'A$23-A$3' }, { code: 'AFFAU06', desc: 'A$45-A$6' },
-    { code: 'AFFAU10', desc: 'A$70-A$10' }, { code: 'AFFAU16', desc: 'A$120-A$16' },
-    { code: 'AFFAU28', desc: 'A$230-A$28' }, { code: 'AFFAU35', desc: 'A$290-A$35' },
-    { code: 'AFFAU56', desc: 'A$460-A$56' }, { code: 'AFFAU78', desc: 'A$630-A$78' },
-  ]},
-  ca: { label: 'Canada Choice Day', valid_until: '2026-05-07 23:59 PDT', codes: [
-    { code: 'CDCA23', desc: 'C$23-C$3' }, { code: 'CDCA45', desc: 'C$45-C$6' },
-    { code: 'CDCA70', desc: 'C$70-C$7' }, { code: 'CDCA120', desc: 'C$120-C$16' },
-    { code: 'CDCA230', desc: 'C$230-C$28' }, { code: 'CDCA290', desc: 'C$290-C$35' },
-    { code: 'CDCA460', desc: 'C$460-C$56' }, { code: 'CDCA630', desc: 'C$630-C$78' },
-  ]},
-  mx: { label: 'Mexico Choice Day', valid_until: '2026-05-07 23:59 CT', codes: [
-    { code: 'CDMX1', desc: 'MX$320-MX$35' }, { code: 'CDMX2', desc: 'MX$700-MX$90' },
-    { code: 'CDMX3', desc: 'MX$1000-MX$140' }, { code: 'CDMX4', desc: 'MX$1900-MX$260' },
-    { code: 'CDMX5', desc: 'MX$2900-MX$400' }, { code: 'CDMX6', desc: 'MX$4200-MX$530' },
-    { code: 'CDMX7', desc: 'MX$6300-MX$800' }, { code: 'CDMX8', desc: 'MX$8400-MX$1050' },
-  ]},
-  gcc: { label: 'GCC (SA/AE/KW/OM/BH/QA)', valid_until: '2026-05-07 PST', codes: [
-    { code: 'GCCCD01', desc: '70SAR-8SAR' }, { code: 'GCCCD02', desc: '155SAR-20SAR' },
-    { code: 'GCCCD03', desc: '225SAR-27SAR' }, { code: 'GCCCD04', desc: '350SAR-48SAR' },
-    { code: 'GCCCD05', desc: '575SAR-75SAR' }, { code: 'GCCCD06', desc: '920SAR-115SAR' },
-    { code: 'GCCCD07', desc: '1430SAR-175SAR' }, { code: 'GCCCD08', desc: '1885SAR-230SAR' },
+  euro_multi: { label: 'Summer Refresh — AT/BE/CH/CZ/DK/FI/HU/IE/PT/SE', valid_until: '2026-05-15 23:59', codes: [
+    { code: 'SRVIO02', desc: '€15-€2' }, { code: 'SRVIO04', desc: '€39-€4' },
+    { code: 'SRVIO07', desc: '€69-€7' }, { code: 'SRVIO16', desc: '€139-€16' },
+    { code: 'SRVIO25', desc: '€209-€25' }, { code: 'SRVIO30', desc: '€239-€30' },
+    { code: 'SRVIO38', desc: '€309-€38' },
   ]},
 }
 
@@ -792,7 +737,7 @@ export async function POST(req: NextRequest) {
             limit: { type: 'number', description: 'Number of requests to return. Default: 20. Max: 50.' }
           }, required: [] } },
         { name: 'get_deals',
-          description: 'Get active AliExpress coupon codes and promotion deals. Returns region-specific coupon codes with discount thresholds and validity dates. Supported regions: global codes, US, Brazil, Korea, France, Spain, Germany. Each region has its own set of coupon codes. Use when the user asks about AliExpress discounts, coupon codes, or promotions.',
+          description: 'Get active AliExpress Summer Refresh Savings coupon codes — up to 60% off, valid May 10-15. Returns region-specific coupon codes with discount thresholds and validity dates. Supported regions: global codes, US, Brazil, Korea, France, Spain, Germany. Each region has its own set of coupon codes. Use when the user asks about AliExpress discounts, coupon codes, or promotions.',
           inputSchema: { type: 'object', properties: {
             region: { type: 'string', description: 'Optional region filter: "global", "us", "br", "kr", "fr", "es", "de", or "all". Default: "all".' },
           }, required: [] } },
