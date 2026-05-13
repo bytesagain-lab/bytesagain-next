@@ -2,7 +2,7 @@ export const revalidate = 86400
 import IntentSearch from './components/IntentSearch'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { getArticles, getSkills } from '@/lib/supabase'
+import { getArticles } from '@/lib/supabase'
 import UcScroll from './components/UcScroll'
 
 const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
@@ -46,8 +46,20 @@ async function getUseCases() {
 }
 
 async function getTopSkills() {
+  if (!SB_URL || !SB_KEY) return []
   try {
-    return await getSkills(6)
+    // Use skills_list instead of skills to avoid ORDER BY timeout on large table
+    const res = await fetch(
+      `${SB_URL}/rest/v1/skills_list?select=slug,name,description,category,downloads&limit=6`,
+      {
+        headers: { apikey: SB_KEY },
+        next: { revalidate: 86400 },
+      }
+    )
+    if (!res.ok) return []
+    const data = await res.json()
+    // Filter to non-zero downloads if available, otherwise show first 6
+    return (data as any[]).slice(0, 6)
   } catch {
     return []
   }
