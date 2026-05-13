@@ -6,7 +6,7 @@ export async function GET() {
   return NextResponse.json({
     schema_version: '1.0',
     name: 'BytesAgain AI Skills Search',
-    description: 'Curated AI agent skills directory with search, use cases, articles, MCP tools, and install links for agent runtimes.',
+    description: 'Curated AI agent skills directory with search, use cases, articles, MCP tools, GEO endpoints, and install links for agent runtimes.',
     url: 'https://bytesagain.com',
     provider: {
       name: 'BytesAgain',
@@ -21,6 +21,14 @@ export async function GET() {
       'provide_install_commands',
       'serve_agent_readable_llms_txt',
     ],
+    geo_optimization: {
+      llms_txt: 'https://bytesagain.com/llms.txt',
+      llms_full_txt: 'https://bytesagain.com/llms-full.txt',
+      ai_txt: 'https://bytesagain.com/.well-known/ai.txt',
+      summary: 'https://bytesagain.com/ai/summary.json',
+      faq: 'https://bytesagain.com/ai/faq.json',
+      service: 'https://bytesagain.com/ai/service.json',
+    },
     entrypoints: {
       homepage: 'https://bytesagain.com',
       skills: 'https://bytesagain.com/skills',
@@ -28,6 +36,10 @@ export async function GET() {
       articles: 'https://bytesagain.com/articles',
       llms_txt: 'https://bytesagain.com/llms.txt',
       llms_full_txt: 'https://bytesagain.com/llms-full.txt',
+      ai_txt: 'https://bytesagain.com/.well-known/ai.txt',
+      ai_summary: 'https://bytesagain.com/ai/summary.json',
+      ai_faq: 'https://bytesagain.com/ai/faq.json',
+      ai_service: 'https://bytesagain.com/ai/service.json',
       openapi: 'https://bytesagain.com/openapi.json',
       mcp: 'https://bytesagain.com/.well-known/mcp',
       mcp_endpoint: 'https://bytesagain.com/api/mcp',
@@ -41,6 +53,8 @@ export async function GET() {
       'Use /api/mcp?action=search&q=... for lightweight REST search.',
       'Use /api/mcp/sse for MCP-compatible agent integration.',
       'Use /llms.txt for a compact agent-readable overview and /llms-full.txt for deeper context.',
+      'Use /.well-known/ai.txt for AI crawler instructions.',
+      'Use /ai/summary.json, /ai/faq.json, /ai/service.json for structured AI-extractable content.',
     ],
   }, {
     headers: {

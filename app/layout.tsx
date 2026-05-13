@@ -76,7 +76,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             "@type": "WebSite",
             "name": "BytesAgain",
             "url": "https://bytesagain.com",
-            "description": "Search hundreds of thousands of AI agent skills via MCP API or REST. Supports 7 languages. Free, no auth required.",
+            "description": "Search 60,000+ verified AI agent skills via MCP API or REST. Supports 7 languages. Free, no auth required.",
+            "inLanguage": ["en", "zh", "es", "fr", "de", "ja", "ko"],
             "potentialAction": {
               "@type": "SearchAction",
               "target": {
@@ -91,25 +92,57 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             "name": "BytesAgain",
             "url": "https://bytesagain.com",
             "logo": { "@type": "ImageObject", "url": "https://bytesagain.com/og-image.png" },
-            "description": "AI agent skill directory. Search skills, use cases, and community requests.",
+            "description": "AI agent skill directory. Search 60,000+ skills, 1,000+ use cases, and community requests.",
             "foundingDate": "2026",
-            "sameAs": ["https://x.com/bytesagain", "https://github.com/bytesagain/ai-skills"],
-            "contactPoint": { "@type": "ContactPoint", "email": "hello@bytesagain.com", "contactType": "customer support" }
+            "foundingLocation": { "@type": "Place", "name": "Global" },
+            "sameAs": [
+              "https://x.com/bytesagain",
+              "https://github.com/bytesagain/ai-skills",
+              "https://clawhub.ai/profile/bytesagain"
+            ],
+            "contactPoint": { "@type": "ContactPoint", "email": "hello@bytesagain.com", "contactType": "customer support" },
+            "numberOfEmployees": { "@type": "QuantitativeValue", "value": 1 }
+          }, {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "BytesAgain AI Skills Search",
+            "url": "https://bytesagain.com",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Web",
+            "description": "Search engine and MCP API for 60,000+ AI agent skills. Semantic search, role recommendations, and use case packs.",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+            "featureList": [
+              "Search 60,000+ AI agent skills",
+              "Role-based recommendations for developers, creators, and traders",
+              "1,000+ curated use case packs",
+              "Free MCP API and REST API",
+              "Multi-language search (EN, ZH, ES, FR, DE, JA, KO)"
+            ],
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://bytesagain.com/skills?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            },
+            "dateModified": new Date().toISOString().split('T')[0]
           }, {
             "@context": "https://schema.org",
             "@type": "FAQPage",
             "mainEntity": [{
               "@type": "Question",
               "name": "What is BytesAgain?",
-              "acceptedAnswer": { "@type": "Answer", "text": "BytesAgain is a curated directory of AI agent skills. Search hundreds of thousands of skills, explore 1,000+ use cases, and browse community skill requests." }
+              "acceptedAnswer": { "@type": "Answer", "text": "BytesAgain is a curated directory of 60,000+ AI agent skills from ClawHub, GitHub, LobeHub, and Dify. Search skills by keyword in 7 languages, browse by role (developer, creator, trader, marketer) or by use case." }
             }, {
               "@type": "Question",
               "name": "How do I find AI skills on BytesAgain?",
-              "acceptedAnswer": { "@type": "Answer", "text": "Use the search bar on BytesAgain.com to search by keyword in 7 languages. You can also browse by role (developer, creator, trader, marketer) or by use case." }
+              "acceptedAnswer": { "@type": "Answer", "text": "Use the search bar on BytesAgain.com to search by keyword in 7 languages. You can also browse by role (developer, creator, trader, marketer) or by use case. Each skill shows install instructions for Claude, Cursor, OpenClaw, Continue, and more." }
             }, {
               "@type": "Question",
               "name": "Is BytesAgain free?",
               "acceptedAnswer": { "@type": "Answer", "text": "Yes, BytesAgain is completely free. No registration required for searching skills. The MCP API is also free with rate limits." }
+            }, {
+              "@type": "Question",
+              "name": "Does BytesAgain have an API for AI agents?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Yes! BytesAgain provides a free MCP SSE endpoint at /api/mcp/sse for AI agents, plus a REST API at /api/mcp?action=search&q=<query>. No authentication needed." }
             }, {
               "@type": "Question",
               "name": "Can I request a new AI skill on BytesAgain?",

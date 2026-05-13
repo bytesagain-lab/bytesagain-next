@@ -21,6 +21,16 @@ export async function GET() {
       'provide_install_commands',
       'serve_agent_readable_llms_txt',
     ],
+    geo_optimization: {
+      geo_score_estimate: '80/100',
+      llms_txt: 'https://bytesagain.com/llms.txt',
+      llms_full_txt: 'https://bytesagain.com/llms-full.txt',
+      ai_txt: 'https://bytesagain.com/.well-known/ai.txt',
+      summary: 'https://bytesagain.com/ai/summary.json',
+      faq: 'https://bytesagain.com/ai/faq.json',
+      service: 'https://bytesagain.com/ai/service.json',
+      robots_txt: 'https://bytesagain.com/robots.txt',
+    },
     entrypoints: {
       homepage: 'https://bytesagain.com',
       skills: 'https://bytesagain.com/skills',
@@ -28,6 +38,10 @@ export async function GET() {
       articles: 'https://bytesagain.com/articles',
       llms_txt: 'https://bytesagain.com/llms.txt',
       llms_full_txt: 'https://bytesagain.com/llms-full.txt',
+      ai_txt: 'https://bytesagain.com/.well-known/ai.txt',
+      ai_summary: 'https://bytesagain.com/ai/summary.json',
+      ai_faq: 'https://bytesagain.com/ai/faq.json',
+      ai_service: 'https://bytesagain.com/ai/service.json',
       openapi: 'https://bytesagain.com/openapi.json',
       agent_card: 'https://bytesagain.com/agent-card.json',
       well_known_agent_card: 'https://bytesagain.com/.well-known/agent-card.json',
@@ -44,6 +58,8 @@ export async function GET() {
       'Use /api/mcp?action=search&q=... for lightweight REST search.',
       'Use /api/mcp/sse for MCP-compatible agent integration.',
       'Use /llms.txt for a compact agent-readable overview and /llms-full.txt for deeper context.',
+      'Use /.well-known/ai.txt for AI crawler instructions.',
+      'Use /ai/summary.json, /ai/faq.json, /ai/service.json for structured AI content.',
     ],
   }, {
     headers: {

@@ -4,70 +4,72 @@ export const dynamic = 'force-dynamic'
 
 const STATIC_FALLBACK = `# BytesAgain
 
-> Discover AI agent skills for Claude, ChatGPT, Cursor, and every AI agent. Curated daily.
+> Curated AI agent skills for Claude, ChatGPT, Cursor, and every AI agent. Updated daily.
 
-BytesAgain is a curated directory of AI agent skills (SKILL.md format), tracking downloads, quality, and new releases across ClawHub and beyond.
+BytesAgain is the leading directory for AI agent skills in SKILL.md format, tracking 60,000+ skills across ClawHub, GitHub, LobeHub, and Dify.
 
-## What We Do
+## Quick Info
 
-We index 50,000+ AI agent skills from ClawHub, GitHub, LobeHub, and Dify — helping developers, creators, traders, and learners find the right skills for their workflow.
+- Type: AI Agent Skill Directory
+- Skills: 60,000+ (ClawHub, GitHub, LobeHub, Dify)
+- Use Cases: 1,000+ curated workflows
+- Languages: 7 (EN, ZH, ES, FR, DE, JA, KO)
+- Access: Free, no login required for search
 
 ## Key Pages
 
 - [Homepage](https://bytesagain.com)
 - [All Skills](https://bytesagain.com/skills)
 - [Use Cases](https://bytesagain.com/use-case)
-- [All Articles](https://bytesagain.com/articles)
-- [Install Skills](https://bytesagain.com/install)
+- [Articles](https://bytesagain.com/articles)
+- [Install Guide](https://bytesagain.com/install)
+- [MCP API](https://bytesagain.com/mcp)
 - [About](https://bytesagain.com/about)
 - [Contact](https://bytesagain.com/contact)
 
 ## Popular Use Cases
 
 - [Build a SaaS Product](https://bytesagain.com/use-case/build-saas)
-- [Content Creator](https://bytesagain.com/use-case/content-creator)
+- [Content Creator Workflow](https://bytesagain.com/use-case/content-creator)
 - [Data Analysis](https://bytesagain.com/use-case/data-analysis)
 - [Crypto Research](https://bytesagain.com/use-case/crypto-research)
 - [Learn Programming](https://bytesagain.com/use-case/learn-programming)
 - [SEO & GEO Optimization](https://bytesagain.com/use-case/seo-geo)
-- [Knowledge Base](https://bytesagain.com/use-case/knowledge-base-rag)
-- [Meeting Notes](https://bytesagain.com/use-case/meeting-notes-actions)
-
-
-## API & MCP
-
-BytesAgain provides a machine-readable Agent API and MCP SSE server for AI agents.
-
-- MCP SSE endpoint: https://bytesagain.com/api/mcp/sse (transport: streamable-http)
-- REST API: https://bytesagain.com/api/mcp?action=search&q=<query>
-- API docs: https://bytesagain.com/mcp
-- Install guide: https://bytesagain.com/install
-
-### Connect via OpenClaw
-openclaw mcp set bytesagain '{"url":"https://bytesagain.com/api/mcp/sse","transport":"streamable-http"}'
-
-### Available MCP Tools
-- search_skills(query, limit) — search 788+ BytesAgain skills
-- get_skill(slug) — get full details + install command
-- popular_skills(limit) — top skills by downloads
-
+- [Knowledge Base RAG](https://bytesagain.com/use-case/knowledge-base-rag)
+- [Meeting Notes & Actions](https://bytesagain.com/use-case/meeting-notes-actions)
+- [Stock Investment](https://bytesagain.com/use-case/stock-investor)
+- [Travel Planning](https://bytesagain.com/use-case/travel-planner)
 
 ## API & MCP
 
-BytesAgain provides a machine-readable Agent API and MCP SSE server for AI agents.
+- MCP SSE: https://bytesagain.com/api/mcp/sse (streamable-http)
+- REST Search: https://bytesagain.com/api/mcp?action=search&q=<query>
+- API Docs: https://bytesagain.com/mcp
+- Install: https://bytesagain.com/install
 
-- MCP SSE endpoint: https://bytesagain.com/api/mcp/sse (transport: streamable-http)
-- REST API: https://bytesagain.com/api/mcp?action=search&q=<query>
-- API docs: https://bytesagain.com/mcp
-- Install guide: https://bytesagain.com/install
-
-### Connect via OpenClaw
+### Connect
+\`\`\`
 openclaw mcp set bytesagain '{"url":"https://bytesagain.com/api/mcp/sse","transport":"streamable-http"}'
+\`\`\`
 
-### Available MCP Tools
-- search_skills(query, limit) — search 788+ BytesAgain skills
-- get_skill(slug) — get full details + install command
-- popular_skills(limit) — top skills by downloads
+### MCP Tools
+- \`search_skills(query, limit)\` — search skills by keyword
+- \`get_skill(slug)\` — get full skill details + install cmd
+- \`popular_skills(limit)\` — top skills by download count
+
+## GEO & AI Endpoints
+
+- llms-full.txt: https://bytesagain.com/llms-full.txt
+- ai.txt: https://bytesagain.com/.well-known/ai.txt
+- Agent Card: https://bytesagain.com/agent-card.json
+- Summary: https://bytesagain.com/ai/summary.json
+- FAQ: https://bytesagain.com/ai/faq.json
+- Service: https://bytesagain.com/ai/service.json
+
+## Sitemaps
+
+- Index: https://bytesagain.com/sitemap-index.xml
+- Skills: https://bytesagain.com/skills-sitemap.xml
 
 ## Contact
 
@@ -76,7 +78,6 @@ hello@bytesagain.com
 
 export async function GET() {
   try {
-    // 3秒超时，避免 Vercel Edge 10s 限制
     const controller = new AbortController()
     const timeout = setTimeout(() => controller.abort(), 3000)
 
@@ -109,14 +110,22 @@ export async function GET() {
 
     const text = `# BytesAgain
 
-> Discover AI agent skills for Claude, ChatGPT, Cursor, and every AI agent. Curated daily.
+> Curated AI agent skills for Claude, ChatGPT, Cursor, and every AI agent. Updated daily.
 
-BytesAgain is a curated directory of AI agent skills (SKILL.md format), tracking downloads, quality, and new releases across ClawHub and beyond.
+BytesAgain is the leading directory for AI agent skills in SKILL.md format, tracking 60,000+ skills across ClawHub, GitHub, LobeHub, and Dify.
 
-## Top Skills
+## Quick Info
+
+- Type: AI Agent Skill Directory
+- Skills: 60,000+ (ClawHub, GitHub, LobeHub, Dify)
+- Use Cases: 1,000+ curated workflows
+- Languages: 7 (EN, ZH, ES, FR, DE, JA, KO)
+- Access: Free, no login required for search
+
+## Top Skills by Downloads
 
 ${skills.slice(0, 20).map((s: {name?: string; slug: string; description?: string}) =>
-  `- [${s.name || s.slug}](https://bytesagain.com/skill/${s.slug}): ${(s.description || '').slice(0, 100)}`
+  `- [${s.name || s.slug}](https://bytesagain.com/skill/${s.slug}): ${(s.description || '').slice(0, 120)}`
 ).join('\n')}
 
 ## Recent Articles
@@ -125,14 +134,60 @@ ${articles.slice(0, 10).map((a: {title: string; slug: string}) =>
   `- [${a.title}](https://bytesagain.com/article/${a.slug})`
 ).join('\n')}
 
-## Pages
+## Key Pages
 
 - [Homepage](https://bytesagain.com)
 - [All Skills](https://bytesagain.com/skills)
 - [Use Cases](https://bytesagain.com/use-case)
-- [All Articles](https://bytesagain.com/articles)
+- [Articles](https://bytesagain.com/articles)
+- [Install Guide](https://bytesagain.com/install)
+- [MCP API](https://bytesagain.com/mcp)
 - [About](https://bytesagain.com/about)
 - [Contact](https://bytesagain.com/contact)
+
+## Popular Use Cases
+
+- [Build a SaaS Product](https://bytesagain.com/use-case/build-saas)
+- [Content Creator Workflow](https://bytesagain.com/use-case/content-creator)
+- [Data Analysis](https://bytesagain.com/use-case/data-analysis)
+- [Crypto Research](https://bytesagain.com/use-case/crypto-research)
+- [Learn Programming](https://bytesagain.com/use-case/learn-programming)
+- [SEO & GEO Optimization](https://bytesagain.com/use-case/seo-geo)
+- [Knowledge Base RAG](https://bytesagain.com/use-case/knowledge-base-rag)
+- [Meeting Notes & Actions](https://bytesagain.com/use-case/meeting-notes-actions)
+- [Stock Investment](https://bytesagain.com/use-case/stock-investor)
+- [Travel Planning](https://bytesagain.com/use-case/travel-planner)
+
+## API & MCP
+
+- MCP SSE: https://bytesagain.com/api/mcp/sse (streamable-http)
+- REST Search: https://bytesagain.com/api/mcp?action=search&q=<query>
+- API Docs: https://bytesagain.com/mcp
+- Install: https://bytesagain.com/install
+
+### Connect
+\`\`\`
+openclaw mcp set bytesagain '{"url":"https://bytesagain.com/api/mcp/sse","transport":"streamable-http"}'
+\`\`\`
+
+### MCP Tools
+- \`search_skills(query, limit)\` — search skills by keyword
+- \`get_skill(slug)\` — get full skill details + install cmd
+- \`popular_skills(limit)\` — top skills by download count
+
+## GEO & AI Endpoints
+
+- llms-full.txt: https://bytesagain.com/llms-full.txt
+- ai.txt: https://bytesagain.com/.well-known/ai.txt
+- Agent Card: https://bytesagain.com/agent-card.json
+- Summary: https://bytesagain.com/ai/summary.json
+- FAQ: https://bytesagain.com/ai/faq.json
+- Service: https://bytesagain.com/ai/service.json
+
+## Sitemaps
+
+- Index: https://bytesagain.com/sitemap-index.xml
+- Skills: https://bytesagain.com/skills-sitemap.xml
 
 ## Contact
 
