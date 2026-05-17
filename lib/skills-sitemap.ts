@@ -7,7 +7,7 @@ export function escapeXml(value: string) {
     .replace(/'/g, '&apos;')
 }
 
-export async function fetchSkillSlugs(offset = 0, maxUrls = 50_000) {
+export async function fetchSkillSlugs(offset = 0, maxUrls = 5_000) {
   const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://jfpeycpiyayrpjldppzq.supabase.co'
   const SB_ANON = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
   const slugs: string[] = []

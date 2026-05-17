@@ -29,8 +29,10 @@ export async function getSkillsSitemapShardCount() {
 }
 
 export async function getGithubSkillsSitemapShardCount() {
-  const count = await fetchCount('github_skill_index?select=id')
-  return Math.max(1, Math.ceil(count / SITEMAP_PAGE_SIZE))
+  // Disabled: 103K+ GitHub skill pages are thin/template content that Google
+  // treats as low quality, consuming crawl budget and diluting site quality signals.
+  // 14 indexed vs 42K not-indexed was driven primarily by these pages.
+  return 0
 }
 
 export async function getArticleSitemapShardCount() {

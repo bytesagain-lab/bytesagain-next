@@ -93,6 +93,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       siteName: 'BytesAgain',
       images: [{ url: 'https://bytesagain.com/social-preview.png', width: 1200, height: 630 }],
     },
+    robots: { index: false, follow: true },
     twitter: { card: 'summary_large_image', title: `${name} — GitHub Indexed AI Skill`, description: metaDesc },
   }
 }
