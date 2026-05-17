@@ -1,7 +1,9 @@
 const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://jfpeycpiyayrpjldppzq.supabase.co'
 const SB_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 
-export const SITEMAP_PAGE_SIZE = 50_000
+export const SITEMAP_PAGE_SIZE = 5_000
+// Skills sitemap: cap at 5K (was 77K) — 42K not-indexed was caused by too many thin template pages.
+export const SKILLS_SITEMAP_LIMIT = 5_000
 
 async function fetchCount(path: string): Promise<number> {
   if (!SB_KEY) return 0
@@ -24,8 +26,8 @@ async function fetchCount(path: string): Promise<number> {
 }
 
 export async function getSkillsSitemapShardCount() {
-  const count = await fetchCount('skills_list?select=slug')
-  return Math.max(1, Math.ceil(count / SITEMAP_PAGE_SIZE))
+  // Only 1 shard with top 5K skills (was 77K across 2 shards)
+  return 1
 }
 
 export async function getGithubSkillsSitemapShardCount() {
