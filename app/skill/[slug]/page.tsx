@@ -2,7 +2,7 @@ export const revalidate = 86400
 import { getSkill, getSkills, getSkillEvaluation } from '@/lib/supabase'
 import { fetchSkillDesc } from '@/lib/skill-desc'
 import type { SkillEvaluationData } from '@/lib/supabase'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import type { Metadata } from 'next'
 import RelatedContent from '@/app/components/RelatedContent'
 import SkillActions from '@/app/components/SkillActions'
@@ -10,7 +10,11 @@ import FullSkillDescription from '@/app/components/FullSkillDescription'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
-  const skill = await getSkill(slug)
+  let skill = await getSkill(slug)
+  // Fallback: strip clawhub- prefix for backward-compat
+  if (!skill && slug.startsWith('clawhub-')) {
+    skill = await getSkill(slug.slice('clawhub-'.length))
+  }
   if (!skill) return { title: 'Not Found' }
   const noindex = slug.endsWith('-old')
   const displayName = skill.name || slug
@@ -42,7 +46,12 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
 
   // Fallback: strip clawhub- prefix for backward-compat after DB cleanup
   if (!skill && slug.startsWith('clawhub-')) {
-    skill = await getSkill(slug.slice('clawhub-'.length))
+    const cleanSlug = slug.slice('clawhub-'.length)
+    skill = await getSkill(cleanSlug)
+    // If found via fallback, redirect to canonical slug to prevent duplicate pages
+    if (skill) {
+      redirect(`/skill/${cleanSlug}`)
+    }
   }
 
   if (!skill) {
