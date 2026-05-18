@@ -9,7 +9,7 @@ export async function GET() {
   return new NextResponse(buildSkillsSitemapXml(slugs), {
     headers: {
       'Content-Type': 'application/xml; charset=utf-8',
-      'Cache-Control': 'no-cache, max-age=0',
+      'Cache-Control': 'public, max-age=86400, s-maxage=86400',
       'X-URL-Count': String(slugs.length),
       'X-Sitemap-Range': `0-${SKILLS_SITEMAP_LIMIT - 1}`,
     },
