@@ -12,62 +12,10 @@ const ALLOWED_TOOLS = new Set(
 
 // ── AliExpress Deals / Coupon Codes ───────────────────────────────
 const ALIEXPRESS_DEALS = {
-  global: { label: 'Summer Refresh Savings — Global', valid_until: '2026-05-15 23:59 PST', banner: 'Up to 60% off across all categories including smartphones!', codes: [
-    { code: 'SRAE02', desc: '$15-$2' },
-    { code: 'SRAE03', desc: '$29-$3' },
-    { code: 'SRAE05', desc: '$45-$5' },
-    { code: 'SRAE07', desc: '$69-$7' },
-    { code: 'SRAE17', desc: '$149-$17' },
-    { code: 'SRAE30', desc: '$249-$30' },
-  ]},
-  ca: { label: 'Summer Refresh Savings — Canada', valid_until: '2026-05-15 23:59 PST', codes: [
-    { code: 'SRAE02', desc: 'C$23-C$3' }, { code: 'SRAE03', desc: 'C$39-C$4' },
-    { code: 'SRAE05', desc: 'C$65-C$7' }, { code: 'SRAE07', desc: 'C$99-C$10' },
-    { code: 'SRAE17', desc: 'C$209-C$24' }, { code: 'SRAE30', desc: 'C$350-C$40' },
-  ]},
-  br: { label: 'Summer Refresh Savings — Brazil', valid_until: '2026-05-15 23:59 BRT', codes: [
-    { code: 'WRBR02', desc: 'R$80-R$10' }, { code: 'WRBR03', desc: 'R$159-R$16' },
-    { code: 'WRBR06', desc: 'R$240-R$32' }, { code: 'WRBR08', desc: 'R$380-R$44' },
-    { code: 'WRBR16', desc: 'R$800-R$86' }, { code: 'WRBR30', desc: 'R$1400-R$170' },
-  ]},
-  kr: { label: 'Summer Refresh Savings — Korea', valid_until: '2026-05-15 KST', codes: [
-    { code: 'REFRESH02', desc: '$18-$2' }, { code: 'REFRESH04', desc: '$35-$4' },
-    { code: 'REFRESH06', desc: '$55-$6' }, { code: 'REFRESH09', desc: '$89-$9' },
-    { code: 'REFRESH15', desc: '$138-$15' },
-  ]},
-  es: { label: 'Summer Refresh Savings — Spain', valid_until: '2026-05-15 CET', codes: [
-    { code: 'SRES02', desc: '€15-€2' }, { code: 'SRES04', desc: '€39-€4' },
-    { code: 'SRES07', desc: '€69-€7' }, { code: 'SRES16', desc: '€139-€16' },
-    { code: 'SRES25', desc: '€209-€25' }, { code: 'SRES38', desc: '€309-€38' },
-  ]},
-  de: { label: 'Summer Refresh Savings — Germany', valid_until: '2026-05-15 CEST', codes: [
-    { code: 'SRDE02', desc: '€15-€2' }, { code: 'SRDE04', desc: '€39-€4' },
-    { code: 'SRDE07', desc: '€69-€7' }, { code: 'SRDE16', desc: '€139-€16' },
-    { code: 'SRDE25', desc: '€209-€25' }, { code: 'SRDE38', desc: '€309-€38' },
-  ]},
-  pl: { label: 'Summer Refresh Savings — Poland', valid_until: '2026-05-15 CET', codes: [
-    { code: 'SRPL02', desc: '$15-$2' }, { code: 'SRPL03', desc: '$29-$3' },
-    { code: 'SRPL05', desc: '$45-$5' }, { code: 'SRPL07', desc: '$69-$7' },
-    { code: 'SRPL17', desc: '$149-$17' }, { code: 'SRPL30', desc: '$249-$30' },
-  ]},
-  ua: { label: 'Summer Refresh Savings — Ukraine', valid_until: '2026-05-15 CET', codes: [
-    { code: 'SRUA01', desc: '$10-$1' }, { code: 'SRUA02', desc: '$19-$2' },
-    { code: 'SRUA04', desc: '$39-$4' }, { code: 'SRUA07', desc: '$69-$7' },
-    { code: 'SRUA16', desc: '$149-$16' }, { code: 'SRUA25', desc: '$209-$25' },
-  ]},
-  uk: { label: 'Summer Refresh Savings — UK', valid_until: '2026-05-15 22:59 BST', codes: [
-    { code: 'SRGB02', desc: '£15-£2' }, { code: 'SRGB04', desc: '£39-£4' },
-    { code: 'SRGB07', desc: '£69-£7' }, { code: 'SRGB16', desc: '£139-£16' },
-    { code: 'SRGB25', desc: '£209-£25' }, { code: 'SRGB38', desc: '£309-£38' },
-  ]},
-  uk_newuser: { label: 'UK New User', valid_until: '2026-07-09', codes: [
-    { code: 'UKNEW03', desc: '£7-£3' }, { code: 'UKNEW04', desc: '£15-£4' },
-  ]},
-  euro_multi: { label: 'Summer Refresh — AT/BE/CH/CZ/DK/FI/HU/IE/PT/SE', valid_until: '2026-05-15 23:59', codes: [
-    { code: 'SRVIO02', desc: '€15-€2' }, { code: 'SRVIO04', desc: '€39-€4' },
-    { code: 'SRVIO07', desc: '€69-€7' }, { code: 'SRVIO16', desc: '€139-€16' },
-    { code: 'SRVIO25', desc: '€209-€25' }, { code: 'SRVIO30', desc: '€239-€30' },
-    { code: 'SRVIO38', desc: '€309-€38' },
+  global: { label: 'Sunshine Savings — Global', valid_until: '2026-05-22 23:59 PST', banner: 'Up to 60% off — May 18-22! Valid on selected items.', codes: [
+    // Get actual codes from: https://www.aliexpress.com/ssr/300000486/exclusivecode
+    // TODO: Fill in actual Sunshine Savings codes from AliExpress portal
+    { code: 'SUNSHINE23', desc: '$5 off $29+ (placeholder)' },
   ]},
 }
 
@@ -737,7 +685,7 @@ export async function POST(req: NextRequest) {
             limit: { type: 'number', description: 'Number of requests to return. Default: 20. Max: 50.' }
           }, required: [] } },
         { name: 'get_deals',
-          description: 'Get active AliExpress Summer Refresh Savings coupon codes — up to 60% off, valid May 10-15. Returns region-specific coupon codes with discount thresholds and validity dates. Supported regions: global codes, US, Brazil, Korea, France, Spain, Germany. Each region has its own set of coupon codes. Use when the user asks about AliExpress discounts, coupon codes, or promotions.',
+          description: 'Get active AliExpress Sunshine Savings coupon codes — up to 60% off, valid May 18-22. Returns the latest campaign coupon codes with discount thresholds. Use when the user asks about AliExpress discounts, coupon codes, or promotions.',
           inputSchema: { type: 'object', properties: {
             region: { type: 'string', description: 'Optional region filter: "global", "us", "br", "kr", "fr", "es", "de", or "all". Default: "all".' },
           }, required: [] } },
