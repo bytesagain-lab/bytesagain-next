@@ -18,7 +18,7 @@ const ALIEXPRESS_DEALS = {
     { code: 'AFSS9', desc: '$65-$9' },
     { code: 'AFSS15', desc: '$120-$15' },
     { code: 'AFSS25', desc: '$209-$25' },
-    { code: 'AFSS40', desc: '$3299-$40' },
+    { code: 'AFSS40', desc: '$329-$40' },
     { code: 'AFSS55', desc: '$449-$55' },
   ]},
   us: { label: 'Sunshine Savings — US', valid_until: '2026-05-22 23:59 PST', banner: 'Extra codes: up to $90 off!', codes: [
@@ -46,12 +46,7 @@ const ALIEXPRESS_DEALS = {
     { code: 'GEEK07', desc: 'R$2400-R$295' },
   ]},
   kr: { label: '다함께 떠나5 — Korea', valid_until: '2026-05-22 23:59 KST', codes: [
-    { code: 'TRIPKR02', desc: '$20-$2.5' },
-    { code: 'TRIPKR04', desc: '$34-$4' },
-    { code: 'TRIPKR07', desc: '$58-$7' },
-    { code: 'TRIPKR10', desc: '$87-$10' },
-    { code: 'TRIPKR16', desc: '$139-$16' },
-    { code: 'TRIPKR22', desc: '$209-$22' },
+    { code: 'MAY0502', desc: '₩30,000-₩4,200' },
   ]},
   fr: { label: 'Économies ensoleillées — France', valid_until: '2026-05-22 23:59 CET', codes: [
     { code: 'SSFR02', desc: '€18-€2' },
@@ -65,20 +60,10 @@ const ALIEXPRESS_DEALS = {
   es: { label: 'Descuentos Radiantes — Spain', valid_until: '2026-05-22 23:59 CET', codes: [
     { code: 'SSES02', desc: '€15-€2' },
     { code: 'SSES04', desc: '€30-€4' },
-    { code: 'SSES09', desc: '€65-€9' },
     { code: 'SSES15', desc: '€120-€15' },
-    { code: 'SSES25', desc: '€209-€25' },
-    { code: 'SSES40', desc: '€329-€40' },
-    { code: 'SSES55', desc: '€449-€55' },
   ],
   alt_codes: { label: 'Sunshine Savings — Spain (alt)', valid_until: '2026-05-22 23:59 CET', codes: [
     { code: 'ESSS02', desc: '€15-€2' },
-    { code: 'ESSS14', desc: '€30-€4' },
-    { code: 'ESSS09', desc: '€65-€9' },
-    { code: 'ESSS15', desc: '€120-€15' },
-    { code: 'ESSS25', desc: '€209-€25' },
-    { code: 'ESSS40', desc: '€329-€40' },
-    { code: 'ESSS55', desc: '€449-€55' },
   ]}},
   de: { label: 'Sunshine Savings — Germany', valid_until: '2026-05-22 23:59 CEST', banner: 'Bis zu 60% Rabatt, Kostenloser Versand', codes: [
     { code: 'SSDE02', desc: '€18-€2' },
@@ -108,13 +93,13 @@ const ALIEXPRESS_DEALS = {
     { code: 'AEUA50', desc: '$379-$50' },
   ]},
   jp: { label: '5月初夏セール — Japan', valid_until: '2026-05-22 23:59 JST', codes: [
-    { code: 'JPA02', desc: '$15-$2' },
-    { code: 'JPA04', desc: '$30-$4' },
-    { code: 'JPA09', desc: '$65-$9' },
-    { code: 'JPA15', desc: '$120-$15' },
-    { code: 'JPA25', desc: '$219-$25' },
-    { code: 'JPA40', desc: '$339-$40' },
-    { code: 'JPA55', desc: '$469-$55' },
+    { code: 'AFFSS2', desc: '$15-$2' },
+    { code: 'AFFSS4', desc: '$30-$4' },
+    { code: 'AFFSS9', desc: '$65-$9' },
+    { code: 'AFFSS15', desc: '$120-$15' },
+    { code: 'AFFSS25', desc: '$209-$25' },
+    { code: 'AFFSS40', desc: '$329-$40' },
+    { code: 'AFFSS55', desc: '$449-$55' },
   ]},
   it: { label: 'Offerte radiose — Italy', valid_until: '2026-05-22 23:59 CET', codes: [
     { code: 'ITSS02', desc: '€18-€2' },
@@ -165,7 +150,7 @@ const ALIEXPRESS_DEALS = {
     { code: 'AECA329', desc: 'C$58 off C$480' },
     { code: 'AECA449', desc: 'C$78 off C$635' },
   ]},
-  mx: { label: 'Spring Refresh — Mexico', valid_until: '2026-05-22 23:59 CT', banner: 'Save 3075 MXN+ with codes, up to 60% off', codes: [
+  mx: { label: 'Spring Refresh — Mexico', valid_until: '2026-05-22 23:59 CT', banner: 'Save 3075 MXN+ with codes, up to 60% off. DIDI Pay new users: MXN100-MXN50, MXN280-MXN140, MXN480-MXN240, MXN980-MXN490', codes: [
     { code: 'MXSS1', desc: 'MX$315-MX$35' },
     { code: 'MXSS2', desc: 'MX$700-MX$90' },
     { code: 'MXSS3', desc: 'MX$1450-MX$200' },
@@ -174,7 +159,7 @@ const ALIEXPRESS_DEALS = {
     { code: 'MXSS6', desc: 'MX$6400-MX$800' },
     { code: 'MXSS7', desc: 'MX$8500-MX$1070' },
   ]},
-  gcc: { label: 'Sunshine Savings — GCC (SA/AE/KW/OM/BH/QA)', valid_until: '2026-05-22 23:59 PST', codes: [
+  gcc: { label: 'Sunshine Savings — GCC (SA/AE/KW/OM/BH/QA)', valid_until: '2026-05-22 23:59 PST', banner: 'Exclusive codes valid 18th-22nd May', codes: [
     { code: 'GCC1', desc: '72 SAR-8 SAR' },
     { code: 'GCC2', desc: '150 SAR-19 SAR' },
     { code: 'GCC3', desc: '310 SAR-39 SAR' },
