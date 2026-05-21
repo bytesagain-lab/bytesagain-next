@@ -1,5 +1,8 @@
-// Dynamic rendering: fetch fresh data on each request (not pre-rendered at build time)
-export const revalidate = 0
+// ISR: revalidate every 5 minutes; Vercel caches the generated HTML on edge
+// Fallback: serve stale content while revalidating in background
+export const revalidate = 300
+export const dynamic = 'force-static'
+export const dynamicParams = true
 
 
 import { createClient } from '@supabase/supabase-js'

@@ -29,6 +29,22 @@ const nextConfig: NextConfig = {
           { key: 'Vary', value: 'Accept-Encoding' },
         ],
       },
+      {
+        source: '/skills',
+        headers: [
+          { key: 'Cache-Control', value: 'public, s-maxage=300, stale-while-revalidate=3600' },
+          { key: 'CDN-Cache-Control', value: 'public, max-age=300, stale-while-revalidate=3600' },
+          { key: 'Vary', value: 'Accept-Encoding' },
+        ],
+      },
+      {
+        source: '/requests',
+        headers: [
+          { key: 'Cache-Control', value: 'public, s-maxage=60, stale-while-revalidate=3600' },
+          { key: 'CDN-Cache-Control', value: 'public, max-age=60, stale-while-revalidate=3600' },
+          { key: 'Vary', value: 'Accept-Encoding' },
+        ],
+      },
     ]
   },
   async redirects() {
