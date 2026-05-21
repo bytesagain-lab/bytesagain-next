@@ -6,7 +6,7 @@ import { notFound, redirect } from 'next/navigation'
 import type { Metadata } from 'next'
 import RelatedContent from '@/app/components/RelatedContent'
 import SkillActions from '@/app/components/SkillActions'
-import FullSkillDescription from '@/app/components/FullSkillDescription'
+import { renderMarkdown, renderWhenToUse, renderCoreTypes, renderConstraints } from '@/lib/render-md'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
@@ -105,17 +105,6 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
   const installSlug = slug
   const installCmd = `clawhub install ${installSlug}`
   const canInstallWithClawHub = source !== 'github'
-  const manusInviteUrl = 'https://manus.im/invitation/PAN0HWLUJPLKA?utm_source=bytesagain&utm_medium=skill_page&utm_campaign=agent_cta'
-  const agentOptions = [
-    { name: 'Manus', desc: 'Task-oriented agent. Great for testing AI skills end-to-end.', href: manusInviteUrl, label: 'Try Manus', sponsored: true },
-    { name: 'OpenClaw', desc: 'Local-first agent. Install skills via ClawHub CLI.', href: '/install', label: 'Set up OpenClaw', internal: true },
-    { name: 'Claude Code', desc: 'Anthropic\'s coding agent. Paste the prompt or SKILL.md into your session.', href: 'https://code.claude.com/docs', label: 'Claude Code docs' },
-    { name: 'Cursor', desc: 'AI-powered IDE. Use the smoke-test prompt in Cursor Agent.', href: 'https://cursor.com', label: 'Open Cursor' },
-    { name: 'Continue.dev', desc: 'Open-source AI code assistant. Add SKILL.md as a custom tool.', href: 'https://docs.continue.dev/customize/tools', label: 'Continue docs' },
-    { name: 'Windsurf', desc: 'Agentic IDE by Codeium. Paste the prompt into Cascade.', href: 'https://codeium.com/windsurf', label: 'Try Windsurf' },
-    { name: 'Cline', desc: 'VS Code extension for autonomous coding with MCP tools.', href: 'https://github.com/cline/cline', label: 'Cline on GitHub' },
-    { name: 'Copilot Workspace', desc: 'GitHub\'s AI dev environment. Suitable for code-generation skills.', href: 'https://github.com/features/copilot', label: 'Copilot Workspace' },
-  ]
 
   // Fetch evaluation if it exists
   const evaluation = await getSkillEvaluation(slug)
@@ -132,7 +121,6 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
     }
   } catch {}
 
-  const hasSections = skillDesc.sections.examples || skillDesc.sections.configuration || skillDesc.sections.tips
   const hasScript = !!skillDesc.sections.script
   const hasArticles = skillArticles.length > 0
 
@@ -175,32 +163,12 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
         .install-cmd { font-family: 'Courier New', monospace; font-size: 1em; color: #a5f3fc; }
         .copy-btn { font-size: .75em; color: #6366f1; background: #6366f115; border: 1px solid #6366f130; border-radius: 6px; padding: 5px 12px; cursor: pointer; white-space: nowrap; transition: all .15s; }
         .copy-btn:hover { background: #6366f125; }
-        .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; background: linear-gradient(135deg, #6366f1, #818cf8); border-radius: 10px; color: #fff; text-decoration: none; font-weight: 700; font-size: .95em; transition: opacity .15s; }
-        .btn-primary:hover { opacity: .88; }
         .btn-secondary { display: inline-flex; align-items: center; gap: 8px; padding: 13px 24px; background: transparent; border: 1px solid #1e1e3f; border-radius: 10px; color: #6b7280; text-decoration: none; font-weight: 600; font-size: .95em; transition: all .15s; }
         .btn-secondary:hover { border-color: #818cf8; color: #818cf8; }
-        .actions-row { display: flex; gap: 12px; flex-wrap: wrap; }
-        .disclaimer { margin-top: 20px; padding: 14px 18px; background: #070714; border: 1px solid #1a1a3a; border-radius: 10px; font-size: .78em; color: #374151; line-height: 1.7; }
-        .disclaimer a { color: #6366f1; }
         .ours-badge { display: inline-flex; align-items: center; gap: 6px; font-size: .72em; font-weight: 700; color: #22d3ee; background: #22d3ee10; border: 1px solid #22d3ee30; border-radius: 999px; padding: 4px 14px; }
         .section-card { background: #0d0d1f; border: 1px solid #1e1e3f; border-radius: 16px; padding: 22px 24px; margin-bottom: 20px; }
         .section-title { color: #f8fafc; font-size: 1.08em; font-weight: 800; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
-        .section-content { font-size: .88em; color: #94a3b8; line-height: 1.7; }
-        .next-step-card { background: linear-gradient(135deg, #10102a, #0d0d1f); border: 1px solid #6366f144; border-radius: 16px; padding: 20px; margin: 0 0 20px; }
-        .next-step-title { color: #f8fafc; font-size: 1.18em; font-weight: 800; margin: 0 0 8px; }
-        .next-step-sub { color: #94a3b8; line-height: 1.65; margin: 0 0 18px; }
-        .agent-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(210px,1fr)); gap: 12px; margin-top: 14px; }
-        .agent-card { display: block; background: #070714; border: 1px solid #1e1e3f; border-radius: 14px; padding: 16px; text-decoration: none; transition: border-color .15s, transform .15s; }
-        .agent-card:hover { border-color: #818cf8; transform: translateY(-1px); }
-        .agent-name { color: #f8fafc; font-weight: 800; margin-bottom: 6px; display: flex; justify-content: space-between; gap: 8px; }
-        .agent-desc { color: #64748b; font-size: .84em; line-height: 1.55; margin-bottom: 12px; }
-        .agent-link { color: #a5b4fc; font-size: .82em; font-weight: 800; }
-        .sponsored-pill { color: #fbbf24; background: #fbbf2414; border: 1px solid #fbbf2444; border-radius: 999px; padding: 2px 7px; font-size: .7em; white-space: nowrap; }
-        .cta-banner { background: linear-gradient(135deg, #0d0d1f, #13103a); border: 1px solid #6366f133; border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 8px; }
-        .cta-title { font-weight: 700; color: #e2e8f0; margin: 0 0 4px; }
-        .cta-sub { color: #4b5563; font-size: .86em; }
         /* Script box */
-        .script-box { background: #050510; border: 1px solid #1e1e3f; border-radius: 12px; overflow: hidden; }
         .script-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 14px; background: #0a0a1c; border-bottom: 1px solid #1e1e3f; }
         .script-filename { font-size: .72em; color: #4b5563; font-family: 'Courier New', monospace; }
         .script-copy-btn { font-size: .72em; color: #6366f1; background: none; border: 1px solid #6366f130; border-radius: 4px; padding: 2px 10px; cursor: pointer; }
@@ -212,7 +180,6 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
         @media (max-width: 600px) {
           .skill-card { padding: 20px; }
           .skill-title { font-size: 1.5em; }
-          .cta-banner { flex-direction: column; align-items: flex-start; }
         }
       `}</style>
 
@@ -307,31 +274,14 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
                 )}
               </div>
 
-              {/* SKILL.md structured sections */}
-              <FullSkillDescription
-                slug={installSlug}
-                owner={skill.owner || ''}
-                sections={skillDesc.sections}
-                fullDesc={skillDesc.full_description}
-              />
-
-              {/* Action buttons */}
-              <div className="actions-row" style={{ marginTop: 8, marginBottom: 4, gap: 8 }}>
+              {/* Quick source link */}
+              <div style={{ marginTop: 6 }}>
                 <a href={externalUrl} target="_blank" rel="noopener" className="btn-secondary" style={{
                   padding: '6px 12px', fontSize: '.82em', borderRadius: 8, background: 'transparent',
                   border: '1px solid #1e1e3f', color: '#6b7280', textDecoration: 'none', whiteSpace: 'nowrap'
                 }}>
-                  View on {sm.label}
+                  View on {sm.label} →
                 </a>
-                {canInstallWithClawHub && (
-                  <button className="copy-btn" data-cmd={installCmd} style={{
-                    background: 'linear-gradient(135deg, #22c55e22, #16a34a22)', color: '#22c55e',
-                    border: '1px solid #22c55e33', borderRadius: 8, padding: '6px 12px',
-                    fontSize: '.82em', cursor: 'pointer', whiteSpace: 'nowrap', fontWeight: 700
-                  }}>
-                    📋 Copy install
-                  </button>
-                )}
               </div>
             </div>
 
@@ -355,83 +305,99 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
               </div>
             )}
 
-            {/* 3. Security & Quality Evaluation */}
+            {/* SKILL.md Full Content — server-rendered for SEO */}
+            {skillDesc.full_description && (
+              <section className="skill-card" style={{ marginBottom: 20 }}>
+                <h2 style={{ color: '#f8fafc', fontSize: '1.2em', fontWeight: 800, margin: '0 0 16px', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  📖 About This Skill
+                </h2>
+                <div style={{ fontSize: '.92em', color: '#94a3b8', lineHeight: 1.75 }}
+                  dangerouslySetInnerHTML={{ __html: renderMarkdown(skillDesc.full_description) }} />
+              </section>
+            )}
+
+            {skillDesc.sections.when_to_use && (
+              <section className="skill-card" style={{ marginBottom: 20 }}>
+                <h2 style={{ color: '#f8fafc', fontSize: '1.2em', fontWeight: 800, margin: '0 0 16px', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  ⚡ When to Use
+                </h2>
+                <div dangerouslySetInnerHTML={{ __html: renderWhenToUse(skillDesc.sections.when_to_use) }} />
+              </section>
+            )}
+
+            {skillDesc.sections.examples && (
+              <section className="skill-card" style={{ marginBottom: 20 }}>
+                <h2 style={{ color: '#f8fafc', fontSize: '1.2em', fontWeight: 800, margin: '0 0 16px', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  💡 Examples
+                </h2>
+                <div style={{ fontSize: '.92em', color: '#94a3b8', lineHeight: 1.75 }}
+                  dangerouslySetInnerHTML={{ __html: renderMarkdown(skillDesc.sections.examples) }} />
+              </section>
+            )}
+
+            {skillDesc.sections.configuration && (
+              <section className="skill-card" style={{ marginBottom: 20 }}>
+                <h2 style={{ color: '#f8fafc', fontSize: '1.2em', fontWeight: 800, margin: '0 0 16px', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  ⚙️ Configuration
+                </h2>
+                <div style={{ fontSize: '.92em', color: '#94a3b8', lineHeight: 1.75 }}
+                  dangerouslySetInnerHTML={{ __html: renderMarkdown(skillDesc.sections.configuration) }} />
+              </section>
+            )}
+
+            {skillDesc.sections.tips && (
+              <section className="skill-card" style={{ marginBottom: 20 }}>
+                <h2 style={{ color: '#f8fafc', fontSize: '1.2em', fontWeight: 800, margin: '0 0 16px', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  📋 Tips & Best Practices
+                </h2>
+                <div style={{ fontSize: '.92em', color: '#94a3b8', lineHeight: 1.75 }}
+                  dangerouslySetInnerHTML={{ __html: renderMarkdown(skillDesc.sections.tips) }} />
+              </section>
+            )}
+
+            {skillDesc.sections.core_types && (
+              <section className="skill-card" style={{ marginBottom: 20 }}>
+                <h2 style={{ color: '#f8fafc', fontSize: '1.2em', fontWeight: 800, margin: '0 0 16px', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  📦 Core Types
+                </h2>
+                <div dangerouslySetInnerHTML={{ __html: renderCoreTypes(skillDesc.sections.core_types) }} />
+              </section>
+            )}
+
+            {skillDesc.sections.constraints && (
+              <section className="skill-card" style={{ marginBottom: 20 }}>
+                <h2 style={{ color: '#f8fafc', fontSize: '1.2em', fontWeight: 800, margin: '0 0 16px', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  🔒 Constraints
+                </h2>
+                <div style={{ fontSize: '.92em', color: '#94a3b8', lineHeight: 1.75 }}
+                  dangerouslySetInnerHTML={{ __html: renderConstraints(skillDesc.sections.constraints) }} />
+              </section>
+            )}
+
+            {/* 3. Security & Quality Evaluation — summary only */}
             {evaluation && (
-              <div className="skill-card" style={{ borderColor: evaluation.safety_score >= 80 ? '#22c55e44' : evaluation.safety_score >= 50 ? '#eab30844' : '#ef444444' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+              <div className="skill-card" style={{ borderColor: evaluation.safety_score >= 80 ? '#22c55e44' : evaluation.safety_score >= 50 ? '#eab30844' : '#ef444444', marginBottom: 20 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
                   <span style={{
-                    fontSize: '.72em', fontWeight: 700, padding: '4px 14px', borderRadius: 999,
+                    fontSize: '.78em', fontWeight: 700, padding: '6px 16px', borderRadius: 999,
                     background: evaluation.safety_score >= 80 ? '#22c55e22' : evaluation.safety_score >= 50 ? '#eab30822' : '#ef444422',
                     color: evaluation.safety_score >= 80 ? '#22c55e' : evaluation.safety_score >= 50 ? '#eab308' : '#ef4444',
                     border: '1px solid ' + (evaluation.safety_score >= 80 ? '#22c55e44' : evaluation.safety_score >= 50 ? '#eab30844' : '#ef444444'),
                   }}>
                     {evaluation.safety_score >= 80 ? '✅ Safe' : evaluation.safety_score >= 50 ? '⚠️ Suspicious' : '🚫 Dangerous'}
                   </span>
-                  <span style={{ fontSize: '.72em', color: '#374151', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>
+                  <span style={{ fontSize: '.8em', color: '#94a3b8', fontWeight: 600 }}>
                     Security Score: {evaluation.safety_score}/100
                   </span>
-                  <span style={{ fontSize: '.72em', color: '#374151', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>
+                  <span style={{ fontSize: '.8em', color: '#94a3b8', fontWeight: 600 }}>
                     Quality: {evaluation.quality_grade}
                   </span>
-                </div>
-
-                {evaluation.summary && (
-                  <p style={{ color: '#94a3b8', fontSize: '.88em', lineHeight: 1.6, margin: '0 0 14px' }}>
-                    {evaluation.summary}
-                  </p>
-                )}
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 14 }}>
-                  {evaluation.verified_capabilities?.length > 0 && (
-                    <div>
-                      <div style={{ fontSize: '.72em', color: '#374151', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 600, marginBottom: 8 }}>Verified Capabilities</div>
-                      {evaluation.verified_capabilities.map((c: string, i: number) => (
-                        <div key={i} style={{ color: '#22c55e', fontSize: '.82em', marginBottom: 4 }}>✅ {c}</div>
-                      ))}
-                    </div>
-                  )}
-                  {evaluation.weaknesses?.length > 0 && (
-                    <div>
-                      <div style={{ fontSize: '.72em', color: '#374151', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 600, marginBottom: 8 }}>Weaknesses</div>
-                      {evaluation.weaknesses.map((w: string, i: number) => (
-                        <div key={i} style={{ color: '#eab308', fontSize: '.82em', marginBottom: 4 }}>⚠️ {w}</div>
-                      ))}
-                    </div>
+                  {evaluation.summary && (
+                    <span style={{ fontSize: '.8em', color: '#64748b', flexBasis: '100%', marginTop: 4 }}>
+                      {evaluation.summary}
+                    </span>
                   )}
                 </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-                  {evaluation.strengths?.length > 0 && (
-                    <div>
-                      <div style={{ fontSize: '.72em', color: '#374151', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 600, marginBottom: 8 }}>Strengths</div>
-                      {evaluation.strengths.map((s: string, i: number) => (
-                        <div key={i} style={{ color: '#94a3b8', fontSize: '.82em', marginBottom: 4 }}>✦ {s}</div>
-                      ))}
-                    </div>
-                  )}
-                  {evaluation.risks?.length > 0 && (
-                    <div>
-                      <div style={{ fontSize: '.72em', color: '#374151', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 600, marginBottom: 8 }}>Risks</div>
-                      {evaluation.risks.map((r: string, i: number) => (
-                        <div key={i} style={{ color: '#ef4444', fontSize: '.82em', marginBottom: 4 }}>🔴 {r}</div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                {evaluation.recommendation && (
-                  <div style={{
-                    marginTop: 16, padding: '10px 14px', borderRadius: 8,
-                    background: evaluation.safety_score >= 80 ? '#22c55e11' : '#ef444411',
-                    border: '1px solid ' + (evaluation.safety_score >= 80 ? '#22c55e33' : '#ef444433'),
-                    color: evaluation.safety_score >= 80 ? '#22c55e' : '#ef4444',
-                    fontSize: '.82em', fontWeight: 600
-                  }}>
-                    {evaluation.recommendation === 'install-ok' ? '✅ Recommended — safe to install and use.' :
-                     evaluation.recommendation === 'investigate' ? '⚠️ Review before installing — some concerns found.' :
-                     '🚫 Do not install — security risks detected.'}
-                  </div>
-                )}
               </div>
             )}
 
@@ -457,45 +423,7 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
               </div>
             )}
 
-            {/* 6. Test platform (agent options) */}
-            <section className="next-step-card">
-              <h2 className="next-step-title">🧪 Use this skill with your agent</h2>
-              <p className="next-step-sub">
-                Most visitors already have an agent. Pick your environment, install or copy the workflow, then run the smoke-test prompt above.
-              </p>
-              <div className="agent-grid">
-                {agentOptions.map(agent => (
-                  <a
-                    key={agent.name}
-                    className="agent-card"
-                    href={agent.href}
-                    target={agent.internal ? undefined : '_blank'}
-                    rel={agent.internal ? undefined : agent.sponsored ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
-                  >
-                    <div className="agent-name">
-                      <span>{agent.name}</span>
-                      {agent.sponsored && <span className="sponsored-pill">invite</span>}
-                    </div>
-                    <div className="agent-desc">{agent.desc}</div>
-                    <div className="agent-link">{agent.label} →</div>
-                  </a>
-                ))}
-              </div>
-
-              </section>
-
-            {/* CTA banner */}
-            <div className="cta-banner">
-              <div>
-                <p className="cta-title">🔍 Can&apos;t find the right skill?</p>
-                <p className="cta-sub">Search 60,000+ AI agent skills — free, no login needed.</p>
-              </div>
-              <a href="/" className="btn-primary" style={{ fontSize: '.88em', padding: '10px 22px' }}>
-                Search Skills →
-              </a>
-            </div>
-
-            {/* 7. Related Articles */}
+            {/* 5. Related Articles */}
             {hasArticles && (
               <div className="section-card">
                 <h2 className="section-title">📖 Related Articles</h2>
