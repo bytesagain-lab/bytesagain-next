@@ -1,8 +1,7 @@
-// ISR: revalidate every 5 minutes; Vercel caches the generated HTML on edge
-// Fallback: serve stale content while revalidating in background
+// ISR: revalidate every 5 minutes. Vercel caches the rendered page on edge,
+// serves stale while revalidating in background. Skip force-static since
+// this page uses dynamic searchParams (cat, page, q).
 export const revalidate = 300
-export const dynamic = 'force-static'
-export const dynamicParams = true
 
 
 import { createClient } from '@supabase/supabase-js'
