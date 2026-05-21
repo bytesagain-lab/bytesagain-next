@@ -80,7 +80,7 @@ function dailyPicksFromArray<T>(arr: T[]): T | null {
   return arr[idx]
 }
 
-async function getDailyPickUseCase(): Promise<{ slug: string; title: string; icon: string } | null> {
+async function getDailyPickUseCase(): Promise<{ slug: string; title: string; icon?: string } | null> {
   if (!SB_URL || !SB_KEY) return null
   try {
     const res = await fetch(
