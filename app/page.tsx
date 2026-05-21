@@ -65,11 +65,70 @@ async function getTopSkills() {
   }
 }
 
+// ── 每日推荐 ─────────────────────────────────────
+// Pick a single skill and use case deterministically from the current date.
+// This ensures the same picks are shown all day, and change at midnight UTC+8.
+
+function dailyPicksFromArray<T>(arr: T[]): T | null {
+  if (!arr.length) return null
+  const now = new Date()
+  // Use Asia/Shanghai date for daily rotation
+  const msShanghai = now.getTime() + 8 * 60 * 60 * 1000
+  const dayKey = new Date(msShanghai).toISOString().slice(0, 10) // e.g. "2026-05-21"
+  const dayNum = parseInt(dayKey.replace(/-/g, ''), 10) // e.g. 20260521
+  const idx = dayNum % arr.length
+  return arr[idx]
+}
+
+async function getDailyPickUseCase(): Promise<{ slug: string; title: string; icon: string } | null> {
+  if (!SB_URL || !SB_KEY) return null
+  try {
+    const res = await fetch(
+      `${SB_URL}/rest/v1/use_cases?select=slug,title,icon&limit=500`,
+      {
+        headers: { apikey: SB_KEY },
+        next: { revalidate: 86400 },
+      }
+    )
+    if (!res.ok) return null
+    const data = await res.json() as { slug: string; title: string; icon?: string }[]
+    if (!data.length) return null
+    return dailyPicksFromArray(data) || data[0]
+  } catch {
+    return null
+  }
+}
+
+async function getDailyPickSkill(): Promise<{ slug: string; name: string; description: string; downloads: number } | null> {
+  if (!SB_URL || !SB_KEY) return null
+  try {
+    // Fetch a batch of top skills (popular ones make better picks)
+    const res = await fetch(
+      `${SB_URL}/rest/v1/skills_list?select=slug,name,description,downloads&order=downloads.desc&limit=100`,
+      {
+        headers: { apikey: SB_KEY },
+        next: { revalidate: 86400 },
+      }
+    )
+    if (!res.ok) return null
+    const data = await res.json() as { slug: string; name: string; description: string; downloads: number }[]
+    if (!data.length) return null
+    // Filter to skills with downloads > 0
+    const withDownloads = data.filter(s => (s.downloads || 0) > 0)
+    const pool = withDownloads.length >= 20 ? withDownloads : data
+    return dailyPicksFromArray(pool) || pool[0]
+  } catch {
+    return null
+  }
+}
+
 export default async function HomePage() {
-  const [articles, useCases, topSkills] = await Promise.all([
+  const [articles, useCases, topSkills, dailyUC, dailySkill] = await Promise.all([
     getArticles(20).catch(() => [] as any[]),
     getUseCases(),
     getTopSkills(),
+    getDailyPickUseCase(),
+    getDailyPickSkill(),
   ])
 
   const useCaseItems = useCases.length > 0
@@ -141,6 +200,74 @@ export default async function HomePage() {
                 </div>
               </a>
             ))}
+          </div>
+        </section>
+
+        {/* ── 每日推荐：Use Case + Skill ── */}
+        <section style={{ marginBottom: 48 }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: 16,
+          }}>
+            {dailyUC && (
+              <a href={`/use-case/${dailyUC.slug}`} style={{ textDecoration: 'none' }}>
+                <div className="feature-card" style={{
+                  background: 'linear-gradient(135deg, #0d0d1f, #1a1030)',
+                  border: '1px solid #667eea44',
+                  borderRadius: 14,
+                  padding: '20px 24px',
+                  transition: 'border-color .15s',
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                    <span style={{ fontSize: '.72em', background: '#667eea', color: '#fff',
+                      borderRadius: 20, padding: '3px 10px', fontWeight: 700 }}>
+                      🔥 推荐 Use Case
+                    </span>
+                    <span style={{ fontSize: '1.3em' }}>{dailyUC.icon || USE_CASE_ICONS[dailyUC.slug] || '🔗'}</span>
+                  </div>
+                  <div style={{ fontWeight: 700, color: '#e0e0e0', fontSize: '1em', marginBottom: 4 }}>
+                    {dailyUC.title || dailyUC.slug}
+                  </div>
+                  <div style={{ fontSize: '.82em', color: '#888' }}>
+                    Daily hand-picked workflow
+                  </div>
+                </div>
+              </a>
+            )}
+            {dailySkill && (
+              <a href={`/skill/${dailySkill.slug}`} style={{ textDecoration: 'none' }}>
+                <div className="feature-card" style={{
+                  background: 'linear-gradient(135deg, #0d0d1f, #103020)',
+                  border: '1px solid #00d4ff44',
+                  borderRadius: 14,
+                  padding: '20px 24px',
+                  transition: 'border-color .15s',
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                    <span style={{ fontSize: '.72em', background: '#00d4ff', color: '#000',
+                      borderRadius: 20, padding: '3px 10px', fontWeight: 700 }}>
+                      ⭐ 推荐 Skill
+                    </span>
+                  </div>
+                  <div style={{ fontWeight: 700, color: '#e0e0e0', fontSize: '1em', marginBottom: 4 }}>
+                    {dailySkill.name || dailySkill.slug}
+                  </div>
+                  {dailySkill.description && (
+                    <div style={{ fontSize: '.82em', color: '#888', lineHeight: 1.4, marginBottom: 6 }}>
+                      {dailySkill.description.slice(0, 100)}
+                    </div>
+                  )}
+                  {(dailySkill.downloads || 0) > 0 && (
+                    <div style={{ fontSize: '.76em', color: '#00d4ff' }}>
+                      {Number(dailySkill.downloads) >= 1000
+                        ? `${(Number(dailySkill.downloads)/1000).toFixed(1)}k`
+                        : dailySkill.downloads} dl
+                    </div>
+                  )}
+                </div>
+              </a>
+            )}
           </div>
         </section>
 
