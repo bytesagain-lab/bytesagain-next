@@ -3,6 +3,14 @@ import { useState, useRef, useEffect } from 'react'
 import { USE_CASES } from '@/lib/use-cases'
 import { useLang } from '@/app/components/LangContext'
 
+// ── 每日轮换：基于日期的确定性选取 ──
+function dailyPick<T>(arr: T[]): T | null {
+  if (!arr.length) return null
+  const ms = Date.now() + 8 * 60 * 60 * 1000 // UTC+8
+  const dayNum = parseInt(new Date(ms).toISOString().slice(0, 10).replace(/-/g, ''), 10)
+  return arr[dayNum % arr.length]
+}
+
 // 意图关键词 → use case slug 映射
 const INTENT_MAP: { keywords: string[]; slugs: string[] }[] = [
   { keywords: ['商业计划', '商业策划', '创业计划', '融资', '投资人', '路演', 'bp', '商业模式', 'pitch', '创业', '融资计划', 'ppt'], slugs: ['startup-founder', 'business-plan'] },
@@ -65,22 +73,31 @@ export default function IntentSearch() {
   const [dailySkills, setDailySkills] = useState<any[]>([])
   const [skillResults, setSkillResults] = useState<any[]>([])
 
-  // Fetch daily recommendations on mount
+  // Fetch daily recommendations on mount — deterministic by date
   useEffect(() => {
     const fetchRecommendations = async () => {
       try {
         const SB_URL = 'https://jfpeycpiyayrpjldppzq.supabase.co'
         const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmcGV5Y3BpeWF5cnBqbGRwcHpxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyMzgxMTIsImV4cCI6MjA4OTgxNDExMn0.KnRmNBKeUPmJQz3m46uNx5kvBf_ZXBVWSUTXOLjW4Ps'
-        // Fetch latest use cases
-        const ucRes = await fetch(`${SB_URL}/rest/v1/use_cases?select=slug,title,description,icon,skills&order=created_at.desc&limit=1`, {
+        // Fetch pool of use cases and pick one by date
+        const ucRes = await fetch(`${SB_URL}/rest/v1/use_cases?select=slug,title,description,icon,skills&limit=100`, {
           headers: { apikey: SB_KEY },
         })
-        if (ucRes.ok) setDailyUseCases(await ucRes.json())
-        // Fetch top skills (high downloads, our own, exclude generic/toolkit skills)
-        const skRes = await fetch(`${SB_URL}/rest/v1/skills?select=slug,name,description,downloads,category&is_ours=eq.true&slug=neq.shell&order=downloads.desc&limit=1`, {
+        if (ucRes.ok) {
+          const ucs = await ucRes.json()
+          const pick = dailyPick(ucs)
+          if (pick) setDailyUseCases([pick])
+        }
+        // Fetch pool of our own skills and pick one by date
+        const skRes = await fetch(`${SB_URL}/rest/v1/skills?select=slug,name,description,downloads,category&is_ours=eq.true&slug=neq.shell&order=downloads.desc&limit=100`, {
           headers: { apikey: SB_KEY },
         })
-        if (skRes.ok) setDailySkills(await skRes.json())
+        if (skRes.ok) {
+          const sks = await skRes.json()
+          const pool = sks.filter((s: any) => (s.downloads || 0) > 0)
+          const pick = dailyPick(pool.length >= 20 ? pool : sks)
+          if (pick) setDailySkills([pick])
+        }
       } catch {}
     }
     fetchRecommendations()
