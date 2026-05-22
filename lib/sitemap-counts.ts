@@ -2,8 +2,9 @@ const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://jfpeycpiyayrpjld
 const SB_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 
 export const SITEMAP_PAGE_SIZE = 5_000
-// Skills sitemap: cap at 5K (was 77K) — 42K not-indexed was caused by too many thin template pages.
-export const SKILLS_SITEMAP_LIMIT = 5_000
+// Our skills now have expanded SKILL.md content (About, Examples, Config, Tips, etc.)
+// serving server-rendered on every page → no longer thin content.
+export const SKILLS_SITEMAP_LIMIT = 50_000
 
 async function fetchCount(path: string): Promise<number> {
   if (!SB_KEY) return 0
@@ -26,8 +27,8 @@ async function fetchCount(path: string): Promise<number> {
 }
 
 export async function getSkillsSitemapShardCount() {
-  // Only 1 shard with top 5K skills (was 77K across 2 shards)
-  return 1
+  // 50K skills across 10 shards of 5K each
+  return Math.ceil(SKILLS_SITEMAP_LIMIT / SITEMAP_PAGE_SIZE)
 }
 
 export async function getGithubSkillsSitemapShardCount() {
