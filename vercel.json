@@ -1,7 +1,17 @@
 {
   "redirects": [
     {
+      "source": "/skills",
+      "destination": "/skill",
+      "permanent": true
+    },
+    {
       "source": "/skills/(.*)",
+      "destination": "/skill/$1",
+      "permanent": true
+    },
+    {
+      "source": "/skills/(.*)/",
       "destination": "/skill/$1",
       "permanent": true
     },

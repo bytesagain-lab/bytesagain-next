@@ -2,6 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  // Prevent 308 redirect for trailing-slash URLs (Google flags as auto-redirect)
+  trailingSlash: false,
+  skipTrailingSlashRedirect: true,
   // Strip Next.js RSC Vary header for public pages + set aggressive CDN cache
   async headers() {
     return [
