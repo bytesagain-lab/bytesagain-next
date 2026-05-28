@@ -53,6 +53,8 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       // sitemap variants are served by App Router routes so strict crawlers get direct 200 responses.
+      // /skill → /skills (skill page lives at /skills, not /skill)
+      { source: '/skill', destination: '/skills', permanent: true },
       // 旧WP路径兜底
       { source: '/wp-login.php', destination: '/login', permanent: true },
       { source: '/wp-admin', destination: '/login', permanent: true },
