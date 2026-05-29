@@ -18,7 +18,6 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
   },
   alternates: {
-    canonical: 'https://bytesagain.com',
     types: { 'text/plain': 'https://bytesagain.com/llms.txt' },
   },
   verification: {

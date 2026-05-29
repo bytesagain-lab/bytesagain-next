@@ -39,7 +39,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: 'https://bytesagain.com/contact', lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
     { url: 'https://bytesagain.com/privacy-policy', lastModified: new Date(), changeFrequency: 'monthly', priority: 0.3 },
     { url: 'https://bytesagain.com/terms', lastModified: new Date(), changeFrequency: 'monthly', priority: 0.3 },
-    { url: 'https://bytesagain.com/feedback', lastModified: new Date(), changeFrequency: 'monthly', priority: 0.3 },
     { url: 'https://bytesagain.com/mcp', lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
     { url: 'https://bytesagain.com/install', lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
   ]
