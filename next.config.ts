@@ -59,6 +59,11 @@ const nextConfig: NextConfig = {
       { source: '/wp-login.php', destination: '/login', permanent: true },
       { source: '/wp-admin', destination: '/login', permanent: true },
       { source: '/wp-admin/:path*', destination: '/login', permanent: true },
+      // 旧WP asset路径（GSC 404报告热区）
+      { source: '/wp-content/:path*', destination: '/', permanent: true },
+      { source: '/wp-includes/:path*', destination: '/', permanent: true },
+      { source: '/feed/', destination: '/articles', permanent: true },
+      { source: '/comments/feed/:path*', destination: '/articles', permanent: true },
 
       // ── 404 爬虫页面 → 相关页面 301 ─────────────────────────────
       { source: '/traceroute-visual', destination: '/skills', permanent: true },
