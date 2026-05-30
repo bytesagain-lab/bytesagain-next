@@ -1207,5 +1207,19 @@ export const USE_CASES: UseCase[] = [
     icon: '🐍',
     skills: [{ slug: 'python-harmony-compatibility-checker', name: 'Python包鸿蒙兼容性测试技能', reason: 'Essential assistant for python tool — Python包鸿蒙兼容性测试技能 helps you get the job done' }, { slug: 'py-env-setup', name: 'Python Env Setup', reason: 'Essential assistant for python tool — Python Env Setup helps you get the job done' }, { slug: 'python-cookbook', name: 'python-cookbook', reason: 'Essential assistant for python tool — python-cookbook helps you get the job done' }, { slug: 'python-venv', name: 'Python Venv', reason: 'Essential assistant for python tool — Python Venv helps you get the job done' }, { slug: 'azure-cosmos-py', name: 'Azure Cosmos DB Python', reason: 'Essential assistant for python tool — Azure Cosmos DB Python helps you get the job done' }],
     searchLink: '/skills?q=python',
+  },
+{
+    slug: 'cad-cam-engineering',
+    title: 'AI Agent for CAD/CAM Engineering',
+    description: 'Automate mechanical design, PCB layout, and CNC manufacturing with natural language — from SolidWorks 3D modeling to CAM toolpath generation.',
+    icon: '🔧',
+    skills: [
+      { slug: 'solidworks-automation-skill', name: 'SolidWorks Automation Skill', reason: 'Natural language driven SolidWorks CAD automation — create 3D models, assemblies, FEA simulations, and engineering drawings via Python + COM API' },
+      { slug: 'kicad-pcb', name: 'KiCad PCB', reason: 'End-to-end PCB design automation — schematics, board layout, Gerber export, and PCBWay manufacturing integration' },
+      { slug: 'cad', name: 'Cad', reason: 'General CAD reference tool for quick dimension checks, material lookups, and design validation' },
+      { slug: 'cam', name: 'Cam', reason: 'CNC speeds and feeds calculator, cutting tool selection, G-code reference, and material cut data' },
+      { slug: 'cnc', name: 'Cnc', reason: 'CNC machining program manager for toolpath planning and manufacturing workflow coordination' },
+    ],
+    searchLink: '/skills?q=cad+cam+engineering',
   }
 ]
