@@ -176,7 +176,7 @@ export default function IntentSearch() {
             placeholder={zh ? "搜 skill 或使用场景，比如：帮我写周报 / automate email…" : "Search skills & use cases, e.g. write a report, automate email…"}
             style={{
               width: '100%', padding: '14px 16px 14px 44px',
-              background: 'var(--bg-secondary)', border: '1px solid #2a2a4e',
+              background: 'var(--bg-secondary)', border: '1px solid var(--border-input)',
               borderRadius: 12, color: 'var(--text-primary)', fontSize: '1em',
               outline: 'none', boxSizing: 'border-box',
             }}
@@ -208,38 +208,38 @@ export default function IntentSearch() {
 
       {/* 空状态：用户还没输入时，也要给明确入口，不能留白 */}
       {!searched && (
-        <div style={{ marginTop: 14, background: 'linear-gradient(180deg,#0a0a1a,#080817)', border: '1px solid var(--border-primary)', borderRadius: 16, overflow: 'hidden', textAlign: 'left' }}>
+        <div style={{ marginTop: 14, background: 'var(--bg-gradient-daily)', border: '1px solid var(--border-primary)', borderRadius: 16, overflow: 'hidden', textAlign: 'left' }}>
           <div style={{ padding: '16px 18px 10px' }}>
-            <div style={{ color: '#e5e7eb', fontWeight: 800, fontSize: '.95em', marginBottom: 5 }}>
+            <div style={{ color: 'var(--text-primary)', fontWeight: 800, fontSize: '.95em', marginBottom: 5 }}>
               {zh ? '不知道怎么搜？看看今日推荐和热门搜索。' : 'Not sure where to start? Browse our daily picks below.'}
             </div>
-            <div style={{ color: '#64748b', fontSize: '.84em', lineHeight: 1.55 }}>
+            <div style={{ color: 'var(--text-muted2)', fontSize: '.84em', lineHeight: 1.55 }}>
               {zh ? '每日精选评测过的 Use Case 和高质量 Skill，帮你快速找到靠谱的 AI 工具。' : 'Curated use cases with source code audits, plus high-quality skills picked by our team.'}
             </div>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 10, padding: '0 14px 14px' }}>
             {/* 今日推荐 Use Case */}
             {dailyUseCases.length > 0 && dailyUseCases.map(uc => (
-              <a key={uc.slug} href={`/use-case/${uc.slug}`} style={{ display: 'block', textDecoration: 'none', color: 'inherit', padding: 14, borderRadius: 13, background: 'linear-gradient(180deg, #0d2d1a, #101027)', border: '1px solid #34d39944' }}>
+              <a key={uc.slug} href={`/use-case/${uc.slug}`} style={{ display: 'block', textDecoration: 'none', color: 'inherit', padding: 14, borderRadius: 13, background: 'var(--bg-gradient-use-case)', border: '1px solid #34d39944' }}>
                 <div style={{ fontSize: '.68em', color: '#34d399', fontWeight: 700, marginBottom: 4, textTransform: 'uppercase' }}>🔥 推荐 Use Case</div>
-                <div style={{ color: '#f1f5f9', fontWeight: 800, fontSize: '.9em', marginBottom: 5 }}>{uc.title}</div>
-                <div style={{ color: '#64748b', fontSize: '.78em', lineHeight: 1.45 }}>{uc.description?.slice(0, 70)}…</div>
+                <div style={{ color: 'var(--text-primary)', fontWeight: 800, fontSize: '.9em', marginBottom: 5 }}>{uc.title}</div>
+                <div style={{ color: 'var(--text-muted2)', fontSize: '.78em', lineHeight: 1.45 }}>{uc.description?.slice(0, 70)}…</div>
                 {uc.evaluation && <div style={{ fontSize: '.68em', color: '#86efac', marginTop: 6 }}>✅ 已评测 · {uc.evaluation.total_skills}个skill</div>}
               </a>
             ))}
             {/* 今日推荐 Skill */}
             {dailySkills.length > 0 && dailySkills.map(sk => (
-              <a key={sk.slug} href={`/skill/${sk.slug}`} style={{ display: 'block', textDecoration: 'none', color: 'inherit', padding: 14, borderRadius: 13, background: 'linear-gradient(180deg, #1a1a3e, #101027)', border: '1px solid #667eea44' }}>
+              <a key={sk.slug} href={`/skill/${sk.slug}`} style={{ display: 'block', textDecoration: 'none', color: 'inherit', padding: 14, borderRadius: 13, background: 'var(--bg-gradient-skill)', border: '1px solid #667eea44' }}>
                   <div style={{ fontSize: '.68em', color: '#667eea', fontWeight: 700, marginBottom: 4, textTransform: 'uppercase' }}>⭐ 推荐 Skill</div>
-                <div style={{ color: '#f1f5f9', fontWeight: 800, fontSize: '.9em', marginBottom: 5 }}>{sk.name}</div>
-                <div style={{ color: '#64748b', fontSize: '.78em', lineHeight: 1.45 }}>{sk.description?.slice(0, 70)}…</div>
+                <div style={{ color: 'var(--text-primary)', fontWeight: 800, fontSize: '.9em', marginBottom: 5 }}>{sk.name}</div>
+                <div style={{ color: 'var(--text-muted2)', fontSize: '.78em', lineHeight: 1.45 }}>{sk.description?.slice(0, 70)}…</div>
                 {sk.downloads > 0 && <div style={{ fontSize: '.68em', color: 'var(--text-muted3)', marginTop: 6 }}>{sk.downloads >= 1000 ? `${(sk.downloads/1000).toFixed(1)}k dl` : `${sk.downloads} dl`}</div>}
               </a>
             ))}
           </div>
           <div style={{ padding: '0 14px 16px', display: 'flex', gap: 8, flexWrap: 'wrap' }}>
             {defaultQueries.map(q => (
-              <button key={q} onClick={() => { setQuery(q); doSearch(q) }} style={{ padding: '7px 10px', borderRadius: 999, border: '1px solid #2a2a4e', background: 'var(--bg-secondary)', color: '#a5b4fc', cursor: 'pointer', fontSize: '.78em', fontWeight: 700 }}>
+              <button key={q} onClick={() => { setQuery(q); doSearch(q) }} style={{ padding: '7px 10px', borderRadius: 999, border: '1px solid var(--border-input)', background: 'var(--bg-secondary)', color: 'var(--text-link)', cursor: 'pointer', fontSize: '.78em', fontWeight: 700 }}>
                 {q}
               </button>
             ))}

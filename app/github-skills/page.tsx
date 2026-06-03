@@ -39,34 +39,34 @@ export default async function GithubSkillsPage({
   return (
     <main className="gh-list-shell">
       <style>{`
-        .gh-list-shell { min-height: 100vh; background: radial-gradient(circle at 18% 0%, rgba(99,102,241,.20), transparent 32%), #050611; color: #e5e7eb; padding: 34px 20px 90px; }
+        .gh-list-shell { min-height: 100vh; background: radial-gradient(circle at 18% 0%, rgba(99,102,241,.20), transparent 32%), var(--bg-primary); color: var(--text-primary); padding: 34px 20px 90px; }
         .wrap { max-width: 1180px; margin: 0 auto; }
-        .breadcrumb { font-size: .85em; color: #64748b; margin-bottom: 22px; }
+        .breadcrumb { font-size: .85em; color: var(--text-muted2); margin-bottom: 22px; }
         .breadcrumb a { color: #a5b4fc; text-decoration: none; }
         .hero { background: linear-gradient(135deg, rgba(15,23,42,.96), rgba(13,13,31,.96)); border: 1px solid rgba(129,140,248,.22); border-radius: 28px; padding: clamp(28px, 5vw, 44px); margin-bottom: 22px; }
         .eyebrow { color: #fbbf24; font-weight: 900; font-size: .82rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 10px; }
         h1 { font-size: clamp(2.1rem, 6vw, 4.2rem); line-height: .98; margin: 0 0 14px; letter-spacing: -0.055em; }
         .lede { color: #cbd5e1; line-height: 1.75; max-width: 760px; font-size: 1.08rem; }
         .searchbar { display: flex; gap: 10px; margin: 22px 0 10px; max-width: 760px; }
-        .searchbar input { flex: 1; min-width: 0; background: #070714; border: 1px solid #1e1e3f; border-radius: 13px; color: #f8fafc; padding: 13px 15px; font-size: 1rem; }
+        .searchbar input { flex: 1; min-width: 0; background: var(--bg-deep); border: 1px solid var(--border-card); border-radius: 13px; color: var(--text-primary); padding: 13px 15px; font-size: 1rem; }
         .searchbar button, .clear { border: 0; border-radius: 13px; padding: 13px 18px; font-weight: 900; color: white; background: linear-gradient(135deg, #6366f1, #22d3ee); text-decoration: none; cursor: pointer; }
         .clear { background: #0f172a; border: 1px solid #334155; color: #cbd5e1; }
-        .summary { color: #94a3b8; margin: 12px 0 24px; }
+        .summary { color: var(--text-secondary); margin: 12px 0 24px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 14px; }
-        .card { display: block; height: 100%; color: inherit; text-decoration: none; background: rgba(13,13,31,.92); border: 1px solid #1e1e3f; border-radius: 18px; padding: 18px; transition: transform .18s ease, border-color .18s ease; }
+        .card { display: block; height: 100%; color: inherit; text-decoration: none; background: rgba(13,13,31,.92); border: 1px solid var(--border-card); border-radius: 18px; padding: 18px; transition: transform .18s ease, border-color .18s ease; }
         .card:hover { transform: translateY(-2px); border-color: #6366f1; }
         .badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
         .badge { border: 1px solid #334155; color: #cbd5e1; background: #0f172a99; border-radius: 999px; padding: 4px 9px; font-size: .72rem; font-weight: 800; }
         .badge.green { color: #86efac; border-color: #22c55e44; background: #22c55e14; }
-        .title { font-weight: 950; color: #f8fafc; font-size: 1.05rem; margin-bottom: 7px; overflow-wrap: anywhere; }
+        .title { font-weight: 950; color: var(--text-primary); font-size: 1.05rem; margin-bottom: 7px; overflow-wrap: anywhere; }
         .repo { color: #a5b4fc; font-size: .86rem; margin-bottom: 10px; overflow-wrap: anywhere; }
-        .desc { color: #94a3b8; font-size: .9rem; line-height: 1.6; min-height: 58px; }
-        .meta { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; color: #64748b; font-size: .82rem; }
+        .desc { color: var(--text-secondary); font-size: .9rem; line-height: 1.6; min-height: 58px; }
+        .meta { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; color: var(--text-muted2); font-size: .82rem; }
         .tag-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
         .tag { color: #a5b4fc; border: 1px solid #6366f140; background: #6366f112; padding: 3px 8px; border-radius: 999px; font-size: .74rem; text-decoration: none; }
         .pager { display: flex; gap: 10px; justify-content: center; align-items: center; margin-top: 28px; }
-        .page-link { color: #cbd5e1; text-decoration: none; border: 1px solid #334155; border-radius: 12px; padding: 10px 14px; background: #070714; }
-        .page-text { color: #64748b; }
+        .page-link { color: #cbd5e1; text-decoration: none; border: 1px solid #334155; border-radius: 12px; padding: 10px 14px; background: var(--bg-deep); }
+        .page-text { color: var(--text-muted2); }
         @media (max-width: 640px) { .searchbar { flex-direction: column; } }
       `}</style>
       <div className="wrap">

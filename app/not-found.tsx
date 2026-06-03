@@ -13,7 +13,7 @@ export default function NotFound() {
         .nf-box { text-align: center; padding: 60px 32px; }
         .nf-code { font-size: 6rem; font-weight: 900; color: #22d3ee; line-height: 1; margin: 0; }
         .nf-title { font-size: 1.8rem; font-weight: 800; margin: 12px 0 8px; }
-        .nf-desc { color: #64748b; font-size: 1rem; margin-bottom: 32px; max-width: 440px; }
+        .nf-desc { color: var(--text-muted2); font-size: 1rem; margin-bottom: 32px; max-width: 440px; }
         .nf-link { display: inline-block; padding: 12px 28px; background: linear-gradient(135deg,#34d399,#22d3ee); color: #000; font-weight: 900; border-radius: 12px; text-decoration: none; }
       `}</style>
       <div className="nf-box">

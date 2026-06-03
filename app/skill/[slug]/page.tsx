@@ -135,7 +135,7 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
           .two-col { flex-direction: column; }
           .two-col-side { width: 100%; }
         }
-        .breadcrumb { font-size: .82em; color: #4b5563; margin-bottom: 28px; }
+        .breadcrumb { font-size: .82em; color: var(--text-muted2); margin-bottom: 28px; }
         .breadcrumb a { color: #818cf8; text-decoration: none; }
         .breadcrumb a:hover { text-decoration: underline; }
         .skill-card { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 20px; padding: 28px; margin-bottom: 24px; }
@@ -143,37 +143,38 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
         .skill-badges { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         .skill-top-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; }
         .badge { display: inline-flex; align-items: center; gap: 5px; font-size: .75em; font-weight: 600; padding: 4px 12px; border-radius: 999px; border: 1px solid transparent; }
-        .skill-title { font-size: 1.6em; font-weight: 800; color: #f1f5f9; margin: 0 0 4px; line-height: 1.2; }
-        .skill-owner { font-size: .82em; color: #4b5563; margin: 0 0 14px; }
+        .skill-title { font-size: 1.6em; font-weight: 800; color: var(--text-primary); margin: 0 0 4px; line-height: 1.2; }
+        .skill-owner { font-size: .82em; color: var(--text-muted2); margin: 0 0 14px; }
         .skill-owner span { color: #818cf8; }
-        .skill-desc { font-size: .92em; color: #94a3b8; line-height: 1.65; margin: 0 0 16px; }
-        .skill-meta { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid #1e1e3f; }
+        .skill-desc { font-size: .92em; color: var(--text-secondary); line-height: 1.65; margin: 0 0 16px; }
+        .skill-meta { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid var(--border-card); }
         .meta-item { display: flex; flex-direction: column; gap: 2px; }
-        .meta-label { font-size: .7em; color: #374151; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
-        .meta-value { font-size: .92em; color: #94a3b8; font-weight: 600; }
+        .meta-label { font-size: .7em; color: var(--text-muted5); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+        .meta-value { font-size: .92em; color: var(--text-muted2); font-weight: 600; }
         .tags-row { display: flex; gap: 6px; flex-wrap: wrap; }
         .tag { font-size: .75em; color: #6366f1; background: #6366f115; border: 1px solid #6366f130; border-radius: 6px; padding: 3px 10px; text-decoration: none; }
         .tag:hover { background: #6366f125; }
         .install-box { background: var(--bg-deep); border: 1px solid var(--border-card); border-radius: 12px; overflow: hidden; margin-bottom: 24px; }
-        .install-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid #1e1e3f; }
+        .install-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid var(--border-card); }
         .install-dots { display: flex; gap: 6px; }
         .dot { width: 10px; height: 10px; border-radius: 50%; }
-        .install-label { font-size: .72em; color: #374151; font-family: monospace; letter-spacing: 1px; }
+        .install-label { font-size: .72em; color: var(--text-muted5); font-family: monospace; letter-spacing: 1px; }
         .install-body { padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-        .install-cmd { font-family: 'Courier New', monospace; font-size: 1em; color: #a5f3fc; }
+        .install-cmd { color: var(--text-code);
+ font-family: 'Courier New', monospace; font-size: 1em; }
         .copy-btn { font-size: .75em; color: #6366f1; background: #6366f115; border: 1px solid #6366f130; border-radius: 6px; padding: 5px 12px; cursor: pointer; white-space: nowrap; transition: all .15s; }
         .copy-btn:hover { background: #6366f125; }
         .btn-secondary { display: inline-flex; align-items: center; gap: 8px; padding: 13px 24px; background: transparent; border: 1px solid var(--border-card); border-radius: 10px; color: #6b7280; text-decoration: none; font-weight: 600; font-size: .95em; transition: all .15s; }
         .btn-secondary:hover { border-color: #818cf8; color: #818cf8; }
         .ours-badge { display: inline-flex; align-items: center; gap: 6px; font-size: .72em; font-weight: 700; color: #22d3ee; background: #22d3ee10; border: 1px solid #22d3ee30; border-radius: 999px; padding: 4px 14px; }
         .section-card { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 16px; padding: 22px 24px; margin-bottom: 20px; }
-        .section-title { color: #f8fafc; font-size: 1.08em; font-weight: 800; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+        .section-title { color: var(--text-primary); font-size: 1.08em; font-weight: 800; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
         /* Script box */
-        .script-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 14px; background: #0a0a1c; border-bottom: 1px solid #1e1e3f; }
-        .script-filename { font-size: .72em; color: #4b5563; font-family: 'Courier New', monospace; }
+        .script-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 14px; background: var(--bg-input); border-bottom: 1px solid var(--border-card); }
+        .script-filename { font-size: .72em; color: var(--text-muted2); font-family: 'Courier New', monospace; }
         .script-copy-btn { font-size: .72em; color: #6366f1; background: none; border: 1px solid #6366f130; border-radius: 4px; padding: 2px 10px; cursor: pointer; }
         .script-copy-btn:hover { background: #6366f115; }
-        .script-body { padding: 14px 16px; font-family: 'Courier New', monospace; font-size: .82em; line-height: 1.6; color: #a5f3fc; overflow-x: auto; max-height: 420px; overflow-y: auto; white-space: pre; }
+        .script-body { padding: 14px 16px; font-family: 'Courier New', monospace; font-size: .82em; line-height: 1.6; color: var(--text-code); overflow-x: auto; max-height: 420px; overflow-y: auto; white-space: pre; }
         /* Articles */
         .article-card { display: block; background: var(--bg-secondary); border: 1px solid var(--border-primary); border-radius: 10px; padding: 14px 16px; text-decoration: none; transition: border-color .15s; }
         .article-card:hover { border-color: #6366f1; }

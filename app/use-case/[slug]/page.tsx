@@ -179,9 +179,9 @@ export default async function UseCasePage({ params }: Props) {
   return (
     <main className="uc-shell">
       <style>{`
-        .uc-shell { min-height: 100vh; background: radial-gradient(circle at 15% 0%, rgba(52,211,153,.16), transparent 30%), #050611; color: #e5e7eb; padding: 34px 20px 90px; }
+        .uc-shell { min-height: 100vh; background: radial-gradient(circle at 15% 0%, rgba(52,211,153,.16), transparent 30%), var(--bg-primary); color: var(--text-primary); padding: 34px 20px 90px; }
         .uc-page { max-width: 1120px; margin: 0 auto; }
-        .breadcrumb { font-size: .85rem; color: #64748b; margin-bottom: 22px; }
+        .breadcrumb { font-size: .85rem; color: var(--text-muted2); margin-bottom: 22px; }
         .breadcrumb a { color: #a5b4fc; text-decoration: none; }
         .hero { background: linear-gradient(135deg, rgba(15,23,42,.96), rgba(13,13,31,.96)); border: 1px solid rgba(52,211,153,.22); border-radius: 28px; padding: clamp(28px,5vw,46px); margin-bottom: 22px; }
         .hero-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
@@ -195,18 +195,18 @@ export default async function UseCasePage({ params }: Props) {
         .layout { display: grid; grid-template-columns: minmax(0,1fr) 330px; gap: 22px; align-items: start; }
         .card { background: rgba(13,13,31,.94); border: 1px solid #1e1e3f; border-radius: 22px; padding: 24px; margin-bottom: 16px; }
         .card h2 { margin: 0 0 13px; font-size: 1.12rem; }
-        .muted { color: #94a3b8; line-height: 1.7; }
+        .muted { color: var(--text-secondary); line-height: 1.7; }
         .steps { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
         .steps li { display: grid; grid-template-columns: 28px 1fr; gap: 10px; color: #cbd5e1; background: #070714; border: 1px solid #1e293b; border-radius: 14px; padding: 13px; line-height: 1.55; }
         .num { width: 28px; height: 28px; display: inline-grid; place-items: center; border-radius: 999px; background: #34d39922; color: #86efac; font-weight: 900; }
         .article-list, .related-grid { display: grid; gap: 10px; }
         .article-link, .related-link { display: block; text-decoration: none; color: inherit; background: #070714; border: 1px solid #1e293b; border-radius: 14px; padding: 14px; }
         .article-link:hover, .related-link:hover { border-color: #34d39988; }
-        .article-title, .related-title { color: #f8fafc; font-weight: 900; margin-bottom: 5px; }
-        .article-meta, .related-meta { color: #64748b; font-size: .82rem; }
+        .article-title, .related-title { color: var(--text-primary); font-weight: 900; margin-bottom: 5px; }
+        .article-meta, .related-meta { color: var(--text-muted2); font-size: .82rem; }
         .sidebar { position: sticky; top: 18px; }
-        .stat { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid #1e293b; color: #94a3b8; }
-        .stat strong { color: #f8fafc; }
+        .stat { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border-primary); color: var(--text-secondary); }
+        .stat strong { color: var(--text-primary); }
         .disclaimer { color: #fbbf24; background: #f59e0b10; border: 1px solid #f59e0b30; border-radius: 14px; padding: 13px; font-size: .86rem; line-height: 1.6; }
         @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } .sidebar { position: static; } }
       `}</style>

@@ -5,6 +5,9 @@
   --bg-primary: #0a0a1a;
   --bg-secondary: #0f0f23;
   --bg-tertiary: #0a0a0a;
+  --bg-gradient-daily: linear-gradient(180deg,#0a0a1a,#080817);
+  --bg-gradient-use-case: linear-gradient(180deg,#0d2d1a,#101027);
+  --bg-gradient-skill: linear-gradient(180deg,#1a1a3e,#101027);
   --bg-card: #0d0d1f;
   --bg-deep: #070714;
   --bg-deeper: #050510;
@@ -40,6 +43,9 @@
   --bg-primary: #ffffff;
   --bg-secondary: #f8f9fa;
   --bg-tertiary: #f0f0f0;
+  --bg-gradient-daily: linear-gradient(180deg,#f8f9fa,#eef2ff);
+  --bg-gradient-use-case: linear-gradient(180deg,#f0fdf4,#ffffff);
+  --bg-gradient-skill: linear-gradient(180deg,#f0f4ff,#ffffff);
   --bg-card: #ffffff;
   --bg-deep: #f8f9fa;
   --bg-deeper: #f5f5f5;
