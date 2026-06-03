@@ -92,7 +92,7 @@ export default function InstallPage() {
             '"データ分析スキルを探して"  (Japanese)',
             '"Get me the chart-generator skill details"',
           ].map(q => (
-            <div key={q} style={{ background: '#050510', borderRadius: 8, padding: '12px 16px', color: 'var(--text-muted)', fontSize: '.9em', fontStyle: 'italic' }}>
+            <div key={q} style={{ background: 'var(--bg-deeper)', borderRadius: 8, padding: '12px 16px', color: 'var(--text-muted)', fontSize: '.9em', fontStyle: 'italic' }}>
               {q}
             </div>
           ))}

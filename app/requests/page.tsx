@@ -129,7 +129,7 @@ export default function RequestsPage() {
 
   const inputStyle: React.CSSProperties = {
     width: '100%', padding: '10px 12px', borderRadius: 8, boxSizing: 'border-box',
-    background: '#0a0a18', border: '1px solid var(--border-primary)', color: 'var(--text-primary)',
+    background: 'var(--bg-input)', border: '1px solid var(--border-primary)', color: 'var(--text-primary)',
     fontSize: '.92em', outline: 'none',
   }
 
@@ -254,7 +254,7 @@ export default function RequestsPage() {
                     (window as any).__recognition = recognition
                   }} style={{
                     width: 40, height: 40, borderRadius: 10, flexShrink: 0,
-                    background: listening ? '#f87171' : '#0a0a18',
+                    background: listening ? '#f87171' : 'var(--bg-input)',
                     border: listening ? '2px solid #ef4444' : '1px solid #2a2a4e',
                     color: listening ? '#fff' : '#888',
                     fontSize: '1.1em', cursor: 'pointer', display: 'flex',
@@ -271,7 +271,7 @@ export default function RequestsPage() {
                       if (r) { r.stop(); setListening(false) }
                     }} style={{
                       width: 40, height: 40, borderRadius: 10, border: '1px solid var(--border-primary)',
-                      background: '#0a0a18', color: 'var(--text-muted)', fontSize: '1.1em', cursor: 'pointer',
+                      background: 'var(--bg-input)', color: 'var(--text-muted)', fontSize: '1.1em', cursor: 'pointer',
                       flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
                     }} title={t('Stop', '停止')}>⏹</button>
                   )}
@@ -296,7 +296,7 @@ export default function RequestsPage() {
                 <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
                   <label style={{
                     padding: '10px 16px', borderRadius: 8, cursor: 'pointer',
-                    background: '#0a0a18', border: '1px solid var(--border-primary)',
+                    background: 'var(--bg-input)', border: '1px solid var(--border-primary)',
                     color: 'var(--text-nav)', fontSize: '.9em', display: 'inline-block',
                   }}>
                     {uploading ? '⏳' : '📎 ' + t('Add Image', '添加图片')}

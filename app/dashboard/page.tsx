@@ -356,7 +356,7 @@ function ApiTokenSection({ user, lang }: { user: User | null; lang: string }) {
       {token ? (
         <>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-            <code style={{ flex: 1, padding: '10px 14px', borderRadius: 8, background: '#0a0a18', border: '1px solid var(--border-secondary)', color: '#34d399', fontSize: '.8em', wordBreak: 'break-all', userSelect: 'all' }}>{token}</code>
+            <code style={{ flex: 1, padding: '10px 14px', borderRadius: 8, background: 'var(--bg-input)', border: '1px solid var(--border-secondary)', color: '#34d399', fontSize: '.8em', wordBreak: 'break-all', userSelect: 'all' }}>{token}</code>
             <button onClick={handleCopy} style={{ padding: '8px 16px', borderRadius: 8, border: 'none', cursor: 'pointer', background: copied ? '#34d399' : '#667eea', color: '#fff', fontWeight: 700, fontSize: '.8em', whiteSpace: 'nowrap' }}>{copied ? 'Copied!' : zh ? '复制' : 'Copy'}</button>
           </div>
           <div style={{ display: 'flex', gap: 8, fontSize: '.75em', color: 'var(--text-muted3)', marginTop: 8 }}>

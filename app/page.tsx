@@ -62,7 +62,7 @@ export default async function HomePage() {
               { icon: '🔌', title: 'Free MCP API', desc: 'Connect your AI agent directly — no auth, no setup', href: '/mcp', color: '#00d4ff' },
             ].map(item => (
               <a key={item.href} href={item.href} style={{ textDecoration: 'none' }}>
-                <div className="feature-card" style={{ background: '#0d0d1f', border: '1px solid #1e1e3f', borderRadius: 14, padding: '24px 28px', display: 'flex', alignItems: 'flex-start', gap: 16, transition: 'border-color .15s' }}>
+                <div className="feature-card" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-card)', borderRadius: 14, padding: '24px 28px', display: 'flex', alignItems: 'flex-start', gap: 16, transition: 'border-color .15s' }}>
                   <span style={{ fontSize: '1.6em', lineHeight: 1, flexShrink: 0, marginTop: 2 }}>{item.icon}</span>
                   <div>
                     <div style={{ fontWeight: 700, color: item.color, fontSize: '.95em', marginBottom: 4 }}>{item.title}</div>
@@ -104,7 +104,7 @@ export default async function HomePage() {
                         whiteSpace: 'nowrap', flexShrink: 0, textTransform: 'uppercase',
                       }}>{a.category}</span>
                     )}
-                    <span style={{ color: '#e0e0e0', fontSize: '.9em', fontWeight: 500, lineHeight: 1.4, flex: 1 }}>{a.title}</span>
+                    <span style={{ color: 'var(--text-primary)', fontSize: '.9em', fontWeight: 500, lineHeight: 1.4, flex: 1 }}>{a.title}</span>
                     <span style={{ color: '#667eea', fontSize: '.8em', flexShrink: 0 }}>→</span>
                   </div>
                 </Link>

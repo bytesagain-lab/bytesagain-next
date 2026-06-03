@@ -141,20 +141,20 @@ export default async function GithubSkillPage({ params }: { params: Promise<{ id
         .btn-secondary { border: 1px solid #334155; color: #cbd5e1; background: rgba(2,6,23,.4); }
         .layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 24px; margin-top: 26px; align-items: start; }
         .main-col { min-width: 0; }
-        .section { background: rgba(13,13,31,.92); border: 1px solid #1e1e3f; border-radius: 22px; padding: 26px; margin-bottom: 18px; }
+        .section { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 22px; padding: 26px; margin-bottom: 18px; }
         .section h2 { margin: 0 0 14px; font-size: 1.15rem; letter-spacing: -.02em; }
         .section-lede { color: #cbd5e1; line-height: 1.8; margin: 0; }
         .bullets { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
-        .bullets li { position: relative; padding: 13px 14px 13px 40px; border: 1px solid #1e293b; border-radius: 14px; background: #070714; color: #cbd5e1; line-height: 1.55; }
+        .bullets li { position: relative; padding: 13px 14px 13px 40px; border: 1px solid var(--border-primary); border-radius: 14px; background: var(--bg-deep); color: #cbd5e1; line-height: 1.55; }
         .bullets li:before { content: '✓'; position: absolute; left: 14px; top: 13px; color: #22d3ee; font-weight: 900; }
         .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; }
-        .process-card { border: 1px solid #1e293b; border-radius: 14px; background: #070714; padding: 14px; color: #cbd5e1; line-height: 1.55; }
-        .path { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: #67e8f9; background: #020617; border: 1px solid #1e293b; border-radius: 12px; padding: 13px; overflow-wrap: anywhere; font-size: .9rem; }
+        .process-card { border: 1px solid var(--border-primary); border-radius: 14px; background: var(--bg-deep); padding: 14px; color: #cbd5e1; line-height: 1.55; }
+        .path { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: #67e8f9; background: var(--bg-tertiary); border: 1px solid var(--border-primary); border-radius: 12px; padding: 13px; overflow-wrap: anywhere; font-size: .9rem; }
         .sidebar { position: sticky; top: 20px; display: grid; gap: 14px; }
-        .side-card { background: rgba(7,7,20,.95); border: 1px solid #1e1e3f; border-radius: 20px; padding: 18px; }
+        .side-card { background: var(--bg-deep); border: 1px solid var(--border-card); border-radius: 20px; padding: 18px; }
         .side-card h3 { margin: 0 0 14px; font-size: 1rem; }
         .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .stat { background: #020617; border: 1px solid #1e293b; border-radius: 14px; padding: 12px; }
+        .stat { background: var(--bg-tertiary); border: 1px solid var(--border-primary); border-radius: 14px; padding: 12px; }
         .stat-label { color: #64748b; font-size: .72em; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 5px; }
         .stat-value { color: #f8fafc; font-weight: 900; overflow-wrap: anywhere; }
         .notice { padding: 14px; border-radius: 14px; background: #f59e0b10; border: 1px solid #f59e0b30; color: #fcd34d; font-size: .86em; line-height: 1.6; }
@@ -162,7 +162,7 @@ export default async function GithubSkillPage({ params }: { params: Promise<{ id
         .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
         .tag { color: #a5b4fc; border: 1px solid #6366f140; background: #6366f112; padding: 5px 10px; border-radius: 999px; font-size: .78em; text-decoration: none; }
         .related { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
-        .related-card { display: block; text-decoration: none; color: inherit; background: #070714; border: 1px solid #1e1e3f; border-radius: 15px; padding: 16px; transition: border-color .18s ease, transform .18s ease; }
+        .related-card { display: block; text-decoration: none; color: inherit; background: var(--bg-deep); border: 1px solid var(--border-card); border-radius: 15px; padding: 16px; transition: border-color .18s ease, transform .18s ease; }
         .related-card:hover { border-color: #6366f1; transform: translateY(-1px); }
         .related-title { color: #f8fafc; font-weight: 900; margin-bottom: 6px; }
         .related-desc { color: #64748b; font-size: .85em; line-height: 1.5; }

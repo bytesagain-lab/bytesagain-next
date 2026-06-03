@@ -106,7 +106,7 @@ export default function CreatorRegisterPage() {
 
   const inputStyle: React.CSSProperties = {
     width: '100%', padding: '12px 14px', borderRadius: 8, boxSizing: 'border-box',
-    background: '#0a0a18', border: '1px solid var(--border-primary)', color: 'var(--text-primary)',
+    background: 'var(--bg-input)', border: '1px solid var(--border-primary)', color: 'var(--text-primary)',
     fontSize: '1em', outline: 'none',
   }
 

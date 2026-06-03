@@ -138,7 +138,7 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
         .breadcrumb { font-size: .82em; color: #4b5563; margin-bottom: 28px; }
         .breadcrumb a { color: #818cf8; text-decoration: none; }
         .breadcrumb a:hover { text-decoration: underline; }
-        .skill-card { background: #0d0d1f; border: 1px solid #1e1e3f; border-radius: 20px; padding: 28px; margin-bottom: 24px; }
+        .skill-card { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 20px; padding: 28px; margin-bottom: 24px; }
         .skill-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
         .skill-badges { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         .skill-top-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; }
@@ -154,7 +154,7 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
         .tags-row { display: flex; gap: 6px; flex-wrap: wrap; }
         .tag { font-size: .75em; color: #6366f1; background: #6366f115; border: 1px solid #6366f130; border-radius: 6px; padding: 3px 10px; text-decoration: none; }
         .tag:hover { background: #6366f125; }
-        .install-box { background: #070714; border: 1px solid #1e1e3f; border-radius: 12px; overflow: hidden; margin-bottom: 24px; }
+        .install-box { background: var(--bg-deep); border: 1px solid var(--border-card); border-radius: 12px; overflow: hidden; margin-bottom: 24px; }
         .install-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid #1e1e3f; }
         .install-dots { display: flex; gap: 6px; }
         .dot { width: 10px; height: 10px; border-radius: 50%; }
@@ -163,10 +163,10 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
         .install-cmd { font-family: 'Courier New', monospace; font-size: 1em; color: #a5f3fc; }
         .copy-btn { font-size: .75em; color: #6366f1; background: #6366f115; border: 1px solid #6366f130; border-radius: 6px; padding: 5px 12px; cursor: pointer; white-space: nowrap; transition: all .15s; }
         .copy-btn:hover { background: #6366f125; }
-        .btn-secondary { display: inline-flex; align-items: center; gap: 8px; padding: 13px 24px; background: transparent; border: 1px solid #1e1e3f; border-radius: 10px; color: #6b7280; text-decoration: none; font-weight: 600; font-size: .95em; transition: all .15s; }
+        .btn-secondary { display: inline-flex; align-items: center; gap: 8px; padding: 13px 24px; background: transparent; border: 1px solid var(--border-card); border-radius: 10px; color: #6b7280; text-decoration: none; font-weight: 600; font-size: .95em; transition: all .15s; }
         .btn-secondary:hover { border-color: #818cf8; color: #818cf8; }
         .ours-badge { display: inline-flex; align-items: center; gap: 6px; font-size: .72em; font-weight: 700; color: #22d3ee; background: #22d3ee10; border: 1px solid #22d3ee30; border-radius: 999px; padding: 4px 14px; }
-        .section-card { background: #0d0d1f; border: 1px solid #1e1e3f; border-radius: 16px; padding: 22px 24px; margin-bottom: 20px; }
+        .section-card { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 16px; padding: 22px 24px; margin-bottom: 20px; }
         .section-title { color: #f8fafc; font-size: 1.08em; font-weight: 800; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
         /* Script box */
         .script-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 14px; background: #0a0a1c; border-bottom: 1px solid #1e1e3f; }
@@ -278,7 +278,7 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
               <div style={{ marginTop: 6 }}>
                 <a href={externalUrl} target="_blank" rel="noopener" className="btn-secondary" style={{
                   padding: '6px 12px', fontSize: '.82em', borderRadius: 8, background: 'transparent',
-                  border: '1px solid #1e1e3f', color: '#6b7280', textDecoration: 'none', whiteSpace: 'nowrap'
+                  border: '1px solid var(--border-card)', color: 'var(--text-muted2)', textDecoration: 'none', whiteSpace: 'nowrap'
                 }}>
                   View on {sm.label} →
                 </a>
@@ -407,7 +407,7 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
                 <div style={{ padding: '18px 24px 0' }}>
                   <h2 className="section-title" style={{ marginBottom: 0 }}>💻 Source Code</h2>
                 </div>
-                <div className="script-box" style={{ margin: '14px 24px 20px', border: '1px solid #1e1e3f', borderRadius: 10 }}>
+                <div className="script-box" style={{ margin: '14px 24px 20px', border: '1px solid var(--border-card)', borderRadius: 10 }}>
                   <div className="script-header">
                     <span className="script-filename">📄 script.sh</span>
                     <button

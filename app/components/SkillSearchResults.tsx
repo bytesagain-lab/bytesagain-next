@@ -63,7 +63,7 @@ export default function SkillSearchResults({ initialSkills, query }: {
           return (
             <a key={skill.slug} href={skillLink} target={isGithub ? '_blank' : undefined} rel={isGithub ? 'noopener noreferrer' : undefined} style={{ textDecoration: 'none' }}>
               <div className="skill-card" style={{
-                background: '#0d0d1f',
+                background: 'var(--bg-card)',
                 border: isOurs ? '1px solid #00d4ff44' : '1px solid #1a1a3e',
                 borderRadius: 12,
                 padding: '20px',

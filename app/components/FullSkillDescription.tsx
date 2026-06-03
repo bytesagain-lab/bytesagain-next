@@ -22,13 +22,13 @@ interface Props {
 function renderMarkdown(md: string): string {
   let html = md
     .replace(/```(\w*)\n([\s\S]*?)```/g,
-      '<pre style="background:#0a0a1c;border:1px solid #1e1e3f;border-radius:6px;padding:10px 12px;overflow-x:auto;font-size:.88em;margin:8px 0"><code style="color:#a5f3fc;background:none;padding:0;font-size:1em">$2</code></pre>')
+      '<pre style="background:var(--bg-input);border:1px solid var(--border-card);border-radius:6px;padding:10px 12px;overflow-x:auto;font-size:.88em;margin:8px 0"><code style="color:#a5f3fc;background:none;padding:0;font-size:1em">$2</code></pre>')
     .replace(/^---$/gm, '<hr style="border:none;border-top:1px solid #1e1e3f;margin:12px 0">')
     .replace(/^### (.+)$/gm, '<h4 style="color:#d1d5db;margin:14px 0 6px;font-size:.95em">$1</h4>')
     .replace(/^## (.+)$/gm, '<h3 style="color:#e5e7eb;margin:18px 0 8px;font-size:1.05em">$1</h3>')
     .replace(/^# (.+)$/gm, '<h2 style="color:#f3f4f6;margin:20px 0 10px;font-size:1.15em">$1</h2>')
     .replace(/\*\*(.+?)\*\*/g, '<strong style="color:#e5e7eb">$1</strong>')
-    .replace(/`([^`]+)`/g, '<code style="background:#0d0d1e;color:#a5f3fc;padding:1px 5px;border-radius:3px;font-size:.88em">$1</code>')
+    .replace(/`([^`]+)`/g, '<code style="background:var(--bg-card);color:#a5f3fc;padding:1px 5px;border-radius:3px;font-size:.88em">$1</code>')
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, t, u) => `<a href="${u}" target="_blank" rel="noopener" style="color:#6366f1">${t}</a>`)
     .replace(/^- (.+)$/gm, '<li style="color:#94a3b8;margin:3px 0">$1</li>')
     .replace(/\n{2,}/g, '</p><p style="margin:8px 0">')
@@ -54,7 +54,7 @@ function renderWhenToUse(raw: string): string {
       rows += `<tr><td style="padding:10px 14px;border-bottom:1px solid #1e1e3f;color:#94a3b8" colspan="2">${parts[0]}</td></tr>`
     }
   }
-  return `<table style="width:100%;border-collapse:collapse;border:1px solid #1e1e3f;border-radius:8px;overflow:hidden;font-size:.88em"><thead><tr style="background:#0a0a1c"><th style="padding:10px 14px;text-align:left;color:#818cf8;font-weight:700;border-bottom:2px solid #6366f130">${headerLabel}</th><th style="padding:10px 14px;text-align:left;color:#818cf8;font-weight:700;border-bottom:2px solid #6366f130">${actionLabel}</th></tr></thead><tbody>${rows}</tbody></table>`
+  return `<table style="width:100%;border-collapse:collapse;border:1px solid var(--border-card);border-radius:8px;overflow:hidden;font-size:.88em"><thead><tr style="background:var(--bg-input)"><th style="padding:10px 14px;text-align:left;color:#818cf8;font-weight:700;border-bottom:2px solid #6366f130">${headerLabel}</th><th style="padding:10px 14px;text-align:left;color:#818cf8;font-weight:700;border-bottom:2px solid #6366f130">${actionLabel}</th></tr></thead><tbody>${rows}</tbody></table>`
 }
 
 /** Render ## Core Types as type definition cards */
@@ -71,7 +71,7 @@ function renderCoreTypes(raw: string): string {
     } else if (line.trim()) {
       const typeMatch = line.match(/^([A-Za-z]+):\s*(.+)/)
       if (typeMatch) {
-        html += `<div style="background:#0a0a1c;border:1px solid #1e1e3f;border-radius:8px;padding:10px 14px;margin-bottom:8px"><span style="color:#a5f3fc;font-weight:700;font-family:monospace">${typeMatch[1]}</span><span style="color:#64748b;font-family:monospace;font-size:.88em">: ${typeMatch[2]}</span></div>`
+        html += `<div style="background:var(--bg-input);border:1px solid var(--border-card);border-radius:8px;padding:10px 14px;margin-bottom:8px"><span style="color:#a5f3fc;font-weight:700;font-family:monospace">${typeMatch[1]}</span><span style="color:#64748b;font-family:monospace;font-size:.88em">: ${typeMatch[2]}</span></div>`
       }
     }
   }
@@ -129,7 +129,7 @@ export default function FullSkillDescription({ slug, owner, sections, fullDesc }
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 8, marginBottom: 12 }}>
           {visibleCards.map(card => (
             <div key={card.key} style={{
-              background: '#070714', border: '1px solid #1e1e3f', borderRadius: 12,
+              background: 'var(--bg-deep)', border: '1px solid var(--border-card)', borderRadius: 12,
               padding: '16px 18px',
             }}>
               <div style={{ color: card.color, fontSize: '.82em', fontWeight: 700, marginBottom: 10, display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -162,7 +162,7 @@ export default function FullSkillDescription({ slug, owner, sections, fullDesc }
       )}
       {expanded && !loading && fetchedDesc && (
         <div style={{
-          marginTop: 8, background: '#050510', border: '1px solid #1e1e3f', borderRadius: 10,
+          marginTop: 8, background: 'var(--bg-deeper)', border: '1px solid var(--border-card)', borderRadius: 10,
           fontSize: '.85em', lineHeight: 1.65, maxHeight: 500, overflowY: 'auto',
           padding: '14px 16px',
         }}

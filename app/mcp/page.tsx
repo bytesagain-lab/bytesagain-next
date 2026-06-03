@@ -81,7 +81,7 @@ GET https://bytesagain.com/api/mcp?action=search&q=データ分析&limit=10`,
 
 function CodeBlock({ children, label }: { children: string; label?: string }) {
   return (
-    <div style={{ background: '#050510', borderRadius: 8, padding: '16px' }}>
+    <div style={{ background: 'var(--bg-deeper)', borderRadius: 8, padding: '16px' }}>
       {label && <div style={{ color: 'var(--text-muted3)', fontSize: '.75em', marginBottom: 6 }}>{label}</div>}
       <pre style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '.85em', lineHeight: 1.7, overflowX: 'auto', whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>
         {children}
@@ -188,7 +188,7 @@ export default function McpDocsPage() {
           <p style={{ color: 'var(--text-muted)', fontSize: '.9em', margin: '0 0 16px' }}>
             MCP endpoint (streamable HTTP, works with all MCP 2024-11-05 clients):
           </p>
-          <div style={{ marginBottom: 16, padding: '12px 16px', background: '#050510', borderRadius: 8 }}>
+          <div style={{ marginBottom: 16, padding: '12px 16px', background: 'var(--bg-deeper)', borderRadius: 8 }}>
             <code style={{ color: '#00d4ff', fontSize: '.95em' }}>https://bytesagain.com/api/mcp</code>
           </div>
           <CodeBlock label="OpenClaw / Claude Desktop">{CODE.mcpConnect}</CodeBlock>
@@ -292,7 +292,7 @@ export default function McpDocsPage() {
               { flag: '🇫🇷', lang: 'French', example: 'automatisation email' },
               { flag: '🇪🇸', lang: 'Portuguese/Spanish', example: 'automatización email' },
             ].map(l => (
-              <div key={l.lang} style={{ background: '#050510', borderRadius: 8, padding: '12px 14px' }}>
+              <div key={l.lang} style={{ background: 'var(--bg-deeper)', borderRadius: 8, padding: '12px 14px' }}>
                 <div style={{ fontSize: '.85em', color: 'var(--text-secondary)', marginBottom: 4 }}>{l.flag} {l.lang}</div>
                 <code style={{ fontSize: '.78em', color: '#667eea' }}>{l.example}</code>
               </div>

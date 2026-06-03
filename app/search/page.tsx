@@ -129,7 +129,7 @@ export default async function SearchPage({ searchParams }: Props) {
         ) : query ? (
           <div style={{
             textAlign: 'center', padding: '60px 20px',
-            background: '#0d0d1f', border: '1px solid var(--border-primary)', borderRadius: 16,
+            background: 'var(--bg-card)', border: '1px solid var(--border-primary)', borderRadius: 16,
           }}>
             <div style={{ fontSize: '3em', marginBottom: 12 }}>🔍</div>
             <h2 style={{ color: 'var(--text-muted)', fontSize: '1.2em', fontWeight: 600, marginBottom: 8 }}>No skills found for &ldquo;{query}&rdquo;</h2>
@@ -141,7 +141,7 @@ export default async function SearchPage({ searchParams }: Props) {
         ) : (
           <div style={{
             textAlign: 'center', padding: '60px 20px',
-            background: '#0d0d1f', border: '1px solid var(--border-primary)', borderRadius: 16,
+            background: 'var(--bg-card)', border: '1px solid var(--border-primary)', borderRadius: 16,
           }}>
             <div style={{ fontSize: '3em', marginBottom: 12 }}>🔍</div>
             <h2 style={{ color: 'var(--text-muted)', fontSize: '1.2em', fontWeight: 600, marginBottom: 8 }}>Ready to find skills?</h2>
