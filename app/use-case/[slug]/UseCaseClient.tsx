@@ -107,8 +107,8 @@ function SkillCard({ skill, index }: SkillCardProps) {
       onMouseLeave={() => setHovered(false)}
       style={{
         display: 'flex', gap: 16, padding: '18px 20px',
-        background: hovered ? '#13132e' : '#0f0f23',
-        border: `1px solid ${hovered ? '#667eea' : '#1a1a3e'}`,
+        background: hovered ? 'var(--bg-primary)' : 'var(--bg-secondary)',
+        border: `1px solid ${hovered ? '#667eea' : 'var(--border-primary)'}`,
         borderRadius: 12, textDecoration: 'none', alignItems: 'flex-start',
         transition: 'all 0.15s ease', cursor: 'pointer',
       }}
@@ -120,13 +120,13 @@ function SkillCard({ skill, index }: SkillCardProps) {
         fontSize: '.8em', fontWeight: 800, color: '#fff',
       }}>{index + 1}</div>
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontWeight: 700, color: '#e0e0e0', marginBottom: 4 }}>{skill.name}</div>
+        <div style={{ fontWeight: 700, color: 'var(--text-primary)', marginBottom: 4 }}>{skill.name}</div>
         <div style={{ color: '#778', fontSize: '.88em', lineHeight: 1.5 }}>{skill.reason}</div>
         {hovered && desc && desc !== skill.reason && (
           <div style={{
             marginTop: 10, padding: '10px 14px',
-            background: '#0a0a1e', borderRadius: 8, border: '1px solid #2a2a4e',
-            color: '#aaa', fontSize: '.83em', lineHeight: 1.6,
+            background: '#0a0a1e', borderRadius: 8, border: '1px solid var(--border-primary)',
+            color: 'var(--text-secondary)', fontSize: '.83em', lineHeight: 1.6,
             animation: 'fadeIn 0.15s ease',
           }}>
             {desc}

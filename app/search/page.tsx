@@ -84,7 +84,7 @@ export default async function SearchPage({ searchParams }: Props) {
         {/* Search input */}
         <form action="/search" method="GET" style={{ marginBottom: 32 }}>
           <div style={{ position: 'relative', maxWidth: 640 }}>
-            <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#555', fontSize: '1em' }}>🔍</span>
+            <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted3)', fontSize: '1em' }}>🔍</span>
             <input
               type="text"
               name="q"
@@ -93,10 +93,10 @@ export default async function SearchPage({ searchParams }: Props) {
               style={{
                 width: '100%',
                 padding: '14px 16px 14px 42px',
-                background: '#0f0f23',
-                border: '1px solid #1a1a3e',
+                background: 'var(--bg-secondary)',
+                border: '1px solid var(--border-primary)',
                 borderRadius: 10,
-                color: '#e0e0e0',
+                color: 'var(--text-primary)',
                 fontSize: '1em',
                 outline: 'none',
                 boxSizing: 'border-box',
@@ -129,11 +129,11 @@ export default async function SearchPage({ searchParams }: Props) {
         ) : query ? (
           <div style={{
             textAlign: 'center', padding: '60px 20px',
-            background: '#0d0d1f', border: '1px solid #1a1a3e', borderRadius: 16,
+            background: '#0d0d1f', border: '1px solid var(--border-primary)', borderRadius: 16,
           }}>
             <div style={{ fontSize: '3em', marginBottom: 12 }}>🔍</div>
-            <h2 style={{ color: '#888', fontSize: '1.2em', fontWeight: 600, marginBottom: 8 }}>No skills found for &ldquo;{query}&rdquo;</h2>
-            <p style={{ color: '#555', fontSize: '.9em', marginBottom: 20 }}>
+            <h2 style={{ color: 'var(--text-muted)', fontSize: '1.2em', fontWeight: 600, marginBottom: 8 }}>No skills found for &ldquo;{query}&rdquo;</h2>
+            <p style={{ color: 'var(--text-muted3)', fontSize: '.9em', marginBottom: 20 }}>
               Try different keywords, browse <a href="/skills" style={{ color: '#667eea' }}>all skills</a>,
               or check <a href="/use-case" style={{ color: '#667eea' }}>use cases</a>.
             </p>
@@ -141,14 +141,14 @@ export default async function SearchPage({ searchParams }: Props) {
         ) : (
           <div style={{
             textAlign: 'center', padding: '60px 20px',
-            background: '#0d0d1f', border: '1px solid #1a1a3e', borderRadius: 16,
+            background: '#0d0d1f', border: '1px solid var(--border-primary)', borderRadius: 16,
           }}>
             <div style={{ fontSize: '3em', marginBottom: 12 }}>🔍</div>
-            <h2 style={{ color: '#888', fontSize: '1.2em', fontWeight: 600, marginBottom: 8 }}>Ready to find skills?</h2>
-            <p style={{ color: '#555', fontSize: '.9em', marginBottom: 12 }}>
+            <h2 style={{ color: 'var(--text-muted)', fontSize: '1.2em', fontWeight: 600, marginBottom: 8 }}>Ready to find skills?</h2>
+            <p style={{ color: 'var(--text-muted3)', fontSize: '.9em', marginBottom: 12 }}>
               Type what you need — AI agent, tool, or workflow — and hit Search.
             </p>
-            <div style={{ color: '#555', fontSize: '.82em' }}>
+            <div style={{ color: 'var(--text-muted3)', fontSize: '.82em' }}>
               Or browse <a href="/skills" style={{ color: '#667eea' }}>all skills</a> ·{' '}
               <a href="/use-case" style={{ color: '#667eea' }}>use cases</a>
             </div>

@@ -6,7 +6,7 @@ const PAGE = 48
 
 const SOURCE_BADGE: Record<string, { label: string; color: string; emoji: string }> = {
   clawhub:    { label: 'ClawHub',    color: '#667eea', emoji: '🦀' },
-  github:     { label: 'GitHub',     color: '#444',    emoji: '⭐' },
+  github:     { label: 'GitHub',     color: 'var(--text-muted4)',    emoji: '⭐' },
   bytesagain: { label: 'BytesAgain', color: '#00d4ff', emoji: '✦' },
   lobehub:    { label: 'LobeHub',    color: '#7c3aed', emoji: '🤖' },
   dify:       { label: 'Dify',       color: '#f59e0b', emoji: '🔧' },
@@ -76,19 +76,19 @@ export default function SkillSearchResults({ initialSkills, query }: {
                     {badge.emoji} {badge.label}
                   </span>
                   {(skill.downloads ?? 0) > 0 && !isGithub && (
-                    <span style={{ fontSize: '.75em', color: '#555' }}>
+                    <span style={{ fontSize: '.75em', color: 'var(--text-muted3)' }}>
                       {Number(skill.downloads) >= 1000
                         ? `${(Number(skill.downloads) / 1000).toFixed(1)}k`
                         : skill.downloads} dl
                     </span>
                   )}
                   {isGithub && (skill.stars ?? 0) > 0 && (
-                    <span style={{ fontSize: '.75em', color: '#555' }}>
+                    <span style={{ fontSize: '.75em', color: 'var(--text-muted3)' }}>
                       ⭐ {(skill.stars >= 1000 ? `${(skill.stars/1000).toFixed(1)}k` : skill.stars)}
                     </span>
                   )}
                 </div>
-                <div style={{ fontWeight: 700, color: '#e0e0e0', fontSize: '.95em', marginBottom: 6, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                <div style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '.95em', marginBottom: 6, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                   {skill.name || skill.slug}
                   {isOurs && (
                     <span style={{ fontSize: '.68em', color: '#00d4ff', background: '#00d4ff18', border: '1px solid #00d4ff33', borderRadius: 20, padding: '1px 7px', fontWeight: 600, marginLeft: 8 }}>
@@ -96,7 +96,7 @@ export default function SkillSearchResults({ initialSkills, query }: {
                     </span>
                   )}
                 </div>
-                <div style={{ color: '#555', fontSize: '.82em', lineHeight: 1.5, marginBottom: 10, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                <div style={{ color: 'var(--text-muted3)', fontSize: '.82em', lineHeight: 1.5, marginBottom: 10, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                   {skill.description || '—'}
                 </div>
               </div>

@@ -176,8 +176,8 @@ export default function IntentSearch() {
             placeholder={zh ? "搜 skill 或使用场景，比如：帮我写周报 / automate email…" : "Search skills & use cases, e.g. write a report, automate email…"}
             style={{
               width: '100%', padding: '14px 16px 14px 44px',
-              background: '#0f0f23', border: '1px solid #2a2a4e',
-              borderRadius: 12, color: '#e0e0e0', fontSize: '1em',
+              background: 'var(--bg-secondary)', border: '1px solid #2a2a4e',
+              borderRadius: 12, color: 'var(--text-primary)', fontSize: '1em',
               outline: 'none', boxSizing: 'border-box',
             }}
           />
@@ -188,8 +188,8 @@ export default function IntentSearch() {
             style={{
               flex: 1, padding: '13px 18px', borderRadius: 10, border: 'none', cursor: 'pointer',
               fontWeight: 700, fontSize: '.85em',
-              background: mode === 'skills' ? 'linear-gradient(135deg,#667eea,#6366f1)' : '#1a1a3e',
-              color: mode === 'skills' ? '#fff' : '#888',
+              background: mode === 'skills' ? 'linear-gradient(135deg,#667eea,#6366f1)' : 'var(--border-primary)',
+              color: mode === 'skills' ? '#fff' : 'var(--text-muted)',
               transition: 'all .15s', whiteSpace: 'nowrap',
             }}
           >⚡ Skills</button>
@@ -198,8 +198,8 @@ export default function IntentSearch() {
             style={{
               flex: 1, padding: '13px 18px', borderRadius: 10, border: 'none', cursor: 'pointer',
               fontWeight: 700, fontSize: '.85em',
-              background: mode === 'usecase' ? 'linear-gradient(135deg,#34d399,#0ea5e9)' : '#1a1a3e',
-              color: mode === 'usecase' ? '#fff' : '#888',
+              background: mode === 'usecase' ? 'linear-gradient(135deg,#34d399,#0ea5e9)' : 'var(--border-primary)',
+              color: mode === 'usecase' ? '#fff' : 'var(--text-muted)',
               transition: 'all .15s', whiteSpace: 'nowrap',
             }}
           >🗺️ Use Cases</button>
@@ -208,7 +208,7 @@ export default function IntentSearch() {
 
       {/* 空状态：用户还没输入时，也要给明确入口，不能留白 */}
       {!searched && (
-        <div style={{ marginTop: 14, background: 'linear-gradient(180deg,#0a0a1a,#080817)', border: '1px solid #1a1a3e', borderRadius: 16, overflow: 'hidden', textAlign: 'left' }}>
+        <div style={{ marginTop: 14, background: 'linear-gradient(180deg,#0a0a1a,#080817)', border: '1px solid var(--border-primary)', borderRadius: 16, overflow: 'hidden', textAlign: 'left' }}>
           <div style={{ padding: '16px 18px 10px' }}>
             <div style={{ color: '#e5e7eb', fontWeight: 800, fontSize: '.95em', marginBottom: 5 }}>
               {zh ? '不知道怎么搜？看看今日推荐和热门搜索。' : 'Not sure where to start? Browse our daily picks below.'}
@@ -233,13 +233,13 @@ export default function IntentSearch() {
                   <div style={{ fontSize: '.68em', color: '#667eea', fontWeight: 700, marginBottom: 4, textTransform: 'uppercase' }}>⭐ 推荐 Skill</div>
                 <div style={{ color: '#f1f5f9', fontWeight: 800, fontSize: '.9em', marginBottom: 5 }}>{sk.name}</div>
                 <div style={{ color: '#64748b', fontSize: '.78em', lineHeight: 1.45 }}>{sk.description?.slice(0, 70)}…</div>
-                {sk.downloads > 0 && <div style={{ fontSize: '.68em', color: '#555', marginTop: 6 }}>{sk.downloads >= 1000 ? `${(sk.downloads/1000).toFixed(1)}k dl` : `${sk.downloads} dl`}</div>}
+                {sk.downloads > 0 && <div style={{ fontSize: '.68em', color: 'var(--text-muted3)', marginTop: 6 }}>{sk.downloads >= 1000 ? `${(sk.downloads/1000).toFixed(1)}k dl` : `${sk.downloads} dl`}</div>}
               </a>
             ))}
           </div>
           <div style={{ padding: '0 14px 16px', display: 'flex', gap: 8, flexWrap: 'wrap' }}>
             {defaultQueries.map(q => (
-              <button key={q} onClick={() => { setQuery(q); doSearch(q) }} style={{ padding: '7px 10px', borderRadius: 999, border: '1px solid #2a2a4e', background: '#0f0f23', color: '#a5b4fc', cursor: 'pointer', fontSize: '.78em', fontWeight: 700 }}>
+              <button key={q} onClick={() => { setQuery(q); doSearch(q) }} style={{ padding: '7px 10px', borderRadius: 999, border: '1px solid #2a2a4e', background: 'var(--bg-secondary)', color: '#a5b4fc', cursor: 'pointer', fontSize: '.78em', fontWeight: 700 }}>
                 {q}
               </button>
             ))}
@@ -249,9 +249,9 @@ export default function IntentSearch() {
 
       {/* 结果面板 */}
       {searched && (
-        <div style={{ marginTop: 12, background: '#0a0a1a', border: '1px solid #1a1a3e', borderRadius: 12, overflow: 'hidden' }}>
+        <div style={{ marginTop: 12, background: 'var(--bg-primary)', border: '1px solid var(--border-primary)', borderRadius: 12, overflow: 'hidden' }}>
           {!hasResults && !loading && (
-            <div style={{ padding: '20px 20px', color: '#888', textAlign: 'center', fontSize: '.9em' }}>
+            <div style={{ padding: '20px 20px', color: 'var(--text-muted)', textAlign: 'center', fontSize: '.9em' }}>
               <div style={{ marginBottom: 10 }}>No use cases found for &quot;{query}&quot;</div>
               <a
                 href={`/skills?q=${encodeURIComponent(query)}`}
@@ -273,11 +273,11 @@ export default function IntentSearch() {
               </div>
               {results.map(uc => (
                 <a key={uc.slug} href={`/use-case/${uc.slug}`}
-                  style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 16px', textDecoration: 'none', borderTop: '1px solid #111' }}>
+                  style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 16px', textDecoration: 'none', borderTop: '1px solid var(--border-light)' }}>
                   <span style={{ fontSize: '1.4em' }}>{uc.icon}</span>
                   <div>
-                    <div style={{ color: '#e0e0e0', fontWeight: 600, fontSize: '.9em' }}>{uc.title}</div>
-                    <div style={{ color: '#555', fontSize: '.78em', marginTop: 2 }}>{uc.description.slice(0, 70)}…</div>
+                    <div style={{ color: 'var(--text-primary)', fontWeight: 600, fontSize: '.9em' }}>{uc.title}</div>
+                    <div style={{ color: 'var(--text-muted3)', fontSize: '.78em', marginTop: 2 }}>{uc.description.slice(0, 70)}…</div>
                   </div>
                 </a>
               ))}
@@ -290,15 +290,15 @@ export default function IntentSearch() {
               </div>
               {skillResults.slice(0, 5).map((sk: any) => (
                 <a key={sk.slug} href={`/skill/${sk.slug}`}
-                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px', textDecoration: 'none', borderTop: '1px solid #111' }}>
-                  <div style={{ color: '#e0e0e0', fontSize: '.88em', fontWeight: 500 }}>{sk.name || sk.slug}</div>
-                  {sk.downloads > 0 && <div style={{ color: '#555', fontSize: '.75em' }}>{Number(sk.downloads) >= 1000 ? `${(sk.downloads/1000).toFixed(1)}k` : sk.downloads} dl</div>}
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px', textDecoration: 'none', borderTop: '1px solid var(--border-light)' }}>
+                  <div style={{ color: 'var(--text-primary)', fontSize: '.88em', fontWeight: 500 }}>{sk.name || sk.slug}</div>
+                  {sk.downloads > 0 && <div style={{ color: 'var(--text-muted3)', fontSize: '.75em' }}>{Number(sk.downloads) >= 1000 ? `${(sk.downloads/1000).toFixed(1)}k` : sk.downloads} dl</div>}
                 </a>
               ))}
             </div>
           )}
           {loading && (
-            <div style={{ padding: '12px 16px', color: '#444', fontSize: '.85em' }}>Searching…</div>
+            <div style={{ padding: '12px 16px', color: 'var(--text-muted4)', fontSize: '.85em' }}>Searching…</div>
           )}
         </div>
       )}

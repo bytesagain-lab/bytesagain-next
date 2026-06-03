@@ -90,8 +90,8 @@ export default async function HomePage() {
                 <Link key={a.slug} href={`/article/${a.slug}`} style={{ textDecoration: 'none' }}>
                   <div style={{
                     padding: '13px 0',
-                    borderTop: i === 0 ? '1px solid #1a1a3e' : undefined,
-                    borderBottom: '1px solid #1a1a3e',
+                    borderTop: i === 0 ? '1px solid var(--border-primary)' : undefined,
+                    borderBottom: '1px solid var(--border-primary)',
                     display: 'flex',
                     alignItems: 'center',
                     gap: 12,

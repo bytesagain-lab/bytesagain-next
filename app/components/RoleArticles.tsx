@@ -110,7 +110,7 @@ export default function RoleArticles({ role, allArticles }: { role: string | nul
       {/* Related skills pill bar */}
       {relatedSkills.length > 0 && (
         <div style={{ display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
-          <span style={{ color: '#555', fontSize: '.8em', alignSelf: 'center' }}>Recommended skills:</span>
+          <span style={{ color: 'var(--text-muted3)', fontSize: '.8em', alignSelf: 'center' }}>Recommended skills:</span>
           {relatedSkills.map(s => (
             <span key={s.slug} style={{ display: 'inline-flex', alignItems: 'center', gap: 4,
               padding: '4px 8px 4px 12px', borderRadius: 20, fontSize: '.8em', fontWeight: 600,
@@ -135,19 +135,19 @@ export default function RoleArticles({ role, allArticles }: { role: string | nul
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(240px,1fr))', gap: 12 }}>
         {articles.length === 0 ? (
-          <div style={{ color: '#444', fontSize: '.88em', padding: '20px 0' }}>
+          <div style={{ color: 'var(--text-muted4)', fontSize: '.88em', padding: '20px 0' }}>
             Articles are loading… <a href="/articles" style={{ color: '#667eea' }}>View all →</a>
           </div>
         ) : articles.map(a => (
           <a key={a.slug} href={`/article/${a.slug}`} style={{
             display: 'block', padding: '18px 20px',
-            background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 12,
+            background: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', borderRadius: 12,
             textDecoration: 'none',
           }}>
             <div style={{ fontSize: '.72em', color: '#48bb78', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 8 }}>
               {a.category}
             </div>
-            <h3 style={{ margin: '0 0 8px', fontSize: '.92em', fontWeight: 600, color: '#e0e0e0', lineHeight: 1.4 }}>
+            <h3 style={{ margin: '0 0 8px', fontSize: '.92em', fontWeight: 600, color: 'var(--text-primary)', lineHeight: 1.4 }}>
               {a.title}
             </h3>
           </a>

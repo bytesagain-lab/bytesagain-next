@@ -81,7 +81,7 @@ function StoreContent() {
         .store-hero h1 { font-size: clamp(2.2rem,5vw,3.5rem); letter-spacing: -.04em; margin: 0 0 12px; }
         .store-hero p { color: #94a3b8; font-size: 1.05rem; max-width: 560px; margin: 0 auto; line-height: 1.7; }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; padding: 0 20px 80px; }
-        .product-card { background: #0d0d20; border: 1px solid #1a1a3e; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; transition: border-color .2s; }
+        .product-card { background: var(--bg-mobile-nav); border: 1px solid var(--border-primary); border-radius: 18px; padding: 24px; display: flex; flex-direction: column; transition: border-color .2s; }
         .product-card:hover { border-color: #34d39944; }
         .product-emoji { font-size: 2.5em; margin-bottom: 8px; }
         .product-name { font-size: 1.2em; font-weight: 800; margin-bottom: 6px; }

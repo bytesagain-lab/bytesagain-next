@@ -52,7 +52,7 @@ export default function OpenClawCollectionPage() {
 
       {/* Skill Packs */}
       {SKILL_PACKS.map((pack) => (
-        <div key={pack.title} style={{ marginBottom: 40, background: '#0d0d1a', border: '1px solid #1a1a3e', borderRadius: 16, padding: 28 }}>
+        <div key={pack.title} style={{ marginBottom: 40, background: 'var(--bg-primary)', border: '1px solid var(--border-primary)', borderRadius: 16, padding: 28 }}>
           <h2 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#fff', margin: '0 0 8px' }}>{pack.title}</h2>
           <p style={{ color: '#888', margin: '0 0 20px', fontSize: '.95rem' }}>{pack.desc}</p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
@@ -61,7 +61,7 @@ export default function OpenClawCollectionPage() {
                 key={skill.slug}
                 href={`/skill/${skill.slug}`}
                 style={{
-                  background: '#1a1a3e',
+                  background: 'var(--border-primary)',
                   border: '1px solid #2a2a5e',
                   borderRadius: 10,
                   padding: '10px 18px',

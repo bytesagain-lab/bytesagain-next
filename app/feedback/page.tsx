@@ -51,10 +51,10 @@ export default function FeedbackPage() {
           borderRadius: 16, padding: '24px 28px', marginBottom: 32,
           position: 'relative',
         }}>
-          <div style={{ fontSize: '1.1em', fontWeight: 700, color: '#e0e0e0', marginBottom: 8 }}>
+          <div style={{ fontSize: '1.1em', fontWeight: 700, color: 'var(--text-primary)', marginBottom: 8 }}>
             👋 Welcome to BytesAgain
           </div>
-          <p style={{ color: '#888', fontSize: '.9em', marginBottom: 16, lineHeight: 1.6 }}>
+          <p style={{ color: 'var(--text-muted)', fontSize: '.9em', marginBottom: 16, lineHeight: 1.6 }}>
             We're building the most comprehensive AI agent skill directory — 50,000+ skills from ClawHub, GitHub, LobeHub and more.
           </p>
           <div style={{ display: 'flex', gap: 12 }}>
@@ -67,28 +67,28 @@ export default function FeedbackPage() {
             </Link>
             <button onClick={() => setShowBanner(false)} style={{
               padding: '8px 18px', borderRadius: 8, fontSize: '.85em',
-              background: 'transparent', border: '1px solid #333', color: '#888',
+              background: 'transparent', border: '1px solid #333', color: 'var(--text-muted)',
               cursor: 'pointer',
             }}>
               Leave Feedback
             </button>
           </div>
-          <div style={{ position: 'absolute', top: 12, right: 16, color: '#444', fontSize: '.75em' }}>
+          <div style={{ position: 'absolute', top: 12, right: 16, color: 'var(--text-muted4)', fontSize: '.75em' }}>
             auto-close in 5s
           </div>
         </div>
       )}
 
       <h1 style={{ fontSize: '1.8em', fontWeight: 800, marginBottom: 8 }}>Share Feedback</h1>
-      <p style={{ color: '#666', marginBottom: 40 }}>
+      <p style={{ color: 'var(--text-muted2)', marginBottom: 40 }}>
         Tell us what skills you need, what's broken, or how to make BytesAgain better.
       </p>
 
       {status === 'done' ? (
         <div style={{ textAlign: 'center', padding: '60px 0' }}>
           <div style={{ fontSize: '3em', marginBottom: 16 }}>🙏</div>
-          <h2 style={{ color: '#e0e0e0', marginBottom: 8 }}>Thanks for your feedback!</h2>
-          <p style={{ color: '#666' }}>We read every message and use it to improve.</p>
+          <h2 style={{ color: 'var(--text-primary)', marginBottom: 8 }}>Thanks for your feedback!</h2>
+          <p style={{ color: 'var(--text-muted2)' }}>We read every message and use it to improve.</p>
           <button onClick={() => { setStatus('idle'); setMessage(''); setEmail('') }}
             style={{ marginTop: 24, padding: '10px 24px', background: 'linear-gradient(135deg,#667eea,#00d4ff)', border: 'none', borderRadius: 8, color: '#fff', cursor: 'pointer', fontWeight: 600 }}>
             Send Another →
@@ -108,7 +108,7 @@ export default function FeedbackPage() {
                   transition: 'all .15s',
                 }}>
                 <div style={{ fontWeight: 700, fontSize: '.9em', marginBottom: 4 }}>{t.label}</div>
-                <div style={{ fontSize: '.78em', color: '#555' }}>{t.desc}</div>
+                <div style={{ fontSize: '.78em', color: 'var(--text-muted3)' }}>{t.desc}</div>
               </button>
             ))}
           </div>
@@ -128,8 +128,8 @@ export default function FeedbackPage() {
             rows={5}
             style={{
               width: '100%', boxSizing: 'border-box', padding: '14px 16px',
-              background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 12,
-              color: '#e0e0e0', fontSize: '.95em', resize: 'vertical',
+              background: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', borderRadius: 12,
+              color: 'var(--text-primary)', fontSize: '.95em', resize: 'vertical',
               outline: 'none', marginBottom: 14, fontFamily: 'inherit',
             }}
           />
@@ -142,8 +142,8 @@ export default function FeedbackPage() {
             placeholder="Email (optional — we'll reply if you leave one)"
             style={{
               width: '100%', boxSizing: 'border-box', padding: '12px 16px',
-              background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 12,
-              color: '#e0e0e0', fontSize: '.9em', outline: 'none', marginBottom: 20,
+              background: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', borderRadius: 12,
+              color: 'var(--text-primary)', fontSize: '.9em', outline: 'none', marginBottom: 20,
               fontFamily: 'inherit',
             }}
           />
@@ -157,7 +157,7 @@ export default function FeedbackPage() {
           <button onClick={submit} disabled={status === 'sending' || !message.trim()}
             style={{
               width: '100%', padding: '14px', borderRadius: 12, border: 'none', cursor: 'pointer',
-              background: message.trim() ? 'linear-gradient(135deg,#667eea,#00d4ff)' : '#1a1a3e',
+              background: message.trim() ? 'linear-gradient(135deg,#667eea,#00d4ff)' : 'var(--border-primary)',
               color: '#fff', fontWeight: 700, fontSize: '1em',
               opacity: status === 'sending' ? 0.7 : 1, transition: 'all .2s',
             }}>

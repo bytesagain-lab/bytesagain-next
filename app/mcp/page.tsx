@@ -82,8 +82,8 @@ GET https://bytesagain.com/api/mcp?action=search&q=データ分析&limit=10`,
 function CodeBlock({ children, label }: { children: string; label?: string }) {
   return (
     <div style={{ background: '#050510', borderRadius: 8, padding: '16px' }}>
-      {label && <div style={{ color: '#555', fontSize: '.75em', marginBottom: 6 }}>{label}</div>}
-      <pre style={{ margin: 0, color: '#a0a0c0', fontSize: '.85em', lineHeight: 1.7, overflowX: 'auto', whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>
+      {label && <div style={{ color: 'var(--text-muted3)', fontSize: '.75em', marginBottom: 6 }}>{label}</div>}
+      <pre style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '.85em', lineHeight: 1.7, overflowX: 'auto', whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>
         {children}
       </pre>
     </div>
@@ -101,7 +101,7 @@ function Section({ title, children, id }: { title: string; children: React.React
 
 function Card({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ background: '#0a0a1a', border: '1px solid #1a1a3e', borderRadius: 12, padding: '24px', marginBottom: 16 }}>
+    <div style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-primary)', borderRadius: 12, padding: '24px', marginBottom: 16 }}>
       {children}
     </div>
   )
@@ -119,33 +119,33 @@ function ToolCard({ name, badge, desc, when, params, returns, example, response 
         <code style={{ color: '#00d4ff', fontSize: '1em', fontWeight: 700 }}>{name}</code>
         <span style={{ background: badgeColor + '22', border: `1px solid ${badgeColor}44`, color: badgeColor, borderRadius: 6, padding: '1px 10px', fontSize: '.8em', fontWeight: 700 }}>{badge}</span>
       </div>
-      <p style={{ color: '#888', fontSize: '.9em', lineHeight: 1.7, margin: '0 0 16px' }}>{desc}</p>
-      <p style={{ color: '#555', fontSize: '.85em', margin: '0 0 16px' }}>
+      <p style={{ color: 'var(--text-muted)', fontSize: '.9em', lineHeight: 1.7, margin: '0 0 16px' }}>{desc}</p>
+      <p style={{ color: 'var(--text-muted3)', fontSize: '.85em', margin: '0 0 16px' }}>
         <span style={{ color: '#667eea' }}>When to use:</span> {when}
       </p>
       <div style={{ marginBottom: 16 }}>
-        <div style={{ color: '#555', fontSize: '.8em', marginBottom: 8 }}>Parameters</div>
+        <div style={{ color: 'var(--text-muted3)', fontSize: '.8em', marginBottom: 8 }}>Parameters</div>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '.82em' }}>
           <thead>
             <tr style={{ borderBottom: '1px solid #1a1a3e' }}>
               {['Name', 'Type', 'Required', 'Description'].map(h => (
-                <th key={h} style={{ textAlign: 'left', padding: '4px 8px', color: '#555', fontWeight: 400 }}>{h}</th>
+                <th key={h} style={{ textAlign: 'left', padding: '4px 8px', color: 'var(--text-muted3)', fontWeight: 400 }}>{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {params.map(p => (
               <tr key={p.name} style={{ borderBottom: '1px solid #0f0f23' }}>
-                <td style={{ padding: '6px 8px', color: '#a0a0c0', fontFamily: 'monospace' }}>{p.name}</td>
+                <td style={{ padding: '6px 8px', color: 'var(--text-secondary)', fontFamily: 'monospace' }}>{p.name}</td>
                 <td style={{ padding: '6px 8px', color: '#667eea' }}>{p.type}</td>
                 <td style={{ padding: '6px 8px', color: p.required ? '#f59e0b' : '#555' }}>{p.required ? 'Yes' : 'No'}</td>
-                <td style={{ padding: '6px 8px', color: '#666' }}>{p.desc}</td>
+                <td style={{ padding: '6px 8px', color: 'var(--text-muted2)' }}>{p.desc}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <p style={{ color: '#555', fontSize: '.85em', margin: '0 0 12px' }}>
+      <p style={{ color: 'var(--text-muted3)', fontSize: '.85em', margin: '0 0 12px' }}>
         <span style={{ color: '#667eea' }}>Returns:</span> {returns}
       </p>
       <CodeBlock label="Example (MCP)">{example}</CodeBlock>
@@ -158,7 +158,7 @@ function ToolCard({ name, badge, desc, when, params, returns, example, response 
 
 export default function McpDocsPage() {
   return (
-    <main style={{ maxWidth: 860, margin: '0 auto', padding: '48px 24px', color: '#e0e0e0', fontFamily: 'monospace' }}>
+    <main style={{ maxWidth: 860, margin: '0 auto', padding: '48px 24px', color: 'var(--text-primary)', fontFamily: 'monospace' }}>
 
       {/* Header */}
       <div style={{ marginBottom: 48 }}>
@@ -168,7 +168,7 @@ export default function McpDocsPage() {
         <h1 style={{ fontSize: 'clamp(1.6em,4vw,2.2em)', fontWeight: 900, margin: '16px 0 8px', color: '#fff' }}>
           BytesAgain Agent API
         </h1>
-        <p style={{ color: '#888', fontSize: '1em', lineHeight: 1.7, maxWidth: 640 }}>
+        <p style={{ color: 'var(--text-muted)', fontSize: '1em', lineHeight: 1.7, maxWidth: 640 }}>
           Connect your AI agent to 60,000+ indexed skills via MCP streamable HTTP or REST API.
           4 tools: <code style={{ color: '#00d4ff' }}>search_skills</code>, <code style={{ color: '#00d4ff' }}>get_skill</code>, <code style={{ color: '#00d4ff' }}>popular_skills</code>, <code style={{ color: '#00d4ff' }}>search_use_cases</code>.
           Supports 7 languages. Free, no auth required.
@@ -185,14 +185,14 @@ export default function McpDocsPage() {
       {/* Quick Connect */}
       <Section title="Quick Connect" id="connect">
         <Card>
-          <p style={{ color: '#888', fontSize: '.9em', margin: '0 0 16px' }}>
+          <p style={{ color: 'var(--text-muted)', fontSize: '.9em', margin: '0 0 16px' }}>
             MCP endpoint (streamable HTTP, works with all MCP 2024-11-05 clients):
           </p>
           <div style={{ marginBottom: 16, padding: '12px 16px', background: '#050510', borderRadius: 8 }}>
             <code style={{ color: '#00d4ff', fontSize: '.95em' }}>https://bytesagain.com/api/mcp</code>
           </div>
           <CodeBlock label="OpenClaw / Claude Desktop">{CODE.mcpConnect}</CodeBlock>
-          <div style={{ marginTop: 12, padding: '10px 16px', background: '#1a1000', border: '1px solid #f59e0b33', borderRadius: 8, fontSize: '.83em', color: '#888' }}>
+          <div style={{ marginTop: 12, padding: '10px 16px', background: '#1a1000', border: '1px solid #f59e0b33', borderRadius: 8, fontSize: '.83em', color: 'var(--text-muted)' }}>
             ⚠️ In sandboxed environments, use the <a href="#rest" style={{ color: '#f59e0b', textDecoration: 'none' }}>REST API</a> instead.
           </div>
         </Card>
@@ -254,24 +254,24 @@ export default function McpDocsPage() {
 
       {/* REST API */}
       <Section title="REST API (Sandbox-friendly)" id="rest">
-        <p style={{ color: '#888', fontSize: '.9em', marginBottom: 16 }}>
+        <p style={{ color: 'var(--text-muted)', fontSize: '.9em', marginBottom: 16 }}>
           Simple GET requests. No client library, no streaming. Works in any environment including sandboxed agents.
           Same 7-language support as MCP tools.
         </p>
         <Card>
-          <div style={{ marginBottom: 8, color: '#555', fontSize: '.8em' }}>Search (action=search)</div>
+          <div style={{ marginBottom: 8, color: 'var(--text-muted3)', fontSize: '.8em' }}>Search (action=search)</div>
           <CodeBlock>{CODE.restSearch}</CodeBlock>
         </Card>
         <Card>
-          <div style={{ marginBottom: 8, color: '#555', fontSize: '.8em' }}>Get skill details (action=get)</div>
+          <div style={{ marginBottom: 8, color: 'var(--text-muted3)', fontSize: '.8em' }}>Get skill details (action=get)</div>
           <CodeBlock>{CODE.restGet}</CodeBlock>
         </Card>
         <Card>
-          <div style={{ marginBottom: 8, color: '#555', fontSize: '.8em' }}>Popular skills (action=popular)</div>
+          <div style={{ marginBottom: 8, color: 'var(--text-muted3)', fontSize: '.8em' }}>Popular skills (action=popular)</div>
           <CodeBlock>{CODE.restPopular}</CodeBlock>
         </Card>
         <Card>
-          <div style={{ marginBottom: 8, color: '#555', fontSize: '.8em' }}>Recommendations by role (action=recommend)</div>
+          <div style={{ marginBottom: 8, color: 'var(--text-muted3)', fontSize: '.8em' }}>Recommendations by role (action=recommend)</div>
           <CodeBlock>{'GET https://bytesagain.com/api/mcp?action=recommend&role=developer&limit=10\n# role options: developer | creator | trader | marketer | student'}</CodeBlock>
         </Card>
       </Section>
@@ -279,7 +279,7 @@ export default function McpDocsPage() {
       {/* Languages */}
       <Section title="Language Support">
         <Card>
-          <p style={{ color: '#888', fontSize: '.9em', margin: '0 0 16px' }}>
+          <p style={{ color: 'var(--text-muted)', fontSize: '.9em', margin: '0 0 16px' }}>
             Search queries are automatically detected and translated to English internally. You can search in any of these languages:
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 10 }}>
@@ -293,7 +293,7 @@ export default function McpDocsPage() {
               { flag: '🇪🇸', lang: 'Portuguese/Spanish', example: 'automatización email' },
             ].map(l => (
               <div key={l.lang} style={{ background: '#050510', borderRadius: 8, padding: '12px 14px' }}>
-                <div style={{ fontSize: '.85em', color: '#a0a0c0', marginBottom: 4 }}>{l.flag} {l.lang}</div>
+                <div style={{ fontSize: '.85em', color: 'var(--text-secondary)', marginBottom: 4 }}>{l.flag} {l.lang}</div>
                 <code style={{ fontSize: '.78em', color: '#667eea' }}>{l.example}</code>
               </div>
             ))}
@@ -304,14 +304,14 @@ export default function McpDocsPage() {
       {/* llms.txt */}
       <Section title="LLMs.txt">
         <Card>
-          <p style={{ color: '#888', fontSize: '.9em', margin: '0 0 12px' }}>Machine-readable skill index for LLM context injection:</p>
+          <p style={{ color: 'var(--text-muted)', fontSize: '.9em', margin: '0 0 12px' }}>Machine-readable skill index for LLM context injection:</p>
           <a href="/llms-full.txt" style={{ color: '#00d4ff', textDecoration: 'none', fontSize: '.9em' }}>
             https://bytesagain.com/llms-full.txt →
           </a>
         </Card>
       </Section>
 
-      <div style={{ borderTop: '1px solid #1a1a3e', paddingTop: 32, color: '#444', fontSize: '.85em' }}>
+      <div style={{ borderTop: '1px solid #1a1a3e', paddingTop: 32, color: 'var(--text-muted4)', fontSize: '.85em' }}>
         Built by <a href="https://bytesagain.com" style={{ color: '#667eea', textDecoration: 'none' }}>BytesAgain</a> · 60,000+ indexed skills · 7 languages · Free forever ·{' '}
         <a href="https://glama.ai/mcp/connectors/com.bytesagain/bytes-again-ai-skills-search" target="_blank" rel="noopener noreferrer" style={{ color: '#22c55e', textDecoration: 'none' }}>Glama Verified ✓</a>
       </div>

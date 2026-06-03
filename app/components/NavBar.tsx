@@ -3,9 +3,11 @@
 import { useEffect, useState } from 'react'
 import { createBrowserClient } from '@supabase/ssr'
 import { useLang, T } from './LangContext'
+import { useTheme } from './ThemeProvider'
 
 export default function NavBar() {
   const { lang, setLang } = useLang()
+  const { theme, toggleTheme } = useTheme()
   const t = T[lang]
   const [email, setEmail] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
@@ -35,10 +37,10 @@ export default function NavBar() {
     window.location.href = '/'
   }
 
-  const navLinkStyle = { color: '#ccc', textDecoration: 'none', fontSize: '.9em' }
+  const navLinkStyle = { color: 'var(--text-nav)', textDecoration: 'none', fontSize: '.9em' }
 
   return (
-    <header style={{ padding: '14px 0', background: '#0a0a1a', borderBottom: '1px solid #1a1a2e' }}>
+    <header style={{ padding: '14px 0', background: 'var(--bg-primary)', borderBottom: '1px solid var(--border-secondary)' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         {/* Logo */}
         <a href="/" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none', flexShrink: 0 }}>
@@ -53,12 +55,12 @@ export default function NavBar() {
           <a href="/articles" style={navLinkStyle}>📝 {t.nav_articles}</a>
           <a href="/skills" style={navLinkStyle}>🧩 {t.nav_skills}</a>
           <a href="/use-case" style={navLinkStyle}>💼 {t.nav_cases}</a>
-          <a href="/requests" style={{ color: '#fbbf24', textDecoration: 'none', fontSize: '.9em', fontWeight: 600 }}>📋 Requests</a>
+          <a href="/requests" style={{ color: 'var(--text-accent)', textDecoration: 'none', fontSize: '.9em', fontWeight: 600 }}>📋 Requests</a>
           {!loading && (
             email ? (
               <>
                 <a href="/dashboard" style={{ color: '#667eea', fontSize: '.85em', textDecoration: 'none' }}>{email.split('@')[0]}</a>
-                <button onClick={handleSignOut} style={{ background: 'none', border: '1px solid #333', color: '#888', borderRadius: 6, padding: '4px 10px', fontSize: '.85em', cursor: 'pointer' }}>
+                <button onClick={handleSignOut} style={{ background: 'none', border: '1px solid var(--border-btn)', color: 'var(--text-muted)', borderRadius: 6, padding: '4px 10px', fontSize: '.85em', cursor: 'pointer' }}>
                   {lang === 'zh' ? '退出' : 'Out'}
                 </button>
               </>
@@ -66,11 +68,20 @@ export default function NavBar() {
               <a href="/login" style={navLinkStyle}>{lang === 'zh' ? '登录' : 'Sign In'}</a>
             )
           )}
+          {/* Toggle Language */}
           <button
             onClick={() => setLang(lang === 'en' ? 'zh' : 'en')}
-            style={{ background: 'none', border: '1px solid #333', borderRadius: 6, color: '#888', fontSize: '.8em', cursor: 'pointer', padding: '3px 8px' }}
+            style={{ background: 'none', border: '1px solid var(--border-btn)', borderRadius: 6, color: 'var(--text-muted)', fontSize: '.8em', cursor: 'pointer', padding: '3px 8px' }}
           >
             {lang === 'en' ? '🇨🇳 中文' : '🇺🇸 EN'}
+          </button>
+          {/* Toggle Theme */}
+          <button
+            onClick={toggleTheme}
+            title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            style={{ background: 'none', border: '1px solid var(--border-btn)', borderRadius: 6, color: 'var(--text-muted)', fontSize: '1.1em', cursor: 'pointer', padding: '3px 8px' }}
+          >
+            {theme === 'dark' ? '☀️' : '🌙'}
           </button>
         </nav>
 
@@ -78,7 +89,7 @@ export default function NavBar() {
         <button
           className="mobile-menu-btn"
           onClick={() => setMenuOpen(!menuOpen)}
-          style={{ background: 'none', border: '1px solid #333', borderRadius: 6, color: '#888', cursor: 'pointer', padding: '6px 10px', fontSize: '1.2em', display: 'none' }}
+          style={{ background: 'none', border: '1px solid var(--border-btn)', borderRadius: 6, color: 'var(--text-muted)', cursor: 'pointer', padding: '6px 10px', fontSize: '1.2em', display: 'none' }}
           aria-label="Menu"
         >
           {menuOpen ? '✕' : '☰'}
@@ -87,16 +98,16 @@ export default function NavBar() {
 
       {/* Mobile dropdown */}
       {menuOpen && (
-        <div className="mobile-nav" style={{ background: '#0d0d20', borderTop: '1px solid #1a1a2e', padding: '12px 20px', display: 'flex', flexDirection: 'column', gap: 14 }}>
+        <div className="mobile-nav" style={{ background: 'var(--bg-mobile-nav)', borderTop: '1px solid var(--border-secondary)', padding: '12px 20px', display: 'flex', flexDirection: 'column', gap: 14 }}>
           <a href="/articles" style={navLinkStyle} onClick={() => setMenuOpen(false)}>📝 {t.nav_articles}</a>
           <a href="/skills" style={navLinkStyle} onClick={() => setMenuOpen(false)}>🧩 {t.nav_skills}</a>
           <a href="/use-case" style={navLinkStyle} onClick={() => setMenuOpen(false)}>💼 {t.nav_cases}</a>
-          <a href="/requests" style={{ color: '#fbbf24', textDecoration: 'none', fontSize: '.9em', fontWeight: 600 }} onClick={() => setMenuOpen(false)}>📋 Requests</a>
+          <a href="/requests" style={{ color: 'var(--text-accent)', textDecoration: 'none', fontSize: '.9em', fontWeight: 600 }} onClick={() => setMenuOpen(false)}>📋 Requests</a>
           {!loading && (
             email ? (
               <>
                 <a href="/dashboard" style={{ color: '#667eea', fontSize: '.85em', textDecoration: 'none' }}>{email.split('@')[0]}</a>
-                <button onClick={handleSignOut} style={{ background: 'none', border: 'none', color: '#888', fontSize: '.85em', cursor: 'pointer', textAlign: 'left', padding: 0 }}>
+                <button onClick={handleSignOut} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: '.85em', cursor: 'pointer', textAlign: 'left', padding: 0 }}>
                   {lang === 'zh' ? '退出' : 'Sign Out'}
                 </button>
               </>
@@ -106,9 +117,16 @@ export default function NavBar() {
           )}
           <button
             onClick={() => { setLang(lang === 'en' ? 'zh' : 'en'); setMenuOpen(false) }}
-            style={{ background: 'none', border: '1px solid #333', borderRadius: 6, color: '#888', fontSize: '.8em', cursor: 'pointer', padding: '4px 10px', alignSelf: 'flex-start' }}
+            style={{ background: 'none', border: '1px solid var(--border-btn)', borderRadius: 6, color: 'var(--text-muted)', fontSize: '.8em', cursor: 'pointer', padding: '4px 10px', alignSelf: 'flex-start' }}
           >
             {lang === 'en' ? '🇨🇳 中文' : '🇺🇸 EN'}
+          </button>
+          {/* Mobile theme toggle */}
+          <button
+            onClick={() => { toggleTheme(); setMenuOpen(false) }}
+            style={{ background: 'none', border: '1px solid var(--border-btn)', borderRadius: 6, color: 'var(--text-muted)', fontSize: '.9em', cursor: 'pointer', padding: '4px 10px', alignSelf: 'flex-start' }}
+          >
+            {theme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode'}
           </button>
         </div>
       )}

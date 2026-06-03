@@ -62,12 +62,12 @@ export default function RelatedContent({ category, currentSlug, name, tags = [] 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {skills.slice(0, 5).map(skill => (
               <a key={skill.slug} href={`/skill/${skill.slug}`}
-                style={{ display: 'block', padding: '12px 14px', background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 10, textDecoration: 'none' }}>
-                <div style={{ fontWeight: 600, color: '#e0e0e0', fontSize: '.88em', marginBottom: 4 }}>
+                style={{ display: 'block', padding: '12px 14px', background: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', borderRadius: 10, textDecoration: 'none' }}>
+                <div style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '.88em', marginBottom: 4 }}>
                   {skill.name}
-                  {(skill.downloads ?? 0) > 0 && <span style={{ color: '#555', fontWeight: 400, fontSize: '.78em', marginLeft: 8 }}>{skill.downloads!.toLocaleString()} dl</span>}
+                  {(skill.downloads ?? 0) > 0 && <span style={{ color: 'var(--text-muted3)', fontWeight: 400, fontSize: '.78em', marginLeft: 8 }}>{skill.downloads!.toLocaleString()} dl</span>}
                 </div>
-                <div style={{ color: '#666', fontSize: '.78em', lineHeight: 1.4 }}>{skill.description?.slice(0, 80)}{skill.description?.length > 80 ? '…' : ''}</div>
+                <div style={{ color: 'var(--text-muted2)', fontSize: '.78em', lineHeight: 1.4 }}>{skill.description?.slice(0, 80)}{skill.description?.length > 80 ? '…' : ''}</div>
               </a>
             ))}
           </div>
@@ -83,12 +83,12 @@ export default function RelatedContent({ category, currentSlug, name, tags = [] 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {useCases.map(uc => (
               <Link key={uc.use_case_slug} href={`/use-case/${uc.use_case_slug}`}
-                style={{ display: 'block', padding: '12px 14px', background: '#0f0f23', border: '1px solid #1a1a2e', borderRadius: 10, textDecoration: 'none' }}>
+                style={{ display: 'block', padding: '12px 14px', background: 'var(--bg-secondary)', border: '1px solid var(--border-secondary)', borderRadius: 10, textDecoration: 'none' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
                   <span style={{ fontSize: '1.1em' }}>{uc.use_case_icon || '🗺️'}</span>
-                  <span style={{ color: '#e0e0e0', fontWeight: 600, fontSize: '.88em' }}>{uc.use_case_title}</span>
+                  <span style={{ color: 'var(--text-primary)', fontWeight: 600, fontSize: '.88em' }}>{uc.use_case_title}</span>
                 </div>
-                <div style={{ color: '#666', fontSize: '.78em', lineHeight: 1.5 }}>
+                <div style={{ color: 'var(--text-muted2)', fontSize: '.78em', lineHeight: 1.5 }}>
                   {(uc.use_case_description || '').slice(0, 70)}{(uc.use_case_description || '').length > 70 ? '…' : ''}
                 </div>
               </Link>

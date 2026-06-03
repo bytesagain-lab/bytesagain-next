@@ -35,19 +35,19 @@ export default async function CategoryPage({ params }: Props) {
       </div>
 
       <h1 style={{ fontSize: '1.8em', fontWeight: 800, marginBottom: 8 }}>{cat}</h1>
-      <p style={{ color: '#555', marginBottom: 24 }}>{skills.length} skills found</p>
+      <p style={{ color: 'var(--text-muted3)', marginBottom: 24 }}>{skills.length} skills found</p>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))', gap: 16 }}>
         {skills.length === 0 ? (
-          <p style={{ color: '#555' }}>No skills in this category yet.</p>
+          <p style={{ color: 'var(--text-muted3)' }}>No skills in this category yet.</p>
         ) : skills.map(skill => (
           <a key={skill.slug} href={`/skill/${skill.slug}`} style={cardStyle}>
             <div style={{ fontSize: '.75em', color: '#667eea', marginBottom: 6, textTransform: 'uppercase', letterSpacing: 1 }}>{skill.category}</div>
-            <h3 style={{ margin: '0 0 8px', fontSize: '1em', fontWeight: 600, color: '#e0e0e0' }}>{skill.name || skill.slug}</h3>
-            <p style={{ margin: '0 0 12px', fontSize: '.85em', color: '#888', lineHeight: 1.5 }}>
+            <h3 style={{ margin: '0 0 8px', fontSize: '1em', fontWeight: 600, color: 'var(--text-primary)' }}>{skill.name || skill.slug}</h3>
+            <p style={{ margin: '0 0 12px', fontSize: '.85em', color: 'var(--text-muted)', lineHeight: 1.5 }}>
               {skill.description?.slice(0, 80)}...
             </p>
-            <div style={{ fontSize: '.8em', color: '#555' }}>{skill.downloads?.toLocaleString()} downloads</div>
+            <div style={{ fontSize: '.8em', color: 'var(--text-muted3)' }}>{skill.downloads?.toLocaleString()} downloads</div>
           </a>
         ))}
       </div>
@@ -69,8 +69,8 @@ const catStyle = (color: string) => ({
 const cardStyle: React.CSSProperties = {
   display: 'block',
   padding: 20,
-  background: '#0f0f23',
-  border: '1px solid #1a1a3e',
+  background: 'var(--bg-secondary)',
+  border: '1px solid var(--border-primary)',
   borderRadius: 12,
   textDecoration: 'none',
   transition: 'border-color .2s',

@@ -106,7 +106,7 @@ export default function DashboardPage() {
     window.location.href = '/'
   }
 
-  if (loading) return <div style={{ textAlign: 'center', padding: '80px 20px', color: '#555' }}>Loading…</div>
+  if (loading) return <div style={{ textAlign: 'center', padding: '80px 20px', color: 'var(--text-muted3)' }}>Loading…</div>
 
   const joinedAt = user?.created_at ? new Date(user.created_at).toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : ''
   const provider = user?.app_metadata?.provider || 'email'
@@ -117,19 +117,19 @@ export default function DashboardPage() {
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       padding: '12px 0', borderBottom: '1px solid #1a1a2e' }}>
       <Link href={href} style={{ textDecoration: 'none', flex: 1 }}>
-        <div style={{ fontWeight: 600, color: '#e0e0e0', fontSize: '.92em' }}>
+        <div style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '.92em' }}>
           {s._type === 'usecase' && <span style={{ fontSize: '.75em', color: '#667eea', marginRight: 6 }}>USE CASE</span>}
           {s._type === 'request' && <span style={{ fontSize: '.75em', color: '#f59e0b', marginRight: 6 }}>REQUEST</span>}
           {s.name || s.slug}
         </div>
-        <div style={{ color: '#555', fontSize: '.78em', marginTop: 2,
+        <div style={{ color: 'var(--text-muted3)', fontSize: '.78em', marginTop: 2,
           overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 400 }}>
           {s.description}
         </div>
       </Link>
       {onRemove && (
         <button onClick={onRemove} title="Remove" style={{
-          background: 'none', border: 'none', color: '#444', cursor: 'pointer',
+          background: 'none', border: 'none', color: 'var(--text-muted4)', cursor: 'pointer',
           fontSize: '1.1em', padding: '4px 8px', flexShrink: 0,
         }}>✕</button>
       )}
@@ -144,7 +144,7 @@ export default function DashboardPage() {
       </h1>
 
       {/* 用户信息卡 */}
-      <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: 28, marginBottom: 20 }}>
+      <div style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', borderRadius: 16, padding: 28, marginBottom: 20 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
           <div style={{
             width: 56, height: 56, borderRadius: '50%',
@@ -156,7 +156,7 @@ export default function DashboardPage() {
           </div>
           <div>
             <div style={{ fontWeight: 700, fontSize: '1.1em' }}>{user?.email}</div>
-            <div style={{ color: '#555', fontSize: '.85em', marginTop: 4 }}>
+            <div style={{ color: 'var(--text-muted3)', fontSize: '.85em', marginTop: 4 }}>
               {lang === 'zh' ? `加入于 ${joinedAt} · 通过 ${provider === 'google' ? 'Google' : '邮件'}` : `Joined ${joinedAt} · via ${provider}`}
             </div>
           </div>
@@ -164,12 +164,12 @@ export default function DashboardPage() {
       </div>
 
       {/* 收藏列表 */}
-      <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: 28, marginBottom: 20 }}>
-        <h2 style={{ margin: '0 0 16px', fontSize: '1.05em', color: '#888', textTransform: 'uppercase', letterSpacing: 1 }}>
+      <div style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', borderRadius: 16, padding: 28, marginBottom: 20 }}>
+        <h2 style={{ margin: '0 0 16px', fontSize: '1.05em', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 1 }}>
           {lang === 'zh' ? '❤️ 我的收藏' : '❤️ Saved'}
         </h2>
         {favorites.length === 0 ? (
-          <p style={{ color: '#444', fontSize: '.9em' }}>
+          <p style={{ color: 'var(--text-muted4)', fontSize: '.9em' }}>
             {lang === 'zh' ? '还没有收藏。浏览 skill 时点 Save 加入收藏。' : 'Nothing saved yet. Hit Save on any skill or use case page.'}
             {' '}<Link href="/skills" style={{ color: '#667eea' }}>{lang === 'zh' ? '去探索 →' : 'Browse →'}</Link>
           </p>
@@ -180,8 +180,8 @@ export default function DashboardPage() {
 
       {/* 最近浏览 */}
       {recentViews.length > 0 && (
-        <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: 28, marginBottom: 20 }}>
-          <h2 style={{ margin: '0 0 16px', fontSize: '1.05em', color: '#888', textTransform: 'uppercase', letterSpacing: 1 }}>
+        <div style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', borderRadius: 16, padding: 28, marginBottom: 20 }}>
+          <h2 style={{ margin: '0 0 16px', fontSize: '1.05em', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 1 }}>
             {lang === 'zh' ? '🕐 最近浏览' : '🕐 Recently Viewed'}
           </h2>
           {recentViews.map(s => <SkillRow key={s.slug} s={s} />)}
@@ -198,8 +198,8 @@ export default function DashboardPage() {
       <ApiTokenSection user={user} lang={lang} />
 
       {/* 账号信息 */}
-      <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: 28, marginBottom: 20 }}>
-        <h2 style={{ margin: '0 0 20px', fontSize: '1.05em', color: '#888', textTransform: 'uppercase', letterSpacing: 1 }}>
+      <div style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', borderRadius: 16, padding: 28, marginBottom: 20 }}>
+        <h2 style={{ margin: '0 0 20px', fontSize: '1.05em', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 1 }}>
           {lang === 'zh' ? '账号信息' : 'Account Info'}
         </h2>
         {[
@@ -208,8 +208,8 @@ export default function DashboardPage() {
           { label: lang === 'zh' ? '登录方式' : 'Login method', value: provider === 'google' ? '🔵 Google' : '✉️ Email' },
         ].map(({ label, value }) => (
           <div key={label} style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 0', borderBottom: '1px solid #1a1a2e' }}>
-            <span style={{ color: '#666', fontSize: '.9em' }}>{label}</span>
-            <span style={{ color: '#ccc', fontSize: '.9em' }}>{value}</span>
+            <span style={{ color: 'var(--text-muted2)', fontSize: '.9em' }}>{label}</span>
+            <span style={{ color: 'var(--text-nav)', fontSize: '.9em' }}>{value}</span>
           </div>
         ))}
       </div>
@@ -217,7 +217,7 @@ export default function DashboardPage() {
       <button onClick={handleSignOut} style={{
         width: '100%', padding: '12px 0', borderRadius: 10,
         border: '1px solid #333', background: 'none',
-        color: '#888', fontSize: '.95em', cursor: 'pointer',
+        color: 'var(--text-muted)', fontSize: '.95em', cursor: 'pointer',
       }}>
         {lang === 'zh' ? '退出登录' : 'Sign Out'}
       </button>
@@ -246,12 +246,12 @@ function MyRequestsSection({ user, lang }: { user: User | null; lang: string }) 
   if (!loaded) return null
 
   return (
-    <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: 28, marginBottom: 20 }}>
-      <h2 style={{ margin: '0 0 16px', fontSize: '1.05em', color: '#888', textTransform: 'uppercase', letterSpacing: 1 }}>
+    <div style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', borderRadius: 16, padding: 28, marginBottom: 20 }}>
+      <h2 style={{ margin: '0 0 16px', fontSize: '1.05em', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 1 }}>
         📋 {lang === 'zh' ? '我的需求' : 'My Requests'}
       </h2>
       {requests.length === 0 ? (
-        <p style={{ color: '#444', fontSize: '.9em' }}>
+        <p style={{ color: 'var(--text-muted4)', fontSize: '.9em' }}>
           {lang === 'zh' ? '还没有发布需求。' : 'No requests posted yet.'}
           {' '}<Link href="/requests" style={{ color: '#667eea' }}>{lang === 'zh' ? '去需求墙 →' : 'Browse wall →'}</Link>
         </p>
@@ -259,8 +259,8 @@ function MyRequestsSection({ user, lang }: { user: User | null; lang: string }) 
         requests.map(r => (
           <div key={r.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 0', borderBottom: '1px solid #1a1a2e' }}>
             <Link href={`/requests/${r.id}`} style={{ textDecoration: 'none', flex: 1 }}>
-              <div style={{ fontWeight: 600, color: '#e0e0e0', fontSize: '.92em' }}>{r.title || r.request?.slice(0, 60)}</div>
-              <div style={{ color: '#555', fontSize: '.75em', marginTop: 2 }}>👁 {r.view_count || 0} · {new Date(r.created_at).toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-US', { month: 'short', day: 'numeric' })}</div>
+              <div style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '.92em' }}>{r.title || r.request?.slice(0, 60)}</div>
+              <div style={{ color: 'var(--text-muted3)', fontSize: '.75em', marginTop: 2 }}>👁 {r.view_count || 0} · {new Date(r.created_at).toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-US', { month: 'short', day: 'numeric' })}</div>
             </Link>
             <button onClick={() => handleDelete(r.id)} style={{ background: 'none', border: '1px solid #3a1a1a', color: '#f87171', borderRadius: 6, padding: '4px 10px', fontSize: '.75em', cursor: 'pointer', flexShrink: 0, marginLeft: 12 }}>
               {lang === 'zh' ? '删除' : 'Del'}
@@ -293,23 +293,23 @@ function CreatorSection({ user, lang }: { user: User | null; lang: string }) {
   }
 
   return (
-    <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: 28, marginBottom: 20 }}>
-      <h2 style={{ margin: '0 0 16px', fontSize: '1.05em', color: '#888', textTransform: 'uppercase', letterSpacing: 1 }}>
+    <div style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', borderRadius: 16, padding: 28, marginBottom: 20 }}>
+      <h2 style={{ margin: '0 0 16px', fontSize: '1.05em', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 1 }}>
         🎨 {zh ? '创作者登记' : 'Creator Registration'}
       </h2>
       {!reg ? (
-        <p style={{ color: '#444', fontSize: '.9em' }}>
+        <p style={{ color: 'var(--text-muted4)', fontSize: '.9em' }}>
           {zh ? '还没有登记为创作者。' : 'Not registered as a creator.'}
           {' '}<Link href="/creators" style={{ color: '#667eea' }}>{zh ? '去登记 →' : 'Register →'}</Link>
         </p>
       ) : (
         <div>
           <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap', marginBottom: 12 }}>
-            <span style={{ fontSize: '.85em', color: '#666' }}>{zh ? '状态' : 'Status'}: <strong style={{ color: reg.status === 'approved' ? '#34d399' : '#f59e0b' }}>{statusLabel(reg.status)}</strong></span>
-            <span style={{ fontSize: '.85em', color: '#666' }}>GitHub: <strong style={{ color: '#ccc' }}>{reg.github}</strong></span>
+            <span style={{ fontSize: '.85em', color: 'var(--text-muted2)' }}>{zh ? '状态' : 'Status'}: <strong style={{ color: reg.status === 'approved' ? '#34d399' : '#f59e0b' }}>{statusLabel(reg.status)}</strong></span>
+            <span style={{ fontSize: '.85em', color: 'var(--text-muted2)' }}>GitHub: <strong style={{ color: 'var(--text-nav)' }}>{reg.github}</strong></span>
           </div>
-          {reg.skills && <p style={{ fontSize: '.82em', color: '#555' }}>{zh ? 'Skills' : 'Skills'}: {reg.skills}</p>}
-          {reg.pricing && <p style={{ fontSize: '.82em', color: '#555', marginTop: 4 }}>{zh ? '定价' : 'Pricing'}: {reg.pricing}</p>}
+          {reg.skills && <p style={{ fontSize: '.82em', color: 'var(--text-muted3)' }}>{zh ? 'Skills' : 'Skills'}: {reg.skills}</p>}
+          {reg.pricing && <p style={{ fontSize: '.82em', color: 'var(--text-muted3)', marginTop: 4 }}>{zh ? '定价' : 'Pricing'}: {reg.pricing}</p>}
         </div>
       )}
     </div>
@@ -349,24 +349,24 @@ function ApiTokenSection({ user, lang }: { user: User | null; lang: string }) {
   const zh = lang === 'zh'
 
   return (
-    <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: 28, marginBottom: 20 }}>
-      <h2 style={{ margin: '0 0 16px', fontSize: '1.05em', color: '#888', textTransform: 'uppercase', letterSpacing: 1 }}>
+    <div style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', borderRadius: 16, padding: 28, marginBottom: 20 }}>
+      <h2 style={{ margin: '0 0 16px', fontSize: '1.05em', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 1 }}>
         🔑 API Token
       </h2>
       {token ? (
         <>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-            <code style={{ flex: 1, padding: '10px 14px', borderRadius: 8, background: '#0a0a18', border: '1px solid #1a1a2e', color: '#34d399', fontSize: '.8em', wordBreak: 'break-all', userSelect: 'all' }}>{token}</code>
+            <code style={{ flex: 1, padding: '10px 14px', borderRadius: 8, background: '#0a0a18', border: '1px solid var(--border-secondary)', color: '#34d399', fontSize: '.8em', wordBreak: 'break-all', userSelect: 'all' }}>{token}</code>
             <button onClick={handleCopy} style={{ padding: '8px 16px', borderRadius: 8, border: 'none', cursor: 'pointer', background: copied ? '#34d399' : '#667eea', color: '#fff', fontWeight: 700, fontSize: '.8em', whiteSpace: 'nowrap' }}>{copied ? 'Copied!' : zh ? '复制' : 'Copy'}</button>
           </div>
-          <div style={{ display: 'flex', gap: 8, fontSize: '.75em', color: '#555', marginTop: 8 }}>
-            <button onClick={generate} disabled={loading} style={{ background: 'none', border: '1px solid #333', borderRadius: 6, color: '#888', padding: '4px 10px', cursor: 'pointer', fontSize: '.8em' }}>{loading ? '...' : zh ? '重新生成' : 'Regen'}</button>
+          <div style={{ display: 'flex', gap: 8, fontSize: '.75em', color: 'var(--text-muted3)', marginTop: 8 }}>
+            <button onClick={generate} disabled={loading} style={{ background: 'none', border: '1px solid #333', borderRadius: 6, color: 'var(--text-muted)', padding: '4px 10px', cursor: 'pointer', fontSize: '.8em' }}>{loading ? '...' : zh ? '重新生成' : 'Regen'}</button>
             <span>{zh ? '⚠️ 重新生成后旧 Token 立即失效' : '⚠️ Regenerating invalidates old key'}</span>
           </div>
         </>
       ) : (
         <div>
-          <p style={{ color: '#444', fontSize: '.9em', marginBottom: 12 }}>{zh ? '生成 API Token 以程序化访问你的数据。' : 'Generate API Token for programmatic access.'}</p>
+          <p style={{ color: 'var(--text-muted4)', fontSize: '.9em', marginBottom: 12 }}>{zh ? '生成 API Token 以程序化访问你的数据。' : 'Generate API Token for programmatic access.'}</p>
           <button onClick={generate} disabled={loading} style={{ padding: '10px 22px', borderRadius: 8, border: 'none', cursor: 'pointer', background: '#667eea', color: '#fff', fontWeight: 700, fontSize: '.88em' }}>{loading ? '...' : zh ? '生成 Token' : 'Generate'}</button>
         </div>
       )}

@@ -23,7 +23,7 @@ export default function RelatedUseCases({ tags, skillName }: Props) {
 
   return (
     <div style={{ margin: '32px 0' }}>
-      <h3 style={{ color: '#e0e0e0', fontSize: '1.1em', marginBottom: 16, fontWeight: 600 }}>
+      <h3 style={{ color: 'var(--text-primary)', fontSize: '1.1em', marginBottom: 16, fontWeight: 600 }}>
         🎯 Use Cases for {skillName}
       </h3>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 12 }}>
@@ -31,14 +31,14 @@ export default function RelatedUseCases({ tags, skillName }: Props) {
           <Link key={uc.slug} href={`/use-case/${uc.slug}`}
             style={{
               display: 'block', padding: '14px 16px',
-              background: '#0f0f23', border: '1px solid #1a1a2e',
+              background: 'var(--bg-secondary)', border: '1px solid var(--border-secondary)',
               borderRadius: 10, textDecoration: 'none',
               transition: 'border-color .2s',
             }}
           >
             <div style={{ fontSize: '1.3em', marginBottom: 6 }}>{uc.icon}</div>
-            <div style={{ color: '#e0e0e0', fontWeight: 600, fontSize: '.9em', marginBottom: 4 }}>{uc.title}</div>
-            <div style={{ color: '#666', fontSize: '.8em', lineHeight: 1.5 }}>
+            <div style={{ color: 'var(--text-primary)', fontWeight: 600, fontSize: '.9em', marginBottom: 4 }}>{uc.title}</div>
+            <div style={{ color: 'var(--text-muted2)', fontSize: '.8em', lineHeight: 1.5 }}>
               {uc.description.slice(0, 70)}…
             </div>
           </Link>

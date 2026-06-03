@@ -71,7 +71,7 @@ export default function LoginPage() {
 
   return (
     <div style={{ maxWidth: 420, margin: '80px auto', padding: '0 20px' }}>
-      <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: 36 }}>
+      <div style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', borderRadius: 16, padding: 36 }}>
         <h1 style={{ fontSize: '1.6em', fontWeight: 800, marginBottom: 24 }}>
           {zh ? '欢迎回来' : 'Welcome back'}
         </h1>
@@ -87,9 +87,9 @@ export default function LoginPage() {
         </button>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
-          <div style={{ flex: 1, height: 1, background: '#1a1a3e' }} />
+          <div style={{ flex: 1, height: 1, background: 'var(--border-primary)' }} />
           <span style={{ color: '#444', fontSize: '.8em' }}>{zh ? '或' : 'or'}</span>
-          <div style={{ flex: 1, height: 1, background: '#1a1a3e' }} />
+          <div style={{ flex: 1, height: 1, background: 'var(--border-primary)' }} />
         </div>
 
         {/* 模式切换 tabs */}

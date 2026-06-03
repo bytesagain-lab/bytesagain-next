@@ -129,7 +129,7 @@ export default function RequestsPage() {
 
   const inputStyle: React.CSSProperties = {
     width: '100%', padding: '10px 12px', borderRadius: 8, boxSizing: 'border-box',
-    background: '#0a0a18', border: '1px solid #2a2a4e', color: '#e0e0e0',
+    background: '#0a0a18', border: '1px solid var(--border-primary)', color: 'var(--text-primary)',
     fontSize: '.92em', outline: 'none',
   }
 
@@ -170,38 +170,38 @@ export default function RequestsPage() {
         </div>
 
         {loading ? (
-          <div style={{ textAlign: 'center', padding: 60, color: '#555' }}>{t('Loading…', '加载中…')}</div>
+          <div style={{ textAlign: 'center', padding: 60, color: 'var(--text-muted3)' }}>{t('Loading…', '加载中…')}</div>
         ) : requests.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: 60, background: '#0d0d20', border: '1px solid #1a1a3e', borderRadius: 18 }}>
+          <div style={{ textAlign: 'center', padding: 60, background: 'var(--bg-mobile-nav)', border: '1px solid var(--border-primary)', borderRadius: 18 }}>
             <div style={{ fontSize: '2.5em', marginBottom: 12 }}>📭</div>
-            <p style={{ color: '#555' }}>{t('No requests yet.', '还没有需求。')}</p>
+            <p style={{ color: 'var(--text-muted3)' }}>{t('No requests yet.', '还没有需求。')}</p>
           </div>
         ) : (
           <div className="card-grid">
             {requests.map(r => (
               <div key={r.id} onClick={() => router.push(`/requests/${r.id}`)} style={{
-                background: '#0d0d20', border: '1px solid #1a1a3e', borderRadius: 14, padding: 20,
+                background: 'var(--bg-mobile-nav)', border: '1px solid var(--border-primary)', borderRadius: 14, padding: 20,
                 display: 'flex', flexDirection: 'column', cursor: 'pointer',
                 transition: 'border-color .15s',
               }}
                 onMouseEnter={e => (e.currentTarget.style.borderColor = '#667eea44')}
-                onMouseLeave={e => (e.currentTarget.style.borderColor = '#1a1a3e')}
+                onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--border-primary)')}
               >
                 {r.title && (
-                  <div style={{ fontWeight: 700, fontSize: '1em', color: '#e0e0e0', marginBottom: 8 }}>
+                  <div style={{ fontWeight: 700, fontSize: '1em', color: 'var(--text-primary)', marginBottom: 8 }}>
                     {r.title}
                   </div>
                 )}
                 <div style={{ fontSize: '.9em', color: '#cbd5e1', lineHeight: 1.7, flex: 1, marginBottom: 12 }}>
                   {r.request}
                 </div>
-                {r.image_url && <img src={r.image_url} alt="" style={{ width: '100%', borderRadius: 8, marginBottom: 10, maxHeight: 160, objectFit: 'cover', border: '1px solid #1a1a3e' }} />}
+                {r.image_url && <img src={r.image_url} alt="" style={{ width: '100%', borderRadius: 8, marginBottom: 10, maxHeight: 160, objectFit: 'cover', border: '1px solid var(--border-primary)' }} />}
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 10 }}>
                   {r.platform && <Tag label={r.platform} color="#667eea" />}
                   {r.budget && <Tag label={r.budget} color="#f59e0b" />}
                   {r.allow_contact && <Tag label={t('Open to contact', '可联系')} color="#34d399" />}
                 </div>
-                <div style={{ fontSize: '.75em', color: '#444', display: 'flex', justifyContent: 'space-between' }}>
+                <div style={{ fontSize: '.75em', color: 'var(--text-muted4)', display: 'flex', justifyContent: 'space-between' }}>
                   <span>{r.nickname || t('Anonymous', '匿名')} · {new Date(r.created_at).toLocaleDateString(zh ? 'zh-CN' : 'en-US', { month: 'short', day: 'numeric' })}</span>
                   <span>👁 {r.view_count || 0} <RequestFavoriteBtn requestId={r.id} /></span>
                 </div>
@@ -270,8 +270,8 @@ export default function RequestsPage() {
                       const r = (window as any).__recognition
                       if (r) { r.stop(); setListening(false) }
                     }} style={{
-                      width: 40, height: 40, borderRadius: 10, border: '1px solid #2a2a4e',
-                      background: '#0a0a18', color: '#888', fontSize: '1.1em', cursor: 'pointer',
+                      width: 40, height: 40, borderRadius: 10, border: '1px solid var(--border-primary)',
+                      background: '#0a0a18', color: 'var(--text-muted)', fontSize: '1.1em', cursor: 'pointer',
                       flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
                     }} title={t('Stop', '停止')}>⏹</button>
                   )}
@@ -296,8 +296,8 @@ export default function RequestsPage() {
                 <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
                   <label style={{
                     padding: '10px 16px', borderRadius: 8, cursor: 'pointer',
-                    background: '#0a0a18', border: '1px solid #2a2a4e',
-                    color: '#ccc', fontSize: '.9em', display: 'inline-block',
+                    background: '#0a0a18', border: '1px solid var(--border-primary)',
+                    color: 'var(--text-nav)', fontSize: '.9em', display: 'inline-block',
                   }}>
                     {uploading ? '⏳' : '📎 ' + t('Add Image', '添加图片')}
                     <input type="file" accept="image/*" style={{ display: 'none' }}
@@ -323,7 +323,7 @@ export default function RequestsPage() {
                         } finally { setUploading(false) }
                       }} />
                   </label>
-                  <span style={{ color: '#555', fontSize: '.75em' }}>{t('(max 2MB, PNG/JPG/GIF/WebP)', '（最大2MB, PNG/JPG/GIF/WebP）')}</span>
+                  <span style={{ color: 'var(--text-muted3)', fontSize: '.75em' }}>{t('(max 2MB, PNG/JPG/GIF/WebP)', '（最大2MB, PNG/JPG/GIF/WebP）')}</span>
                   {form.image_url && (
                     <button type="button" onClick={() => setForm(p => ({ ...p, image_url: '' }))}
                       style={{ background: 'none', border: 'none', color: '#f87171', cursor: 'pointer', fontSize: '.85em' }}>
@@ -332,7 +332,7 @@ export default function RequestsPage() {
                   )}
                 </div>
                 {form.image_url && (
-                  <img src={form.image_url} alt="preview" style={{ marginTop: 8, maxWidth: '100%', maxHeight: 120, borderRadius: 8, border: '1px solid #1a1a3e', objectFit: 'cover' }} />
+                  <img src={form.image_url} alt="preview" style={{ marginTop: 8, maxWidth: '100%', maxHeight: 120, borderRadius: 8, border: '1px solid var(--border-primary)', objectFit: 'cover' }} />
                 )}
               </F>
               <F label={t('Display Nickname', '显示昵称')}>
@@ -354,7 +354,7 @@ export default function RequestsPage() {
                 }}>{submitting ? '...' : editId ? t('Save', '保存') : t('Publish', '发布')}</button>
                 <button type="button" onClick={() => setShowForm(false)} style={{
                   padding: '12px 20px', borderRadius: 10, border: '1px solid #333',
-                  background: 'none', color: '#888', cursor: 'pointer',
+                  background: 'none', color: 'var(--text-muted)', cursor: 'pointer',
                 }}>{t('Cancel', '取消')}</button>
               </div>
             </form>
@@ -368,7 +368,7 @@ export default function RequestsPage() {
 function F({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div style={{ marginBottom: 16 }}>
-      <label style={{ display: 'block', marginBottom: 4, fontSize: '.82em', fontWeight: 600, color: '#ccc' }}>{label}</label>
+      <label style={{ display: 'block', marginBottom: 4, fontSize: '.82em', fontWeight: 600, color: 'var(--text-nav)' }}>{label}</label>
       {children}
     </div>
   )
@@ -377,7 +377,7 @@ function F({ label, children }: { label: string; children: React.ReactNode }) {
 function CheckBox({ checked, onChange, label }: { checked: boolean; onChange: (v: boolean) => void; label: string }) {
   return (
     <div style={{ marginBottom: 16 }}>
-      <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: '.88em', color: '#ccc' }}>
+      <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: '.88em', color: 'var(--text-nav)' }}>
         <input type="checkbox" checked={checked} onChange={e => onChange(e.target.checked)}
           style={{ width: 18, height: 18, accentColor: '#667eea' }} />
         {label}

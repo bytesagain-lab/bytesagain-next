@@ -3,6 +3,7 @@ import { Geist } from 'next/font/google'
 import NavBar from './components/NavBar'
 import FeedbackButton from './components/FeedbackButton'
 import { LangProvider } from './components/LangContext'
+import { ThemeProvider } from './components/ThemeProvider'
 import FooterClient from './components/FooterClient'
 import './globals.css'
 
@@ -57,15 +58,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           gtag('config', 'G-3C1MM9FWYF');
         `}} />
       </head>
-      <body className={geist.className} style={{ background: '#0a0a1a', color: '#e0e0e0', margin: 0 }}>
+      <body className={geist.className} style={{ margin: 0 }}>
         <LangProvider>
+          <ThemeProvider>
           {/* 全宽订阅横幅（导航栅上方） */}
           <div style={{
-            width: '100%', background: 'linear-gradient(90deg,#13103a,#0d0d1f,#13103a)',
-            borderBottom: '1px solid #2a2a5a', padding: '8px 20px',
+            width: '100%', background: 'var(--bg-subscribe)',
+            borderBottom: '1px solid var(--border-primary)', padding: '8px 20px',
             textAlign: 'center', fontSize: '.82em', color: '#818cf8',
           }}>
-            🎁 <strong style={{ color: '#e2e8f0' }}>Get the FREE AI Skills Starter Guide</strong>
+            🎁 <strong style={{ color: 'var(--text-primary)' }}>Get the FREE AI Skills Starter Guide</strong>
             {' — '}
             <a href="/register" style={{ color: '#00d4ff', textDecoration: 'underline' }}>Subscribe →</a>
           </div>
@@ -151,6 +153,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main>{children}</main>
           <FooterClient />
           <FeedbackButton />
+          </ThemeProvider>
         </LangProvider>
       </body>
     </html>

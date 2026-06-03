@@ -175,7 +175,7 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
         .script-copy-btn:hover { background: #6366f115; }
         .script-body { padding: 14px 16px; font-family: 'Courier New', monospace; font-size: .82em; line-height: 1.6; color: #a5f3fc; overflow-x: auto; max-height: 420px; overflow-y: auto; white-space: pre; }
         /* Articles */
-        .article-card { display: block; background: #0f0f23; border: 1px solid #1a1a3e; border-radius: 10px; padding: 14px 16px; text-decoration: none; transition: border-color .15s; }
+        .article-card { display: block; background: var(--bg-secondary); border: 1px solid var(--border-primary); border-radius: 10px; padding: 14px 16px; text-decoration: none; transition: border-color .15s; }
         .article-card:hover { border-color: #6366f1; }
         @media (max-width: 600px) {
           .skill-card { padding: 20px; }

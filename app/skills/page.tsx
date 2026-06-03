@@ -44,7 +44,7 @@ const CATEGORIES = [
 
 const SOURCE_BADGE: Record<string, { label: string; color: string; emoji: string }> = {
   clawhub:    { label: 'ClawHub',    color: '#667eea', emoji: '🦀' },
-  github:     { label: 'GitHub',     color: '#444',    emoji: '⭐' },
+  github:     { label: 'GitHub',     color: 'var(--text-muted4)',    emoji: '⭐' },
   bytesagain: { label: 'BytesAgain', color: '#00d4ff', emoji: '✦' },
   lobehub:    { label: 'LobeHub',    color: '#7c3aed', emoji: '🤖' },
   dify:       { label: 'Dify',       color: '#f59e0b', emoji: '🔧' },
@@ -245,18 +245,18 @@ export default async function SkillsPage({
     <main style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 20px' }}>
       <style dangerouslySetInnerHTML={{ __html: hoverStyle }} />
 
-<h2 style={{ fontSize: '1.2em', color: '#e0e0e0', marginBottom: 8 }}>
+<h2 style={{ fontSize: '1.2em', color: 'var(--text-primary)', marginBottom: 8 }}>
         All Skills {cat !== 'all' ? `— ${cat}` : ''}
       </h2>
-      <p style={{ color: '#666', marginBottom: 24 }}>
+      <p style={{ color: 'var(--text-muted2)', marginBottom: 24 }}>
         {total.toLocaleString()} skills {cat !== 'all' ? `in "${cat}"` : 'total'}{rawQ ? ` matching "${rawQ}"` : ''}
       </p>
 
       {/* 搜索框 */}
       <form method="GET" style={{ marginBottom: 20, display: 'flex', gap: 8 }}>
         <input name="q" defaultValue={rawQ} placeholder="Search skills…"
-          style={{ flex: 1, padding: '10px 16px', background: '#0f0f23', border: '1px solid #1a1a3e',
-            borderRadius: 8, color: '#e0e0e0', fontSize: '1em' }} />
+          style={{ flex: 1, padding: '10px 16px', background: 'var(--bg-secondary)', border: '1px solid var(--border-primary)',
+            borderRadius: 8, color: 'var(--text-primary)', fontSize: '1em' }} />
         {cat !== 'all' && <input type="hidden" name="cat" value={cat} />}
         <button type="submit" style={{ padding: '10px 20px', background: '#667eea',
           border: 'none', borderRadius: 8, color: '#fff', cursor: 'pointer', fontWeight: 600 }}>
@@ -280,7 +280,7 @@ export default async function SkillsPage({
               whiteSpace: 'nowrap',
               background: cat === c ? '#667eea' : '#0f0f23',
               color: cat === c ? '#fff' : '#888',
-              border: `1px solid ${cat === c ? '#667eea' : '#1a1a3e'}`,
+              border: `1px solid ${cat === c ? '#667eea' : 'var(--border-primary)'}`,
             }}>
             {c === 'all' ? '🌐 All' : c}
           </Link>
@@ -301,7 +301,7 @@ export default async function SkillsPage({
           return (
             <Link key={skill.slug} href={skill._source === 'github' ? (skill.github_url || '#') : `/skill/${skill.slug}`} target={skill._source === 'github' ? '_blank' : undefined} rel={skill._source === 'github' ? 'noopener' : undefined} style={{ textDecoration: 'none' }}>
               <div className="skill-card" style={{
-                background: '#0f0f23',
+                background: 'var(--bg-secondary)',
                 border: isOurs ? '1px solid #00d4ff44' : '1px solid #1a1a3e',
                 borderRadius: 12,
                 padding: '20px', height: '100%', transition: 'border-color .2s',
@@ -320,24 +320,24 @@ export default async function SkillsPage({
                     )}
                   </div>
                   {(skill.downloads ?? 0) > 0 && (
-                    <span style={{ fontSize: '.75em', color: '#555' }}>
+                    <span style={{ fontSize: '.75em', color: 'var(--text-muted3)' }}>
                       {Number(skill.downloads) >= 1000
                         ? `${(Number(skill.downloads)/1000).toFixed(1)}k`
                         : skill.downloads} dl
                     </span>
                   )}
                   {(skill.stars ?? 0) > 0 && skill._source !== 'github' && (
-                    <span style={{ fontSize: '.75em', color: '#555' }}>⭐ {skill.stars}</span>
+                    <span style={{ fontSize: '.75em', color: 'var(--text-muted3)' }}>⭐ {skill.stars}</span>
                   )}
                   {skill._source === 'github' && (skill.stars ?? 0) > 0 && (
-                    <span style={{ fontSize: '.75em', color: '#555' }}>⭐ {(skill.stars >= 1000 ? `${(skill.stars/1000).toFixed(1)}k` : skill.stars)}</span>
+                    <span style={{ fontSize: '.75em', color: 'var(--text-muted3)' }}>⭐ {(skill.stars >= 1000 ? `${(skill.stars/1000).toFixed(1)}k` : skill.stars)}</span>
                   )}
                 </div>
-                <div style={{ fontWeight: 700, color: '#e0e0e0', marginBottom: 6, fontSize: '.95em',
+                <div style={{ fontWeight: 700, color: 'var(--text-primary)', marginBottom: 6, fontSize: '.95em',
                   overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                   {skill.name || skill.slug}
                 </div>
-                <div style={{ fontSize: '.82em', color: '#666', lineHeight: 1.5,
+                <div style={{ fontSize: '.82em', color: 'var(--text-muted2)', lineHeight: 1.5,
                   display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                   {skill.description || '—'}
                 </div>
@@ -352,18 +352,18 @@ export default async function SkillsPage({
         <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 40, flexWrap: 'wrap' }}>
           {page > 1 && (
             <Link href={`/skills?cat=${cat}&page=${page-1}${q ? `&q=${encodeURIComponent(q)}` : ''}`}
-              style={{ padding: '8px 16px', background: '#0f0f23', border: '1px solid #1a1a3e',
-                borderRadius: 8, color: '#888', textDecoration: 'none' }}>
+              style={{ padding: '8px 16px', background: 'var(--bg-secondary)', border: '1px solid var(--border-primary)',
+                borderRadius: 8, color: 'var(--text-muted)', textDecoration: 'none' }}>
               ← Prev
             </Link>
           )}
-          <span style={{ padding: '8px 16px', color: '#666', fontSize: '.9em' }}>
+          <span style={{ padding: '8px 16px', color: 'var(--text-muted2)', fontSize: '.9em' }}>
             Page {page} / {totalPages} ({total.toLocaleString()} skills)
           </span>
           {page < totalPages && (
             <Link href={`/skills?cat=${cat}&page=${page+1}${q ? `&q=${encodeURIComponent(q)}` : ''}`}
-              style={{ padding: '8px 16px', background: '#0f0f23', border: '1px solid #1a1a3e',
-                borderRadius: 8, color: '#888', textDecoration: 'none' }}>
+              style={{ padding: '8px 16px', background: 'var(--bg-secondary)', border: '1px solid var(--border-primary)',
+                borderRadius: 8, color: 'var(--text-muted)', textDecoration: 'none' }}>
               Next →
             </Link>
           )}

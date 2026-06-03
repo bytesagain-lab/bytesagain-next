@@ -25,10 +25,10 @@ export default function SubscribePage() {
   return (
     <div style={{ maxWidth: 480, margin: '80px auto', padding: '0 20px', textAlign: 'center' }}>
       <div style={{ fontSize: '2.5em', marginBottom: 16 }}>🎁</div>
-      <h1 style={{ fontSize: '1.8em', fontWeight: 800, margin: '0 0 12px', color: '#e0e0e0' }}>
+      <h1 style={{ fontSize: '1.8em', fontWeight: 800, margin: '0 0 12px', color: 'var(--text-primary)' }}>
         Get the FREE AI Skills Starter Guide
       </h1>
-      <p style={{ color: '#555', fontSize: '.95em', lineHeight: 1.7, marginBottom: 32 }}>
+      <p style={{ color: 'var(--text-muted3)', fontSize: '.95em', lineHeight: 1.7, marginBottom: 32 }}>
         Weekly digest of the best AI agent skills, use case guides, and tips.<br />
         No spam. Unsubscribe anytime.
       </p>
@@ -53,8 +53,8 @@ export default function SubscribePage() {
               style={{
                 flex: 1, minWidth: 220,
                 padding: '13px 18px',
-                background: '#0f0f23', border: '1px solid #2a2a4e',
-                borderRadius: 10, color: '#e0e0e0', fontSize: '1em',
+                background: 'var(--bg-secondary)', border: '1px solid var(--border-primary)',
+                borderRadius: 10, color: 'var(--text-primary)', fontSize: '1em',
                 outline: 'none',
               }}
             />

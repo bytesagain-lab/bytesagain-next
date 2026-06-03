@@ -23,8 +23,8 @@ export default function UcScroll({ items }: { items: UC[] }) {
           animation-play-state: paused;
         }
         .uc-item {
-          background: #0a0a1a;
-          border: 1px solid #1a1a3e;
+          background: var(--bg-primary);
+          border: 1px solid var(--border-primary);
           border-radius: 14px;
           padding: 16px 22px;
           display: flex;
@@ -41,7 +41,7 @@ export default function UcScroll({ items }: { items: UC[] }) {
         {doubled.map((uc, i) => (
           <a key={`${uc.href}-${i}`} href={uc.href} className="uc-item">
             <span style={{ fontSize: '1.5em' }}>{uc.icon}</span>
-            <span style={{ color: '#ccc', fontSize: '.88em', fontWeight: 600 }}>{uc.title}</span>
+            <span style={{ color: 'var(--text-nav)', fontSize: '.88em', fontWeight: 600 }}>{uc.title}</span>
           </a>
         ))}
       </div>

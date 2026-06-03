@@ -29,15 +29,15 @@ export default function InstallCommand({ slug }: { slug: string }) {
 
   if (!loggedIn) {
     return (
-      <div style={{ marginBottom: 24, background: '#0a0a1a', borderRadius: 10, padding: '20px', border: '1px solid #1a1a2e' }}>
-        <div style={{ color: '#888', fontSize: '.9em', marginBottom: 12 }}>
-          🔒 <strong style={{ color: '#ccc' }}>Sign in to view install command</strong>
+      <div style={{ marginBottom: 24, background: 'var(--bg-primary)', borderRadius: 10, padding: '20px', border: '1px solid var(--border-secondary)' }}>
+        <div style={{ color: 'var(--text-muted)', fontSize: '.9em', marginBottom: 12 }}>
+          🔒 <strong style={{ color: 'var(--text-nav)' }}>Sign in to view install command</strong>
         </div>
         <div style={{ display: 'flex', gap: 10 }}>
           <a href="/login" style={{ padding: '8px 18px', background: 'linear-gradient(135deg,#667eea,#00d4ff)', borderRadius: 7, color: '#fff', fontWeight: 600, fontSize: '.85em', textDecoration: 'none' }}>
             Sign In
           </a>
-          <a href="/register" style={{ padding: '8px 18px', border: '1px solid #333', borderRadius: 7, color: '#888', fontSize: '.85em', textDecoration: 'none' }}>
+          <a href="/register" style={{ padding: '8px 18px', border: '1px solid var(--border-btn)', borderRadius: 7, color: 'var(--text-muted)', fontSize: '.85em', textDecoration: 'none' }}>
             Create Account
           </a>
         </div>
@@ -47,9 +47,9 @@ export default function InstallCommand({ slug }: { slug: string }) {
 
   return (
     <div style={{ marginBottom: 24, position: 'relative' }}>
-      <div style={{ background: '#0a0a1a', borderRadius: 10, padding: '16px 20px', fontFamily: 'monospace', fontSize: '.9em', color: '#00d4ff', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div style={{ background: 'var(--bg-primary)', borderRadius: 10, padding: '16px 20px', fontFamily: 'monospace', fontSize: '.9em', color: '#00d4ff', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <span>{cmd}</span>
-        <button onClick={handleCopy} style={{ background: 'none', border: '1px solid #1a1a3e', borderRadius: 6, color: copied ? '#3ecf8e' : '#555', fontSize: '.8em', padding: '4px 10px', cursor: 'pointer', marginLeft: 12, whiteSpace: 'nowrap' }}>
+        <button onClick={handleCopy} style={{ background: 'none', border: '1px solid var(--border-primary)', borderRadius: 6, color: copied ? '#3ecf8e' : '#555', fontSize: '.8em', padding: '4px 10px', cursor: 'pointer', marginLeft: 12, whiteSpace: 'nowrap' }}>
           {copied ? '✓ Copied' : 'Copy'}
         </button>
       </div>

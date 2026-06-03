@@ -106,7 +106,7 @@ export default function CreatorRegisterPage() {
 
   const inputStyle: React.CSSProperties = {
     width: '100%', padding: '12px 14px', borderRadius: 8, boxSizing: 'border-box',
-    background: '#0a0a18', border: '1px solid #2a2a4e', color: '#e0e0e0',
+    background: '#0a0a18', border: '1px solid var(--border-primary)', color: 'var(--text-primary)',
     fontSize: '1em', outline: 'none',
   }
 
@@ -156,10 +156,10 @@ export default function CreatorRegisterPage() {
         <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: 32 }}>{t.sub}</p>
 
         <form onSubmit={handleSubmit} className="register-form" style={{
-          background: '#0d0d20', border: '1px solid #1a1a3e', borderRadius: 18, padding: 36,
+          background: 'var(--bg-mobile-nav)', border: '1px solid var(--border-primary)', borderRadius: 18, padding: 36,
         }}>
           {authLoading ? (
-            <div style={{ textAlign: 'center', padding: 40, color: '#555' }}>{zh ? '加载中…' : 'Loading…'}</div>
+            <div style={{ textAlign: 'center', padding: 40, color: 'var(--text-muted3)' }}>{zh ? '加载中…' : 'Loading…'}</div>
           ) : !user ? (
             <div style={{ textAlign: 'center', padding: '20px 0' }}>
               <div style={{ fontSize: '2em', marginBottom: 12 }}>🔐</div>
@@ -174,7 +174,7 @@ export default function CreatorRegisterPage() {
           <>
           {FIELDS.map(f => (
             <div key={f.key} style={{ marginBottom: 20 }}>
-              <label style={{ display: 'block', marginBottom: 6, fontSize: '.88em', fontWeight: 600, color: '#ccc' }}>
+              <label style={{ display: 'block', marginBottom: 6, fontSize: '.88em', fontWeight: 600, color: 'var(--text-nav)' }}>
                 {fieldLabel(f)}{f.required && <span style={{ color: '#f87171' }}> *</span>}
               </label>
               {f.type === 'select' ? (
@@ -189,7 +189,7 @@ export default function CreatorRegisterPage() {
                 <input type={f.type} value={form[f.key] || ''} onChange={e => handleChange(f.key, e.target.value)}
                   required={f.required} placeholder={fieldPh(f)} style={inputStyle} />
               )}
-              {fieldHint(f) && <p style={{ color: '#444', fontSize: '.75em', margin: '6px 0 0' }}>{fieldHint(f)}</p>}
+              {fieldHint(f) && <p style={{ color: 'var(--text-muted4)', fontSize: '.75em', margin: '6px 0 0' }}>{fieldHint(f)}</p>}
             </div>
           ))}
 

@@ -16,7 +16,7 @@ export default async function ArticlesPage() {
   return (
     <div style={{ maxWidth: 800, margin: '40px auto', padding: '0 20px' }}>
       <h1 style={{ fontSize: '2em', marginBottom: 8 }}>Articles & Guides</h1>
-      <p style={{ color: '#888', marginBottom: 40 }}>Comparisons, tutorials, and skill recommendations. Updated daily.</p>
+      <p style={{ color: 'var(--text-muted)', marginBottom: 40 }}>Comparisons, tutorials, and skill recommendations. Updated daily.</p>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         {articles.map(a => {
@@ -29,7 +29,7 @@ export default async function ArticlesPage() {
           }
           const clr = catColors[a.category] || '#667eea'
           return (
-            <a key={a.slug} href={`/article/${a.slug}`} style={{ display: 'block', padding: 20, background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 12, textDecoration: 'none' }}>
+            <a key={a.slug} href={`/article/${a.slug}`} style={{ display: 'block', padding: 20, background: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', borderRadius: 12, textDecoration: 'none' }}>
               <span style={{ fontSize: '.75em', background: `${clr}22`, color: clr, border: `1px solid ${clr}55`, borderRadius: 20, padding: '3px 10px', marginBottom: 8, display: 'inline-block' }}>
                 {a.category}
               </span>

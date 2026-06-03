@@ -20,11 +20,11 @@ export default function HomeClient({ articles, searchAbove }: { articles: Articl
       {/* Install skill banner */}
       <div style={{
         marginBottom: 24, padding: '12px 20px',
-        background: '#0f0f23', border: '1px solid #1a1a3e',
+        background: 'var(--bg-secondary)', border: '1px solid var(--border-primary)',
         borderRadius: 10, display: 'flex', alignItems: 'center',
         justifyContent: 'space-between', flexWrap: 'wrap', gap: 8,
       }}>
-        <span style={{ color: '#888', fontSize: '.88em' }}>
+        <span style={{ color: 'var(--text-muted)', fontSize: '.88em' }}>
           🤖 Let your AI agent find skills for you
         </span>
         <a href="/install" style={{
@@ -49,14 +49,14 @@ export default function HomeClient({ articles, searchAbove }: { articles: Articl
 
       {!searchAbove && (
         <>
-          <div style={{ borderTop: '1px solid #1a1a3e', marginBottom: 48 }} />
+          <div style={{ borderTop: '1px solid var(--border-primary)', marginBottom: 48 }} />
           <RoleArticles role={role} allArticles={articles} />
         </>
       )}
 
       {searchAbove && (
         <>
-          <div style={{ borderTop: '1px solid #1a1a3e', margin: '48px 0' }} />
+          <div style={{ borderTop: '1px solid var(--border-primary)', margin: '48px 0' }} />
           <RoleArticles role={role} allArticles={articles} />
         </>
       )}

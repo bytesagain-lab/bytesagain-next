@@ -42,7 +42,7 @@ export default function AdminPage() {
     return (
       <div style={{ maxWidth: 500, margin: '80px auto', padding: '0 20px', textAlign: 'center' }}>
         <div style={{
-          background: '#0f0f23', border: '1px solid #3a1a1a', borderRadius: 16, padding: 48,
+          background: 'var(--bg-secondary)', border: '1px solid #3a1a1a', borderRadius: 16, padding: 48,
         }}>
           <div style={{ fontSize: '3em', marginBottom: 16 }}>⛔</div>
           <h1 style={{ fontSize: '1.5em', fontWeight: 700, marginBottom: 12, color: '#f87171' }}>
@@ -58,7 +58,7 @@ export default function AdminPage() {
             style={{
               marginTop: 20, padding: '10px 28px', borderRadius: 8,
               border: '1px solid #333', background: 'none',
-              color: '#888', cursor: 'pointer', fontSize: '.9em',
+              color: 'var(--text-muted)', cursor: 'pointer', fontSize: '.9em',
             }}>
             ← Back to Home
           </button>
@@ -125,25 +125,25 @@ export default function AdminPage() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 12, marginBottom: 28 }}>
         {stats.map(s => (
           <div key={s.label} style={{
-            background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 12,
+            background: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', borderRadius: 12,
             padding: '20px 16px', textAlign: 'center',
           }}>
-            <div style={{ color: '#888', fontSize: '.8em', marginBottom: 8 }}>{s.label}</div>
+            <div style={{ color: 'var(--text-muted)', fontSize: '.8em', marginBottom: 8 }}>{s.label}</div>
             <div style={{ color: '#e0e0e0', fontSize: '1.8em', fontWeight: 700 }}>{s.value}</div>
           </div>
         ))}
       </div>
 
       {/* Admin Tools */}
-      <div style={{ background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 16, padding: 28 }}>
-        <h2 style={{ margin: '0 0 20px', fontSize: '1.05em', color: '#888', textTransform: 'uppercase', letterSpacing: 1 }}>
+      <div style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', borderRadius: 16, padding: 28 }}>
+        <h2 style={{ margin: '0 0 20px', fontSize: '1.05em', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 1 }}>
           🛠 Tools
         </h2>
 
         {tools.map(tool => (
           <div key={tool.path} style={{
             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            padding: '14px 0', borderBottom: '1px solid #1a1a2e',
+            padding: '14px 0', borderBottom: '1px solid var(--border-secondary)',
           }}>
             <div style={{ flex: 1 }}>
               <div style={{ fontWeight: 600, color: '#e0e0e0', fontSize: '.92em' }}>{tool.title}</div>

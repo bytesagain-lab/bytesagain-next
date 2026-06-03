@@ -100,26 +100,26 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       <p style={{ color: '#667eea', fontSize: '.85em', margin: '0 0 16px' }}>
         <a href="/articles" style={{ color: '#667eea', textDecoration: 'none' }}>← Back to Articles</a>
       </p>
-      <h1 style={{ fontSize: '2em', margin: '0 0 16px', color: '#e0e0e0', lineHeight: 1.3 }}>{article.title}</h1>
+      <h1 style={{ fontSize: '2em', margin: '0 0 16px', color: 'var(--text-primary)', lineHeight: 1.3 }}>{article.title}</h1>
       {heroImageSlug(slug) && (
         <img
           src={`${SUPABASE_STORAGE_URL}/${slug}.png`}
           alt={article.title}
-          style={{ width: '100%', borderRadius: 16, marginBottom: 24, border: '1px solid #1a1a3e' }}
+          style={{ width: '100%', borderRadius: 16, marginBottom: 24, border: '1px solid var(--border-primary)' }}
         />
       )}
-      <p style={{ color: '#666', margin: '0 0 30px', fontSize: '.9em' }}>
-        By <strong style={{ color: '#ccc' }}>{article.author_name || 'BytesAgain'}</strong>
+      <p style={{ color: 'var(--text-muted2)', margin: '0 0 30px', fontSize: '.9em' }}>
+        By <strong style={{ color: 'var(--text-nav)' }}>{article.author_name || 'BytesAgain'}</strong>
         {displayDate && <> · {displayDateLabel} {displayDate}</>}
         {' · '}<ViewCounter slug={slug} />
       </p>
       <div
-        style={{ lineHeight: 1.8, fontSize: '1.05em', background: '#111133', borderRadius: 16, padding: '30px 36px', border: '1px solid #1a1a3e' }}
+        style={{ lineHeight: 1.8, fontSize: '1.05em', background: '#111133', borderRadius: 16, padding: '30px 36px', border: '1px solid var(--border-primary)' }}
         className="article-content"
         dangerouslySetInnerHTML={{ __html: content }}
       />
-      <div style={{ marginTop: 40, padding: '24px', background: '#0f0f23', borderRadius: 12, border: '1px solid #1a1a3e', textAlign: 'center' }}>
-        <p style={{ margin: '0 0 12px', color: '#ccc' }}>Discover AI agent skills curated for your workflow</p>
+      <div style={{ marginTop: 40, padding: '24px', background: 'var(--bg-secondary)', borderRadius: 12, border: '1px solid var(--border-primary)', textAlign: 'center' }}>
+        <p style={{ margin: '0 0 12px', color: 'var(--text-nav)' }}>Discover AI agent skills curated for your workflow</p>
         <a href="/skills" style={{ display: 'inline-block', padding: '10px 24px', background: 'linear-gradient(135deg,#667eea,#00d4ff)', borderRadius: 8, color: '#fff', textDecoration: 'none', fontWeight: 600 }}>
           Browse All Skills →
         </a>

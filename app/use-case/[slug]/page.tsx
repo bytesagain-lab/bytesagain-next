@@ -159,7 +159,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function UseCasePage({ params }: Props) {
   const { slug } = await params
   const uc = await getUseCase(slug)
-  if (!uc) redirect('/use-case')
+  if (!uc) notFound()
 
   const skills = (Array.isArray(uc.skills) ? uc.skills : [])
     .filter((s: any) => s?.slug)

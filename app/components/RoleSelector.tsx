@@ -183,9 +183,9 @@ export default function RoleSelector({ onRoleChange }: { onRoleChange?: (role: s
           <button key={c.id} onClick={() => handleCatSelect(c.id)}
             style={{
               padding: '18px 8px', borderRadius: 14, cursor: 'pointer', textAlign: 'center',
-              background: cat === c.id ? 'linear-gradient(135deg,#667eea22,#00d4ff22)' : '#0f0f23',
+              background: cat === c.id ? 'linear-gradient(135deg,#667eea22,#00d4ff22)' : 'var(--bg-secondary)',
               border: cat === c.id ? '1px solid #667eea' : '1px solid #1a1a3e',
-              transition: 'all .2s', color: cat === c.id ? '#e0e0e0' : '#aaa',
+              transition: 'all .2s', color: cat === c.id ? 'var(--text-primary)' : 'var(--text-secondary)',
             }}>
             <div style={{ fontSize: '1.6em', marginBottom: 6 }}>{c.icon}</div>
             <div style={{ fontWeight: 700, fontSize: '.85em' }}>{c.label}</div>
@@ -195,8 +195,8 @@ export default function RoleSelector({ onRoleChange }: { onRoleChange?: (role: s
 
       {/* Layer 2: Roles within category */}
       {selectedCat && (
-        <div style={{ marginBottom: 28, padding: '20px', background: '#0a0a1a', borderRadius: 14, border: '1px solid #1a1a3e' }}>
-          <div style={{ color: '#555', fontSize: '.8em', marginBottom: 14, textTransform: 'uppercase', letterSpacing: 1 }}>
+        <div style={{ marginBottom: 28, padding: '20px', background: 'var(--bg-primary)', borderRadius: 14, border: '1px solid var(--border-primary)' }}>
+          <div style={{ color: 'var(--text-muted3)', fontSize: '.8em', marginBottom: 14, textTransform: 'uppercase', letterSpacing: 1 }}>
             I am a...
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
@@ -221,7 +221,7 @@ export default function RoleSelector({ onRoleChange }: { onRoleChange?: (role: s
       {skills && (
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-            <div style={{ color: '#888', fontSize: '.82em', textTransform: 'uppercase', letterSpacing: 1 }}>
+            <div style={{ color: 'var(--text-muted)', fontSize: '.82em', textTransform: 'uppercase', letterSpacing: 1 }}>
               Your Starter Pack
             </div>
             <a href={role ? `/skills?cat=${ROLE_TAG[role] || 'productivity'}` : '/skills'} style={{ color: '#667eea', fontSize: '.82em', textDecoration: 'none' }}>
@@ -232,7 +232,7 @@ export default function RoleSelector({ onRoleChange }: { onRoleChange?: (role: s
             {skills.map((s, i) => (
               <a key={s.slug} href={`/skill/${s.slug}`} style={{
                 display: 'flex', alignItems: 'center', gap: 14, padding: '12px 16px',
-                background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 10,
+                background: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', borderRadius: 10,
                 textDecoration: 'none',
               }}>
                 <div style={{
@@ -242,10 +242,10 @@ export default function RoleSelector({ onRoleChange }: { onRoleChange?: (role: s
                   fontSize: '.75em', fontWeight: 800, color: '#fff',
                 }}>{i + 1}</div>
                 <div style={{ flex: 1 }}>
-                  <span style={{ fontWeight: 600, color: '#e0e0e0', fontSize: '.92em' }}>{s.name}</span>
-                  <span style={{ color: '#555', fontSize: '.82em', marginLeft: 8 }}>{s.reason}</span>
+                  <span style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '.92em' }}>{s.name}</span>
+                  <span style={{ color: 'var(--text-muted3)', fontSize: '.82em', marginLeft: 8 }}>{s.reason}</span>
                 </div>
-                <span style={{ color: '#333' }}>→</span>
+                <span style={{ color: 'var(--text-muted5)' }}>→</span>
               </a>
             ))}
           </div>
@@ -253,10 +253,10 @@ export default function RoleSelector({ onRoleChange }: { onRoleChange?: (role: s
       )}
 
       {!cat && (
-        <p style={{ textAlign: 'center', color: '#333', fontSize: '.88em', margin: 0 }}></p>
+        <p style={{ textAlign: 'center', color: 'var(--text-muted5)', fontSize: '.88em', margin: 0 }}></p>
       )}
       {cat && !role && (
-        <p style={{ textAlign: 'center', color: '#333', fontSize: '.88em', margin: 0 }}>
+        <p style={{ textAlign: 'center', color: 'var(--text-muted5)', fontSize: '.88em', margin: 0 }}>
           ↑ Now pick your role
         </p>
       )}

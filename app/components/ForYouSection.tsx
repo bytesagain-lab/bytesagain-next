@@ -11,7 +11,7 @@ const supabase = createBrowserClient(
 
 const SOURCE_BADGE: Record<string, { emoji: string; color: string }> = {
   clawhub:  { emoji: '🦀', color: '#667eea' },
-  github:   { emoji: '⭐', color: '#444' },
+  github:   { emoji: '⭐', color: 'var(--text-muted4)' },
   lobehub:  { emoji: '🤖', color: '#7c3aed' },
   dify:     { emoji: '🔧', color: '#f59e0b' },
   mcp:      { emoji: '🔌', color: '#00c853' },
@@ -44,8 +44,8 @@ export default function ForYouSection() {
   return (
     <div style={{ marginBottom: 40 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-        <span style={{ fontSize: '1.1em', fontWeight: 700, color: '#e0e0e0' }}>✨ For You</span>
-        <span style={{ fontSize: '.8em', color: '#555' }}>based on your history</span>
+        <span style={{ fontSize: '1.1em', fontWeight: 700, color: 'var(--text-primary)' }}>✨ For You</span>
+        <span style={{ fontSize: '.8em', color: 'var(--text-muted3)' }}>based on your history</span>
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 12 }}>
         {skills.map((s: any) => {
@@ -53,7 +53,7 @@ export default function ForYouSection() {
           return (
             <Link key={s.slug} href={`/skill/${s.slug}`} style={{ textDecoration: 'none' }}>
               <div className="skill-card" style={{
-                background: 'linear-gradient(135deg, #0f0f23, #1a1a3e)',
+                background: 'linear-gradient(135deg, var(--bg-secondary), var(--border-primary))',
                 border: '1px solid #667eea44',
                 borderRadius: 12, padding: '16px',
                 transition: 'border-color .2s', cursor: 'pointer',
@@ -69,11 +69,11 @@ export default function ForYouSection() {
                     </span>
                   )}
                 </div>
-                <div style={{ fontWeight: 700, color: '#e0e0e0', fontSize: '.9em',
+                <div style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '.9em',
                   overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginBottom: 4 }}>
                   {s.name || s.slug}
                 </div>
-                <div style={{ fontSize: '.78em', color: '#555', overflow: 'hidden',
+                <div style={{ fontSize: '.78em', color: 'var(--text-muted3)', overflow: 'hidden',
                   display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
                   {s.description}
                 </div>

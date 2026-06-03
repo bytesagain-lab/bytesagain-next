@@ -36,22 +36,22 @@ export default async function UseCasesPage() {
   return (
     <div style={{ maxWidth: 1000, margin: '0 auto', padding: '40px 20px' }}>
       <h1 style={{ fontSize: '2.2em', fontWeight: 800, marginBottom: 12 }}>Browse by Use Case</h1>
-      <p style={{ color: '#888', marginBottom: 8, fontSize: '1.05em' }}>
+      <p style={{ color: 'var(--text-muted)', marginBottom: 8, fontSize: '1.05em' }}>
         Find the right AI skill stack for what you're trying to accomplish.
       </p>
-      <p style={{ color: '#555', marginBottom: 40, fontSize: '.88em' }}>
+      <p style={{ color: 'var(--text-muted3)', marginBottom: 40, fontSize: '.88em' }}>
         {useCases.length} use cases · updated daily
       </p>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))', gap: 16 }}>
         {useCases.map(uc => (
           <a key={uc.slug} href={`/use-case/${uc.slug}`} style={{
             display: 'block', padding: 24,
-            background: '#0f0f23', border: '1px solid #1a1a3e', borderRadius: 14,
+            background: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', borderRadius: 14,
             textDecoration: 'none', transition: 'border-color .2s',
           }}>
             <div style={{ fontSize: '2em', marginBottom: 12 }}>{uc.icon || '🤖'}</div>
-            <h2 style={{ fontSize: '1.05em', fontWeight: 700, color: '#e0e0e0', margin: '0 0 8px' }}>{uc.title}</h2>
-            <p style={{ color: '#666', fontSize: '.85em', lineHeight: 1.6, margin: '0 0 16px' }}>
+            <h2 style={{ fontSize: '1.05em', fontWeight: 700, color: 'var(--text-primary)', margin: '0 0 8px' }}>{uc.title}</h2>
+            <p style={{ color: 'var(--text-muted2)', fontSize: '.85em', lineHeight: 1.6, margin: '0 0 16px' }}>
               {(uc.description || '').slice(0, 90)}{uc.description?.length > 90 ? '…' : ''}
             </p>
             <div style={{ color: '#667eea', fontSize: '.8em' }}>

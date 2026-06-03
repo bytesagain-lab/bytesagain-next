@@ -38,13 +38,13 @@ export default function FeedbackButton() {
       {open && (
         <div style={{
           position: 'fixed', bottom: 86, right: 28, zIndex: 999,
-          width: 300, background: '#0f0f23', border: '1px solid #1a1a3e',
+          width: 300, background: 'var(--bg-secondary)', border: '1px solid var(--border-primary)',
           borderRadius: 16, padding: 20, boxShadow: '0 8px 40px #000a',
         }}>
           {status === 'done' ? (
             <div style={{ textAlign: 'center', padding: '12px 0' }}>
               <div style={{ fontSize: '1.8em' }}>🙏</div>
-              <p style={{ color: '#ccc', margin: '8px 0 0', fontSize: '.9em' }}>Thanks!</p>
+              <p style={{ color: 'var(--text-nav)', margin: '8px 0 0', fontSize: '.9em' }}>Thanks!</p>
             </div>
           ) : (
             <>
@@ -56,8 +56,8 @@ export default function FeedbackButton() {
                 rows={3}
                 style={{
                   width: '100%', boxSizing: 'border-box', padding: '10px 12px',
-                  background: '#0a0a1a', border: '1px solid #1a1a3e', borderRadius: 8,
-                  color: '#e0e0e0', fontSize: '.85em', resize: 'none',
+                  background: 'var(--bg-primary)', border: '1px solid var(--border-primary)', borderRadius: 8,
+                  color: 'var(--text-primary)', fontSize: '.85em', resize: 'none',
                   outline: 'none', marginBottom: 10, fontFamily: 'inherit',
                 }}
               />
@@ -72,7 +72,7 @@ export default function FeedbackButton() {
                 </button>
                 <a href="/feedback"
                   style={{
-                    padding: '8px 12px', borderRadius: 8, border: '1px solid #1a1a3e',
+                    padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border-primary)',
                     color: '#667eea', fontSize: '.82em', textDecoration: 'none',
                     display: 'flex', alignItems: 'center',
                   }}>

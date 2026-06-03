@@ -59,12 +59,12 @@ export default function RequestDetailPage() {
     loadComments()
   }
 
-  if (loading) return <div style={{ textAlign: 'center', padding: 80, color: '#555', background: '#050611', minHeight: '100vh' }}>{t('Loading…', '加载中…')}</div>
-  if (!data) return <div style={{ textAlign: 'center', padding: 80, color: '#555', background: '#050611', minHeight: '100vh' }}>{t('Not found', '未找到')}</div>
+  if (loading) return <div style={{ textAlign: 'center', padding: 80, color: 'var(--text-muted3)', background: '#050611', minHeight: '100vh' }}>{t('Loading…', '加载中…')}</div>
+  if (!data) return <div style={{ textAlign: 'center', padding: 80, color: 'var(--text-muted3)', background: '#050611', minHeight: '100vh' }}>{t('Not found', '未找到')}</div>
 
   const inputStyle: React.CSSProperties = {
     width: '100%', padding: '12px 14px', borderRadius: 8, boxSizing: 'border-box',
-    background: '#0a0a18', border: '1px solid #2a2a4e', color: '#e0e0e0', fontSize: '.92em', outline: 'none',
+    background: '#0a0a18', border: '1px solid var(--border-primary)', color: 'var(--text-primary)', fontSize: '.92em', outline: 'none',
   }
 
   return (
@@ -78,13 +78,13 @@ export default function RequestDetailPage() {
         <div className="detail-layout">
           <div>
             {/* Main card */}
-            <div style={{ background: '#0d0d20', border: '1px solid #1a1a3e', borderRadius: 18, padding: 28, marginBottom: 20 }}>
+            <div style={{ background: 'var(--bg-mobile-nav)', border: '1px solid var(--border-primary)', borderRadius: 18, padding: 28, marginBottom: 20 }}>
               {data.title && <h1 style={{ fontSize: '1.4em', fontWeight: 800, marginBottom: 12 }}>{data.title} <RequestDetailFav requestId={data.id} /></h1>}
               <div style={{ fontSize: '1em', color: '#cbd5e1', lineHeight: 1.8, marginBottom: 16, whiteSpace: 'pre-wrap' }}>
                 {data.request}
               </div>
               {data.image_url && (
-                <img src={data.image_url} alt="" style={{ width: '100%', borderRadius: 12, marginBottom: 16, border: '1px solid #1a1a3e' }} />
+                <img src={data.image_url} alt="" style={{ width: '100%', borderRadius: 12, marginBottom: 16, border: '1px solid var(--border-primary)' }} />
               )}
               <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 16 }}>
                 {data.platform && <Tag label={data.platform} color="#667eea" />}
@@ -96,26 +96,26 @@ export default function RequestDetailPage() {
                   📬 {t('Contact:', '联系方式：')} {data.contact}
                 </div>
               )}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '.8em', color: '#555' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '.8em', color: 'var(--text-muted3)' }}>
                 <span>👤 {data.profile_name || data.nickname || data.user_id?.slice(0, 8) || 'Anonymous'} · {new Date(data.created_at).toLocaleDateString(zh ? 'zh-CN' : 'en-US', { month: 'long', day: 'numeric' })}</span>
                 <span>👁 {data.view_count || 0}</span>
               </div>
             </div>
 
             {/* Comments */}
-            <div style={{ background: '#0d0d20', border: '1px solid #1a1a3e', borderRadius: 18, padding: 28 }}>
+            <div style={{ background: 'var(--bg-mobile-nav)', border: '1px solid var(--border-primary)', borderRadius: 18, padding: 28 }}>
               <h2 style={{ margin: '0 0 20px', fontSize: '1.05em', fontWeight: 700 }}>
                 💬 {t('Comments', '留言')} ({comments.length})
               </h2>
               {comments.map(c => (
                 <div key={c.id} style={{ padding: '12px 0', borderBottom: '1px solid #1a1a2e' }}>
                   <div style={{ fontSize: '.85em', color: '#cbd5e1', lineHeight: 1.7, marginBottom: 4, whiteSpace: 'pre-wrap' }}>{c.comment}</div>
-                  <div style={{ fontSize: '.75em', color: '#555' }}>
+                  <div style={{ fontSize: '.75em', color: 'var(--text-muted3)' }}>
                     {c.display_name} · {new Date(c.created_at).toLocaleDateString(zh ? 'zh-CN' : 'en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                   </div>
                 </div>
               ))}
-              {comments.length === 0 && <p style={{ color: '#555', fontSize: '.88em' }}>{t('No comments yet.', '还没有留言。')}</p>}
+              {comments.length === 0 && <p style={{ color: 'var(--text-muted3)', fontSize: '.88em' }}>{t('No comments yet.', '还没有留言。')}</p>}
 
               {user ? (
                 <form onSubmit={postComment} style={{ marginTop: 20, display: 'flex', gap: 10 }}>
@@ -139,8 +139,8 @@ export default function RequestDetailPage() {
 
           {/* Sidebar */}
           <div style={{ position: 'sticky', top: 20 }}>
-            <div style={{ background: '#0d0d20', border: '1px solid #1a1a3e', borderRadius: 18, padding: 24 }}>
-              <h3 style={{ margin: '0 0 16px', fontSize: '.95em', color: '#888' }}>{t('Stats', '统计')}</h3>
+            <div style={{ background: 'var(--bg-mobile-nav)', border: '1px solid var(--border-primary)', borderRadius: 18, padding: 24 }}>
+              <h3 style={{ margin: '0 0 16px', fontSize: '.95em', color: 'var(--text-muted)' }}>{t('Stats', '统计')}</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 <Stat label={t('Views', '浏览')} value={String(data.view_count || 0)} />
                 <Stat label={t('Comments', '留言')} value={String(comments.length)} />
@@ -158,7 +158,7 @@ function Tag({ label, color }: { label: string; color: string }) {
   return <span style={{ display: 'inline-block', padding: '2px 8px', borderRadius: 999, fontSize: '.7em', fontWeight: 700, background: `${color}18`, color, border: `1px solid ${color}33` }}>{label}</span>
 }
 function Stat({ label, value }: { label: string; value: string }) {
-  return <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: '#666' }}>{label}</span><span style={{ color: '#ccc', fontWeight: 600 }}>{value}</span></div>
+  return <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: 'var(--text-muted2)' }}>{label}</span><span style={{ color: 'var(--text-nav)', fontWeight: 600 }}>{value}</span></div>
 }
 
 function RequestDetailFav({ requestId }: { requestId: number }) {

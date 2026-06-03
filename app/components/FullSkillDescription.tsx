@@ -115,7 +115,7 @@ export default function FullSkillDescription({ slug, owner, sections, fullDesc }
     { key: 'when_to_use', icon: '⚡', label: 'When to Use', color: '#22d3ee', content: sections?.when_to_use || null, render: renderWhenToUse },
     { key: 'core_types', icon: '📦', label: 'Core Types', color: '#a78bfa', content: sections?.core_types || null, render: renderCoreTypes },
     { key: 'examples', icon: '💡', label: 'Examples', color: '#22d3ee', content: sections?.examples || null, render: renderMarkdown },
-    { key: 'configuration', icon: '⚙️', label: 'Configuration', color: '#fbbf24', content: sections?.configuration || null, render: renderMarkdown },
+    { key: 'configuration', icon: '⚙️', label: 'Configuration', color: 'var(--text-accent)', content: sections?.configuration || null, render: renderMarkdown },
     { key: 'tips', icon: '📋', label: 'Tips & Best Practices', color: '#a78bfa', content: sections?.tips || null, render: renderMarkdown },
     { key: 'constraints', icon: '🔒', label: 'Constraints', color: '#f87171', content: sections?.constraints || null, render: renderConstraints },
   ]
