@@ -278,8 +278,8 @@ export default async function SkillsPage({
             style={{
               padding: '5px 14px', borderRadius: 20, fontSize: '.85em', textDecoration: 'none',
               whiteSpace: 'nowrap',
-              background: cat === c ? '#667eea' : '#0f0f23',
-              color: cat === c ? '#fff' : '#888',
+              background: cat === c ? '#667eea' : 'var(--bg-secondary)',
+              color: cat === c ? '#fff' : 'var(--text-muted)',
               border: `1px solid ${cat === c ? '#667eea' : 'var(--border-primary)'}`,
             }}>
             {c === 'all' ? '🌐 All' : c}

@@ -33,8 +33,8 @@ export default async function ArticlesPage() {
               <span style={{ fontSize: '.75em', background: `${clr}22`, color: clr, border: `1px solid ${clr}55`, borderRadius: 20, padding: '3px 10px', marginBottom: 8, display: 'inline-block' }}>
                 {a.category}
               </span>
-              <h2 style={{ margin: '8px 0 4px', fontSize: '1.1em', color: '#e0e0e0', fontWeight: 600 }}>{a.title}</h2>
-              <span style={{ fontSize: '.8em', color: '#555' }}>{date}</span>
+              <h2 style={{ margin: '8px 0 4px', fontSize: '1.1em', color: 'var(--text-primary)', fontWeight: 600 }}>{a.title}</h2>
+              <span style={{ fontSize: '.8em', color: 'var(--text-muted3)' }}>{date}</span>
             </a>
           )
         })}
